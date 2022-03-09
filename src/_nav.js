@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
@@ -35,7 +34,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Employee',
-        to: '/dashboard',
+        to: '/Employee',
       },
       {
         component: CNavItem,

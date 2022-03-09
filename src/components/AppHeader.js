@@ -36,9 +36,16 @@ const AppHeader = () => {
         </CHeaderBrand>
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
+            <CNavLink to="/dashboard" component={NavLink} activeClassName="">
               Dashboard
             </CNavLink>
+            
+          </CNavItem>
+          <CNavItem>
+            <CNavLink  activeClassName="active ">
+              <span onClick={()=> console.log("clik me")}>Form</span>
+            </CNavLink>
+            
           </CNavItem>
           <CNavItem>
             <CNavLink href="#">Users</CNavLink>
