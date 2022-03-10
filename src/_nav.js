@@ -29,7 +29,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Client',
-        to: '/dashboard',
+        to: '/clients',
       },
       {
         component: CNavItem,
@@ -39,7 +39,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Teams',
-        to: '/dashboard',
+        to: '/teams',
       },
     ],
   },
