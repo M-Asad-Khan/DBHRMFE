@@ -1,72 +1,66 @@
+body {
+  color: #000;
+  overflow-x: hidden;
+  height: 100%;
+  background-image: url("https://i.imgur.com/GMmCQHC.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%
+}
 
-.get-in-touch {
-    max-width: 800px;
-    margin: 50px auto;
-    position: relative;
-  
-  }
-  .get-in-touch .title {
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 3.2em;
-    line-height: 48px;
-    padding-bottom: 48px;
-       color: #5543ca;
-      background: #5543ca;
-      background: -moz-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
-      background: -webkit-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
-      background: linear-gradient(to right,#f4524d  0%,#5543ca  100%) !important;
-      -webkit-text-fill-color: transparent !important;
-  }
-  
-  .contact-form .form-field {
-    position: relative;
-    margin: 32px 0;
-  }
-  .contact-form .input-text {
-    display: block;
-    width: 100%;
-    height: 36px;
-    border-width: 0 0 2px 0;
-    border-color: #5543ca;
-    font-size: 18px;
-    line-height: 26px;
-    font-weight: 400;
-  }
-  .contact-form .input-text:focus {
-    outline: none;
-  }
-  .contact-form .input-text:focus + .label,
-  .contact-form .input-text.not-empty + .label {
-    -webkit-transform: translateY(-24px);
-            transform: translateY(-24px);
-  }
-  .contact-form .label {
-    position: absolute;
-    left: 20px;
-    bottom: 11px;
-    font-size: 18px;
-    line-height: 26px;
-    font-weight: 400;
-    color: #5543ca;
-    cursor: text;
-    transition: -webkit-transform .2s ease-in-out;
-    transition: transform .2s ease-in-out;
-    transition: transform .2s ease-in-out, 
-    -webkit-transform .2s ease-in-out;
-  }
-  .contact-form .submit-btn {
-    display: inline-block;
-    background-color: #000;
-     background-image: linear-gradient(125deg,#a72879,#064497);
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 16px;
-    padding: 8px 16px;
-    border: none;
-    width:200px;
-    cursor: pointer;
-  }
-  
+.card {
+  padding: 30px 40px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  border: none !important;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2)
+}
+
+
+.blue-text {
+  color: #00BCD4
+}
+
+.form-control-label {
+  margin-bottom: 0
+}
+
+input,
+textarea,
+button {
+  padding: 8px 15px;
+  border-radius: 5px !important;
+  margin: 5px 0px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  font-size: 18px !important;
+  font-weight: 300
+}
+
+input:focus,
+textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #00BCD4;
+  outline-width: 0;
+  font-weight: 400
+}
+
+.btn-block {
+  text-transform: uppercase;
+  font-size: 15px !important;
+  font-weight: 400;
+  height: 43px;
+  cursor: pointer
+}
+
+.btn-block:hover {
+  color: #fff !important
+}
+
+button:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline-width: 0
+}

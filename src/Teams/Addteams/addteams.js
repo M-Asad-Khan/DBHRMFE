@@ -24,7 +24,7 @@ const addteams = () => {
                     </div>
                    
                     <div class="col-md-6">
-                                        <div class="form-group"> <label for="form_need">Please spelect Employees *</label> <select id="form_need" name="need" class="form-control"  required="required" data-error="Please specify your need." >
+                                        <div class="form-group"> <label for="form_need">Please select Employees *</label> <select id="form_need" name="need" class="form-control"  required="required" data-error="Please specify your need." >
                                                 <option value="" selected disabled>--Select Employees--</option>
                                                 <option>Aysha</option>
                                                 <option>Andy</option>
