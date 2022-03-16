@@ -1,9 +1,13 @@
-import React from 'react'  
+import React,{useState} from 'react'  
 import { useHistory } from "react-router-dom";
+import RowDetail from './rowDetail'
 
 
 
-function DisplayClients() {
+const DisplayClients=()=> {
+    const [selectedRow,setSelectedRow]=useState(null);
+
+
     let history = useHistory();
 
     function handleClick() {
@@ -19,36 +23,47 @@ function DisplayClients() {
       
       ];
 
+      const handleRowClick=(rowData)=>{
+          setSelectedRow(rowData);
+// history.push("/rowDetail");
+      }
 
       return (<>
-                <button type="button" class="btn btn-outline-primary" onClick={handleClick}>Add Clients</button>
-            
-                {
-                        
-                        
-                        
-                        clients && clients.map((clients)=>{
-                        return(
+      {selectedRow &&selectedRow!=null ? <RowDetail rowData={selectedRow}/>
+    :
+    <>
+                <button type="button" className="btn btn-outline-primary" onClick={handleClick}>Add Clients</button>
+                <br /><br /> 
 
-                            
-                            <div className="card col-md-12">
-                           
+                <table className="table table-bordered table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Client ID</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Country</th>
                                 
-                                <div className="card-body">
-                                    <p className="card-text">Client ID : <b>{clients.Id}</b></p>
-                        
-                                    <p className="card-text">Client Name : <b>{clients.Name}</b></p>
-                                    
-                                    
-                                    <p className="card-text">Client Country : <b>{clients.Country}</b></p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                       {  clients && clients.map((clients)=>{
+                return (
+
+                            <tr className="clickable text-center"  onClick={()=>{handleRowClick(clients)}}>
+                                <th scope="row">{clients.Id}</th>
+                                <td>{clients.Name}</td>
+                                <td>{clients.Country}</td>
+                                
+                            </tr>
                             )
-                        })
-                }
+            })
+        }
+                        </tbody>
+                    </table>
+    </>  
+    }
+      
+
+
              </>
             )      
         }

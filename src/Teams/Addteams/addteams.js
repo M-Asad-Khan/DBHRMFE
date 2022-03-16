@@ -37,9 +37,9 @@ const addteams = () => {
                     <div className="col-md-6 mb-4">
                                 <div className="form-group"> <label for="form_need">Please select Employees *</label>
                                 <Select
-                                defaultValue={[options[2], options[3]]}
+                                defaultValue={[options[1], options[2]]}
                                 isMulti
-                                name="colors"
+                                name="employees"
                                 options={options}
                                 className="basic-multi-select"
                                 classNamePrefix="select"
