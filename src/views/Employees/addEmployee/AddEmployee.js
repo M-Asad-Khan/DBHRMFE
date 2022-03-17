@@ -12,18 +12,7 @@ const AddEmployee = ({ setState, state, isAddEmployee, setIsAddEmployee, setEmpl
 		});
 	}
 	const handleCancle = () => {
-		setState({
-			fname: "",
-			lname: "",
-			email: "",
-			mob: "",
-			DOB: "",
-			jdate: "",
-			Designation: "",
-			Salary: "",
-			Education: "",
-			Experience: "",
-		})
+		setState({})
 		setIsAddEmployee(false);
 	}
 	const handleAddEmployee = () => {

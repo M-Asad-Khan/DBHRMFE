@@ -4,7 +4,7 @@ import AddEmployee from './addEmployee/AddEmployee';
 
 
 
-function index() {
+function employees() {
 	const [employees, setEmployees] = useState([
 
 		{ Id: 101, fname: 'Aysha', email: 'Lahore', mob: 12345 },
@@ -14,20 +14,8 @@ function index() {
 		{ Id: 103, fname: 'Mubashir', email: 'Lahore', mob: 34567 }
 
 	]);
-	const [state, setState] = useState({
-		fname: "",
-		lname: "",
-		email: "",
-		mob: "",
-		DOB: "",
-		jdate: "",
-		Designation: "",
-		Salary: "",
-		Education: "",
-		Experience: "",
-	})
+	const [state, setState] = useState({})
 	const [isAddEmployee, setIsAddEmployee] = useState(false);
-	let history = useHistory();
 
 	function handleAddEmployee() {
 		setState({
@@ -90,4 +78,4 @@ function index() {
 }
 
 
-export default index;
+export default employees;

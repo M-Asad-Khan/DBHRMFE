@@ -1,7 +1,26 @@
 import React from 'react'
 import './addclients.css'
 
-const addclients = () => {
+const addclients = ({ setState,
+	state,
+	isAddClient,
+	setIsAddClient,
+	setClients }) => {
+		function handleChange(evt) {
+			const value = evt.target.value;
+			setState({
+				...state,
+				[evt.target.name]: value
+			});
+		}
+		const handleCancle = () => {
+			setState({})
+			setIsAddClient(false);
+		}
+		const handleAddTeam = () => {
+			setTeams(oldArray => [...oldArray, state]);
+			setIsAddClient(false)
+		}
   return (
 
    <div className="container-fluid px-1 py-5 mx-auto">
@@ -28,9 +47,14 @@ const addclients = () => {
                       
                    </div>
                   
-                   <div className="row justify-content-end">
-                       <div className="form-group col-sm-6"> <button type="submit" className="btn-block btn-primary">Add Client</button> </div>
-                   </div>
+                   <div className="row justify-content-between text-left">
+							<div className="form-group col-sm-6 ">
+								<button className="btn-block btn-primary" onClick={handleCancle}>Cancle</button>
+							</div>
+							<div className="form-group col-sm-6 ">
+								<button className="btn-block btn-primary" onClick={handleAddTeam}>Add Employee</button>
+							</div>
+						</div>
                </form>
            </div>
        </div>
