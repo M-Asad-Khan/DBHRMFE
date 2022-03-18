@@ -1,47 +1,58 @@
-import React, { useState } from 'react'
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
 import AddEmployee from './addEmployee/AddEmployee';
+import {
+	increaseCounter,
+	decreaseCounter,
+	updateNewEmployeeAction,
+	updateIsAddEmployeeClickedAction
+} from "../../redux/Employees/employees.actions"
+import { useSelector, useDispatch } from 'react-redux';
 
 
 
-function employees() {
-	const [employees, setEmployees] = useState([
 
-		{ Id: 101, fname: 'Aysha', email: 'Lahore', mob: 12345 },
 
-		{ Id: 102, fname: 'Asad', email: 'Lahore', mob: 23456, },
-
-		{ Id: 103, fname: 'Mubashir', email: 'Lahore', mob: 34567 }
-
-	]);
-	const [state, setState] = useState({})
-	const [isAddEmployee, setIsAddEmployee] = useState(false);
-
+function employees(props) {
+	const dispatch = useDispatch();
+	const state = useSelector((state) => state.employees)
 	function handleAddEmployee() {
-		setState({
-			fname: "",
-			lname: "",
-			email: "",
-			mob: "",
-			DOB: "",
-			jdate: "",
-			Designation: "",
-			Salary: "",
-			Education: "",
-			Experience: "",
-		});
-		setIsAddEmployee(true);
+		dispatch(updateIsAddEmployeeClickedAction(true));
+	}
+	useEffect(() => {
+		//api call
+		// handleGetEmployeeApi()
+	}, []);
+	const handleGetEmployeeApi = () => {
+		debugger;
+		const requestOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				"Access-Control-Allow-Origin": "*",
+				mode: "no-cors",
+			},
+		};
+		fetch('http://localhost:4000/api/v1/employees')
+			.then(response => response.json())
+			.then(data => {
+				debugger;
+				if (data && data.length > 0) {
+
+				}
+
+			});
 	}
 
-	console.log(state)
+	console.log("state:", state)
 	return (<>
-		{isAddEmployee ?
+		{state.isAddEmployeeCicked ?
 			<AddEmployee
-				setState={setState}
-				state={state}
-				isAddEmployee={isAddEmployee}
-				setIsAddEmployee={setIsAddEmployee}
-				setEmployees={setEmployees} />
+				// setNewEmployee={setNewEmployee}
+				// newEmployee={newEmployee}
+				// isAddEmployee={isAddEmployee}
+				// setIsAddEmployee={setIsAddEmployee}
+				// setEmployees={setEmployees}
+			/>
 			:
 			<>
 				<button type="button" className="btn btn-outline-primary" onClick={handleAddEmployee}>Add Employee</button>
@@ -56,26 +67,65 @@ function employees() {
 						</tr>
 					</thead>
 					<tbody>
-						{employees && employees.map((employee) => {
+						{state.employees && state.employees.map((employee) => {
 							return (
 
 								<tr key={employee.Id}>
 									<th scope="row">{employee.Id}</th>
-									<td>{employee.fname}</td>
+									<td>{employee.fName}</td>
 									<td>{employee.email}</td>
-									<td>{employee.mob}</td>
+									<td>{employee.mobile}</td>
 								</tr>
 							)
 						})
 						}
 					</tbody>
 				</table>
+				<div className="App">
+					<div>Count: {state.count}</div>
+					<button onClick={() => dispatch(updateNewEmployeeAction({asd:"asd"}))}>updateNewEmployee</button>
+					<button onClick={() => dispatch(increaseCounter())}>Increase Count</button>
+
+					<button onClick={() => dispatch(decreaseCounter())}>Decrease Count</button>
+				</div>
 			</>
 		}
 
 	</>
 	)
 }
+// const mapStateToProps = state => {
+//   return {
+// 		count: state.employees.count,
+// 		newEmployee:state.employees.newEmployee
+//   }
+// }
 
+// const mapDispatchToProps = (dispatch,ownProps) => {
+// 	// console.log('ownProps',ownProps);
+// 	return {
+//     increaseCounter: () => dispatch(increaseCounter()),
+
+// 		decreaseCounter: () => dispatch(decreaseCounter()),
+// 		updateNewEmployeeAction: () => dispatch({ type:'updateNewEmployee',payload:{
+// 			fName:'',
+// 			LName:'',
+// 			age: '',
+// 			gender: '',
+// 			dateOfBirth: '',
+// 			education: '',
+// 			email: '',
+// 			joiningDate: '',
+// 			designation: '',
+// 			address: '',
+// 			phoneNumber: '',
+// 			technology: '',
+// 			workExperience: '',
+// 			salary: '',
+// 		} }),
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps) (employees) ;
 
 export default employees;

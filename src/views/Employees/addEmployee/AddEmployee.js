@@ -1,23 +1,66 @@
 import React, { useState } from 'react'
 import './addemployee.css'
+import {
+	updateNewEmployeeAction,
+	updateEmployeesAction,
+	updateIsAddEmployeeClickedAction
+} from '../../../redux/Employees/employees.actions'
+import { useSelector, useDispatch } from 'react-redux';
+
 // import backIcon from '/src/assets/back-icon.png'
 
-const AddEmployee = ({ setState, state, isAddEmployee, setIsAddEmployee, setEmployees }) => {
+const AddEmployee = (
+) => {
+	const dispatch = useDispatch();
+	const state = useSelector((state) => state.employees)
 
 	function handleChange(evt) {
 		const value = evt.target.value;
-		setState({
-			...state,
+		dispatch(updateNewEmployeeAction({
+			...state.newEmployee,
 			[evt.target.name]: value
-		});
+		}));
 	}
 	const handleCancle = () => {
-		setState({})
-		setIsAddEmployee(false);
+		dispatch(updateNewEmployeeAction({}))
+		dispatch(updateIsAddEmployeeClickedAction(false));
 	}
 	const handleAddEmployee = () => {
-		setEmployees(oldArray => [...oldArray, state]);
-		setIsAddEmployee(false)
+		// handleAddEmployeeApi()
+		debugger;
+		dispatch(updateEmployeesAction([...state.employees,state.newEmployee]));
+		dispatch(updateIsAddEmployeeClickedAction(false));
+	}
+	function handleAddEmployeeApi() {
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				"Access-Control-Allow-Origin": "*",
+				mode: "no-cors",
+			},
+			body: JSON.stringify({
+				name: `${state.newEmployee.fName} ${state.newEmployee.lName}`,
+				age: state.newEmployee.name,
+				gender: state.newEmployee.gender,
+				dateOfBirth: state.newEmployee.dateOfBirth,
+				education: state.newEmployee.education,
+				email: state.newEmployee.email,
+				joiningDate: state.newEmployee.joiningDate,
+				designation: state.newEmployee.designation,
+				address: state.newEmployee.address,
+				phoneNumber: state.newEmployee.phoneNumber,
+				technology: state.newEmployee.technology,
+				workExperience: state.newEmployee.workExperience,
+				salary: state.newEmployee.salary
+			})
+		};
+		fetch('http://localhost:4000/api/v1/employees', requestOptions)
+			.then(response => response.json())
+			.then(data => {
+				debugger;
+				console.log(data)
+			});
 	}
 
 	return (
@@ -30,24 +73,32 @@ const AddEmployee = ({ setState, state, isAddEmployee, setIsAddEmployee, setEmpl
 
 					<div className="form-card">
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">First name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="fname" name="fname" placeholder="Enter your first name" onblur="validate(1)" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Last name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="lname" name="lname" placeholder="Enter your last name" onblur="validate(2)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">First name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="fName" name="fName" placeholder="Enter your first name" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Last name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="lName" name="lName" placeholder="Enter your last name" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Business email<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="email" name="email" placeholder="" onblur="validate(3)" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Phone number<span className="text-danger"> *</span></label> <input type="text" id="mob" name="mob" placeholder="" onblur="validate(4)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Age<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="age" name="age" placeholder="Enter your age" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Date of Birth<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="dateOfBirth" name="dateOfBirth" placeholder="Enter your date of birth" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Date of Birth<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="DOB" name="DOB" placeholder="" onblur="validate(10)" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Joining Date<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="jdate" name="jdate" placeholder="Enter your Joining date" onblur="validate(9)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Business email<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="email" name="email" placeholder="" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Phone number<span className="text-danger"> *</span></label> <input type="text" id="phoneNumber" name="phoneNumber" placeholder="" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Designation<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="Designation" name="Designation" placeholder="" onblur="validate(5)" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Salary<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="Salary" name="Salary" placeholder="" onblur="validate(8)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Date of Birth<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="DOB" name="DOB" placeholder="" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Joining Date<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="joiningDate" name="joiningDate" placeholder="Enter your Joining date" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Education<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="Education" name="Education" placeholder="" onblur="validate(6)" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Work Experience<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="workExperience" name="workExperience" placeholder="" onblur="validate(7)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Designation<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="designation" name="designation" placeholder="" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Salary<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="salary" name="salary" placeholder="" /> </div>
+						</div>
+						<div className="row justify-content-between text-left">
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Education<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="education" name="education" placeholder="" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Work Experience<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="workExperience" name="workExperience" placeholder="" /> </div>
+						</div>
+						<div className="row justify-content-between text-left">
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Address<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="address" name="address" placeholder="" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Technology<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="technology" name="technology" placeholder="" /> </div>
 						</div>
 
 						<div className="form-group">
