@@ -26,7 +26,7 @@ const AddEmployee = (
 		dispatch(updateIsAddEmployeeClickedAction(false));
 	}
 	const handleAddEmployee = () => {
-		// handleAddEmployeeApi()
+		handleAddEmployeeApi()
 		debugger;
 		dispatch(updateEmployeesAction([...state.employees,state.newEmployee]));
 		dispatch(updateIsAddEmployeeClickedAction(false));
@@ -37,7 +37,7 @@ const AddEmployee = (
 			headers: {
 				'Content-Type': 'application/json',
 				"Access-Control-Allow-Origin": "*",
-				mode: "no-cors",
+				'mode': "no-cors",
 			},
 			body: JSON.stringify({
 				name: `${state.newEmployee.fName} ${state.newEmployee.lName}`,

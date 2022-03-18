@@ -46,13 +46,7 @@ function employees(props) {
 	console.log("state:", state)
 	return (<>
 		{state.isAddEmployeeCicked ?
-			<AddEmployee
-				// setNewEmployee={setNewEmployee}
-				// newEmployee={newEmployee}
-				// isAddEmployee={isAddEmployee}
-				// setIsAddEmployee={setIsAddEmployee}
-				// setEmployees={setEmployees}
-			/>
+			<AddEmployee/>
 			:
 			<>
 				<button type="button" className="btn btn-outline-primary" onClick={handleAddEmployee}>Add Employee</button>
@@ -81,51 +75,19 @@ function employees(props) {
 						}
 					</tbody>
 				</table>
-				<div className="App">
+				{/* <div className="App">
 					<div>Count: {state.count}</div>
 					<button onClick={() => dispatch(updateNewEmployeeAction({asd:"asd"}))}>updateNewEmployee</button>
 					<button onClick={() => dispatch(increaseCounter())}>Increase Count</button>
 
 					<button onClick={() => dispatch(decreaseCounter())}>Decrease Count</button>
-				</div>
+				</div> */}
 			</>
 		}
 
 	</>
 	)
 }
-// const mapStateToProps = state => {
-//   return {
-// 		count: state.employees.count,
-// 		newEmployee:state.employees.newEmployee
-//   }
-// }
 
-// const mapDispatchToProps = (dispatch,ownProps) => {
-// 	// console.log('ownProps',ownProps);
-// 	return {
-//     increaseCounter: () => dispatch(increaseCounter()),
-
-// 		decreaseCounter: () => dispatch(decreaseCounter()),
-// 		updateNewEmployeeAction: () => dispatch({ type:'updateNewEmployee',payload:{
-// 			fName:'',
-// 			LName:'',
-// 			age: '',
-// 			gender: '',
-// 			dateOfBirth: '',
-// 			education: '',
-// 			email: '',
-// 			joiningDate: '',
-// 			designation: '',
-// 			address: '',
-// 			phoneNumber: '',
-// 			technology: '',
-// 			workExperience: '',
-// 			salary: '',
-// 		} }),
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps) (employees) ;
 
 export default employees;
