@@ -24,6 +24,11 @@ function employees(props) {
 	}, []);
 	const handleGetEmployeeApi = () => {
 		debugger;
+		try {
+			
+		} catch (err) {
+			console.log("",)
+		}
 		const requestOptions = {
 			method: 'GET',
 			headers: {

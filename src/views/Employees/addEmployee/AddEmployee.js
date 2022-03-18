@@ -32,35 +32,84 @@ const AddEmployee = (
 		dispatch(updateIsAddEmployeeClickedAction(false));
 	}
 	function handleAddEmployeeApi() {
-		const requestOptions = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				"Access-Control-Allow-Origin": "*",
-				'mode': "no-cors",
-			},
-			body: JSON.stringify({
-				name: `${state.newEmployee.fName} ${state.newEmployee.lName}`,
-				age: state.newEmployee.name,
-				gender: state.newEmployee.gender,
-				dateOfBirth: state.newEmployee.dateOfBirth,
-				education: state.newEmployee.education,
-				email: state.newEmployee.email,
-				joiningDate: state.newEmployee.joiningDate,
-				designation: state.newEmployee.designation,
-				address: state.newEmployee.address,
-				phoneNumber: state.newEmployee.phoneNumber,
-				technology: state.newEmployee.technology,
-				workExperience: state.newEmployee.workExperience,
-				salary: state.newEmployee.salary
+		try {
+			// const requestOptions = {
+			// 	method: 'POST',
+			// 	headers: {
+			// 		'Content-Type': 'application/json',
+			// 		"Access-Control-Allow-Origin": "*",
+			// 		'mode': "no-cors",
+			// 	},
+			// 	body: JSON.stringify({
+			// 		name: `${state.newEmployee.fName} ${state.newEmployee.lName}`,
+			// 		age: state.newEmployee.name,
+			// 		gender: state.newEmployee.gender,
+			// 		dateOfBirth: state.newEmployee.dateOfBirth,
+			// 		education: state.newEmployee.education,
+			// 		email: state.newEmployee.email,
+			// 		joiningDate: state.newEmployee.joiningDate,
+			// 		designation: state.newEmployee.designation,
+			// 		address: state.newEmployee.address,
+			// 		phoneNumber: state.newEmployee.phoneNumber,
+			// 		technology: state.newEmployee.technology,
+			// 		workExperience: state.newEmployee.workExperience,
+			// 		salary: state.newEmployee.salary
+			// 	})
+			// };
+			debugger
+			fetch('http://localhost:4000/api/v1/employees', {
+				method: 'POST',
+				headers: {
+					"Content-Type": "application/json; charset=utf-8",
+					"Access-Control-Allow-Origin": "*",
+					mode: "no-cors"
+				},
+				// body: JSON.stringify({
+				// 	name: `${state.newEmployee.fName} ${state.newEmployee.lName}`,
+				// 	age: state.newEmployee.name,
+				// 	gender: state.newEmployee.gender,
+				// 	dateOfBirth: state.newEmployee.dateOfBirth,
+				// 	education: state.newEmployee.education,
+				// 	email: state.newEmployee.email,
+				// 	joiningDate: state.newEmployee.joiningDate,
+				// 	designation: state.newEmployee.designation,
+				// 	address: state.newEmployee.address,
+				// 	phoneNumber: state.newEmployee.phoneNumber,
+				// 	technology: state.newEmployee.technology,
+				// 	workExperience: state.newEmployee.workExperience,
+				// 	salary: state.newEmployee.salary
+				// }
+				body: JSON.stringify({
+					name: `20`,
+					age: '50',
+					gender: '50',
+					dateOfBirth: new Date(),
+					education: '50',
+					email: '50',
+					joiningDate: new Date(),
+					designation: '50',
+					address: '50',
+					phoneNumber: '50',
+					technology: '50',
+					workExperience: '50',
+					salary: '50'
+				}
+				),
 			})
-		};
-		fetch('http://localhost:4000/api/v1/employees', requestOptions)
-			.then(response => response.json())
-			.then(data => {
-				debugger;
-				console.log(data)
-			});
+				.then(response => {
+					debugger;
+					response.json()
+				})
+				.then(data => {
+					debugger;
+					console.log(data)
+				});
+
+		} catch (err) {
+			debugger;
+			console.log('error in addEmployee api',)
+		}
+
 	}
 
 	return (

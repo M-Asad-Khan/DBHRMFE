@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, updateNewEmployee, updateIsAddEmployeeClicked, updateEmployees } from './employees.types';
+import {  updateNewEmployee, updateIsAddEmployeeClicked, updateEmployees } from './employees.types';
 
 
 const INITIAL_STATE = {
