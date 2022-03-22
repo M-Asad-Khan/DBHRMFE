@@ -15,7 +15,7 @@ const Addteams = ({ setState,
 			[evt.target.name]: value
 		});
 	}
-	const handleCancle = () => {
+	const handleCancel = () => {
 		setState({})
 		setIsNewTeam(false);
 	}
@@ -60,15 +60,15 @@ const Addteams = ({ setState,
 							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Project Name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="projectName" name="projectName" placeholder="" onblur="validate(9)" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Enter Start Date<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="date" name="date" placeholder="" onblur="validate(3)" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Enter End Date<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="edate" name="edate" placeholder="" onblur="validate(4)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Enter Start Date<span className="text-danger"> *</span></label> <input onChange={handleChange} type="date" id="date" name="date" placeholder="" onblur="validate(3)" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Enter End Date<span className="text-danger"> *</span></label> <input onChange={handleChange} type="date" id="edate" name="edate" placeholder="" onblur="validate(4)" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
 							<div className="form-group col-sm-6 ">
-								<button className="btn-block btn-primary" onClick={handleCancle}>Cancle</button>
+								<button className="btn-block btn-primary" onClick={handleCancel}>Cancel</button>
 							</div>
 							<div className="form-group col-sm-6 ">
-								<button className="btn-block btn-primary" onClick={handleAddTeam}>Add Employee</button>
+								<button className="btn-block btn-primary" onClick={handleAddTeam}>Create Team</button>
 							</div>
 						</div>
 					</div>

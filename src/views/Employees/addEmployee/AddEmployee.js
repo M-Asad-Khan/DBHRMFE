@@ -23,7 +23,7 @@ const AddEmployee = (
 			[evt.target.name]: value
 		}));
 	}
-	const handleCancle = () => {
+	const handleCancel = () => {
 		dispatch(updateNewEmployeeAction({}))
 		dispatch(updateIsAddEmployeeClickedAction(false));
 	}
@@ -97,7 +97,7 @@ const AddEmployee = (
 						</div>
 						<div className="row justify-content-between text-left">
 							<div className="form-group col-sm-6 ">
-								<button className="btn-block btn-primary" onClick={handleCancle}>Cancle</button>
+								<button className="btn-block btn-primary" onClick={handleCancel}>Cancle</button>
 							</div>
 							<div className="form-group col-sm-6 ">
 								<button className="btn-block btn-primary" onClick={handleAddEmployee }>Add Employee</button>

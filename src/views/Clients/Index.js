@@ -43,9 +43,9 @@ function Clients() {
                 <table className="table table-bordered table-hover">
                         <thead className="thead-dark">
                             <tr>
-                                <th scope="col">Client ID</th>
-                                <th scope="col">Client Name</th>
-                                <th scope="col">Client Country</th>
+                                <th  class="text-center" scope="col">Client ID</th>
+                                <th  class="text-center" scope="col">Client Name</th>
+                                <th class="text-center" scope="col">Client Country</th>
                                 
                             </tr>
                         </thead>
