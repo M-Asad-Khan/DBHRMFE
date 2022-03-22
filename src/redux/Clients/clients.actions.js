@@ -1,32 +1,14 @@
 
-import { } from './clients.types';
+import { updateNewClient,updateIsAddClientClicked,updateClients} from './clients.types';
 
 
-export const increaseCounter = () => {
 
-	return {
-
-		type: INCREMENT,
-
-	};
-
-};
-
-export const decreaseCounter = () => {
-
-	return {
-
-		type: DECREMENT,
-
-	};
-
-};
 
 export const updateNewEmployeeAction = (params) => {
 
 	return {
 
-		type: updateNewEmployee,
+		type: updateNewClient,
 		payload: params
 
 	};
@@ -35,7 +17,7 @@ export const updateNewEmployeeAction = (params) => {
 
 		return {
 
-			type: updateIsAddEmployeeClicked,
+			type: updateIsAddClientClicked,
 			payload: params
 
 		};
@@ -45,7 +27,7 @@ export const updateNewEmployeeAction = (params) => {
 
 		return {
 
-			type: updateEmployees,
+			type: updateClients,
 			payload: params
 
 		};

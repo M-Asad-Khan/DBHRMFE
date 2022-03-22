@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import AddEmployee from './addEmployee/AddEmployee';
 import {
-	increaseCounter,
-	decreaseCounter,
 	updateNewEmployeeAction,
 	updateIsAddEmployeeClickedAction
 } from "../../redux/Employees/employees.actions"
 import { useSelector, useDispatch } from 'react-redux';
+import { getEmployeeApi } from 'src/API/GetEmployeesApi';
 
 
 
@@ -19,33 +18,19 @@ function employees(props) {
 		dispatch(updateIsAddEmployeeClickedAction(true));
 	}
 	useEffect(() => {
-		//api call
-		// handleGetEmployeeApi()
+		handleGetEmployeeApi()
 	}, []);
-	const handleGetEmployeeApi = () => {
+	const handleGetEmployeeApi = async() => {
 		debugger;
 		try {
-			
+			const res =await getEmployeeApi();
+			debugger;
+			console.log('getEmployeeApiResponse', res)
+			console.log('getEmployeeApiResponse', res.json())
+			console.log('getEmployeeApiResponse', res.text())
 		} catch (err) {
 			console.log("",)
 		}
-		const requestOptions = {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				"Access-Control-Allow-Origin": "*",
-				mode: "no-cors",
-			},
-		};
-		fetch('http://localhost:4000/api/v1/employees')
-			.then(response => response.json())
-			.then(data => {
-				debugger;
-				if (data && data.length > 0) {
-
-				}
-
-			});
 	}
 
 	console.log("state:", state)
@@ -80,13 +65,7 @@ function employees(props) {
 						}
 					</tbody>
 				</table>
-				{/* <div className="App">
-					<div>Count: {state.count}</div>
-					<button onClick={() => dispatch(updateNewEmployeeAction({asd:"asd"}))}>updateNewEmployee</button>
-					<button onClick={() => dispatch(increaseCounter())}>Increase Count</button>
 
-					<button onClick={() => dispatch(decreaseCounter())}>Decrease Count</button>
-				</div> */}
 			</>
 		}
 

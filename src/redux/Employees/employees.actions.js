@@ -1,26 +1,8 @@
 
-import { INCREMENT, DECREMENT, updateNewEmployee,updateIsAddEmployeeClicked,updateEmployees } from './employees.types';
+import {updateNewEmployee,updateIsAddEmployeeClicked,updateEmployees } from './employees.types';
 
 
-export const increaseCounter = () => {
 
-	return {
-
-		type: INCREMENT,
-
-	};
-
-};
-
-export const decreaseCounter = () => {
-
-	return {
-
-		type: DECREMENT,
-
-	};
-
-};
 
 export const updateNewEmployeeAction = (params) => {
 
