@@ -1,5 +1,5 @@
 
-import {updateNewEmployee,updateIsAddEmployeeClicked,updateEmployees } from './employees.types';
+import {updateNewEmployee,updateIsAddEmployeeClicked,updateEmployees,updateIsEditEmployeeClicked } from './employees.types';
 
 
 
@@ -31,4 +31,14 @@ export const updateNewEmployeeAction = (params) => {
 			payload: params
 
 		};
+
 	};
+export const updateIsEditEmployeeClickedAction = (params) => {
+
+	return {
+
+		type: updateIsEditEmployeeClicked,
+		payload: params
+
+	};
+};

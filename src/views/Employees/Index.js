@@ -2,10 +2,17 @@ import React, { useState, useEffect } from 'react'
 import AddEmployee from './addEmployee/AddEmployee';
 import {
 	updateNewEmployeeAction,
-	updateIsAddEmployeeClickedAction
+	updateIsAddEmployeeClickedAction,
+	updateEmployeesAction,
+	updateIsEditEmployeeClickedAction
 } from "../../redux/Employees/employees.actions"
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeeApi } from 'src/API/GetEmployeesApi';
+import { deleteEmployeeApi } from 'src/API/DeleteEmployeeApi';
+import CIcon from '@coreui/icons-react'
+import {
+	cilUpdate
+} from '@coreui/icons'
 
 
 
@@ -14,28 +21,51 @@ import { getEmployeeApi } from 'src/API/GetEmployeesApi';
 function employees(props) {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.employees)
-	function handleAddEmployee() {
-		dispatch(updateIsAddEmployeeClickedAction(true));
-	}
+
 	useEffect(() => {
 		handleGetEmployeeApi()
 	}, []);
-	const handleGetEmployeeApi = async() => {
-		debugger;
+
+	function handleAddEmployee() {
+		dispatch(updateIsAddEmployeeClickedAction(true));
+	}
+
+	const handleGetEmployeeApi = async () => {
 		try {
-			const res =await getEmployeeApi();
-			debugger;
-			console.log('getEmployeeApiResponse', res)
-			console.log('getEmployeeApiResponse', res.json())
-			console.log('getEmployeeApiResponse', res.text())
+			const res = await getEmployeeApi();
+			if (res.error === false) {
+				dispatch(updateEmployeesAction(res.data));
+			}
 		} catch (err) {
-			console.log("",)
+			console.log(err)
 		}
 	}
 
+	const handleDelete = async (employee) => {
+		debugger;
+		try {
+			const res = await deleteEmployeeApi(employee.id)
+			if (res.error === false) {
+				debugger;
+				dispatch(updateEmployeesAction(state.employees.filter(item => item.id != employee.id)))
+				debugger;
+				console.log(employees)
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+	const handleEdit = (employee) => {
+		debugger
+		dispatch(updateNewEmployeeAction(employee));
+		dispatch(updateIsEditEmployeeClickedAction(true));
+	}
+	const handleView = () => {
+		debugger;
+	}
 	console.log("state:", state)
 	return (<>
-		{state.isAddEmployeeCicked ?
+		{state.isAddEmployeeCicked === true || state.isEditEmployeeClicked === true ?
 			<AddEmployee/>
 			:
 			<>
@@ -44,21 +74,27 @@ function employees(props) {
 				<table className="table table-bordered table-hover">
 					<thead className="thead-dark">
 						<tr>
-							<th scope="col"> ID</th>
+							<th scope="col"> #</th>
 							<th scope="col"> Name</th>
 							<th scope="col"> Email</th>
 							<th scope="col"> Mobile</th>
+							<th scope="col"> Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						{state.employees && state.employees.map((employee) => {
+						{state.employees && state.employees.map((employee, i) => {
 							return (
 
-								<tr key={employee.Id}>
-									<th scope="row">{employee.Id}</th>
-									<td>{employee.fName}</td>
+								<tr key={employee.id}>
+									<th scope="row">{i}</th>
+									<td>{employee.name}</td>
 									<td>{employee.email}</td>
-									<td>{employee.mobile}</td>
+									<td>{employee.phoneNumber}</td>
+									<td>
+										{/* <CIcon icon={cilUpdate} /> */}
+										<span style={{ cursor: "pointer" }} onClick={() => { handleEdit(employee) }} className="btn btn-outline-primary">Edit</span><span className="btn btn-outline-danger" style={{ cursor: "pointer" }} onClick={() => { handleDelete(employee) }}>delete</span><span className="btn btn-outline-primary" onClick={handleView}>view</span>
+
+									</td>
 								</tr>
 							)
 						})

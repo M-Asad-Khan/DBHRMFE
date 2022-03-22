@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export const getEmployeeApi = async () => {
-	 return axios({
-		method: 'get',
-		url: 'http://localhost:4000/api/v1/employees',
+export const deleteEmployeeApi = async (id) => {
+	debugger;
+	return axios({
+		method: 'delete',
+		url: `http://localhost:4000/api/v1/employees/${id}`,
 		headers: {
 			"Content-Type": "application/json; charset=utf-8",
 			"Access-Control-Allow-Origin": "*",
@@ -11,16 +12,17 @@ export const getEmployeeApi = async () => {
 		},
 	})
 		.then((result) => {
+			debugger;
 			return {
 				error: false,
-				data:result.data
-			};
+				data: result.data
+			}
 		})
 		.catch((err) => {
+			debugger;
 			return {
 				error: true,
-				data:err
-			};
+				data: err
+			}
 		});
-
 }

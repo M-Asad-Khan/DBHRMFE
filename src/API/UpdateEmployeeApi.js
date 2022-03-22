@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export const addEmployeeApi = async (newEmployee) => {
+export const updateEmployeeApi = async ( newEmployee) => {
+	debugger;
 	return axios({
-		method: 'post',
-		url: 'http://localhost:4000/api/v1/employees',
+		method: 'patch',
+		url: `http://localhost:4000/api/v1/employees/${newEmployee.id}`,
 		headers: {
 			"Content-Type": "application/json; charset=utf-8",
 			"Access-Control-Allow-Origin": "*",
@@ -29,14 +30,14 @@ export const addEmployeeApi = async (newEmployee) => {
 			debugger;
 			return {
 				error: false,
-				data:result.data
+				data: result.data
 			}
 		})
 		.catch((err) => {
 			debugger;
 			return {
 				error: true,
-				data:err
+				data: err
 			}
 		});
 }

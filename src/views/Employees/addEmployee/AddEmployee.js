@@ -3,20 +3,22 @@ import './addemployee.css'
 import {
 	updateNewEmployeeAction,
 	updateEmployeesAction,
-	updateIsAddEmployeeClickedAction
+	updateIsAddEmployeeClickedAction,
+	updateIsEditEmployeeClickedAction
 } from '../../../redux/Employees/employees.actions'
 import { useSelector, useDispatch } from 'react-redux';
 import { addEmployeeApi } from 'src/API/AddEmployeeApi';
+import { updateEmployeeApi } from 'src/API/UpdateEmployeeApi';
 
 // import backIcon from '/src/assets/back-icon.png'
 
 const AddEmployee = (
 ) => {
-	const [employeeAdd, setEmployeeAdd] = useState()
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.employees)
 
 	function handleChange(evt) {
+		debugger;
 		const value = evt.target.value;
 		dispatch(updateNewEmployeeAction({
 			...state.newEmployee,
@@ -26,21 +28,42 @@ const AddEmployee = (
 	const handleCancle = () => {
 		dispatch(updateNewEmployeeAction({}))
 		dispatch(updateIsAddEmployeeClickedAction(false));
+		dispatch(updateIsEditEmployeeClickedAction(false))
 	}
-	const handleAddEmployee = async () => {
-		try {
-			debugger;
-			const res = await addEmployeeApi(state.newEmployee);
-			console.log("addEmployeeApi Response", res);
+	const handleAddAndUpdateEmployee = async () => {
+		if (state.isEditEmployeeClicked === true) {
+			try {
+				debugger;
+				const res = await updateEmployeeApi(state.newEmployee);
+				console.log("updateEmployee Response", res);
+	
+				debugger;
+				if (res.error === false) {
+					debugger;
+					alert('Employee Updated');
+					dispatch(updateEmployeesAction([...state.employees, res.data]));
+					dispatch(updateIsAddEmployeeClickedAction(false));
+					dispatch(updateIsEditEmployeeClickedAction(false))
 
-			debugger;
-			if (res.status === 201) {
-				alert('Employee Created');
-				// dispatch(updateEmployeesAction([...state.employees,state.newEmployee]));
-				dispatch(updateIsAddEmployeeClickedAction(false));
+				}
+			} catch (e) { 
+				debugger;
 			}
-		} catch (e) { 
-			debugger;
+		} else {
+			try {
+				debugger;
+				const res = await addEmployeeApi(state.newEmployee);
+				console.log("addEmployeeApi Response", res);
+	
+				debugger;
+				if (res.error === false) {
+					alert('Employee Created');
+					dispatch(updateEmployeesAction([...state.employees, res.data]));
+					dispatch(updateIsAddEmployeeClickedAction(false));
+				}
+			} catch (e) { 
+				debugger;
+			}
 		}
 	
 	}
@@ -53,14 +76,15 @@ const AddEmployee = (
 				{/* <img src={ backIcon}/> */}
 
 				<div className="card">
-
+{state.newEmployee.id}
 					<div className="form-card">
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">First name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="fName" name="fName" placeholder="Enter your first name" /> </div>
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Last name<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="lName" name="lName" placeholder="Enter your last name" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Name<span className="text-danger"> *</span></label> <input value={state.newEmployee.name} onChange={handleChange} type="text" id="name" name="name" placeholder="Enter your name" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Age<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="age" name="age" placeholder="Enter your age" /> </div>
+
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Age<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="age" name="age" placeholder="Enter your age" /> </div>
+							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Address<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="address" name="address" placeholder="" /> </div>
 							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Date of Birth<span className="text-danger"> *</span></label> <input onChange={handleChange} type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Enter your date of birth" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
@@ -80,17 +104,16 @@ const AddEmployee = (
 							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Work Experience<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="workExperience" name="workExperience" placeholder="" /> </div>
 						</div>
 						<div className="row justify-content-between text-left">
-							<div className="form-group col-sm-6 flex-column d-flex"> <label className="form-control-label px-3">Address<span className="text-danger"> *</span></label> <input onChange={handleChange} type="text" id="address" name="address" placeholder="" /> </div>
 						</div>
 
 						<div className="form-group">
 							<div className="maxl">
 								<label className="radio inline">
-									<input type="radio" name="gender" value="male" checked onChange={() => console.log()} />
+									<input type="radio" name="gender" value="male" onChange={(e) => handleChange(e)} />
 									<span> Male </span>
 								</label>
 								<label className="radio inline">
-									<input type="radio" name="gender" value="female" onChange={() => console.log()} />
+									<input type="radio" name="gender" value="female" onChange={(e) => handleChange(e)} />
 									<span>Female </span>
 								</label>
 							</div>
@@ -100,9 +123,7 @@ const AddEmployee = (
 								<button className="btn-block btn-primary" onClick={handleCancle}>Cancle</button>
 							</div>
 							<div className="form-group col-sm-6 ">
-								<button className="btn-block btn-primary" onClick={handleAddEmployee }>Add Employee</button>
-								{/* <button className="btn-block btn-primary" onClick={() => { addEmployeeApi('asd') }}>send data</button> */}
-
+								<button className="btn-block btn-primary" onClick={handleAddAndUpdateEmployee}>{state.isEditEmployeeClicked?"Update Employee":"Add Employee" }</button>
 							</div>
 						</div>
 					</div>
