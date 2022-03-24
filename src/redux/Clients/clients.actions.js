@@ -1,10 +1,10 @@
 
-import { updateNewClient,updateIsAddClientClicked,updateClients} from './clients.types';
+import { updateNewClient,updateIsAddClientClicked,updateClients,updateIsEditClientClicked} from './clients.types';
 
 
 
 
-export const updateNewEmployeeAction = (params) => {
+export const updateNewClientAction = (params) => {
 
 	return {
 
@@ -13,7 +13,7 @@ export const updateNewEmployeeAction = (params) => {
 
 	};
 }
-	export const updateIsAddEmployeeClickedAction = (params) => {
+	export const updateIsAddClientClickedAction = (params) => {
 
 		return {
 
@@ -23,11 +23,21 @@ export const updateNewEmployeeAction = (params) => {
 		};
 	};
 
-	export const updateEmployeesAction = (params) => {
+	export const updateClientsAction = (params) => {
 
 		return {
 
 			type: updateClients,
+			payload: params
+
+		};
+	};
+
+	export const updateIsEditClientClickedAction = (params) => {
+
+		return {
+
+			type: updateIsEditClientClicked,
 			payload: params
 
 		};

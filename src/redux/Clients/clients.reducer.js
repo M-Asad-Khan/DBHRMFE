@@ -1,14 +1,11 @@
-import {  updateNewClient, updateIsAddClientClicked, updateClients
+import {  updateNewClient, updateIsAddClientClicked, updateClients,updateIsEditClientClicked
 } from './clients.types';
 
 const INITIAL_STATE = {
-	clients: [
-		{Id:201,Name:'Client 1',Country:'America'},
-		{Id:202,Name:'Client 2',Country:'China'},
-		{Id:203,Name:'Client 3',Country:'Russia'}
-	],
-	newclient: {},
-	isAddClientClicked:false
+	clients:[],
+	newClient: {},
+	isAddClientClicked: false,
+	isEditClientClicked:false
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -17,7 +14,7 @@ const reducer = (state = INITIAL_STATE, action) => {
 		case updateNewClient:
 
 			return {
-				...state, newclient: action.payload
+				...state, newClient: action.payload
 
 			};
 
@@ -34,6 +31,13 @@ const reducer = (state = INITIAL_STATE, action) => {
 				...state, isAddClientClicked: action.payload
 
 			};
+		
+			case updateIsEditClientClicked:
+
+				return {
+					...state, isEditClientClicked: action.payload
+	
+				};
 
 		default: return state;
 	}
