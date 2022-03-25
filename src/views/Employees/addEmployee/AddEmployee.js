@@ -120,7 +120,7 @@ const AddEmployee = (
 						</div>
 						<div className="row justify-content-between text-left">
 							<div className="form-group col-sm-6 ">
-								<button className="btn-block btn-primary" onClick={handleCancle}>Cancle</button>
+								<button className="btn-block btn-primary" onClick={handleCancle}>Cancel</button>
 							</div>
 							<div className="form-group col-sm-6 ">
 								<button className="btn-block btn-primary" onClick={handleAddAndUpdateEmployee}>{state.isEditEmployeeClicked?"Update Employee":"Add Employee" }</button>
