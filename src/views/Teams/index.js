@@ -1,6 +1,8 @@
 import React, {useState } from 'react'
 import { useHistory } from "react-router-dom";
 import AddTeams from './Addteams/AddTeams';
+import { useSelector, useDispatch } from "react-redux";
+
 
 
 
@@ -29,13 +31,14 @@ function Teams() {
 
 
 	return (<>
-		{isNewTeam ?
+		{true ?
 			<AddTeams
-				setState={setState}
-				state={state}
-				isNewTeam={isNewTeam}
-				setIsNewTeam={setIsNewTeam}
-				setTeams={setTeams} />
+				// setState={setState}
+				// state={state}
+				// isNewTeam={isNewTeam}
+				// setIsNewTeam={setIsNewTeam}
+				// setTeams={setTeams}
+			/>
 			:
 			<>
 				<button type="button" className="btn btn-outline-primary" onClick={handleAddTeam}>Add Teams</button>

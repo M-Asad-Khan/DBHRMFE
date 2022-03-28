@@ -21,16 +21,12 @@ function employees(props) {
   useEffect(() => {
     handleGetEmployeeApi();
   }, []);
-
-  function handleAddEmployee() {
-    dispatch(updateIsAddEmployeeClickedAction(true));
-  }
-
+	
   const handleGetEmployeeApi = async () => {
-    try {
-      const res = await getEmployeesApi();
+		try {
+			const res = await getEmployeesApi();
       if (res.error === false) {
-        dispatch(updateEmployeesAction(res.data));
+				dispatch(updateEmployeesAction(res.data));
       }
     } catch (err) {
       console.log(err);
@@ -61,11 +57,15 @@ function employees(props) {
     dispatch(updateIsEditEmployeeClickedAction(true));
   };
   const handleView = () => {
-    debugger;
+		debugger;
   };
+	
+		function handleAddEmployee() {
+			dispatch(updateIsAddEmployeeClickedAction(true));
+		}
   console.log("state:", state);
   return (
-    <>
+		<>
       {state.isAddEmployeeCicked === true ||
       state.isEditEmployeeClicked === true ? (
         <AddEmployee />

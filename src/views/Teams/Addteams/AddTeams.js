@@ -1,23 +1,104 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./addteams.css";
 import Select from "react-select";
-import Teams from "..";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateNewTeamAction,
+  updateIsAddTeamClickedAction,
+  updateTeamsAction,
+	updateIsEditTeamClickedAction,
+	updateClientsAction,
+	updateEmployeesAction
+} from "../../../redux/Teams/teams.actions";
+import { getClientsApi } from "../../../API/getClientsApi";
+import { getEmployeesApi } from "../../../API/GetEmployeesApi";
 
-const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
-  function handleChange(evt) {
+
+
+const Addteams = () => {
+  const dispatch = useDispatch();
+	const teamsState = useSelector((state) => state.teams);
+	
+
+	useEffect(() => {
+		handleGetEmployeesApi();
+		handleGetClientsApi();
+	}, []);
+	const handleGetClientsApi = async () => {
+    try {
+      const res = await getClientsApi();
+      debugger;
+      if (res.error === false) {
+        dispatch(updateClientsAction(res.data));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+	
+  const handleGetEmployeesApi = async () => {
+		try {
+			const res = await getEmployeesApi();
+      if (res.error === false) {
+				dispatch(updateEmployeesAction(res.data));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+	
+
+	function handleChange(evt) {
+    debugger;
     const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value,
-    });
+    dispatch(
+      updateNewTeamAction({
+        ...teamsState.newTeam,
+        [evt.target.name]: value,
+      })
+    );
   }
   const handleCancle = () => {
-    setState({});
-    setIsNewTeam(false);
+    dispatch(updateNewTeamAction({}));
+    dispatch(updateIsAddTeamClickedAction(false));
+    dispatch(updateIsEditTeamClickedAction(false));
   };
-  const handleAddTeam = () => {
-    setTeams((oldArray) => [...oldArray, state]);
-    setIsNewTeam(false);
+  const addAndUpdateTeam = async () => {
+    if (teamsState.isEditTeamClicked === true) {
+      try {
+        debugger;
+        const res = await updateTeamApi(clientsState.newClient);
+        console.log("updateTeam Response", res);
+
+        debugger;
+        if (res.error === false) {
+          debugger;
+          alert("team Updated");
+          let temp = teamsState.teams.filter((item) => item.id != res.data.id);
+          dispatch(updateTeamsAction([...temp, res.data]));
+          dispatch(updateIsAddTeamClickedAction(false));
+          dispatch(updateIsEditTeamClickedAction(false));
+        }
+      } catch (e) {
+        debugger;
+      }
+    } else {
+      try {
+        debugger;
+        const res = await addTeamApi(teamsState.newTeam);
+        console.log("addTeamApi Response", res);
+
+        debugger;
+        if (res.error === false) {
+          debugger;
+          alert("team Created");
+          dispatch(updateTeamsAction([...teamsState.teams, res.data]));
+          dispatch(updateIsAddTeamClickedAction(false));
+        }
+      } catch (e) {
+        debugger;
+      }
+    }
   };
   const options = [
     { value: "andy", label: "Andy" },
@@ -38,11 +119,12 @@ const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
     { value: "Wajeeha", label: "3" },
   ];
 
+	console.log("teamsState",teamsState)
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
         <div className="card">
-          <div className="form-card" onsubmit="event.preventDefault()">
+          <div className="form-card">
             <div className="row justify-content-between text-left">
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
@@ -51,12 +133,12 @@ const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
                     Team Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                    // value={teamsState.newTeam.teamName}
                     onChange={handleChange}
                     type="text"
                     id="teamName"
                     name="teamName"
                     placeholder=""
-                    onblur="validate(10)"
                   />{" "}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
@@ -88,21 +170,7 @@ const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
                     </div>
                   </div>
 
-                  <div className="form-group col-sm-6 flex-column d-flex">
-                    <div className="form-group">
-                      {" "}
-                      <label for="form_need">Team ID *</label>
-                      <Select
-                        className="selectpicker"
-                        data-style="btn-inverse"
-                        style="display: none;"
-                      >
-                        teams={team}
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="row justify-content-between text-left">
-                    <div className="form-group col-sm-6 flex-column d-flex">
+									<div className="form-group col-sm-6 flex-column d-flex">
                       {" "}
                       <div className="form-group">
                         {" "}
@@ -116,6 +184,21 @@ const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
                         </Select>
                       </div>
                     </div>
+                  <div className="row justify-content-between text-left">
+                    {/* <div className="form-group col-sm-6 flex-column d-flex">
+                      {" "}
+                      <div className="form-group">
+                        {" "}
+                        <label for="form_need">EmployeeID *</label>
+                        <Select
+                          className="selectpicker"
+                          data-style="btn-inverse"
+                          style="display: none;"
+                        >
+                          employee={employee}
+                        </Select>
+                      </div>
+                    </div> */}
                     <div className="form-group col-sm-6 flex-column d-flex">
                       {" "}
                       <label className="form-control-label px-3">
@@ -124,10 +207,9 @@ const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
                       <input
                         onChange={handleChange}
                         type="date"
-                        id="edate"
-                        name="edate"
-                        placeholder=""
-                        onblur="validate(4)"
+                        id="startDate"
+                        name="startDate"
+                        placeholder="Enter start Date"
                       />{" "}
                     </div>
                   </div>
@@ -143,9 +225,11 @@ const Addteams = ({ setState, state, isNewTeam, setIsNewTeam, setTeams }) => {
                     <div className="form-group col-sm-6 ">
                       <button
                         className="btn-block btn-primary"
-                        onClick={handleAddTeam}
+                        onClick={addAndUpdateTeam}
                       >
-                        Add Employee
+                        {teamsState.isEditTeamClicked
+                          ? "Update Team"
+                          : "Add Team"}
                       </button>
                     </div>
                   </div>
