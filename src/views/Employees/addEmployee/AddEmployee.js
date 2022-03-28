@@ -291,7 +291,7 @@ const AddEmployee = () => {
                   className="btn-block btn-primary"
                   onClick={handleCancle}
                 >
-                  Cancle
+                  Cancel
                 </button>
               </div>
               <div className="form-group col-sm-6 ">
