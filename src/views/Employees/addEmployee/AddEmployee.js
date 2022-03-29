@@ -13,6 +13,35 @@ import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 // import backIcon from '/src/assets/back-icon.png'
 
 const AddEmployee = () => {
+  const [fieldsWithError, setFieldsWithError] = useState({
+    name: null,
+    age: null,
+    address: null,
+    dateOfBirth:null,
+    email: null,
+    phoneNumber: null,
+    technology: null,
+    joiningDate:null,
+    designation: null,
+    salary:null,
+    education:null,
+    workExperience:null,
+
+  });
+  const [errorInfo, setErrorInfo] = useState({
+    name: null,
+    age: null,
+    address: null,
+    dateOfBirth:null,
+    email: null,
+    phoneNumber: null,
+    technology: null,
+    joiningDate:null,
+    designation: null,
+    salary:null,
+    education:null,
+    workExperience:null,
+  });
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
@@ -32,6 +61,7 @@ const AddEmployee = () => {
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
   const addAndUpdateEmployee = async () => {
+    if (!doValidation()) {
     if (state.isEditEmployeeClicked === true) {
       try {
         debugger;
@@ -66,7 +96,39 @@ const AddEmployee = () => {
         debugger;
       }
     }
+  }
+  else {
+    console.log("validation failed");
+    debugger;
+  }
+};
+  const doValidation = () => {
+    var tempObj = {};
+    var isError = false;
+    var tempErrorInfo = {};
+    debugger;
+    Object.entries(fieldsWithError).forEach((x) => {
+      console.log("entries", x);
+      if (state.newEmployee[x[0]] == undefined) {
+        tempObj[x[0]] = true;
+        tempErrorInfo[x[0]] = "field cannot be empty;";
+        isError = true;
+      } else if (state.newEmployee[x[0]] == "") {
+        tempObj[x[0]] = true;
+        tempErrorInfo[x[0]] = "field cannot be empty;";
+        isError = true;
+      } else {
+        tempObj[x[0]] = false;
+      }
+    });
+		debugger;
+		setErrorInfo(tempErrorInfo)
+    setFieldsWithError(tempObj);
+    return isError;
   };
+	console.log("errorObj", fieldsWithError);
+	console.log("errorObj", errorInfo);
+
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
@@ -84,6 +146,9 @@ const AddEmployee = () => {
                   Name<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
+                 className={
+                  fieldsWithError.name === true ? "redBorder" : ""
+                }
                   value={state.newEmployee.name}
                   onChange={handleChange}
                   type="text"
@@ -91,6 +156,15 @@ const AddEmployee = () => {
                   name="name"
                   placeholder="Enter your name"
                 />{" "}
+                {
+                   fieldsWithError.name === true ? (
+                    <>
+                    <label className="error form-control-label px-3">{errorInfo.name}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+                
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -98,6 +172,7 @@ const AddEmployee = () => {
                   Age<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
+                 className={fieldsWithError.age === true ? "redBorder" : ""}
                   value={state.newEmployee.age}
                   onChange={handleChange}
                   type="text"
@@ -105,6 +180,14 @@ const AddEmployee = () => {
                   name="age"
                   placeholder="Enter your age"
                 />{" "}
+                {fieldsWithError.age === true ?(
+                  <>
+                  <label className="error form-control-label px-3">{errorInfo.age}</label>{" "}
+                </>
+              ) : (
+                ""
+                )}
+
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -114,6 +197,7 @@ const AddEmployee = () => {
                   Address<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.address === true ? "redBorder" : ""}
 									value={state.newEmployee.address}
                   onChange={handleChange}
                   type="text"
@@ -121,6 +205,13 @@ const AddEmployee = () => {
                   name="address"
                   placeholder=""
                 />{" "}
+                {fieldsWithError.address === true ?(
+                  <>
+                  <label className="error form-control-label px-3">{errorInfo.address}</label>{" "}
+                </>
+              ) : (
+                ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -128,6 +219,7 @@ const AddEmployee = () => {
                   Date of Birth<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                 className={fieldsWithError.dateOfBirth === true ? "redBorder" : ""}
 									value={state.newEmployee.dateOfBirth}
                   onChange={handleChange}
                   type="date"
@@ -135,6 +227,13 @@ const AddEmployee = () => {
                   name="dateOfBirth"
                   placeholder="Enter your date of birth"
                 />{" "}
+                 {fieldsWithError.dateOfBirth === true ?(
+                  <>
+                  <label className="error form-control-label px-3">{errorInfo.dateOfBirth}</label>{" "}
+                </>
+              ) : (
+                ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -144,6 +243,7 @@ const AddEmployee = () => {
                   Business email<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                 className={fieldsWithError.email === true ? "redBorder" : ""}
 									value={state.newEmployee.email}
                   onChange={handleChange}
                   type="text"
@@ -151,6 +251,13 @@ const AddEmployee = () => {
                   name="email"
                   placeholder=""
                 />{" "}
+                {fieldsWithError.email === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.email}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -158,6 +265,8 @@ const AddEmployee = () => {
                   Phone number<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                 className={
+                  fieldsWithError.phoneNumber === true ? "redBorder" : ""}
 									value={state.newEmployee.phoneNumber}
                   onChange={handleChange}
                   type="text"
@@ -165,6 +274,13 @@ const AddEmployee = () => {
                   name="phoneNumber"
                   placeholder=""
                 />{" "}
+                {fieldsWithError.phoneNumber === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.phoneNumber}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -174,6 +290,7 @@ const AddEmployee = () => {
                   Technology<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.technology === true ? "redBorder":""}
 									value={state.newEmployee.technology}
                   onChange={handleChange}
                   type="text"
@@ -181,6 +298,13 @@ const AddEmployee = () => {
                   name="technology"
                   placeholder=""
                 />{" "}
+                {fieldsWithError.technology === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.technology}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -188,6 +312,7 @@ const AddEmployee = () => {
                   Joining Date<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.joiningDate === true? "redBorder": ""}
 									value={state.newEmployee.joiningDate}
                   onChange={handleChange}
                   type="date"
@@ -195,6 +320,13 @@ const AddEmployee = () => {
                   name="joiningDate"
                   placeholder="Enter your Joining date"
                 />{" "}
+                {fieldsWithError.joiningDate === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.joiningDate}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -204,6 +336,7 @@ const AddEmployee = () => {
                   Designation<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.designation === true? "redBorder":""}
 									value={state.newEmployee.designation}
                   onChange={handleChange}
                   type="text"
@@ -211,6 +344,13 @@ const AddEmployee = () => {
                   name="designation"
                   placeholder=""
                 />{" "}
+                {fieldsWithError.designation === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.designation}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -218,6 +358,7 @@ const AddEmployee = () => {
                   Salary<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.salary === true ? "redBorder" :""}
 									value={state.newEmployee.salary}
                   onChange={handleChange}
                   type="text"
@@ -225,6 +366,13 @@ const AddEmployee = () => {
                   name="salary"
                   placeholder="Enter salary"
                 />{" "}
+                {fieldsWithError.salary === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.salary}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -234,6 +382,7 @@ const AddEmployee = () => {
                   Education<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.education === true? "redBorder": ""}
 									value={state.newEmployee.education}
                   onChange={handleChange}
                   type="text"
@@ -241,6 +390,13 @@ const AddEmployee = () => {
                   name="education"
                   placeholder=""
                 />{" "}
+                 {fieldsWithError.education === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.education}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -248,6 +404,7 @@ const AddEmployee = () => {
                   Work Experience<span className="text-danger"> *</span>
                 </label>{" "}
 								<input
+                className={fieldsWithError.workExperience === true ? "redBrder": ""}
 									value={state.newEmployee.workExperience}
                   onChange={handleChange}
                   type="text"
@@ -255,6 +412,13 @@ const AddEmployee = () => {
                   name="workExperience"
                   placeholder=""
                 />{" "}
+                {fieldsWithError.workExperience === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.workExperience}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left"></div>
@@ -283,6 +447,13 @@ const AddEmployee = () => {
                   />
                   <span>Female </span>
                 </label>
+                {fieldsWithError.gender === true ? (
+                    <div>
+                      <label style={{ color: "red" }}>please select one</label>
+                    </div>
+                  ) : (
+                    ""
+                  )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
