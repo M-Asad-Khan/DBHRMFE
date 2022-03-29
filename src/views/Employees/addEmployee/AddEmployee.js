@@ -260,7 +260,7 @@ const AddEmployee = () => {
             <div className="row justify-content-between text-left"></div>
 
             <div className="form-group">
-              <div className="maxl">
+							<div className="maxl">
                 <label className="radio inline">
 									<input
 										id='male'
@@ -271,8 +271,8 @@ const AddEmployee = () => {
                     onChange={(e) => handleChange(e)}
                   />
                   <span> Male </span>
-                </label>
-                <label className="radio inline">
+								</label>
+                <label style={{"marginLeft":"20px"}} className="radio inline">
 									<input
 										id='female'
                     type="radio"

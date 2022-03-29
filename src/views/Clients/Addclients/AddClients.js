@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./addclients.css";
 import {
   updateNewClientAction,
@@ -10,11 +10,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { addClientApi } from "src/API/AddClientApi";
 import { updateClientApi } from "src/API/UpdateClientApi";
 
-const addclients = ({ }) => {
-	const dispatch = useDispatch();
+const addclients = ({}) => {
+  const [fieldsWithError, setFieldsWithError] = useState({
+    country: null,
+    gender: null,
+    name: null,
+    email: null,
+    contactNumber: null,
+    technology: null,
+    project: null,
+  });
+  const [errorInfo, setErrorInfo] = useState({
+    country: null,
+    gender: null,
+    name: null,
+    email: null,
+    contactNumber: null,
+    technology: null,
+    project: null,
+  });
+  const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
 
-	function handleChange(evt) {
+  function handleChange(evt) {
     debugger;
     const value = evt.target.value;
     dispatch(
@@ -30,42 +48,76 @@ const addclients = ({ }) => {
     dispatch(updateIsEditClientClickedAction(false));
   };
   const addAndUpdateClient = async () => {
-    if (clientsState.isEditClientClicked === true) {
-      try {
-				debugger;
-        const res = await updateClientApi(clientsState.newClient);
-        console.log("updateClient Response", res);
-
-        debugger;
-        if (res.error === false) {
+    if (!doValidation()) {
+      if (clientsState.isEditClientClicked === true) {
+        try {
           debugger;
-					alert("Client Updated");
-					let temp=clientsState.clients.filter(item=>item.id!=res.data.id)
-          dispatch(updateClientsAction([...temp, res.data]));
-          dispatch(updateIsAddClientClickedAction(false));
-          dispatch(updateIsEditClientClickedAction(false));
+          const res = await updateClientApi(clientsState.newClient);
+          console.log("updateClient Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            alert("Client Updated");
+            let temp = clientsState.clients.filter(
+              (item) => item.id != res.data.id
+            );
+            dispatch(updateClientsAction([...temp, res.data]));
+            dispatch(updateIsAddClientClickedAction(false));
+            dispatch(updateIsEditClientClickedAction(false));
+          }
+        } catch (e) {
+          debugger;
         }
-      } catch (e) {
-        debugger;
+      } else {
+        try {
+          debugger;
+          const res = await addClientApi(clientsState.newClient);
+          console.log("addClientApi Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            alert("Client Created");
+            dispatch(updateClientsAction([...clientsState.clients, res.data]));
+            dispatch(updateIsAddClientClickedAction(false));
+          }
+        } catch (e) {
+          debugger;
+        }
       }
     } else {
-      try {
-        debugger;
-        const res = await addClientApi(clientsState.newClient);
-        console.log("addClientApi Response", res);
-
-        debugger;
-				if (res.error === false) {
-					debugger;
-          alert("Client Created");
-          dispatch(updateClientsAction([...clientsState.clients, res.data]));
-          dispatch(updateIsAddClientClickedAction(false));
-        }
-      } catch (e) {
-        debugger;
-      }
+      console.log("validation failed");
+      debugger;
     }
   };
+  const doValidation = () => {
+    var tempObj = {};
+    var isError = false;
+    var tempErrorInfo = {};
+    debugger;
+    Object.entries(fieldsWithError).forEach((x) => {
+      console.log("entries", x);
+      if (clientsState.newClient[x[0]] == undefined) {
+        tempObj[x[0]] = true;
+        tempErrorInfo[x[0]] = "field cannot be empty;";
+        isError = true;
+      } else if (clientsState.newClient[x[0]] == "") {
+        tempObj[x[0]] = true;
+        tempErrorInfo[x[0]] = "field cannot be empty;";
+        isError = true;
+      } else {
+        tempObj[x[0]] = false;
+      }
+    });
+		debugger;
+		setErrorInfo(tempErrorInfo)
+    setFieldsWithError(tempObj);
+    return isError;
+  };
+	console.log("errorObj", fieldsWithError);
+	console.log("errorObj", errorInfo);
+
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
@@ -77,28 +129,47 @@ const addclients = ({ }) => {
                 <label className="form-control-label px-3">
                   Country<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-									value={clientsState.newClient.country}
+                <input
+                  className={
+                    fieldsWithError.country === true ? "redBorder" : ""
+                  }
+                  value={clientsState.newClient.country}
                   onChange={handleChange}
                   type="text"
                   id="country"
                   name="country"
                   placeholder="Enter country"
+                  // onBlur={}
                 />{" "}
+                {fieldsWithError.country === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.country}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
                   Name<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-									value={clientsState.newClient.name}
+                <input
+                  className={fieldsWithError.name === true ? "redBorder" : ""}
+                  value={clientsState.newClient.name}
                   onChange={handleChange}
                   type="text"
                   id="name"
                   name="name"
                   placeholder="Enter name"
                 />{" "}
+								 {fieldsWithError.name === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.name}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -107,28 +178,46 @@ const addclients = ({ }) => {
                 <label className="form-control-label px-3">
                   Business email<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-									value={clientsState.newClient.email}
+                <input
+                  className={fieldsWithError.email === true ? "redBorder" : ""}
+                  value={clientsState.newClient.email}
                   onChange={handleChange}
                   type="text"
                   id="email"
                   name="email"
                   placeholder="Enter email"
                 />{" "}
+								 {fieldsWithError.email === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.email}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
                   Phone number<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-									value={clientsState.newClient.contactNumber}
+                <input
+                  className={
+                    fieldsWithError.contactNumber === true ? "redBorder" : ""
+                  }
+                  value={clientsState.newClient.contactNumber}
                   onChange={handleChange}
                   type="text"
                   id="contactNumber"
                   name="contactNumber"
                   placeholder="Enter contact number"
                 />{" "}
+								 {fieldsWithError.contactNumber === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.contactNumber}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -137,57 +226,87 @@ const addclients = ({ }) => {
                 <label className="form-control-label px-3">
                   Technology<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-									value={clientsState.newClient.technology}
+                <input
+                  className={
+                    fieldsWithError.technology === true ? "redBorder" : ""
+                  }
+                  value={clientsState.newClient.technology}
                   onChange={handleChange}
                   type="text"
                   id="technology"
                   name="technology"
                   placeholder="Enter technology"
                 />{" "}
+								 {fieldsWithError.technology === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.technology}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
                   Project<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-									value={clientsState.newClient.project}
+                <input
+                  className={
+                    fieldsWithError.project === true ? "redBorder" : ""
+                  }
+                  value={clientsState.newClient.project}
                   onChange={handleChange}
                   type="text"
                   id="project"
                   name="project"
                   placeholder="Enter project name"
                 />{" "}
-              </div>
-						</div>
-						
-						<div className="row justify-content-between text-left">
-						<div className="form-group">
-              <div className="maxl">
-                <label className="radio inline">
-										<input
-										checked={clientsState.newClient.gender==='male'}
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <span> Male </span>
-                </label>
-                <label className="radio inline">
-										<input
-										checked={clientsState.newClient.gender==='female'}
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <span>Female </span>
-                </label>
+								 {fieldsWithError.project === true ? (
+                  <>
+                    <label className="error form-control-label px-3">{errorInfo.project}</label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
-              
+
+            <div className="row justify-content-between text-left">
+              <div className="form-group">
+                <div className="maxl">
+                  <label className="radio inline">
+                    <input
+                      checked={clientsState.newClient.gender === "male"}
+                      type="radio"
+                      name="gender"
+                      value="male"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <span> Male </span>
+                  </label>
+                  <label
+                    style={{ marginLeft: "20px" }}
+                    className="radio inline"
+                  >
+                    <input
+                      checked={clientsState.newClient.gender === "female"}
+                      type="radio"
+                      name="gender"
+                      value="female"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <span>Female </span>
+                  </label>
+
+                  {fieldsWithError.gender === true ? (
+                    <div>
+                      <label style={{ color: "red" }}>please select one</label>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="row justify-content-between text-left"></div>
@@ -202,9 +321,9 @@ const addclients = ({ }) => {
                 </button>
               </div>
               <div className="form-group col-sm-6 ">
-							<button
-									className="btn-block btn-primary"
-									onClick={addAndUpdateClient}
+                <button
+                  className="btn-block btn-primary"
+                  onClick={addAndUpdateClient}
                 >
                   {clientsState.isEditClientClicked
                     ? "Update Client"

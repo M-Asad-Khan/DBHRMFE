@@ -3,8 +3,8 @@ import {
   updateIsAddTeamClicked,
   updateTeams,
   updateIsEditTeamClicked,
-  updateEmployees,
-  updateClients,
+  // updateEmployees,
+  // updateClients,
 } from "./teams.types";
 
 const INITIAL_STATE = {
@@ -12,8 +12,8 @@ const INITIAL_STATE = {
   newClient: {},
   isAddClientClicked: false,
   isEditClientClicked: false,
-  employees: [],
-  clients: [],
+  // employees: [],
+  // clients: [],
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -42,17 +42,17 @@ const reducer = (state = INITIAL_STATE, action) => {
         isEditTeamClicked: action.payload,
       };
 
-    case updateEmployees:
-      return {
-        ...state,
-        employees: action.payload,
-      };
+    // case updateEmployees:
+    //   return {
+    //     ...state,
+    //     employees: action.payload,
+    //   };
 
-    case updateClients:
-      return {
-        ...state,
-        employees: action.payload,
-      };
+    // case updateClients:
+    //   return {
+    //     ...state,
+    //     clients: action.payload,
+    //   };
 
     default:
       return state;
