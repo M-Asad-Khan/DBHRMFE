@@ -12,13 +12,13 @@ import { updateClientApi } from "src/API/UpdateClientApi";
 
 const addclients = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
-    country: null,
-    gender: null,
-    name: null,
-    email: null,
-    contactNumber: null,
-    technology: null,
-    project: null,
+    country: false,
+    gender: false,
+    name: false,
+    email: false,
+    contactNumber: false,
+    technology: false,
+    project: false,
   });
   const [errorInfo, setErrorInfo] = useState({
     country: null,
@@ -92,31 +92,77 @@ const addclients = ({}) => {
     }
   };
   const doValidation = () => {
-    var tempObj = {};
+    var tempFieldsWithError = {...fieldsWithError};
     var isError = false;
-    var tempErrorInfo = {};
+    var tempErrorInfo = {...errorInfo};
     debugger;
     Object.entries(fieldsWithError).forEach((x) => {
-      console.log("entries", x);
       if (clientsState.newClient[x[0]] == undefined) {
-        tempObj[x[0]] = true;
-        tempErrorInfo[x[0]] = "field cannot be empty;";
+        tempFieldsWithError[x[0]] = true;
+        tempErrorInfo[x[0]] = "field cannot be empty";
         isError = true;
       } else if (clientsState.newClient[x[0]] == "") {
-        tempObj[x[0]] = true;
-        tempErrorInfo[x[0]] = "field cannot be empty;";
+        tempFieldsWithError[x[0]] = true;
+        tempErrorInfo[x[0]] = "field cannot be empty";
         isError = true;
-      } else {
-        tempObj[x[0]] = false;
+			} else if (fieldsWithError[x[0]] === true) {
+				isError = true;
+			}
+			else {
+        tempFieldsWithError[x[0]] = false;
       }
     });
 		debugger;
-		setErrorInfo(tempErrorInfo)
-    setFieldsWithError(tempObj);
+		console.log("isError",isError)
+    setErrorInfo(tempErrorInfo);
+    setFieldsWithError(tempFieldsWithError);
     return isError;
   };
-	console.log("errorObj", fieldsWithError);
-	console.log("errorObj", errorInfo);
+
+  function validateEmail(email) {
+    {
+      var regx = /\S+@\S+\.\S+/;
+      if (regx.test(email)) {
+        console.log(true);
+        setFieldsWithError({
+          ...fieldsWithError,
+          email: false,
+        });
+      } else {
+        console.log(false);
+        setFieldsWithError({
+          ...fieldsWithError,
+          email: true,
+        });
+        setErrorInfo({
+          ...errorInfo,
+          email: "You have entered an invalid email address!",
+        });
+      }
+    }
+  }
+  function validateNumberOnly(num) {
+    var reg = new RegExp("^[0-9]*$");
+
+    if (reg.test(num) == false) {
+			console.log(false);
+			setFieldsWithError({
+				...fieldsWithError,
+				contactNumber: true,
+			});
+			setErrorInfo({
+				...errorInfo,
+				contactNumber: "only Numbers allowed",
+			});
+		} else {
+			setFieldsWithError({
+				...fieldsWithError,
+				contactNumber: false,
+			});
+		}
+  }
+  console.log("fieldsWithError", fieldsWithError);
+  console.log("errorInfo", errorInfo);
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
@@ -143,7 +189,9 @@ const addclients = ({}) => {
                 />{" "}
                 {fieldsWithError.country === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.country}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.country}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -157,15 +205,17 @@ const addclients = ({}) => {
                 <input
                   className={fieldsWithError.name === true ? "redBorder" : ""}
                   value={clientsState.newClient.name}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange(e)}
                   type="text"
                   id="name"
                   name="name"
                   placeholder="Enter name"
                 />{" "}
-								 {fieldsWithError.name === true ? (
+                {fieldsWithError.name === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.name}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.name}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -186,10 +236,13 @@ const addclients = ({}) => {
                   id="email"
                   name="email"
                   placeholder="Enter email"
+                  onBlur={(e) => validateEmail(e.target.value)}
                 />{" "}
-								 {fieldsWithError.email === true ? (
+                {fieldsWithError.email === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.email}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.email}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -209,11 +262,14 @@ const addclients = ({}) => {
                   type="text"
                   id="contactNumber"
                   name="contactNumber"
-                  placeholder="Enter contact number"
+									placeholder="Enter contact number"
+									onBlur={e=>validateNumberOnly(e.target.value)}
                 />{" "}
-								 {fieldsWithError.contactNumber === true ? (
+                {fieldsWithError.contactNumber === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.contactNumber}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.contactNumber}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -237,9 +293,11 @@ const addclients = ({}) => {
                   name="technology"
                   placeholder="Enter technology"
                 />{" "}
-								 {fieldsWithError.technology === true ? (
+                {fieldsWithError.technology === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.technology}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.technology}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -261,9 +319,11 @@ const addclients = ({}) => {
                   name="project"
                   placeholder="Enter project name"
                 />{" "}
-								 {fieldsWithError.project === true ? (
+                {fieldsWithError.project === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.project}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.project}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
