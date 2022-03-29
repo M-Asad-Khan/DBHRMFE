@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Addclients from "./Addclients/AddClients";
 import { getClientsApi } from "../../API/getClientsApi";
 import { deleteClientApi } from "src/API/DeleteClientApi";
+import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 
 function Clients() {
   const dispatch = useDispatch();
@@ -22,14 +23,18 @@ function Clients() {
   const handleDelete = async (client) => {
     debugger;
     try {
-    	const res = await deleteClientApi(client.id)
-    	if (res.error === false) {
-    		debugger;
-    		dispatch(updateClientsAction(clientsState.clients.filter(item => item.id != client.id)))
-    		debugger;
-    	}
+      const res = await deleteClientApi(client.id);
+      if (res.error === false) {
+        debugger;
+        dispatch(
+          updateClientsAction(
+            clientsState.clients.filter((item) => item.id != client.id)
+          )
+        );
+        debugger;
+      }
     } catch (err) {
-    	console.log(err)
+      console.log(err);
     }
   };
   const handleEdit = (client) => {
@@ -55,8 +60,7 @@ function Clients() {
   function handleAddClient() {
     dispatch(updateIsAddClientClickedAction(true));
   }
-	console.log(clientsState);
-	
+  console.log(clientsState);
 
   return (
     <>
@@ -81,8 +85,8 @@ function Clients() {
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Client Name</th>
-								<th scope="col">Client Country</th>
-								<th scope="col"> Action</th>
+                <th scope="col">Client Country</th>
+                <th scope="col"> Action</th>
               </tr>
             </thead>
             <tbody>
@@ -90,34 +94,31 @@ function Clients() {
                 clientsState.clients.map((client, i) => {
                   return (
                     <tr key={client.id} className="clickable text-center">
-                      <th scope="row">{i+1}</th>
+                      <th scope="row">{i + 1}</th>
                       <td>{client.name}</td>
-											<td>{client.country}</td>
-											<td>
-                        {/* <CIcon icon={cilUpdate} /> */}
+                      <td>{client.country}</td>
+                      <td>
                         <span
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: "pointer" , color:"blue" }}
                           onClick={() => {
                             handleEdit(client);
                           }}
-                          className="btn btn-outline-primary"
                         >
-                          Edit
-                        </span>
+                          <FiEdit />
+                        </span>{"   |"}
                         <span
-                          className="btn btn-outline-danger"
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: "pointer" , color:"red" }}
                           onClick={() => {
                             handleDelete(client);
                           }}
                         >
-                          delete
-                        </span>
+                          <FiTrash />
+                        </span>{"   |"}
                         <span
-                          className="btn btn-outline-primary"
+													style={{ cursor: "pointer", color:"blue" }}
                           onClick={handleView}
                         >
-                          view
+                          <FiEye />
                         </span>
                       </td>
                     </tr>

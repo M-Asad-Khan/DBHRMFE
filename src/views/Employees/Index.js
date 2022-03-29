@@ -9,10 +9,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { getEmployeesApi } from "src/API/GetEmployeesApi";
 import { deleteEmployeeApi } from "src/API/DeleteEmployeeApi";
-// import CIcon from '@coreui/icons-react'
-// import {
-// 	cilUpdate
-// } from '@coreui/icons'
+import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
+
+
 
 function employees(props) {
   const dispatch = useDispatch();
@@ -100,30 +99,27 @@ function employees(props) {
                       <td>{employee.email}</td>
                       <td>{employee.phoneNumber}</td>
                       <td>
-                        {/* <CIcon icon={cilUpdate} /> */}
                         <span
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: "pointer" ,color:"blue"}}
                           onClick={() => {
                             handleEdit(employee);
                           }}
-                          className="btn btn-outline-primary"
                         >
-                          Edit
-                        </span>
+                          <FiEdit />
+                        </span>{"   |"}
                         <span
-                          className="btn btn-outline-danger"
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: "pointer" ,color:"red"}}
                           onClick={() => {
                             handleDelete(employee);
                           }}
                         >
-                          delete
-                        </span>
-                        <span
-                          className="btn btn-outline-primary"
+                         <FiTrash />
+                        </span>{"   |"}
+												<span
+													style={{color:"blue",cursor:"pointer"}}
                           onClick={handleView}
                         >
-                          view
+                          <FiEye/>
                         </span>
                       </td>
                     </tr>
