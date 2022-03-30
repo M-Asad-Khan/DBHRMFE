@@ -9,6 +9,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { getEmployeesApi } from "src/API/GetEmployeesApi";
 import { deleteEmployeeApi } from "src/API/DeleteEmployeeApi";
+import CIcon from '@coreui/icons-react'
+import {cilpencil} from '@coreui/icons'
 // import CIcon from '@coreui/icons-react'
 // import {
 // 	cilUpdate
@@ -101,7 +103,8 @@ function employees(props) {
                       <td>{employee.phoneNumber}</td>
                       <td>
                         {/* <CIcon icon={cilUpdate} /> */}
-                        <span
+                        
+                         <span
                           style={{ cursor: "pointer" }}
                           onClick={() => {
                             handleEdit(employee);
@@ -109,8 +112,10 @@ function employees(props) {
                           className="btn btn-outline-primary"
                         >
                           Edit
-                        </span>
+                        </span> 
+                        
                         <span
+                        
                           className="btn btn-outline-danger"
                           style={{ cursor: "pointer" }}
                           onClick={() => {

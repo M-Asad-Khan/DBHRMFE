@@ -72,7 +72,7 @@ const AddEmployee = () => {
         if (res.error === false) {
           debugger;
 					alert("Employee Updated");
-					let temp=state.employees.filter(item=>item.id!=res.data.id)
+					let temp=state.employees.filter(item=>item.id!=res.data.id);
 					dispatch(updateEmployeesAction([...temp, res.data]	));
           dispatch(updateIsAddEmployeeClickedAction(false));
           dispatch(updateIsEditEmployeeClickedAction(false));
@@ -103,31 +103,75 @@ const AddEmployee = () => {
   }
 };
   const doValidation = () => {
-    var tempObj = {};
+    var tempFieldsWithError = {...fieldsWithError};
     var isError = false;
     var tempErrorInfo = {};
     debugger;
     Object.entries(fieldsWithError).forEach((x) => {
       console.log("entries", x);
       if (state.newEmployee[x[0]] == undefined) {
-        tempObj[x[0]] = true;
+        tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty;";
         isError = true;
       } else if (state.newEmployee[x[0]] == "") {
-        tempObj[x[0]] = true;
+        tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty;";
         isError = true;
       } else {
-        tempObj[x[0]] = false;
+        tempFieldsWithError[x[0]] = false;
       }
     });
 		debugger;
+    console.log("isError",isError)
 		setErrorInfo(tempErrorInfo)
-    setFieldsWithError(tempObj);
+    setFieldsWithError(tempFieldsWithError);
     return isError;
   };
-	console.log("errorObj", fieldsWithError);
-	console.log("errorObj", errorInfo);
+    function validateEmail(email) {
+      {
+        var regx = /\S+@\S+\.\S+/;
+        if (regx.test(email)) {
+          console.log(true);
+          setFieldsWithError({
+            ...fieldsWithError,
+            email: false,
+          });
+        } else {
+          console.log(false);
+          setFieldsWithError({
+            ...fieldsWithError,
+            email: true,
+          });
+          setErrorInfo({
+            ...errorInfo,
+            email: "You have entered an invalid email address!",
+          });
+        }
+      }
+    }
+    function validateNumberOnly(num) {
+      var reg = new RegExp("^[0-9]*$");
+  
+      if (reg.test(num) == false) {
+        console.log(false);
+        setFieldsWithError({
+          ...fieldsWithError,
+          contactNumber: true,
+        });
+        setErrorInfo({
+          ...errorInfo,
+          contactNumber: "only Numbers allowed",
+        });
+      } else {
+        setFieldsWithError({
+          ...fieldsWithError,
+          contactNumber: false,
+        });
+      }
+    
+  };
+  console.log("fieldsWithError", fieldsWithError);
+  console.log("errorInfo", errorInfo);
 
 
   return (
@@ -179,6 +223,7 @@ const AddEmployee = () => {
                   id="age"
                   name="age"
                   placeholder="Enter your age"
+                  onBlur={e=>validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.age === true ?(
                   <>
@@ -250,6 +295,7 @@ const AddEmployee = () => {
                   id="email"
                   name="email"
                   placeholder=""
+                  onBlur={(e) =>  validateEmail(e.target.value)}
                 />{" "}
                 {fieldsWithError.email === true ? (
                   <>
@@ -273,6 +319,7 @@ const AddEmployee = () => {
                   id="phoneNumber"
                   name="phoneNumber"
                   placeholder=""
+                  onBlur={e=>validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.phoneNumber === true ? (
                   <>
@@ -365,6 +412,7 @@ const AddEmployee = () => {
                   id="salary"
                   name="salary"
                   placeholder="Enter salary"
+                  onBlur={e=>validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.salary === true ? (
                   <>
