@@ -18,30 +18,29 @@ const AddEmployee = () => {
     name: null,
     age: null,
     address: null,
-    dateOfBirth:null,
+    dateOfBirth: null,
     email: null,
     phoneNumber: null,
     technology: null,
-    joiningDate:null,
+    joiningDate: null,
     designation: null,
-    salary:null,
-    education:null,
-    workExperience:null,
-
+    salary: null,
+    education: null,
+    workExperience: null,
   });
   const [errorInfo, setErrorInfo] = useState({
     name: null,
     age: null,
     address: null,
-    dateOfBirth:null,
+    dateOfBirth: null,
     email: null,
     phoneNumber: null,
     technology: null,
-    joiningDate:null,
+    joiningDate: null,
     designation: null,
-    salary:null,
-    education:null,
-    workExperience:null,
+    salary: null,
+    education: null,
+    workExperience: null,
   });
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
@@ -63,80 +62,123 @@ const AddEmployee = () => {
   };
   const addAndUpdateEmployee = async () => {
     if (!doValidation()) {
-    if (state.isEditEmployeeClicked === true) {
-      try {
-        debugger;
-        const res = await updateEmployeeApi(state.newEmployee);
-        console.log("updateEmployee Response", res);
-
-        debugger;
-        if (res.error === false) {
+      if (state.isEditEmployeeClicked === true) {
+        try {
           debugger;
-					alert("Employee Updated");
-					let temp=state.employees.filter(item=>item.id!=res.data.id)
-					dispatch(updateEmployeesAction([...temp, res.data]	));
-          dispatch(updateIsAddEmployeeClickedAction(false));
-          dispatch(updateIsEditEmployeeClickedAction(false));
+          const res = await updateEmployeeApi(state.newEmployee);
+          console.log("updateEmployee Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            alert("Employee Updated");
+            let temp = state.employees.filter((item) => item.id != res.data.id);
+            dispatch(updateEmployeesAction([...temp, res.data]));
+            dispatch(updateIsAddEmployeeClickedAction(false));
+            dispatch(updateIsEditEmployeeClickedAction(false));
+          }
+        } catch (e) {
+          debugger;
         }
-      } catch (e) {
-        debugger;
+      } else {
+        try {
+          debugger;
+          const res = await addEmployeeApi(state.newEmployee);
+          console.log("addEmployeeApi Response", res);
+
+          debugger;
+          if (res.error === false) {
+            alert("Employee Created");
+            dispatch(updateEmployeesAction([...state.employees, res.data]));
+            dispatch(updateIsAddEmployeeClickedAction(false));
+          }
+        } catch (e) {
+          debugger;
+        }
       }
     } else {
-      try {
-        debugger;
-        const res = await addEmployeeApi(state.newEmployee);
-        console.log("addEmployeeApi Response", res);
-
-        debugger;
-        if (res.error === false) {
-          alert("Employee Created");
-          dispatch(updateEmployeesAction([...state.employees, res.data]));
-          dispatch(updateIsAddEmployeeClickedAction(false));
-        }
-      } catch (e) {
-        debugger;
-      }
+      console.log("validation failed");
+      debugger;
     }
-  }
-  else {
-    console.log("validation failed");
-    debugger;
-  }
-};
+  };
   const doValidation = () => {
-    var tempObj = {};
+    var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = {};
     debugger;
     Object.entries(fieldsWithError).forEach((x) => {
       console.log("entries", x);
       if (state.newEmployee[x[0]] == undefined) {
-        tempObj[x[0]] = true;
+        tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty;";
         isError = true;
       } else if (state.newEmployee[x[0]] == "") {
-        tempObj[x[0]] = true;
+        tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty;";
         isError = true;
+      } else if (fieldsWithError[x[0]] !== "") {
+        tempFieldsWithError[x[0]] = false;
+      } else if (fieldsWithError[x[0]] === true) {
+        isError = true;
       } else {
-        tempObj[x[0]] = false;
+        tempFieldsWithError[x[0]] = false;
       }
     });
-		debugger;
-		setErrorInfo(tempErrorInfo)
-    setFieldsWithError(tempObj);
+    debugger;
+    console.log("isError", isError);
+    setErrorInfo(tempErrorInfo);
+    setFieldsWithError(tempFieldsWithError);
     return isError;
   };
-	console.log("errorObj", fieldsWithError);
-	console.log("errorObj", errorInfo);
+  function validateEmail(email) {
+    {
+      var regx = /\S+@\S+\.\S+/;
+      if (regx.test(email)) {
+        console.log(true);
+        setFieldsWithError({
+          ...fieldsWithError,
+          email: false,
+        });
+      } else {
+        console.log(false);
+        setFieldsWithError({
+          ...fieldsWithError,
+          email: true,
+        });
+        setErrorInfo({
+          ...errorInfo,
+          email: "You have entered an invalid email address!",
+        });
+      }
+    }
+  }
+  function validateNumberOnly(num) {
+    var reg = new RegExp("^[0-9]*$");
 
+		if (reg.test(num) == false) {
+      console.log("if");
+      setFieldsWithError({
+        ...fieldsWithError,
+        phoneNumber: true,
+      });
+      setErrorInfo({
+        ...errorInfo,
+        phoneNumber: "only Numbers allowed",
+      });
+		} else {
+			console.log("ELSE")
+      setFieldsWithError({
+        ...fieldsWithError,
+        phoneNumber: false,
+      });
+    }
+  }
+  console.log("fieldsWithError", fieldsWithError);
+  console.log("errorInfo", errorInfo);
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
-        {/* <img src={require('src/assets/images/avatars/')} /> */}
-        {/* <img src={ backIcon}/> */}
-
         <div className="card">
           {state.newEmployee.id}
           <div className="form-card">
@@ -147,9 +189,7 @@ const AddEmployee = () => {
                   Name<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
-                 className={
-                  fieldsWithError.name === true ? "redBorder" : ""
-                }
+                  className={fieldsWithError.name === true ? "redBorder" : ""}
                   value={state.newEmployee.name}
                   onChange={handleChange}
                   type="text"
@@ -157,15 +197,15 @@ const AddEmployee = () => {
                   name="name"
                   placeholder="Enter your name"
                 />{" "}
-                {
-                   fieldsWithError.name === true ? (
-                    <>
-                    <label className="error form-control-label px-3">{errorInfo.name}</label>{" "}
+                {fieldsWithError.name === true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.name}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
                 )}
-                
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -173,22 +213,24 @@ const AddEmployee = () => {
                   Age<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
-                 className={fieldsWithError.age === true ? "redBorder" : ""}
+                  className={fieldsWithError.age === true ? "redBorder" : ""}
                   value={state.newEmployee.age}
                   onChange={handleChange}
                   type="text"
                   id="age"
                   name="age"
                   placeholder="Enter your age"
+                  onBlur={(e) => validateNumberOnly(e.target.value)}
                 />{" "}
-                {fieldsWithError.age === true ?(
+                {fieldsWithError.age === true ? (
                   <>
-                  <label className="error form-control-label px-3">{errorInfo.age}</label>{" "}
-                </>
-              ) : (
-                ""
+                    <label className="error form-control-label px-3">
+                      {errorInfo.age}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
                 )}
-
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -197,21 +239,25 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Address<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.address === true ? "redBorder" : ""}
-									value={state.newEmployee.address}
+                <input
+                  className={
+                    fieldsWithError.address === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.address}
                   onChange={handleChange}
                   type="text"
                   id="address"
                   name="address"
                   placeholder=""
                 />{" "}
-                {fieldsWithError.address === true ?(
+                {fieldsWithError.address === true ? (
                   <>
-                  <label className="error form-control-label px-3">{errorInfo.address}</label>{" "}
-                </>
-              ) : (
-                ""
+                    <label className="error form-control-label px-3">
+                      {errorInfo.address}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
                 )}
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -219,21 +265,25 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Date of Birth<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                 className={fieldsWithError.dateOfBirth === true ? "redBorder" : ""}
-									value={state.newEmployee.dateOfBirth}
+                <input
+                  className={
+                    fieldsWithError.dateOfBirth === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.dateOfBirth}
                   onChange={handleChange}
                   type="date"
                   id="dateOfBirth"
                   name="dateOfBirth"
                   placeholder="Enter your date of birth"
                 />{" "}
-                 {fieldsWithError.dateOfBirth === true ?(
+                {fieldsWithError.dateOfBirth === true ? (
                   <>
-                  <label className="error form-control-label px-3">{errorInfo.dateOfBirth}</label>{" "}
-                </>
-              ) : (
-                ""
+                    <label className="error form-control-label px-3">
+                      {errorInfo.dateOfBirth}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
                 )}
               </div>
             </div>
@@ -243,18 +293,21 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Business email<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                 className={fieldsWithError.email === true ? "redBorder" : ""}
-									value={state.newEmployee.email}
+                <input
+                  className={fieldsWithError.email === true ? "redBorder" : ""}
+                  value={state.newEmployee.email}
                   onChange={handleChange}
                   type="text"
                   id="email"
                   name="email"
                   placeholder=""
+                  onBlur={(e) => validateEmail(e.target.value)}
                 />{" "}
                 {fieldsWithError.email === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.email}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.email}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -265,19 +318,23 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Phone number<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                 className={
-                  fieldsWithError.phoneNumber === true ? "redBorder" : ""}
-									value={state.newEmployee.phoneNumber}
+                <input
+                  className={
+                    fieldsWithError.phoneNumber === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.phoneNumber}
                   onChange={handleChange}
                   type="text"
                   id="phoneNumber"
                   name="phoneNumber"
                   placeholder=""
+                  onBlur={(e) => validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.phoneNumber === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.phoneNumber}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.phoneNumber}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -290,9 +347,11 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Technology<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.technology === true ? "redBorder":""}
-									value={state.newEmployee.technology}
+                <input
+                  className={
+                    fieldsWithError.technology === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.technology}
                   onChange={handleChange}
                   type="text"
                   id="technology"
@@ -301,7 +360,9 @@ const AddEmployee = () => {
                 />{" "}
                 {fieldsWithError.technology === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.technology}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.technology}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -312,9 +373,11 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Joining Date<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.joiningDate === true? "redBorder": ""}
-									value={state.newEmployee.joiningDate}
+                <input
+                  className={
+                    fieldsWithError.joiningDate === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.joiningDate}
                   onChange={handleChange}
                   type="date"
                   id="joiningDate"
@@ -323,7 +386,9 @@ const AddEmployee = () => {
                 />{" "}
                 {fieldsWithError.joiningDate === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.joiningDate}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.joiningDate}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -336,9 +401,11 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Designation<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.designation === true? "redBorder":""}
-									value={state.newEmployee.designation}
+                <input
+                  className={
+                    fieldsWithError.designation === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.designation}
                   onChange={handleChange}
                   type="text"
                   id="designation"
@@ -347,7 +414,9 @@ const AddEmployee = () => {
                 />{" "}
                 {fieldsWithError.designation === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.designation}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.designation}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -358,18 +427,21 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Salary<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.salary === true ? "redBorder" :""}
-									value={state.newEmployee.salary}
+                <input
+                  className={fieldsWithError.salary === true ? "redBorder" : ""}
+                  value={state.newEmployee.salary}
                   onChange={handleChange}
                   type="text"
                   id="salary"
                   name="salary"
                   placeholder="Enter salary"
+                  onBlur={(e) => validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.salary === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.salary}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.salary}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -382,18 +454,22 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Education<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.education === true? "redBorder": ""}
-									value={state.newEmployee.education}
+                <input
+                  className={
+                    fieldsWithError.education === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.education}
                   onChange={handleChange}
                   type="text"
                   id="education"
                   name="education"
                   placeholder=""
                 />{" "}
-                 {fieldsWithError.education === true ? (
+                {fieldsWithError.education === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.education}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.education}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -404,9 +480,11 @@ const AddEmployee = () => {
                 <label className="form-control-label px-3">
                   Work Experience<span className="text-danger"> *</span>
                 </label>{" "}
-								<input
-                className={fieldsWithError.workExperience === true ? "redBrder": ""}
-									value={state.newEmployee.workExperience}
+                <input
+                  className={
+                    fieldsWithError.workExperience === true ? "redBrder" : ""
+                  }
+                  value={state.newEmployee.workExperience}
                   onChange={handleChange}
                   type="text"
                   id="workExperience"
@@ -415,7 +493,9 @@ const AddEmployee = () => {
                 />{" "}
                 {fieldsWithError.workExperience === true ? (
                   <>
-                    <label className="error form-control-label px-3">{errorInfo.workExperience}</label>{" "}
+                    <label className="error form-control-label px-3">
+                      {errorInfo.workExperience}
+                    </label>{" "}
                   </>
                 ) : (
                   ""
@@ -425,23 +505,23 @@ const AddEmployee = () => {
             <div className="row justify-content-between text-left"></div>
 
             <div className="form-group">
-							<div className="maxl">
+              <div className="maxl">
                 <label className="radio inline">
-									<input
-										id='male'
+                  <input
+                    id="male"
                     type="radio"
-										checked={state.newEmployee.gender === "male"}
+                    checked={state.newEmployee.gender === "male"}
                     name="gender"
                     value="male"
                     onChange={(e) => handleChange(e)}
                   />
                   <span> Male </span>
-								</label>
-                <label style={{"marginLeft":"20px"}} className="radio inline">
-									<input
-										id='female'
+                </label>
+                <label style={{ marginLeft: "20px" }} className="radio inline">
+                  <input
+                    id="female"
                     type="radio"
-										checked={state.newEmployee.gender === "female"}
+                    checked={state.newEmployee.gender === "female"}
                     name="gender"
                     value="female"
                     onChange={(e) => handleChange(e)}
@@ -449,12 +529,12 @@ const AddEmployee = () => {
                   <span>Female </span>
                 </label>
                 {fieldsWithError.gender === true ? (
-                    <div>
-                      <label style={{ color: "red" }}>please select one</label>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  <div>
+                    <label style={{ color: "red" }}>please select one</label>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="row justify-content-between text-left">
