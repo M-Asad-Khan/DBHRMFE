@@ -105,7 +105,10 @@ const addclients = ({}) => {
         tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty";
         isError = true;
-			} else if (fieldsWithError[x[0]] === true) {
+			}else if (fieldsWithError[x[0]] !== "") {
+				tempFieldsWithError[x[0]] = false;
+			}
+			else if (fieldsWithError[x[0]] === true) {
 				isError = true;
 			}
 			else {

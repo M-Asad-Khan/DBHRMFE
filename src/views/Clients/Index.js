@@ -5,33 +5,72 @@ import {
   updateIsAddClientClickedAction,
   updateClientsAction,
   updateIsEditClientClickedAction,
+  updateClientsDataTableAction,
 } from "../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
 import Addclients from "./Addclients/AddClients";
 import { getClientsApi } from "../../API/getClientsApi";
 import { deleteClientApi } from "src/API/DeleteClientApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
+import { MDBDataTable } from "mdbreact";
 
 function Clients() {
-  const dispatch = useDispatch();
+  debugger;
+  var action = "";
+
   const clientsState = useSelector((state) => state.clients);
+  const dispatch = useDispatch();
+  const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
+    debugger;
     handleGetClientsApi();
   }, []);
+  useEffect(() => {
+    if (
+      clientsState.isAddClientClicked === false ||
+      clientsState.isEditClientClicked === false
+    ) {
+      handleGetClientsApi();
+    }
+  }, [clientsState.isAddClientClicked, clientsState.isEditClientClicked]);
+
+  useEffect(() => {
+    debugger;
+    setColumnsAndRows(clientsState.clientsDataTable);
+  }, [clientsState.clientsDataTable]);
+
+  function setSelectedRow(rowData) {
+    debugger;
+    if (action == "") {
+      return;
+    } else {
+      switch (action) {
+        case "delete":
+          debugger;
+          handleDelete(rowData);
+          break;
+        case "view":
+          handleView(rowData);
+          break;
+        case "edit":
+          handleEdit(rowData);
+          break;
+
+        default:
+          break;
+      }
+    }
+    console.log("rowData", rowData);
+    console.log("action", action);
+  }
 
   const handleDelete = async (client) => {
     debugger;
     try {
       const res = await deleteClientApi(client.id);
       if (res.error === false) {
-        debugger;
-        dispatch(
-          updateClientsAction(
-            clientsState.clients.filter((item) => item.id != client.id)
-          )
-        );
-        debugger;
+        handleGetClientsApi();
       }
     } catch (err) {
       console.log(err);
@@ -51,6 +90,41 @@ function Clients() {
       debugger;
       if (res.error === false) {
         dispatch(updateClientsAction(res.data));
+        var tempArr = [];
+        res.data.map((x) => {
+          tempArr.push({
+            ...x,
+            action: (
+              <>
+                <FiEye
+                  onClick={() => (action = "view")}
+                  style={{ color: "blue", cursor: "pointer" }}
+                />
+                <FiEdit
+                  onClick={() => (action = "edit")}
+                  style={{
+                    color: "orange",
+                    marginLeft: "20px",
+                    cursor: "pointer",
+                  }}
+                />
+                <FiTrash
+                  onClick={() => (action = "delete")}
+                  style={{
+                    color: "red",
+                    marginLeft: "20px",
+                    cursor: "pointer",
+                  }}
+                />
+              </>
+            ),
+            clickEvent: setSelectedRow,
+          });
+        });
+        debugger;
+        console.log("eventarr", tempArr);
+        var tempObj = { ...clientsState.clientsDataTable, rows: tempArr };
+        dispatch(updateClientsDataTableAction(tempObj));
       }
     } catch (err) {
       console.log(err);
@@ -60,7 +134,7 @@ function Clients() {
   function handleAddClient() {
     dispatch(updateIsAddClientClickedAction(true));
   }
-  console.log(clientsState);
+  console.log("clientsState", clientsState);
 
   return (
     <>
@@ -78,54 +152,21 @@ function Clients() {
           >
             Add Clients
           </button>
-          <br />
-          <br />
-          <table className="table table-bordered table-hover">
-            <thead className="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Client Name</th>
-                <th scope="col">Client Country</th>
-                <th scope="col"> Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {clientsState.clients &&
-                clientsState.clients.map((client, i) => {
-                  return (
-                    <tr key={client.id} className="clickable text-center">
-                      <th scope="row">{i + 1}</th>
-                      <td>{client.name}</td>
-                      <td>{client.country}</td>
-                      <td>
-                        <span
-                          style={{ cursor: "pointer" , color:"blue" }}
-                          onClick={() => {
-                            handleEdit(client);
-                          }}
-                        >
-                          <FiEdit />
-                        </span>{"   |"}
-                        <span
-                          style={{ cursor: "pointer" , color:"red" }}
-                          onClick={() => {
-                            handleDelete(client);
-                          }}
-                        >
-                          <FiTrash />
-                        </span>{"   |"}
-                        <span
-													style={{ cursor: "pointer", color:"blue" }}
-                          onClick={handleView}
-                        >
-                          <FiEye />
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+
+          <MDBDataTable
+            // striped
+            bordered
+            small
+            displayEntries={false}
+            hover
+            entriesOptions={[5, 20, 25]}
+            entries={10}
+            pagesAmount={4}
+            data={columnsAndRows}
+            // data={clientsState.clientsDatatable}
+            // searchTop
+            // searchBottom={false}
+          />
         </>
       )}
     </>
