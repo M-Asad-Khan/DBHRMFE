@@ -92,33 +92,42 @@ const addclients = ({}) => {
     }
   };
   const doValidation = () => {
-    var tempFieldsWithError = {...fieldsWithError};
+    var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = {...errorInfo};
     debugger;
-    Object.entries(fieldsWithError).forEach((x) => {
-      if (clientsState.newClient[x[0]] == undefined) {
+    
+		Object.entries(fieldsWithError).forEach((x) => {
+      debugger;
+      if (clientsState.newClient[x[0]] !== undefined) {
+        if (clientsState.newClient[x[0]] !== "") {
+          if (x[0] === "email" || x[0] === "phoneNumber") {
+            isError = fieldsWithError[x[0]];
+          } else {
+            tempFieldsWithError[x[0]] = false;
+            tempErrorInfo[x[0]] = null;
+            isError = false;
+          }
+        } else {
+          tempFieldsWithError[x[0]] = true;
+          tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+          isError = true;
+        }
+      } else {
         tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = "field cannot be empty";
+        tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
         isError = true;
-      } else if (clientsState.newClient[x[0]] == "") {
-        tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = "field cannot be empty";
-        isError = true;
-			}else if (fieldsWithError[x[0]] !== "") {
-				tempFieldsWithError[x[0]] = false;
-			}
-			else if (fieldsWithError[x[0]] === true) {
-				isError = true;
-			}
-			else {
-        tempFieldsWithError[x[0]] = false;
       }
     });
-		debugger;
-		console.log("isError",isError)
+    debugger;
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
+    Object.entries(tempFieldsWithError).forEach((x) => {
+      if (x[1] === true) {
+        isError = true;
+      }
+    })
+    console.log("isError", isError);
     return isError;
   };
 
