@@ -9,9 +9,9 @@ import {
 
 const INITIAL_STATE = {
   teams: [],
-  newClient: {},
-  isAddClientClicked: false,
-  isEditClientClicked: false,
+  newTeam: {},
+  isAddTeamClicked: false,
+  isEditTeamClicked: false,
   // employees: [],
   // clients: [],
 };

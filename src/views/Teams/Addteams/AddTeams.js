@@ -7,45 +7,40 @@ import {
   updateIsAddTeamClickedAction,
   updateTeamsAction,
   updateIsEditTeamClickedAction,
-  // updateClientsAction,
-  // updateEmployeesAction
 } from "../../../redux/Teams/teams.actions";
-// import {
-// 		updateClientsAction
-// } from '../../../redux/Clients/clients.actions'
-// import {
-// 	updateEmployeesAction
-// } from '../../../redux/Employees/employees.actions'
+
 import { getClientsApi } from "../../../API/getClientsApi";
 import { getEmployeesApi } from "../../../API/GetEmployeesApi";
-import employees from "src/views/Employees/Index";
+import { addTeamApi } from "../../../API/AddTeamApi";
+
 
 const Addteams = () => {
+  const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
   const teamsState = useSelector((state) => state.teams);
-  // const clients = useSelector((state) => state.clients.clients);
-  // const employees = useSelector((state) => state.employees.employees);
   const [employees, setEmployees] = useState([]);
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
     handleGetEmployeesApi();
     handleGetClientsApi();
-  }, []);
+	}, []);
+	useEffect(() => {
+		if (teamsState.isEditTeamClicked === true) {
+			setTempTeam(teamsState.newTeam)
+		}
+	}, [teamsState.isEditTeamClicked])
+	
   const handleGetClientsApi = async () => {
     try {
       const res = await getClientsApi();
       debugger;
-			if (res.error === false) {
-				var tempArr = [];
-				var tempArr=res.data.map(x => {
-					return({...x,
-						value : x.name,
-						label : x.name
-					})
-					
-				});
-				console.log("tempArr",tempArr)
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.name, label: x.name };
+        });
+        console.log("tempArr", tempArr);
         setClients(tempArr);
       }
     } catch (err) {
@@ -58,15 +53,11 @@ const Addteams = () => {
       const res = await getEmployeesApi();
       debugger;
       if (res.error === false) {
-				var tempArr = [];
-				var tempArr=res.data.map(x => {
-					return({...x,
-						value : x.name,
-						label : x.name
-					})
-					
-				});
-				console.log("tempArr",tempArr)
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.name, label: x.name };
+        });
+        console.log("tempArr", tempArr);
         setEmployees(tempArr);
       }
     } catch (err) {
@@ -77,14 +68,12 @@ const Addteams = () => {
   function handleChange(evt) {
     debugger;
     const value = evt.target.value;
-    dispatch(
-      updateNewTeamAction({
-        ...teamsState.newTeam,
+      setTempTeam({
+        ...tempTeam,
         [evt.target.name]: value,
       })
-    );
-	}
-	
+  }
+
   const handleCancle = () => {
     dispatch(updateNewTeamAction({}));
     dispatch(updateIsAddTeamClickedAction(false));
@@ -94,7 +83,7 @@ const Addteams = () => {
     if (teamsState.isEditTeamClicked === true) {
       try {
         debugger;
-        const res = await updateTeamApi(clientsState.newClient);
+        const res = await updateTeamApi(tempTeam);
         console.log("updateTeam Response", res);
 
         debugger;
@@ -112,7 +101,7 @@ const Addteams = () => {
     } else {
       try {
         debugger;
-        const res = await addTeamApi(teamsState.newTeam);
+        const res = await addTeamApi(tempTeam);
         console.log("addTeamApi Response", res);
 
         debugger;
@@ -122,33 +111,47 @@ const Addteams = () => {
           dispatch(updateTeamsAction([...teamsState.teams, res.data]));
           dispatch(updateIsAddTeamClickedAction(false));
         }
-      } catch (e) {
+			} catch (e) {
+				console.log("error in addTeamApi",e)
         debugger;
       }
     }
   };
-  const options = [
-    { value: "andy", label: "Andy" },
-    { value: "Aysha", label: "Aysha" },
-    { value: "Amna", label: "Amna" },
-    { value: "Nancy", label: "Nancy" },
-    { value: "El", label: "Eleven" },
-    { value: "cadillac", label: "Cadillac" },
-  ];
-  const team = [
-    { value: "Ali", label: "1" },
-    { value: "Amir", label: "2" },
-    { value: "Hussain", label: "3" },
-  ];
-  const employee = [
-    { value: "Asad", label: "1" },
-    { value: "Mubashir", label: "2" },
-    { value: "Wajeeha", label: "3" },
-  ];
+
+  const handleClientSelectChange = (param) => {
+    setTempTeam({
+      ...tempTeam,
+      clientId: param.id,
+    });
+  };
+  const handleProjectManagerSelectChange = (param) => {
+    setTempTeam({
+      ...tempTeam,
+      manager: param.id,
+    });
+  };
+  const handleTeamLeadSelectChange = (param) => {
+    setTempTeam({
+      ...tempTeam,
+      teamLead: param.id,
+    });
+  };
+  const handleEmployeesSelectChange = (param) => {
+		debugger;
+		setTempTeam({
+			...tempTeam,
+			members: param.map((item) => item.id)
+		})
+		// setTempTeam({
+    //   ...tempTeam,
+    //   clientId: param.id,
+    // });
+  };
 
   console.log("teamsState", teamsState);
   console.log("clients", clients);
   console.log("employees", employees);
+  console.log("tempTeam", tempTeam);
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
@@ -179,11 +182,8 @@ const Addteams = () => {
                     <Select
                       id="clientId"
                       name="clientId"
-                      // onChange={}
-                      // className="selectpicker"
-                      // data-style="btn-inverse"
-                      // style="display: none;"
                       options={clients}
+                      onChange={handleClientSelectChange}
                     ></Select>
                   </div>
                 </div>
@@ -192,14 +192,11 @@ const Addteams = () => {
                     <div className="form-group">
                       {" "}
                       <label for="form_need">ProjectManager *</label>
-											<Select
-												id="manager"
-												name="manager"
-                        // onChange={}
-                        // className="selectpicker"
-                        // data-style="btn-inverse"
-                        // style="display: none;"
+                      <Select
+                        id="manager"
+                        name="manager"
                         options={employees}
+                        onChange={handleProjectManagerSelectChange}
                       ></Select>
                     </div>
                   </div>
@@ -208,13 +205,14 @@ const Addteams = () => {
                     {" "}
                     <div className="form-group">
                       {" "}
-                      <label for="form_need">Employees *</label>
-                      <Select
-                        // onChange={}
-                        // className="selectpicker"
-                        // data-style="btn-inverse"
-                        // style="display: none;"
+                      <label for="form_need">Members *</label>
+											<Select
+													isMulti
+												
+                        id="members"
+                        name="members"
                         options={employees}
+                        onChange={handleEmployeesSelectChange}
                       ></Select>
                     </div>
                   </div>
@@ -225,14 +223,11 @@ const Addteams = () => {
                         {" "}
                         <label for="form_need">Team Lead *</label>
 												<Select
-													id="teamLead"
-													name='teamLead'
-                          // className="selectpicker"
-                          // data-style="btn-inverse"
-                          // style="display: none;"
-                          employee={employees}
-                        >
-                        </Select>
+                          id="teamLead"
+                          name="teamLead"
+                          onChange={handleTeamLeadSelectChange}
+                          options={employees}
+                        ></Select>
                       </div>
                     </div>
                     <div className="form-group col-sm-6 flex-column d-flex">
