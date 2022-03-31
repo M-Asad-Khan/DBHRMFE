@@ -3,8 +3,7 @@ import {
   updateIsAddTeamClicked,
   updateTeams,
   updateIsEditTeamClicked,
-	// updateEmployees,
-	// updateClients
+updateTeamsDataTable
 } from "./teams.types";
 
 export const updateNewTeamAction = (params) => {
@@ -34,12 +33,12 @@ export const updateIsEditTeamClickedAction = (params) => {
   };
 };
 
-// export const updateEmployeesAction = (params) => {
-//   return {
-//     type: updateEmployees,
-//     payload: params,
-//   };
-// };
+export const updateTeamsDataTableAction = (params) => {
+  return {
+    type: updateTeamsDataTable,
+    payload: params,
+  };
+};
 
 // export const updateClientsAction = (params) => {
 //   return {

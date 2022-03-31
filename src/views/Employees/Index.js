@@ -71,15 +71,6 @@ function employees() {
       const res = await deleteEmployeeApi(employee.id);
       if (res.error === false) {
         handleGetEmployeeApi();
-       // debugger;
-       // dispatch(
-       //   updateEmployeesAction(
-            //state.employees.filter(
-             // (item) => item.id != employee.id)
-         // )
-       // );
-       // debugger;
-       // console.log(employees);
       }
     } catch (err) {
       console.log(err);

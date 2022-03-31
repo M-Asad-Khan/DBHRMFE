@@ -13,24 +13,32 @@ import { getClientsApi } from "../../../API/getClientsApi";
 import { getEmployeesApi } from "../../../API/GetEmployeesApi";
 import { addTeamApi } from "../../../API/AddTeamApi";
 
-
 const Addteams = () => {
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
   const teamsState = useSelector((state) => state.teams);
   const [employees, setEmployees] = useState([]);
   const [clients, setClients] = useState([]);
+  const [fieldsWithError, setFieldsWithError] = useState({
+    teamName: null,
+    clientId: null,
+    manager: null,
+    members: null,
+    startDate: null,
+    teamLead: null,
+  });
+  const [errorInfo, setErrorInfo] = useState({});
 
   useEffect(() => {
     handleGetEmployeesApi();
     handleGetClientsApi();
-	}, []);
-	useEffect(() => {
-		if (teamsState.isEditTeamClicked === true) {
-			setTempTeam(teamsState.newTeam)
-		}
-	}, [teamsState.isEditTeamClicked])
-	
+  }, []);
+  useEffect(() => {
+    if (teamsState.isEditTeamClicked === true) {
+      setTempTeam(teamsState.newTeam);
+    }
+  }, [teamsState.isEditTeamClicked]);
+
   const handleGetClientsApi = async () => {
     try {
       const res = await getClientsApi();
@@ -68,10 +76,10 @@ const Addteams = () => {
   function handleChange(evt) {
     debugger;
     const value = evt.target.value;
-      setTempTeam({
-        ...tempTeam,
-        [evt.target.name]: value,
-      })
+    setTempTeam({
+      ...tempTeam,
+      [evt.target.name]: value,
+    });
   }
 
   const handleCancle = () => {
@@ -80,42 +88,85 @@ const Addteams = () => {
     dispatch(updateIsEditTeamClickedAction(false));
   };
   const addAndUpdateTeam = async () => {
-    if (teamsState.isEditTeamClicked === true) {
-      try {
-        debugger;
-        const res = await updateTeamApi(tempTeam);
-        console.log("updateTeam Response", res);
-
-        debugger;
-        if (res.error === false) {
+    if (!doValidation()) {
+      if (teamsState.isEditTeamClicked === true) {
+        try {
           debugger;
-          alert("team Updated");
-          let temp = teamsState.teams.filter((item) => item.id != res.data.id);
-          dispatch(updateTeamsAction([...temp, res.data]));
-          dispatch(updateIsAddTeamClickedAction(false));
-          dispatch(updateIsEditTeamClickedAction(false));
-        }
-      } catch (e) {
-        debugger;
-      }
-    } else {
-      try {
-        debugger;
-        const res = await addTeamApi(tempTeam);
-        console.log("addTeamApi Response", res);
+          const res = await updateTeamApi(tempTeam);
+          console.log("updateTeam Response", res);
 
-        debugger;
-        if (res.error === false) {
           debugger;
-          alert("team Created");
-          dispatch(updateTeamsAction([...teamsState.teams, res.data]));
-          dispatch(updateIsAddTeamClickedAction(false));
+          if (res.error === false) {
+            debugger;
+            alert("team Updated");
+            let temp = teamsState.teams.filter(
+              (item) => item.id != res.data.id
+            );
+            dispatch(updateTeamsAction([...temp, res.data]));
+            dispatch(updateIsAddTeamClickedAction(false));
+            dispatch(updateIsEditTeamClickedAction(false));
+          }
+        } catch (e) {
+          debugger;
         }
-			} catch (e) {
-				console.log("error in addTeamApi",e)
-        debugger;
+      } else {
+        try {
+          debugger;
+          const res = await addTeamApi(tempTeam);
+          console.log("addTeamApi Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            alert("team Created");
+            dispatch(updateTeamsAction([...teamsState.teams, res.data]));
+            dispatch(updateIsAddTeamClickedAction(false));
+          }
+        } catch (e) {
+          console.log("error in addTeamApi", e);
+          debugger;
+        }
       }
     }
+  };
+  const doValidation = () => {
+    var tempFieldsWithError = { ...fieldsWithError };
+    var isError = false;
+    var tempErrorInfo = { ...errorInfo };
+    debugger;
+
+    Object.entries(fieldsWithError).forEach((x) => {
+      debugger;
+      if (tempTeam[x[0]] !== undefined) {
+        if (tempTeam[x[0]] !== "") {
+          if (x[0] === "email" || x[0] === "phoneNumber") {
+            isError = fieldsWithError[x[0]];
+          } else {
+            tempFieldsWithError[x[0]] = false;
+            tempErrorInfo[x[0]] = null;
+            isError = false;
+          }
+        } else {
+          tempFieldsWithError[x[0]] = true;
+          tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+          isError = true;
+        }
+      } else {
+        tempFieldsWithError[x[0]] = true;
+        tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+        isError = true;
+      }
+    });
+    debugger;
+    setErrorInfo(tempErrorInfo);
+    setFieldsWithError(tempFieldsWithError);
+    Object.entries(tempFieldsWithError).forEach((x) => {
+      if (x[1] === true) {
+        isError = true;
+      }
+    });
+    console.log("isError", isError);
+    return isError;
   };
 
   const handleClientSelectChange = (param) => {
@@ -137,15 +188,10 @@ const Addteams = () => {
     });
   };
   const handleEmployeesSelectChange = (param) => {
-		debugger;
-		setTempTeam({
-			...tempTeam,
-			members: param.map((item) => item.id)
-		})
-		// setTempTeam({
-    //   ...tempTeam,
-    //   clientId: param.id,
-    // });
+    setTempTeam({
+      ...tempTeam,
+      members: param.map((item) => item.id),
+    });
   };
 
   console.log("teamsState", teamsState);
@@ -171,8 +217,20 @@ const Addteams = () => {
                     type="text"
                     id="teamName"
                     name="teamName"
-                    placeholder=""
+                    placeholder="Enter Team Name"
+                    className={
+                      fieldsWithError.teamName === true ? "redBorder" : ""
+                    }
                   />{" "}
+                  {fieldsWithError.teamName === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.teamName}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
@@ -183,8 +241,20 @@ const Addteams = () => {
                       id="clientId"
                       name="clientId"
                       options={clients}
-                      onChange={handleClientSelectChange}
+											onChange={handleClientSelectChange}
+											className={
+												fieldsWithError.teamName === true ? "redBorder" : ""
+											}
                     ></Select>
+                    {fieldsWithError.clientId === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.clientId}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div className="row justify-content-between text-left">
@@ -196,8 +266,20 @@ const Addteams = () => {
                         id="manager"
                         name="manager"
                         options={employees}
-                        onChange={handleProjectManagerSelectChange}
+												onChange={handleProjectManagerSelectChange}
+												className={
+													fieldsWithError.teamName === true ? "redBorder" : ""
+											}
                       ></Select>
+                      {fieldsWithError.manager === true ? (
+                        <>
+                          <label className="error form-control-label px-3">
+                            {errorInfo.manager}
+                          </label>{" "}
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
 
@@ -206,14 +288,22 @@ const Addteams = () => {
                     <div className="form-group">
                       {" "}
                       <label for="form_need">Members *</label>
-											<Select
-													isMulti
-												
+                      <Select
+                        isMulti
                         id="members"
                         name="members"
                         options={employees}
                         onChange={handleEmployeesSelectChange}
                       ></Select>
+                      {fieldsWithError.members === true ? (
+                        <>
+                          <label className="error form-control-label px-3">
+                            {errorInfo.members}
+                          </label>{" "}
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                   <div className="row justify-content-between text-left">
@@ -222,12 +312,21 @@ const Addteams = () => {
                       <div className="form-group">
                         {" "}
                         <label for="form_need">Team Lead *</label>
-												<Select
+                        <Select
                           id="teamLead"
                           name="teamLead"
                           onChange={handleTeamLeadSelectChange}
                           options={employees}
                         ></Select>
+                        {fieldsWithError.teamLead === true ? (
+                          <>
+                            <label className="error form-control-label px-3">
+                              {errorInfo.teamLead}
+                            </label>{" "}
+                          </>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                     <div className="form-group col-sm-6 flex-column d-flex">
@@ -242,6 +341,15 @@ const Addteams = () => {
                         name="startDate"
                         placeholder="Enter start Date"
                       />{" "}
+                      {fieldsWithError.startDate === true ? (
+                        <>
+                          <label className="error form-control-label px-3">
+                            {errorInfo.startDate}
+                          </label>{" "}
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                   <div className="row justify-content-between text-left">

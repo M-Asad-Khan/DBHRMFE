@@ -64,3 +64,9 @@ button:focus {
     box-shadow: none !important;
     outline-width: 0
 }
+.redBorder{
+	border:1px solid red;
+}
+.error{
+	color:red;
+}

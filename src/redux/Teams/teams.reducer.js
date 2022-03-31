@@ -2,18 +2,40 @@ import {
   updateNewTeam,
   updateIsAddTeamClicked,
   updateTeams,
-  updateIsEditTeamClicked,
-  // updateEmployees,
-  // updateClients,
+	updateIsEditTeamClicked,
+	updateTeamsDataTable
 } from "./teams.types";
 
 const INITIAL_STATE = {
   teams: [],
   newTeam: {},
-  isAddTeamClicked: false,
-  isEditTeamClicked: false,
-  // employees: [],
-  // clients: [],
+  isAddTeamClicked: null,
+	isEditTeamClicked: null,
+	teamsDataTable: {
+    columns: [
+      {
+        label: "Team Name",
+        field: "teamName",
+        width: 270,
+      },
+      {
+        label: "Manager",
+        field: "manager",
+        width: 200,
+			},
+			{
+        label: "Team Lead",
+        field: "teamLead",
+        width: 200,
+      },
+      {
+        label: "Action",
+        field: "action",
+        width: 100,
+      },
+    ],
+    rows: [],
+  },
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -42,18 +64,11 @@ const reducer = (state = INITIAL_STATE, action) => {
         isEditTeamClicked: action.payload,
       };
 
-    // case updateEmployees:
-    //   return {
-    //     ...state,
-    //     employees: action.payload,
-    //   };
-
-    // case updateClients:
-    //   return {
-    //     ...state,
-    //     clients: action.payload,
-    //   };
-
+    case updateTeamsDataTable:
+      return {
+        ...state,
+        teamsDataTable: action.payload,
+      };
     default:
       return state;
   }
