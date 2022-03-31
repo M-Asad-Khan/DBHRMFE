@@ -1,49 +1,72 @@
-import {  updateNewEmployee, updateIsAddEmployeeClicked, updateEmployees, updateIsEditEmployeeClicked } from './employees.types';
-
+import {
+  updateNewEmployee,
+  updateIsAddEmployeeClicked,
+  updateEmployees,
+  updateIsEditEmployeeClicked,
+  updateEmployeesDataTable,
+} from "./employees.types";
 
 const INITIAL_STATE = {
-
-	count: 0,
-	newEmployee: {},
-	isAddEmployeeCicked: false,
-	employees: [],
-	isEditEmployeeClicked:false
+  employees: [],
+  newEmployee: {},
+  isAddEmployeeCicked: null,
+  isEditEmployeeClicked: null,
+  employeesDataTable: {
+    columns: [
+      {
+        label: "Employee Name",
+        field: "name",
+        width: 270,
+      },
+      {
+        label: "Designation",
+        field: "designation",
+        width: 200,
+      },
+      {
+        label: "Action",
+        field: "action",
+        width: 100,
+      },
+    ],
+    rows: [],
+  },
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case updateNewEmployee:
+      return {
+        ...state,
+        newEmployee: action.payload,
+      };
 
-	switch (action.type) {
-		case updateNewEmployee:
+    case updateEmployees:
+      return {
+        ...state,
+        employees: action.payload,
+      };
 
-			return {
-				...state, newEmployee: action.payload
+    case updateIsAddEmployeeClicked:
+      return {
+        ...state,
+        isAddEmployeeCicked: action.payload,
+      };
 
-			};
+    case updateIsEditEmployeeClicked:
+      return {
+        ...state,
+        isEditEmployeeClicked: action.payload,
+      };
+    case updateEmployeesDataTable:
+      return {
+        ...state,
+        employeesDataTable: action.payload,
+      };
 
-		case updateEmployees:
-
-			return {
-				...state, employees: action.payload
-
-			};
-
-		case updateIsAddEmployeeClicked:
-
-			return {
-				...state, isAddEmployeeCicked: action.payload
-
-			};
-		
-			case updateIsEditEmployeeClicked:
-
-				return {
-					...state, isEditEmployeeClicked: action.payload
-	
-				};
-
-		default: return state;
-	}
-
+    default:
+      return state;
+  }
 };
 
 export default reducer;
