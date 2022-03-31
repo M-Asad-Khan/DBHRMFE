@@ -15,21 +15,6 @@ import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 
 const AddEmployee = () => {
   const [fieldsWithError, setFieldsWithError] = useState({
-    name: false,
-    age: false,
-    address: false,
-    dateOfBirth:false,
-    email: false,
-    phoneNumber: false,
-    technology: false,
-    joiningDate:false,
-    designation: false,
-    salary:false,
-    education:false,
-    workExperience:false,
-
-  });
-  const [errorInfo, setErrorInfo] = useState({
     name: null,
     age: null,
     address: null,
@@ -42,7 +27,10 @@ const AddEmployee = () => {
     salary:null,
     education:null,
     workExperience:null,
+    gender:null
+
   });
+  const [errorInfo, setErrorInfo] = useState({  });
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
@@ -104,31 +92,44 @@ const AddEmployee = () => {
     debugger;
   }
 };
-  const doValidation = () => {
-    var tempFieldsWithError = {...fieldsWithError};
-    var isError = false;
-    var tempErrorInfo = {};
+const doValidation = () => {
+  var tempFieldsWithError = { ...fieldsWithError };
+  var isError = false;
+  var tempErrorInfo = {...errorInfo};
+  debugger;
+  Object.entries(fieldsWithError).forEach((x) => {
     debugger;
-    Object.entries(fieldsWithError).forEach((x) => {
-      console.log("entries", x);
-      if (state.newEmployee[x[0]] == undefined) {
-        tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = "field cannot be empty;";
-        isError = true;
-      } else if (state.newEmployee[x[0]] == "") {
-        tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = "field cannot be empty;";
-        isError = true;
+    if (state.newEmployee[x[0]] !== undefined) {
+      if (state.newEmployee[x[0]] !== "") {
+        if (x[0] === "email" || x[0] === "phoneNumber") {
+          isError = fieldsWithError[x[0]];
+        } else {
+          tempFieldsWithError[x[0]] = false;
+          tempErrorInfo[x[0]] = null;
+          isError = false;
+        }
       } else {
-        tempFieldsWithError[x[0]] = false;
+        tempFieldsWithError[x[0]] = true;
+        tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+        isError = true;
       }
-    });
-		debugger;
-    console.log("isError",isError)
-		setErrorInfo(tempErrorInfo)
-    setFieldsWithError(tempFieldsWithError);
-    return isError;
-  };
+    } else {
+      tempFieldsWithError[x[0]] = true;
+      tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+      isError = true;
+    }
+  });
+  debugger;
+  setErrorInfo(tempErrorInfo);
+  setFieldsWithError(tempFieldsWithError);
+  Object.entries(tempFieldsWithError).forEach((x) => {
+    if (x[1] === true) {
+      isError = true;
+    }
+  })
+  console.log("isError", isError);
+  return isError;
+};
   function validateEmail(email) {
     {
       var regx = /\S+@\S+\.\S+/;
