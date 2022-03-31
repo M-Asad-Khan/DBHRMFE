@@ -15,18 +15,18 @@ import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 
 const AddEmployee = () => {
   const [fieldsWithError, setFieldsWithError] = useState({
-    name: null,
-    age: null,
-    address: null,
-    dateOfBirth:null,
-    email: null,
-    phoneNumber: null,
-    technology: null,
-    joiningDate:null,
-    designation: null,
-    salary:null,
-    education:null,
-    workExperience:null,
+    name: false,
+    age: false,
+    address: false,
+    dateOfBirth:false,
+    email: false,
+    phoneNumber: false,
+    technology: false,
+    joiningDate:false,
+    designation: false,
+    salary:false,
+    education:false,
+    workExperience:false,
 
   });
   const [errorInfo, setErrorInfo] = useState({
@@ -73,7 +73,8 @@ const AddEmployee = () => {
         if (res.error === false) {
           debugger;
 					alert("Employee Updated");
-					let temp=state.employees.filter(item=>item.id!=res.data.id)
+					let temp=state.employees.filter
+          (item=>item.id!=res.data.id)
 					dispatch(updateEmployeesAction([...temp, res.data]	));
           dispatch(updateIsAddEmployeeClickedAction(false));
           dispatch(updateIsEditEmployeeClickedAction(false));
@@ -104,31 +105,74 @@ const AddEmployee = () => {
   }
 };
   const doValidation = () => {
-    var tempObj = {};
+    var tempFieldsWithError = {...fieldsWithError};
     var isError = false;
     var tempErrorInfo = {};
     debugger;
     Object.entries(fieldsWithError).forEach((x) => {
       console.log("entries", x);
       if (state.newEmployee[x[0]] == undefined) {
-        tempObj[x[0]] = true;
+        tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty;";
         isError = true;
       } else if (state.newEmployee[x[0]] == "") {
-        tempObj[x[0]] = true;
+        tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = "field cannot be empty;";
         isError = true;
       } else {
-        tempObj[x[0]] = false;
+        tempFieldsWithError[x[0]] = false;
       }
     });
 		debugger;
+    console.log("isError",isError)
 		setErrorInfo(tempErrorInfo)
-    setFieldsWithError(tempObj);
+    setFieldsWithError(tempFieldsWithError);
     return isError;
   };
-	console.log("errorObj", fieldsWithError);
-	console.log("errorObj", errorInfo);
+  function validateEmail(email) {
+    {
+      var regx = /\S+@\S+\.\S+/;
+      if (regx.test(email)) {
+        console.log(true);
+        setFieldsWithError({
+          ...fieldsWithError,
+          email: false,
+        });
+      } else {
+        console.log(false);
+        setFieldsWithError({
+          ...fieldsWithError,
+          email: true,
+        });
+        setErrorInfo({
+          ...errorInfo,
+          email: "You have entered an invalid email address!",
+        });
+      }
+    }
+  }
+  function validateNumberOnly(num) {
+    var reg = new RegExp("^[0-9]*$");
+
+    if (reg.test(num) == false) {
+			console.log(false);
+			setFieldsWithError({
+				...fieldsWithError,
+				phoneNumber: true,
+			});
+			setErrorInfo({
+				...errorInfo,
+				phoneNumber: "only Numbers allowed",
+			});
+		} else {
+			setFieldsWithError({
+				...fieldsWithError,
+				contactNumber: false,
+			});
+		}
+  }
+	console.log("fieldsWithError", fieldsWithError);
+	console.log("errorInfo", errorInfo);
 
 
   return (
@@ -251,6 +295,7 @@ const AddEmployee = () => {
                   id="email"
                   name="email"
                   placeholder=""
+                  onBlur={(e) => validateEmail(e.target.value)}
                 />{" "}
                 {fieldsWithError.email === true ? (
                   <>
@@ -274,6 +319,7 @@ const AddEmployee = () => {
                   id="phoneNumber"
                   name="phoneNumber"
                   placeholder=""
+                  onBlur={e=>validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.phoneNumber === true ? (
                   <>
@@ -366,6 +412,7 @@ const AddEmployee = () => {
                   id="salary"
                   name="salary"
                   placeholder="Enter salary"
+                 
                 />{" "}
                 {fieldsWithError.salary === true ? (
                   <>
