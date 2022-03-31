@@ -1,16 +1,17 @@
 import axios from 'axios';
 
 export const addTeamApi = async (team) => {
+	debugger;
 	return axios({
 		method: 'post',
-		url: 'http://localhost:4000/api/v1/client',
+		url: 'http://localhost:4000/api/v1/teams',
 		headers: {
 			"Content-Type": "application/json; charset=utf-8",
 			"Access-Control-Allow-Origin": "*",
 			mode: "no-cors"
 		},
 		data: {
-			name: team.name,
+			teamName: team.teamName,
 			teamLead: team.teamLead,
 			startDate: team.startDate,
 			clientId: team.clientId,
