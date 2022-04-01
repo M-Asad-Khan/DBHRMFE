@@ -120,7 +120,9 @@ const Addteams = () => {
             debugger;
             alert("team Created");
             dispatch(updateTeamsAction([...teamsState.teams, res.data]));
-            dispatch(updateIsAddTeamClickedAction(false));
+						dispatch(updateIsAddTeamClickedAction(false));
+						dispatch(updateIsEditTeamClickedAction(false));
+
           }
         } catch (e) {
           console.log("error in addTeamApi", e);
@@ -192,7 +194,10 @@ const Addteams = () => {
       ...tempTeam,
       members: param.map((item) => item.id),
     });
-  };
+	};
+	const findc = () => {
+		return { label: "Select Dept", value: 0 };
+	}
 
   console.log("teamsState", teamsState);
   console.log("clients", clients);
@@ -212,7 +217,7 @@ const Addteams = () => {
                     Team Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
-                    // value={teamsState.newTeam.teamName}
+                    value={tempTeam.teamName}
                     onChange={handleChange}
                     type="text"
                     id="teamName"
@@ -238,13 +243,14 @@ const Addteams = () => {
                     {" "}
                     <label for="form_need">Client *</label>
                     <Select
+                      defaultValue={findc}
                       id="clientId"
                       name="clientId"
                       options={clients}
-											onChange={handleClientSelectChange}
-											className={
-												fieldsWithError.teamName === true ? "redBorder" : ""
-											}
+                      onChange={handleClientSelectChange}
+                      className={
+                        fieldsWithError.teamName === true ? "redBorder" : ""
+                      }
                     ></Select>
                     {fieldsWithError.clientId === true ? (
                       <>
@@ -266,10 +272,10 @@ const Addteams = () => {
                         id="manager"
                         name="manager"
                         options={employees}
-												onChange={handleProjectManagerSelectChange}
-												className={
-													fieldsWithError.teamName === true ? "redBorder" : ""
-											}
+                        onChange={handleProjectManagerSelectChange}
+                        className={
+                          fieldsWithError.teamName === true ? "redBorder" : ""
+                        }
                       ></Select>
                       {fieldsWithError.manager === true ? (
                         <>

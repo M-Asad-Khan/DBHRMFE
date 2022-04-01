@@ -79,7 +79,8 @@ const AddEmployee = () => {
           if (res.error === false) {
             alert("Employee Created");
             dispatch(updateEmployeesAction([...state.employees, res.data]));
-            dispatch(updateIsAddEmployeeClickedAction(false));
+						dispatch(updateIsAddEmployeeClickedAction(false));
+						dispatch(updateIsEditEmployeeClickedAction(false));
           }
         } catch (e) {
           debugger;
@@ -155,7 +156,6 @@ const AddEmployee = () => {
     var reg = new RegExp("^[0-9]*$");
 
 		if (reg.test(num) == false) {
-      console.log("if");
       setFieldsWithError({
         ...fieldsWithError,
         phoneNumber: true,
@@ -165,7 +165,6 @@ const AddEmployee = () => {
         phoneNumber: "only Numbers allowed",
       });
 		} else {
-			console.log("ELSE")
       setFieldsWithError({
         ...fieldsWithError,
         phoneNumber: false,

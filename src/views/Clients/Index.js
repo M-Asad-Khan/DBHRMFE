@@ -8,7 +8,9 @@ import {
   updateClientsDataTableAction,
 } from "../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
-import Addclients from "./Addclients/AddClients";
+import ViewClient from "./ViewClient/ViewClient";
+
+import Addclients from "./Addclient/AddClient";
 import { getClientsApi } from "../../API/getClientsApi";
 import { deleteClientApi } from "src/API/DeleteClientApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
@@ -138,8 +140,11 @@ function Clients() {
 
   return (
     <>
-      {clientsState.isAddClientClicked === true ||
-      clientsState.isEditClientClicked === true ? (
+			{
+				true ? (
+        <ViewClient />
+      ) : clientsState.isAddClientClicked === true ||
+        clientsState.isEditClientClicked === true ? (
         <>
           <Addclients />
         </>

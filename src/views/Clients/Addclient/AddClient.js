@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./addclients.css";
+import "./addclient.css";
 import {
   updateNewClientAction,
   updateClientsAction,
@@ -101,7 +101,7 @@ const addclients = ({}) => {
       debugger;
       if (clientsState.newClient[x[0]] !== undefined) {
         if (clientsState.newClient[x[0]] !== "") {
-          if (x[0] === "email" || x[0] === "phoneNumber") {
+          if (x[0] === "email" || x[0] === "contactNumber") {
             isError = fieldsWithError[x[0]];
           } else {
             tempFieldsWithError[x[0]] = false;

@@ -31,6 +31,7 @@ function employees() {
       state.isAddEmployeeClicked === false ||
       state.isEditEmployeeClicked === false
     ) {
+			debugger;
       handleGetEmployeeApi();
     }
   }, [ state.isAddEmployeeClicked, state.isEditEmployeeClicked]);
