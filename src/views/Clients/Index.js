@@ -5,7 +5,8 @@ import {
   updateIsAddClientClickedAction,
   updateClientsAction,
   updateIsEditClientClickedAction,
-  updateClientsDataTableAction,
+	updateClientsDataTableAction,
+	updateIsViewClickedAction
 } from "../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
 import ViewClient from "./ViewClient/ViewClient";
@@ -83,8 +84,10 @@ function Clients() {
     dispatch(updateNewClientAction(client));
     dispatch(updateIsEditClientClickedAction(true));
   };
-  const handleView = () => {
-    debugger;
+  const handleView = (client) => {
+		debugger;
+		dispatch(updateIsViewClickedAction(true))
+		dispatch(updateNewClientAction(client))
   };
   const handleGetClientsApi = async () => {
     try {
@@ -141,12 +144,12 @@ function Clients() {
   return (
     <>
 			{
-				true ? (
+				clientsState.isViewClicked ? (
         <ViewClient />
       ) : clientsState.isAddClientClicked === true ||
         clientsState.isEditClientClicked === true ? (
         <>
-          <Addclients />
+          <Addclients />	
         </>
       ) : (
         <>
@@ -161,7 +164,7 @@ function Clients() {
           <MDBDataTable
             // striped
             bordered
-            small
+            // small
             displayEntries={false}
             hover
             entriesOptions={[5, 20, 25]}

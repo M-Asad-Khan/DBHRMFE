@@ -118,7 +118,9 @@ function Teams() {
                 />
               </>
             ),
-            clickEvent: setSelectedRow,
+						clickEvent: setSelectedRow,
+						managerName:x.managerName.name,
+						teamLeadName:x.teamLeadName.name
           });
         });
         debugger;
@@ -156,7 +158,7 @@ function Teams() {
           <MDBDataTable
             // striped
             bordered
-            small
+            // small
             displayEntries={false}
             hover
             entriesOptions={[5, 20, 25]}

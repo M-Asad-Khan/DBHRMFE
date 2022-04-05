@@ -12,12 +12,14 @@ import {
 import { getClientsApi } from "../../../API/getClientsApi";
 import { getEmployeesApi } from "../../../API/GetEmployeesApi";
 import { addTeamApi } from "../../../API/AddTeamApi";
+import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
 
 const Addteams = () => {
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
   const teamsState = useSelector((state) => state.teams);
   const [employees, setEmployees] = useState([]);
+  const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
   const [clients, setClients] = useState([]);
   const [fieldsWithError, setFieldsWithError] = useState({
     teamName: null,
@@ -35,10 +37,31 @@ const Addteams = () => {
   }, []);
   useEffect(() => {
     if (teamsState.isEditTeamClicked === true) {
+			debugger;
+			// handleGetTeamMembers(teamsState.newTeam.id);
       setTempTeam(teamsState.newTeam);
     }
   }, [teamsState.isEditTeamClicked]);
 
+	const handleGetTeamMembers = async (teamId) => {
+    try {
+      const res = await getTeamMembersApi(teamId);
+			debugger;
+			var arr=[]
+      if (res.error === false) {
+				debugger;
+				res.data.map((employee) => {
+					arr.push({
+						label: employee.name,
+						value: employee.name
+					})
+				})
+				setSelectedTeamMembers(arr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleGetClientsApi = async () => {
     try {
       const res = await getClientsApi();
@@ -120,9 +143,8 @@ const Addteams = () => {
             debugger;
             alert("team Created");
             dispatch(updateTeamsAction([...teamsState.teams, res.data]));
-						dispatch(updateIsAddTeamClickedAction(false));
-						dispatch(updateIsEditTeamClickedAction(false));
-
+            dispatch(updateIsAddTeamClickedAction(false));
+            dispatch(updateIsEditTeamClickedAction(false));
           }
         } catch (e) {
           console.log("error in addTeamApi", e);
@@ -194,15 +216,12 @@ const Addteams = () => {
       ...tempTeam,
       members: param.map((item) => item.id),
     });
-	};
-	const findc = () => {
-		return { label: "Select Dept", value: 0 };
-	}
+  };
 
   console.log("teamsState", teamsState);
   console.log("clients", clients);
   console.log("employees", employees);
-  console.log("tempTeam", tempTeam);
+  console.log("tempTeam", tempTeam.managerName);
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
@@ -243,7 +262,7 @@ const Addteams = () => {
                     {" "}
                     <label for="form_need">Client *</label>
                     <Select
-                      defaultValue={findc}
+                      // defaultValue={}
                       id="clientId"
                       name="clientId"
                       options={clients}
@@ -268,7 +287,12 @@ const Addteams = () => {
                     <div className="form-group">
                       {" "}
                       <label for="form_need">ProjectManager *</label>
+                      {tempTeam.managerName}
                       <Select
+                        defaultValue={{
+                          label: teamsState.newTeam.managerName,
+                          value: teamsState.newTeam.managerName,
+                        }}
                         id="manager"
                         name="manager"
                         options={employees}
@@ -294,7 +318,8 @@ const Addteams = () => {
                     <div className="form-group">
                       {" "}
                       <label for="form_need">Members *</label>
-                      <Select
+											<Select
+												defaultValue={selectedTeamMembers}
                         isMulti
                         id="members"
                         name="members"
@@ -318,7 +343,11 @@ const Addteams = () => {
                       <div className="form-group">
                         {" "}
                         <label for="form_need">Team Lead *</label>
-                        <Select
+												<Select
+													 defaultValue={{
+														label: teamsState.newTeam.teamLeadName,
+														value: teamsState.newTeam.teamLeadName,
+													}}
                           id="teamLead"
                           name="teamLead"
                           onChange={handleTeamLeadSelectChange}

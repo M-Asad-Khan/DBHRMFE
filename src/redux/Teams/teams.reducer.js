@@ -20,12 +20,12 @@ const INITIAL_STATE = {
       },
       {
         label: "Manager",
-        field: "manager",
+        field: "managerName",
         width: 200,
 			},
 			{
         label: "Team Lead",
-        field: "teamLead",
+        field: "teamLeadName",
         width: 200,
       },
       {
