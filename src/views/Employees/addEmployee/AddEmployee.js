@@ -59,7 +59,7 @@ const AddEmployee = ({}) => {
       })
     );
   }
-  const handleCancle = () => {
+  const handleCancel = () => {
     dispatch(updateNewEmployeeAction({}));
     dispatch(updateIsAddEmployeeClickedAction(false));
     dispatch(updateIsEditEmployeeClickedAction(false));
@@ -554,7 +554,7 @@ const AddEmployee = ({}) => {
               <div className="form-group col-sm-6 ">
                 <button
                   className="btn-block btn-primary"
-                  onClick={handleCancle}
+                  onClick={handleCancel}
                 >
                   Cancel
                 </button>
