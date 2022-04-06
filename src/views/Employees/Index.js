@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
-import AddEmployee from "./addEmployee/AddEmployee";
+
 import {
   updateNewEmployeeAction,
   updateIsAddEmployeeClickedAction,
   updateEmployeesAction,
   updateIsEditEmployeeClickedAction,
-  updateEmployeesDataTableAction
+  updateEmployeesDataTableAction,
+  updateIsViewClickedAction
+
 } from "../../redux/Employees/employees.actions";
 import { useSelector, useDispatch } from "react-redux";
+
+import ViewEmployee from "./ViewEmployee/ViewEmployee";
+
+import AddEmployee from "./addEmployee/AddEmployee";
 import { getEmployeesApi } from "src/API/GetEmployeesApi";
 import { deleteEmployeeApi } from "src/API/DeleteEmployeeApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
@@ -19,8 +25,8 @@ function employees() {
   debugger;
   var action = "";
 
-  const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
+  const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
@@ -82,8 +88,10 @@ function employees() {
     dispatch(updateNewEmployeeAction(employee));
     dispatch(updateIsEditEmployeeClickedAction(true));
   };
-  const handleView = () => {
+  const handleView = (employee) => {
 		debugger;
+    dispatch(updateIsViewClickedAction(true))
+    dispatch(updateNewEmployeeAction(employee))
   }; 
   const handleGetEmployeeApi = async () => {
     try {
@@ -138,7 +146,9 @@ function employees() {
   console.log("state:", state);
   return (
 		<>
-      {state.isAddEmployeeCicked === true ||
+    {state.isViewClicked ?(
+      <ViewEmployee />
+    ):state.isAddEmployeeCicked === true ||
       state.isEditEmployeeClicked === true ? (
         <AddEmployee />
       ) : (
