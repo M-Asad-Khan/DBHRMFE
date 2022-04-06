@@ -65,10 +65,10 @@ function Teams() {
     console.log("action", action);
   }
 
-  const handleDelete = async (client) => {
+  const handleDelete = async (team) => {
     debugger;
     try {
-      const res = await deleteTeamsApi(client.id);
+      const res = await deleteTeamsApi(team.id);
       if (res.error === false) {
         handleGetTeamsApi();
       }
@@ -76,9 +76,9 @@ function Teams() {
       console.log(err);
     }
   };
-  const handleEdit = (client) => {
+  const handleEdit = (team) => {
     debugger;
-    dispatch(updateNewTeamAction(client));
+    dispatch(updateNewTeamAction(team));
     dispatch(updateIsEditTeamClickedAction(true));
   };
   const handleView = () => {

@@ -1,20 +1,19 @@
 import axios from "axios";
 
-export const updateTeamApi = async (team) => {
+export const addTeamMembersApi = async (team) => {
   debugger;
   return axios({
-    method: "patch",
-    url: `http://localhost:4000/api/v1/teams/${team.id}`,
+    method: "post",
+    url: `http://localhost:4000/api/v1/teams-member/`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Access-Control-Allow-Origin": "*",
       mode: "no-cors",
     },
     data: {
-      teamName: team.teamName,
-      teamLead: team.teamLead,
-      startDate: team.startDate,
-      manager: team.manager,
+      teamId: team.id,
+      members: team.members,
+      clientId: team.clientId,
     },
   })
     .then((result) => {
