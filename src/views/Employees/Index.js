@@ -6,8 +6,7 @@ import {
   updateEmployeesAction,
   updateIsEditEmployeeClickedAction,
   updateEmployeesDataTableAction,
-  updateIsViewClickedAction
-
+  updateIsViewClickedAction,
 } from "../../redux/Employees/employees.actions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,9 +18,7 @@ import { deleteEmployeeApi } from "src/API/DeleteEmployeeApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 
-
 function employees() {
-
   debugger;
   var action = "";
 
@@ -37,10 +34,10 @@ function employees() {
       state.isAddEmployeeClicked === false ||
       state.isEditEmployeeClicked === false
     ) {
-			debugger;
+      debugger;
       handleGetEmployeeApi();
     }
-  }, [ state.isAddEmployeeClicked, state.isEditEmployeeClicked]);
+  }, [state.isAddEmployeeClicked, state.isEditEmployeeClicked]);
 
   useEffect(() => {
     debugger;
@@ -70,7 +67,6 @@ function employees() {
     console.log("rowData", rowData);
     console.log("action", action);
   }
-  
 
   const handleDelete = async (employee) => {
     debugger;
@@ -89,10 +85,10 @@ function employees() {
     dispatch(updateIsEditEmployeeClickedAction(true));
   };
   const handleView = (employee) => {
-		debugger;
-    dispatch(updateIsViewClickedAction(true))
-    dispatch(updateNewEmployeeAction(employee))
-  }; 
+    debugger;
+    dispatch(updateIsViewClickedAction(true));
+    dispatch(updateNewEmployeeAction(employee));
+  };
   const handleGetEmployeeApi = async () => {
     try {
       const res = await getEmployeesApi();
@@ -139,41 +135,43 @@ function employees() {
       console.log(err);
     }
   };
-	
-		function handleAddEmployee() {
-			dispatch(updateIsAddEmployeeClickedAction(true));
-		}
+
+  function handleAddEmployee() {
+    dispatch(updateIsAddEmployeeClickedAction(true));
+  }
   console.log("state:", state);
   return (
-		<>
-    {state.isViewClicked ?(
-      <ViewEmployee />
-    ):state.isAddEmployeeCicked === true ||
-      state.isEditEmployeeClicked === true ? (
+    <>
+      {state.isViewClicked ? (
+        <ViewEmployee />
+      ) : state.isAddEmployeeCicked === true ||
+        state.isEditEmployeeClicked === true ? (
         <AddEmployee />
       ) : (
         <>
-          <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={handleAddEmployee}
-          >
-            Add Employee
-          </button>
-          <MDBDataTable
-            // striped
-            bordered
-            small
-            displayEntries={false}
-            hover
-            entriesOptions={[5, 20, 25]}
-            entries={10}
-            pagesAmount={4}
-            data={columnsAndRows}
-            // data={clientsState.clientsDatatable}
-            // searchTop
-            // searchBottom={false}
-          />
+          <div className="card">
+            <button
+              type="button"
+              className="btn btn-outline-primary col-sm-2"
+              onClick={handleAddEmployee}
+            >
+              Add Employee
+            </button>
+            <MDBDataTable
+              // striped
+              bordered
+              // small
+              displayEntries={false}
+              hover
+              entriesOptions={[5, 20, 25]}
+              entries={5}
+              pagesAmount={4}
+              data={columnsAndRows}
+              // data={clientsState.clientsDatatable}
+              // searchTop
+              // searchBottom={false}
+            />
+          </div>
         </>
       )}
     </>

@@ -152,10 +152,10 @@ function Clients() {
           <Addclients />	
         </>
       ) : (
-        <>
+        <div className="card">
           <button
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary col-sm-2"
             onClick={handleAddClient}
           >
             Add Clients
@@ -168,14 +168,14 @@ function Clients() {
             displayEntries={false}
             hover
             entriesOptions={[5, 20, 25]}
-            entries={10}
+            entries={5}
             pagesAmount={4}
             data={columnsAndRows}
             // data={clientsState.clientsDatatable}
             // searchTop
             // searchBottom={false}
           />
-        </>
+        </div>
       )}
     </>
   );
