@@ -10,9 +10,11 @@ import {
   updateTeamsAction,
   updateIsEditTeamClickedAction,
   updateTeamsDataTableAction,
+  updateIsViewClickedAction
 } from "../../redux/Teams/teams.actions";
 import { getTeamsApi } from "src/API/GetTeamsApi";
 import { deleteTeamsApi } from "src/API/DeleteTeamsApi";
+import ViewTeam from "./ViewTeam/ViewTeam";
 
 function Teams() {
   debugger;
@@ -81,8 +83,10 @@ function Teams() {
     dispatch(updateNewTeamAction(team));
     dispatch(updateIsEditTeamClickedAction(true));
   };
-  const handleView = () => {
+  const handleView = (team) => {
     debugger;
+    dispatch(updateIsViewClickedAction(true))
+    dispatch(updateNewTeamAction(team))
   };
   const handleGetTeamsApi = async () => {
     try {
@@ -140,7 +144,13 @@ function Teams() {
 
   return (
     <>
-      {teamsState.isAddTeamClicked === true ||
+      {
+        teamsState.isViewClicked ?(
+          <ViewTeam />
+        ):
+      
+      
+      teamsState.isAddTeamClicked === true ||
       teamsState.isEditTeamClicked === true ? (
         <>
           <AddTeams />

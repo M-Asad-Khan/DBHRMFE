@@ -24,7 +24,7 @@ const ViewEmployee = () => {
     technology: "react",
     updatedAt: "2022-04-01T06:34:56..385Z",
   };
-  const handleCancle = () => {
+  const handleCancel = () => {
     dispatch(updateIsViewClickedAction(false));
     dispatch(updateNewEmployeeAction({}));
   };
@@ -46,7 +46,7 @@ const ViewEmployee = () => {
               <div className="">
                 <button
                   className="btn btn-outline-primary"
-                  onClick={handleCancle}
+                  onClick={handleCancel}
                 >
                   <IoArrowBackSharp />
                 </button>
@@ -98,6 +98,18 @@ const ViewEmployee = () => {
               </div>
               <div className="col-lg-6 border-left">
                 <h1>Contact Details</h1>
+                <h5 className="" style={{ color: "dimgrey" }}>
+								Phone Number:{state.newEmployee.phoneNumber}
+                </h5>
+                <h5 className="" style={{ color: "dimgrey" }}>
+								Address:{state.newEmployee.address}
+                </h5>
+                <h5 className="" style={{ color: "dimgrey" }}>
+								Email:{state.newEmployee.email}
+                </h5>
+              </div>
+              <div className="col-lg-6 border-left">
+                <h1>Employee History</h1>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								Phone Number:{state.newEmployee.phoneNumber}
                 </h5>

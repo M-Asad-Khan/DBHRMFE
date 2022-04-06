@@ -3,7 +3,8 @@ import {
   updateIsAddTeamClicked,
   updateTeams,
 	updateIsEditTeamClicked,
-	updateTeamsDataTable
+	updateTeamsDataTable,
+  updateIsViewClicked
 } from "./teams.types";
 
 const INITIAL_STATE = {
@@ -69,6 +70,11 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         teamsDataTable: action.payload,
       };
+      case updateIsViewClicked:
+				return {
+					...state,
+					isViewClicked: action.payload,
+				};
     default:
       return state;
   }

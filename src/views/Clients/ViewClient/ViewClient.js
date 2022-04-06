@@ -24,7 +24,7 @@ const ViewClient = () => {
     technology: "react",
     updatedAt: "2022-04-01T06:34:56..385Z",
   };
-  const handleCancle = () => {
+  const handleCancel = () => {
     dispatch(updateIsViewClickedAction(false));
     dispatch(updateNewClientAction({}));
   };
@@ -46,7 +46,7 @@ const ViewClient = () => {
               <div className="">
                 <button
                   className="btn btn-outline-primary"
-                  onClick={handleCancle}
+                  onClick={handleCancel}
                 >
                   <IoArrowBackSharp />
                 </button>

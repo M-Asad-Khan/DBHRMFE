@@ -42,7 +42,7 @@ const addclients = ({}) => {
       })
     );
   }
-  const handleCancle = () => {
+  const handleCancel = () => {
     dispatch(updateNewClientAction({}));
     dispatch(updateIsAddClientClickedAction(false));
     dispatch(updateIsEditClientClickedAction(false));
@@ -387,9 +387,9 @@ const addclients = ({}) => {
               <div className="form-group col-sm-6 ">
                 <button
                   className="btn-block btn-primary"
-                  onClick={handleCancle}
+                  onClick={handleCancel}
                 >
-                  Cancle
+                  Cancel
                 </button>
               </div>
               <div className="form-group col-sm-6 ">

@@ -118,7 +118,7 @@ const Addteams = () => {
     });
   }
 
-  const handleCancle = () => {
+  const handleCancel = () => {
     dispatch(updateNewTeamAction({}));
     dispatch(updateIsAddTeamClickedAction(false));
     dispatch(updateIsEditTeamClickedAction(false));
@@ -447,7 +447,7 @@ const Addteams = () => {
                     <div className="form-group col-sm-6 ">
                       <button
                         className="btn-block btn-primary"
-                        onClick={handleCancle}
+                        onClick={handleCancel}
                       >
                         Cancel
                       </button>
