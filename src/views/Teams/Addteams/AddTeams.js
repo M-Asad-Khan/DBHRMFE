@@ -13,13 +13,17 @@ import { getClientsApi } from "../../../API/getClientsApi";
 import { getEmployeesApi } from "../../../API/GetEmployeesApi";
 import { addTeamApi } from "../../../API/AddTeamApi";
 import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
+import { addTeamMembersApi } from "src/API/AddTeamMembersApi";
+import { updateTeamApi } from "src/API/UpdateTeamApi";
 
 const Addteams = () => {
+  //var selectedTeamMembers = [];
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
   const teamsState = useSelector((state) => state.teams);
   const [employees, setEmployees] = useState([]);
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
+  const [selectedClient, setSelectedClient] = useState({});
   const [clients, setClients] = useState([]);
   const [fieldsWithError, setFieldsWithError] = useState({
     teamName: null,
@@ -37,26 +41,35 @@ const Addteams = () => {
   }, []);
   useEffect(() => {
     if (teamsState.isEditTeamClicked === true) {
-			debugger;
-			// handleGetTeamMembers(teamsState.newTeam.id);
+      debugger;
+      handleGetTeamMembers(teamsState.newTeam.id);
       setTempTeam(teamsState.newTeam);
     }
-  }, [teamsState.isEditTeamClicked]);
+  }, []);
 
-	const handleGetTeamMembers = async (teamId) => {
+  const handleGetTeamMembers = async (teamId) => {
     try {
       const res = await getTeamMembersApi(teamId);
-			debugger;
-			var arr=[]
+      debugger;
+      var arr = [];
+      var tempClient;
       if (res.error === false) {
-				debugger;
-				res.data.map((employee) => {
-					arr.push({
-						label: employee.name,
-						value: employee.name
-					})
-				})
-				setSelectedTeamMembers(arr);
+        debugger;
+        res.data.map((item) => {
+          tempClient = item.client;
+          console.log("item", item);
+          arr.push({
+            label: item.employee.name,
+            value: item.employee.name,
+            id: item.employee.id,
+          });
+        });
+        setSelectedTeamMembers(arr);
+        setSelectedClient({
+          label: tempClient.name,
+          value: tempClient.name,
+          id: tempClient.id,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -112,6 +125,7 @@ const Addteams = () => {
   };
   const addAndUpdateTeam = async () => {
     if (!doValidation()) {
+      var apiError = false;
       if (teamsState.isEditTeamClicked === true) {
         try {
           debugger;
@@ -126,11 +140,42 @@ const Addteams = () => {
               (item) => item.id != res.data.id
             );
             dispatch(updateTeamsAction([...temp, res.data]));
-            dispatch(updateIsAddTeamClickedAction(false));
-            dispatch(updateIsEditTeamClickedAction(false));
+            // dispatch(updateIsAddTeamClickedAction(false));
+            // dispatch(updateIsEditTeamClickedAction(false));
           }
-        } catch (e) {
+				} catch (err) {
+					apiError = true;
+          alert("err in update team", err);
+          console.log("err in update team", err);
           debugger;
+        }
+
+        // for team member and client
+        try {
+          debugger;
+          const res = await addTeamMembersApi(tempTeam);
+          console.log("updateTeam Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            alert("team Updated");
+            // let temp = teamsState.teams.filter(
+            //   (item) => item.id != res.data.id
+            // );
+            // dispatch(updateTeamsAction([...temp, res.data]));
+            // dispatch(updateIsAddTeamClickedAction(false));
+            // dispatch(updateIsEditTeamClickedAction(false));
+          }
+				} catch (e) {
+					apiError = true;
+          alert("err in update team-members", err);
+          console.log("err in update team-members", err);
+          debugger;
+        }
+        if (apiError === false) {
+          dispatch(updateIsAddTeamClickedAction(false));
+          dispatch(updateIsEditTeamClickedAction(false));
         }
       } else {
         try {
@@ -198,6 +243,7 @@ const Addteams = () => {
       ...tempTeam,
       clientId: param.id,
     });
+    setSelectedClient(param);
   };
   const handleProjectManagerSelectChange = (param) => {
     setTempTeam({
@@ -212,17 +258,18 @@ const Addteams = () => {
     });
   };
   const handleEmployeesSelectChange = (param) => {
+    debugger;
     setTempTeam({
       ...tempTeam,
       members: param.map((item) => item.id),
     });
+    setSelectedTeamMembers(param);
   };
-
   console.log("teamsState", teamsState);
-  console.log("clients", clients);
-  console.log("employees", employees);
-  console.log("tempTeam", tempTeam.managerName);
+  console.log("tempTeam", tempTeam);
 
+  console.log("selectedClient", selectedClient);
+  console.log("selectedTeamMembers", selectedTeamMembers);
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
@@ -262,7 +309,8 @@ const Addteams = () => {
                     {" "}
                     <label for="form_need">Client *</label>
                     <Select
-                      // defaultValue={}
+                      // defaultValue={selectedClient}
+                      value={selectedClient}
                       id="clientId"
                       name="clientId"
                       options={clients}
@@ -318,8 +366,16 @@ const Addteams = () => {
                     <div className="form-group">
                       {" "}
                       <label for="form_need">Members *</label>
-											<Select
-												defaultValue={selectedTeamMembers}
+                      <Select
+                        // value={selectedTeamMembers.map((member) => {
+                        // 	return (
+                        // 		{
+                        // 			label: member.label,
+                        // 			value: member.value,
+                        // 			 }
+                        // 		 )
+                        // })}
+                        value={selectedTeamMembers}
                         isMulti
                         id="members"
                         name="members"
@@ -343,11 +399,11 @@ const Addteams = () => {
                       <div className="form-group">
                         {" "}
                         <label for="form_need">Team Lead *</label>
-												<Select
-													 defaultValue={{
-														label: teamsState.newTeam.teamLeadName,
-														value: teamsState.newTeam.teamLeadName,
-													}}
+                        <Select
+                          defaultValue={{
+                            label: teamsState.newTeam.teamLeadName,
+                            value: teamsState.newTeam.teamLeadName,
+                          }}
                           id="teamLead"
                           name="teamLead"
                           onChange={handleTeamLeadSelectChange}
