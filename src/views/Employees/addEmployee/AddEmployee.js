@@ -233,7 +233,7 @@ const AddEmployee = ({}) => {
                   id="age"
                   name="age"
                   placeholder="Enter your age"
-                  onBlur={(e) => validateNumberOnly(e.target.value)}
+                  // onBlur={(e) => validateNumberOnly(e.target.value)}
                 />{" "}
                 {fieldsWithError.age === true ? (
                   <>

@@ -15,6 +15,7 @@ import { addTeamApi } from "../../../API/AddTeamApi";
 import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
 import { addTeamMembersApi } from "src/API/AddTeamMembersApi";
 import { updateTeamApi } from "src/API/UpdateTeamApi";
+import { deleteTeamMemberApi } from "src/API/DeleteTeamMemberApi";
 
 const Addteams = () => {
   //var selectedTeamMembers = [];
@@ -143,8 +144,11 @@ const Addteams = () => {
             // dispatch(updateIsAddTeamClickedAction(false));
             // dispatch(updateIsEditTeamClickedAction(false));
           }
-				} catch (err) {
-					apiError = true;
+          if (res.error === true) {
+            apiError = true;
+          }
+        } catch (err) {
+          apiError = true;
           alert("err in update team", err);
           console.log("err in update team", err);
           debugger;
@@ -160,15 +164,12 @@ const Addteams = () => {
           if (res.error === false) {
             debugger;
             alert("team Updated");
-            // let temp = teamsState.teams.filter(
-            //   (item) => item.id != res.data.id
-            // );
-            // dispatch(updateTeamsAction([...temp, res.data]));
-            // dispatch(updateIsAddTeamClickedAction(false));
-            // dispatch(updateIsEditTeamClickedAction(false));
           }
-				} catch (e) {
-					apiError = true;
+          if (res.error === true) {
+            apiError = true;
+          }
+        } catch (e) {
+          apiError = true;
           alert("err in update team-members", err);
           console.log("err in update team-members", err);
           debugger;
@@ -263,7 +264,26 @@ const Addteams = () => {
       ...tempTeam,
       members: param.map((item) => item.id),
     });
+
+    if (teamsState.isEditTeamClicked == true) {
+      var empToDelete = selectedTeamMembers.filter(
+        (item) => param.indexOf(item) === -1
+      );
+      if (empToDelete.length > 0) {
+        handleDeleteTeamMember(teamsState.newTeam.id, empToDelete[0].id);
+      }
+      console.log(empToDelete);
+    }
+    console.log(selectedTeamMembers);
     setSelectedTeamMembers(param);
+  };
+
+  const handleDeleteTeamMember = async (teamId, member) => {
+    debugger;
+    var res = await deleteTeamMemberApi(teamId, member);
+    if (res.error === false) {
+      console.log("team member removed", res.data);
+    }
   };
   console.log("teamsState", teamsState);
   console.log("tempTeam", tempTeam);

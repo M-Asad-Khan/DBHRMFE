@@ -146,13 +146,13 @@ function Teams() {
           <AddTeams />
         </>
       ) : (
-        <>
+        <div className="card">
           <button
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary col-sm-2"
             onClick={handleAddClient}
           >
-            Add teams
+            Add team
           </button>
 
           <MDBDataTable
@@ -169,7 +169,7 @@ function Teams() {
             // searchTop
             // searchBottom={false}
           />
-        </>
+        </div>
       )}
     </>
   );
