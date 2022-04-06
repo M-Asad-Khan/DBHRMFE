@@ -4,6 +4,7 @@ import {
   updateEmployees,
   updateIsEditEmployeeClicked,
   updateEmployeesDataTable,
+  updateIsViewClicked,
 } from "./employees.types";
 
 const INITIAL_STATE = {
@@ -31,6 +32,7 @@ const INITIAL_STATE = {
     ],
     rows: [],
   },
+  isViewClicked:null
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -63,6 +65,11 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         employeesDataTable: action.payload,
       };
+      case updateIsViewClicked:
+				return {
+					...state,
+					isViewClicked: action.payload,
+				};
 
     default:
       return state;

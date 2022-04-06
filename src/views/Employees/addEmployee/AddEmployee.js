@@ -13,8 +13,24 @@ import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 
 // import backIcon from '/src/assets/back-icon.png'
 
-const AddEmployee = () => {
+const AddEmployee = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
+    name: false,
+    age: false,
+    address: false,
+    dateOfBirth: false,
+    email: false,
+    phoneNumber: false,
+    technology: false,
+    joiningDate: false,
+    designation: false,
+    salary:false,
+    education:false,
+    workExperience:false,
+    gender:false
+
+  });
+  const [errorInfo, setErrorInfo] = useState({ 
     name: null,
     age: null,
     address: null,
@@ -29,8 +45,7 @@ const AddEmployee = () => {
     workExperience:null,
     gender:null
 
-  });
-  const [errorInfo, setErrorInfo] = useState({  });
+   });
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
@@ -105,7 +120,7 @@ const AddEmployee = () => {
             isError = fieldsWithError[x[0]];
           } else {
             tempFieldsWithError[x[0]] = false;
-            tempErrorInfo[x[0]] = null;
+            tempErrorInfo[x[0]] = false;
             isError = false;
           }
         } else {
