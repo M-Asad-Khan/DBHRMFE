@@ -186,14 +186,15 @@ const AddEmployee = ({}) => {
       });
     }
   }
-  console.log("fieldsWithError", fieldsWithError);
-  console.log("errorInfo", errorInfo);
+  // console.log("fieldsWithError", fieldsWithError);
+	// console.log("errorInfo", errorInfo);
+	console.log("state", state);
+	
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
         <div className="card">
-          {state.newEmployee.id}
           <div className="form-card">
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -282,7 +283,7 @@ const AddEmployee = ({}) => {
                   className={
                     fieldsWithError.dateOfBirth === true ? "redBorder" : ""
                   }
-                  value={state.newEmployee.dateOfBirth}
+                  value={state.newEmployee.dateOfBirth.slice(0,10)}
                   onChange={handleChange}
                   type="date"
                   id="dateOfBirth"

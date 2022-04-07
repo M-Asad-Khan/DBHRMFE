@@ -296,53 +296,156 @@ const Addteams = () => {
         <div className="card">
           <div className="form-card">
             <div className="row justify-content-between text-left">
+              <div className="form-group col-sm-6 flex-column d-flex">
+                {" "}
+                <label className="form-control-label px-3">
+                  Team Name<span className="text-danger"> *</span>
+                </label>{" "}
+                <input
+                  value={tempTeam.teamName}
+                  onChange={handleChange}
+                  type="text"
+                  id="teamName"
+                  name="teamName"
+                  placeholder="Enter Team Name"
+                  className={
+                    fieldsWithError.teamName === true ? "redBorder" : ""
+                  }
+                />{" "}
+                {fieldsWithError.teamName === true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.teamName}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label px-3">
+                  Client<span className="text-danger"> *</span>
+                </label>{" "}
+                <Select
+                  // defaultValue={selectedClient}
+                  value={selectedClient}
+                  id="clientId"
+                  name="clientId"
+                  options={clients}
+                  onChange={handleClientSelectChange}
+                  className={
+                    fieldsWithError.teamName === true ? "redBorder" : ""
+                  }
+                ></Select>
+                {fieldsWithError.clientId === true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.clientId}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
-                    Team Name<span className="text-danger"> *</span>
+                    Project Manager <span className="text-danger"> *</span>
                   </label>{" "}
-                  <input
-                    value={tempTeam.teamName}
-                    onChange={handleChange}
-                    type="text"
-                    id="teamName"
-                    name="teamName"
-                    placeholder="Enter Team Name"
+                  <Select
+                    defaultValue={{
+                      label: teamsState.newTeam.managerName,
+                      value: teamsState.newTeam.managerName,
+                    }}
+                    id="manager"
+                    name="manager"
+                    options={employees}
+                    onChange={handleProjectManagerSelectChange}
                     className={
                       fieldsWithError.teamName === true ? "redBorder" : ""
                     }
-                  />{" "}
-                  {fieldsWithError.teamName === true ? (
+                  ></Select>
+                  {fieldsWithError.manager === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.teamName}
+                        {errorInfo.manager}
                       </label>{" "}
                     </>
                   ) : (
                     ""
                   )}
                 </div>
+
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <div className="form-group">
+                  <label className="form-control-label px-3">
+                    Members<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    value={selectedTeamMembers}
+                    isMulti
+                    id="members"
+                    name="members"
+                    options={employees}
+                    onChange={handleEmployeesSelectChange}
+                  ></Select>
+                  {fieldsWithError.members === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.members}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
                     {" "}
-                    <label for="form_need">Client *</label>
-                    <Select
-                      // defaultValue={selectedClient}
-                      value={selectedClient}
-                      id="clientId"
-                      name="clientId"
-                      options={clients}
-                      onChange={handleClientSelectChange}
-                      className={
-                        fieldsWithError.teamName === true ? "redBorder" : ""
+                    <div className="form-group">
+                      {" "}
+                      <label for="form_need">Team Lead *</label>
+                      <Select
+                        defaultValue={{
+                          label: teamsState.newTeam.teamLeadName,
+                          value: teamsState.newTeam.teamLeadName,
+                        }}
+                        id="teamLead"
+                        name="teamLead"
+                        onChange={handleTeamLeadSelectChange}
+                        options={employees}
+                      ></Select>
+                      {fieldsWithError.teamLead === true ? (
+                        <>
+                          <label className="error form-control-label px-3">
+                            {errorInfo.teamLead}
+                          </label>{" "}
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    {" "}
+                    <label className="form-control-label px-3">
+                      Enter Start Date<span className="text-danger"> *</span>
+                    </label>{" "}
+                    <input
+                      value={
+                        tempTeam &&
+                        tempTeam.startDate &&
+                        tempTeam.startDate.slice(0, 10)
                       }
-                    ></Select>
-                    {fieldsWithError.clientId === true ? (
+                      onChange={handleChange}
+                      type="date"
+                      id="startDate"
+                      name="startDate"
+                      placeholder="Enter start Date"
+                    />{" "}
+                    {fieldsWithError.startDate === true ? (
                       <>
                         <label className="error form-control-label px-3">
-                          {errorInfo.clientId}
+                          {errorInfo.startDate}
                         </label>{" "}
                       </>
                     ) : (
@@ -351,137 +454,23 @@ const Addteams = () => {
                   </div>
                 </div>
                 <div className="row justify-content-between text-left">
-                  <div className="form-group col-sm-6 flex-column d-flex">
-                    <div className="form-group">
-                      {" "}
-                      <label for="form_need">ProjectManager *</label>
-                      {tempTeam.managerName}
-                      <Select
-                        defaultValue={{
-                          label: teamsState.newTeam.managerName,
-                          value: teamsState.newTeam.managerName,
-                        }}
-                        id="manager"
-                        name="manager"
-                        options={employees}
-                        onChange={handleProjectManagerSelectChange}
-                        className={
-                          fieldsWithError.teamName === true ? "redBorder" : ""
-                        }
-                      ></Select>
-                      {fieldsWithError.manager === true ? (
-                        <>
-                          <label className="error form-control-label px-3">
-                            {errorInfo.manager}
-                          </label>{" "}
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                  <div className="form-group col-sm-6 ">
+                    <button
+                      className="btn-block btn-primary"
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
                   </div>
-
-                  <div className="form-group col-sm-6 flex-column d-flex">
-                    {" "}
-                    <div className="form-group">
-                      {" "}
-                      <label for="form_need">Members *</label>
-                      <Select
-                        // value={selectedTeamMembers.map((member) => {
-                        // 	return (
-                        // 		{
-                        // 			label: member.label,
-                        // 			value: member.value,
-                        // 			 }
-                        // 		 )
-                        // })}
-                        value={selectedTeamMembers}
-                        isMulti
-                        id="members"
-                        name="members"
-                        options={employees}
-                        onChange={handleEmployeesSelectChange}
-                      ></Select>
-                      {fieldsWithError.members === true ? (
-                        <>
-                          <label className="error form-control-label px-3">
-                            {errorInfo.members}
-                          </label>{" "}
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
-                  <div className="row justify-content-between text-left">
-                    <div className="form-group col-sm-6 flex-column d-flex">
-                      {" "}
-                      <div className="form-group">
-                        {" "}
-                        <label for="form_need">Team Lead *</label>
-                        <Select
-                          defaultValue={{
-                            label: teamsState.newTeam.teamLeadName,
-                            value: teamsState.newTeam.teamLeadName,
-                          }}
-                          id="teamLead"
-                          name="teamLead"
-                          onChange={handleTeamLeadSelectChange}
-                          options={employees}
-                        ></Select>
-                        {fieldsWithError.teamLead === true ? (
-                          <>
-                            <label className="error form-control-label px-3">
-                              {errorInfo.teamLead}
-                            </label>{" "}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </div>
-                    <div className="form-group col-sm-6 flex-column d-flex">
-                      {" "}
-                      <label className="form-control-label px-3">
-                        Enter Start Date<span className="text-danger"> *</span>
-                      </label>{" "}
-                      <input
-                        onChange={handleChange}
-                        type="date"
-                        id="startDate"
-                        name="startDate"
-                        placeholder="Enter start Date"
-                      />{" "}
-                      {fieldsWithError.startDate === true ? (
-                        <>
-                          <label className="error form-control-label px-3">
-                            {errorInfo.startDate}
-                          </label>{" "}
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
-                  <div className="row justify-content-between text-left">
-                    <div className="form-group col-sm-6 ">
-                      <button
-                        className="btn-block btn-primary"
-                        onClick={handleCancel}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                    <div className="form-group col-sm-6 ">
-                      <button
-                        className="btn-block btn-primary"
-                        onClick={addAndUpdateTeam}
-                      >
-                        {teamsState.isEditTeamClicked
-                          ? "Update Team"
-                          : "Add Team"}
-                      </button>
-                    </div>
+                  <div className="form-group col-sm-6 ">
+                    <button
+                      className="btn-block btn-primary"
+                      onClick={addAndUpdateTeam}
+                    >
+                      {teamsState.isEditTeamClicked
+                        ? "Update Team"
+                        : "Add Team"}
+                    </button>
                   </div>
                 </div>
               </div>
