@@ -1,13 +1,14 @@
-import React, { Suspense } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
-import { CContainer, CSpinner } from '@coreui/react'
+import React, { Suspense } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { CContainer, CSpinner } from "@coreui/react";
 
 // routes config
-import routes from '../routes'
+import routes from "../routes";
 
 const AppContent = () => {
   return (
-    <CContainer lg>
+    // <CContainer lg>
+    <div className="pl-4 pr-4">
       <Suspense fallback={<CSpinner color="primary" />}>
         <Switch>
           {routes.map((route, idx) => {
@@ -25,13 +26,14 @@ const AppContent = () => {
                   )}
                 />
               )
-            )
+            );
           })}
           <Redirect from="/" to="/dashboard" />
         </Switch>
       </Suspense>
-    </CContainer>
-  )
-}
+    </div>
+    // </CContainer>
+  );
+};
 
-export default React.memo(AppContent)
+export default React.memo(AppContent);

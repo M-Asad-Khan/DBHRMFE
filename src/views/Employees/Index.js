@@ -158,18 +158,14 @@ function employees() {
               Add Employee
             </button>
             <MDBDataTable
-              // striped
+              className="mdbDataTableDesign"
               bordered
-              // small
               displayEntries={false}
               hover
               entriesOptions={[5, 20, 25]}
               entries={5}
               pagesAmount={4}
               data={columnsAndRows}
-              // data={clientsState.clientsDatatable}
-              // searchTop
-              // searchBottom={false}
             />
           </div>
         </>

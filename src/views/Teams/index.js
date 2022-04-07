@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import AddTeams from "./Addteams/AddTeams";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import {
   updateTeamsAction,
   updateIsEditTeamClickedAction,
   updateTeamsDataTableAction,
-  updateIsViewClickedAction
+  updateIsViewClickedAction,
 } from "../../redux/Teams/teams.actions";
 import { getTeamsApi } from "src/API/GetTeamsApi";
 import { deleteTeamsApi } from "src/API/DeleteTeamsApi";
@@ -85,8 +85,8 @@ function Teams() {
   };
   const handleView = (team) => {
     debugger;
-    dispatch(updateIsViewClickedAction(true))
-    dispatch(updateNewTeamAction(team))
+    dispatch(updateIsViewClickedAction(true));
+    dispatch(updateNewTeamAction(team));
   };
   const handleGetTeamsApi = async () => {
     try {
@@ -122,9 +122,9 @@ function Teams() {
                 />
               </>
             ),
-						clickEvent: setSelectedRow,
-						managerName:x.managerName.name,
-						teamLeadName:x.teamLeadName.name
+            clickEvent: setSelectedRow,
+            managerName: x.managerName.name,
+            teamLeadName: x.teamLeadName.name,
           });
         });
         debugger;
@@ -144,14 +144,10 @@ function Teams() {
 
   return (
     <>
-      {
-        teamsState.isViewClicked ?(
-          <ViewTeam />
-        ):
-      
-      
-      teamsState.isAddTeamClicked === true ||
-      teamsState.isEditTeamClicked === true ? (
+      {teamsState.isViewClicked ? (
+        <ViewTeam />
+      ) : teamsState.isAddTeamClicked === true ||
+        teamsState.isEditTeamClicked === true ? (
         <>
           <AddTeams />
         </>
@@ -166,18 +162,14 @@ function Teams() {
           </button>
 
           <MDBDataTable
-            // striped
+            className="mdbDataTableDesign"
             bordered
-            // small
             displayEntries={false}
             hover
             entriesOptions={[5, 20, 25]}
             entries={10}
             pagesAmount={4}
             data={columnsAndRows}
-            // data={teamsState.teamsDatatable}
-            // searchTop
-            // searchBottom={false}
           />
         </div>
       )}

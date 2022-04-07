@@ -4,24 +4,23 @@ body {
   height: 100%;
   background-image: url("https://i.imgur.com/GMmCQHC.png");
   background-repeat: no-repeat;
-  background-size: 100% 100%
+  background-size: 100% 100%;
 }
 
 .card {
   padding: 30px 40px;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   margin-bottom: 60px;
   border: none !important;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2)
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
-
 .blue-text {
-  color: #00BCD4
+  color: #00bcd4;
 }
 
 .form-control-label {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 input,
@@ -33,7 +32,7 @@ button {
   box-sizing: border-box;
   border: 1px solid #ccc;
   font-size: 18px !important;
-  font-weight: 300
+  font-weight: 300;
 }
 
 input:focus,
@@ -41,9 +40,9 @@ textarea:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid #00BCD4;
+  border: 1px solid #00bcd4;
   outline-width: 0;
-  font-weight: 400
+  font-weight: 400;
 }
 
 .btn-block {
@@ -51,23 +50,23 @@ textarea:focus {
   font-size: 15px !important;
   font-weight: 400;
   height: 43px;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .btn-block:hover {
-  color: #fff !important
+  color: #fff !important;
 }
 
 button:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  outline-width: 0
+  outline-width: 0;
 }
 
-.redBorder{
-	border:1px solid red;
+.redBorder {
+  border: 1px solid red;
 }
-.error{
-	color:red;
+.error {
+  color: red;
 }
