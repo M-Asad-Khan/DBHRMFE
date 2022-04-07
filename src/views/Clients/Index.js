@@ -5,8 +5,8 @@ import {
   updateIsAddClientClickedAction,
   updateClientsAction,
   updateIsEditClientClickedAction,
-	updateClientsDataTableAction,
-	updateIsViewClickedAction
+  updateClientsDataTableAction,
+  updateIsViewClickedAction,
 } from "../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
 import ViewClient from "./ViewClient/ViewClient";
@@ -85,9 +85,9 @@ function Clients() {
     dispatch(updateIsEditClientClickedAction(true));
   };
   const handleView = (client) => {
-		debugger;
-		dispatch(updateIsViewClickedAction(true))
-		dispatch(updateNewClientAction(client))
+    debugger;
+    dispatch(updateIsViewClickedAction(true));
+    dispatch(updateNewClientAction(client));
   };
   const handleGetClientsApi = async () => {
     try {
@@ -143,16 +143,15 @@ function Clients() {
 
   return (
     <>
-			{
-				clientsState.isViewClicked ? (
-        <ViewClient />
+      {clientsState.isViewClicked ? (
+        <ViewClient/>
       ) : clientsState.isAddClientClicked === true ||
         clientsState.isEditClientClicked === true ? (
         <>
-          <Addclients />	
+          <Addclients/>
         </>
       ) : (
-        <div className="card">
+        <div className="card mt-0">
           <button
             type="button"
             className="btn btn-outline-primary col-sm-2"
@@ -162,18 +161,15 @@ function Clients() {
           </button>
 
           <MDBDataTable
-            // striped
+            className="mdbDataTableDesign"
+            infoLabel={["Showing", "to", "of", "clients"]}
             bordered
-            // small
             displayEntries={false}
             hover
             entriesOptions={[5, 20, 25]}
             entries={5}
             pagesAmount={4}
             data={columnsAndRows}
-            // data={clientsState.clientsDatatable}
-            // searchTop
-            // searchBottom={false}
           />
         </div>
       )}

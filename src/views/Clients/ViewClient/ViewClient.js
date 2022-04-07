@@ -11,32 +11,10 @@ const ViewClient = () => {
   const clientsState = useSelector((state) => state.clients);
 
   const dispatch = useDispatch();
-
-  const client = {
-    contactNumber: "123123123",
-    country: "usa",
-    createdAt: "2022-04-01T06:34:56.385Z",
-    email: "client1@loki.com",
-    gender: "male",
-    id: "aa1c8701-f0b5-435f-87c7-4c09837f1d1c",
-    name: "client 1",
-    project: "Dbhrm",
-    technology: "react",
-    updatedAt: "2022-04-01T06:34:56..385Z",
-  };
   const handleCancel = () => {
     dispatch(updateIsViewClickedAction(false));
     dispatch(updateNewClientAction({}));
   };
-  // 	contactNumber: "123123123"
-  // country: "usa"
-  // createdAt: "2022-04-01T06:34:56.385Z"
-  // email: "client1@loki.com"
-  // gender: "male"
-  // id: "aa1c8701-f0b5-435f-87c7-4c09837f1d1c"
-  // name: "client 1"
-  // project: "Dbhrm"
-  // technology: "react" IoChevronBackCircleOutline
   return (
     <>
       <div className="container-fluid px-1 py-5 mx-auto">
@@ -56,7 +34,7 @@ const ViewClient = () => {
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
+                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
                     data-holder-rendered="true"
                   />
                 </div>
