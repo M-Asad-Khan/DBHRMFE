@@ -63,23 +63,34 @@ const ViewClient = () => {
              
              
                 <h1  className="border-bottom">Personal Details</h1>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                 <FiUser className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
-								gender:{clientsState.newClient.gender}
+                <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+								gender:
                 </h5>
                 </div>
+                <div>{clientsState.newClient.gender}</div>
+                </div>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <AiOutlineFundProjectionScreen className="icon-design"/>
-               <h5 className="" style={{ color: "dimgrey" }}>
-                    project:{clientsState.newClient.project}
-                  </h5>
+               <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    project:
+                    </h5>
+                    </div>
+                    <div>{clientsState.newClient.project}</div>
+                  
                   </div>
+                  <div className="d-flex justify-content-between">
                   <div className="d-flex">
                   <RiSettings2Line className="icon-design"/>
-                  <h5 className="" style={{ color: "dimgrey" }}>
-                    technology:{clientsState.newClient.technology}
-                  </h5>
+                  <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    technology:
+                    </h5>
+                    </div>
+                    <div>{clientsState.newClient.technology}</div>
+                  
                   </div>
               </div>
             
@@ -90,11 +101,16 @@ const ViewClient = () => {
                 <div className="row d-flex justify-content-center">
 
                 <h1 className="border-bottom">Contact Details</h1>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                 <BsGlobe className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
-								country:{clientsState.newClient.country}
+                <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+								country:
                 </h5>
+                </div>
+                
+                <div>{clientsState.newClient.country}</div>
+               
                 </div>
 
               </div></div>
@@ -107,11 +123,16 @@ const ViewClient = () => {
                 <div className="row d-flex justify-content-center">
 
                 <h1 className="border-bottom">Team Details</h1>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                 <BsGlobe className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
-								country:{clientsState.newClient.country}
+                <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+								country:
                 </h5>
+                </div>
+                
+                <div>{clientsState.newClient.country}</div>
+                
                 </div>
               </div></div>
              

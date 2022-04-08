@@ -59,11 +59,15 @@ const ViewTeam = () => {
                <div className="card" style={{height: "338px"}}>
                
                 <h1 className="border-bottom">Team Members</h1>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <FaUsers className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
-								Team Members:{teamsState.newTeam.Member}
+								Team Members:
                 </h5>
+                </div>
+               <div> {teamsState.newTeam.Member}</div>
+               
                 </div>
               </div>
               
@@ -75,23 +79,34 @@ const ViewTeam = () => {
                 <div className="row d-flex justify-content-center">
 
                 <h1 className="border-bottom">Team Details</h1>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <GrUserManager className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
-								Project Manager:{teamsState.newTeam.projectManager}
+                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+								Project Manager:
                 </h5>
                 </div>
+                <div>{teamsState.newTeam.projectManager}</div>
+                </div>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <RiTeamLine className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
-								Team Lead:{teamsState.newTeam.teamLead}
+                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+								Team Lead:
                 </h5>
                 </div>
+                <div>{teamsState.newTeam.teamLead}</div>
+               
+                </div>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <BsCalendar2Date className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
-								Start Date:{teamsState.newTeam.startDate}
+                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+								Start Date:
                 </h5>
+                </div>
+                <div>{teamsState?.newTeam?.startDate?.slice(0,10)}</div>
+                
                 </div>
                 </div></div>
               </div>
