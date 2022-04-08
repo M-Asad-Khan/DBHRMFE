@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addEmployeeApi } from "src/API/AddEmployeeApi";
 import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 
-
 // import backIcon from '/src/assets/back-icon.png'
 
 const AddEmployee = ({}) => {
@@ -24,28 +23,12 @@ const AddEmployee = ({}) => {
     technology: false,
     joiningDate: false,
     designation: false,
-    salary:false,
-    education:false,
-    workExperience:false,
-    gender:false
-
+    salary: false,
+    education: false,
+    workExperience: false,
+    gender: false,
   });
-  const [errorInfo, setErrorInfo] = useState({ 
-    name: null,
-    age: null,
-    address: null,
-    dateOfBirth: null,
-    email: null,
-    phoneNumber: null,
-    technology: null,
-    joiningDate: null,
-    designation: null,
-    salary:null,
-    education:null,
-    workExperience:null,
-    gender:null
-
-   });
+  const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
@@ -94,8 +77,8 @@ const AddEmployee = ({}) => {
           if (res.error === false) {
             alert("Employee Created");
             dispatch(updateEmployeesAction([...state.employees, res.data]));
-						dispatch(updateIsAddEmployeeClickedAction(false));
-						dispatch(updateIsEditEmployeeClickedAction(false));
+            dispatch(updateIsAddEmployeeClickedAction(false));
+            dispatch(updateIsEditEmployeeClickedAction(false));
           }
         } catch (e) {
           debugger;
@@ -109,10 +92,10 @@ const AddEmployee = ({}) => {
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
-    var tempErrorInfo = {...errorInfo};
+    var tempErrorInfo = { ...errorInfo };
     debugger;
-    
-		Object.entries(fieldsWithError).forEach((x) => {
+
+    Object.entries(fieldsWithError).forEach((x) => {
       debugger;
       if (state.newEmployee[x[0]] !== undefined) {
         if (state.newEmployee[x[0]] !== "") {
@@ -141,7 +124,7 @@ const AddEmployee = ({}) => {
       if (x[1] === true) {
         isError = true;
       }
-    })
+    });
     console.log("isError", isError);
     return isError;
   };
@@ -170,7 +153,7 @@ const AddEmployee = ({}) => {
   function validateNumberOnly(num) {
     var reg = new RegExp("^[0-9]*$");
 
-		if (reg.test(num) == false) {
+    if (reg.test(num) == false) {
       setFieldsWithError({
         ...fieldsWithError,
         phoneNumber: true,
@@ -179,7 +162,7 @@ const AddEmployee = ({}) => {
         ...errorInfo,
         phoneNumber: "only Numbers allowed",
       });
-		} else {
+    } else {
       setFieldsWithError({
         ...fieldsWithError,
         phoneNumber: false,
@@ -187,9 +170,8 @@ const AddEmployee = ({}) => {
     }
   }
   // console.log("fieldsWithError", fieldsWithError);
-	// console.log("errorInfo", errorInfo);
-	console.log("state", state);
-	
+  // console.log("errorInfo", errorInfo);
+  console.log("state", state);
 
   return (
     <div className="container-fluid px-1 py-5 mx-auto">
@@ -283,7 +265,7 @@ const AddEmployee = ({}) => {
                   className={
                     fieldsWithError.dateOfBirth === true ? "redBorder" : ""
                   }
-                  value={state.newEmployee.dateOfBirth.slice(0,10)}
+                  value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
                   onChange={handleChange}
                   type="date"
                   id="dateOfBirth"

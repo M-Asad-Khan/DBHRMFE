@@ -10,7 +10,7 @@ import {
 const INITIAL_STATE = {
   employees: [],
   newEmployee: {},
-  isAddEmployeeCicked: null,
+  isAddEmployeeClicked: null,
   isEditEmployeeClicked: null,
   employeesDataTable: {
     columns: [
@@ -52,7 +52,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case updateIsAddEmployeeClicked:
       return {
         ...state,
-        isAddEmployeeCicked: action.payload,
+        isAddEmployeeClicked: action.payload,
       };
 
     case updateIsEditEmployeeClicked:

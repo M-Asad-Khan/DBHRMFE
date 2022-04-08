@@ -17,17 +17,21 @@ import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
+import { updateShowSidebarAction } from 'src/redux/AppSidebar/appSidebar.actions'
 
 const AppHeader = () => {
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+	const dispatch = useDispatch()
+	const showSidebar = useSelector((state) => state.appSidebar.showSidebar);
+
+  // const sidebarShow = useSelector((state) => state.sidebarShow)
 
   return (
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
         <CHeaderToggler
-          className="ps-1"
-          onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
+					className="ps-1"
+					onClick={()=>{dispatch(updateShowSidebarAction(!showSidebar))}}
+          // onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>

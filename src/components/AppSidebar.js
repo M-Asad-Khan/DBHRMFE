@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler } from '@coreui/react'
@@ -14,17 +14,20 @@ import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
 import navigation from '../_nav'
+import { updateShowSidebarAction } from 'src/redux/AppSidebar/appSidebar.actions'
 
 const AppSidebar = () => {
-  const dispatch = useDispatch()
-  const unfoldable = useSelector((state) => state.sidebarUnfoldable)
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+	const dispatch = useDispatch()
+	const appSidebarState = useSelector((state) => state.appSidebar);
 
+  // const unfoldable = useSelector((state) => state.sidebarUnfoldable)
+  // const sidebarShow = useSelector((state) => state.sidebarShow)
+	console.log(appSidebarState)
   return (
     <CSidebar
       position="fixed"
-      unfoldable={unfoldable}
-      visible={sidebarShow}
+      // unfoldable
+      visible={appSidebarState.showSidebar}
       onVisibleChange={(visible) => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
@@ -39,8 +42,10 @@ const AppSidebar = () => {
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler
-        className="d-none d-lg-flex"
-        onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+				className="d-none d-lg-flex"
+				onClick={() => { debugger; dispatch(updateShowSidebarAction(!appSidebarState.showSidebar)); debugger; }}
+				
+        // onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
       />
     </CSidebar>
   )

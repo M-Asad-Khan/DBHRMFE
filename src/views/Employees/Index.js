@@ -144,7 +144,7 @@ function employees() {
     <>
       {state.isViewClicked ? (
         <ViewEmployee />
-      ) : state.isAddEmployeeCicked === true ||
+      ) : state.isAddEmployeeClicked === true ||
         state.isEditEmployeeClicked === true ? (
         <AddEmployee />
       ) : (
