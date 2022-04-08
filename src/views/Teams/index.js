@@ -152,7 +152,7 @@ function Teams() {
           <AddTeams />
         </>
       ) : (
-        <div className="card">
+        <div className="card mt-0">
           <button
             type="button"
             className="btn btn-outline-primary col-sm-2"

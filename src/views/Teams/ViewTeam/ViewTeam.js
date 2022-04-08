@@ -6,7 +6,10 @@ import {
   updateNewTeamAction,
 } from "src/redux/Teams/teams.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
-
+import { FaUsers } from "react-icons/fa";
+import { GrUserManager } from "react-icons/gr";
+import { RiTeamLine } from "react-icons/ri";
+import { BsCalendar2Date } from "react-icons/bs";
 const ViewTeam = () => {
   const teamsState = useSelector((state) => state.teams);
 
@@ -22,6 +25,7 @@ const ViewTeam = () => {
     <>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
+        <div className="col-sm-12">
           <div className="card">
             <div className="">
               <div className="">
@@ -31,6 +35,7 @@ const ViewTeam = () => {
                 >
                   <IoArrowBackSharp />
                 </button>
+              </div>
               </div>
               <div className="form-card">
                 <div className="d-flex">
@@ -46,30 +51,53 @@ const ViewTeam = () => {
                  
                 </div>
               </div>
+              </div>
+              </div>
             </div>
-            <div className="row mt-5 mb-5">
-              <div className="col-lg-6 border-left">
-                <h1>Team Members</h1>
+            <div className="row">
+              <div className="col-sm-4">
+               <div className="card" style={{height: "338px"}}>
+               
+                <h1 className="border-bottom">Team Members</h1>
+                <div className="d-flex">
+                  <FaUsers className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								Team Members:{teamsState.newTeam.Member}
                 </h5>
+                </div>
               </div>
-              <div className="col-lg-6 border-left">
-                <h1>Team Details</h1>
+              
+              </div>
+
+
+             <div className="col-sm-4">
+                <div className="card" style={{height: "338px"}}>
+                <div className="row d-flex justify-content-center">
+
+                <h1 className="border-bottom">Team Details</h1>
+                <div className="d-flex">
+                  <GrUserManager className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								Project Manager:{teamsState.newTeam.projectManager}
                 </h5>
+                </div>
+                <div className="d-flex">
+                  <RiTeamLine className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								Team Lead:{teamsState.newTeam.teamLead}
                 </h5>
+                </div>
+                <div className="d-flex">
+                  <BsCalendar2Date className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								Start Date:{teamsState.newTeam.startDate}
                 </h5>
+                </div>
+                </div></div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        
     </>
   );
 };

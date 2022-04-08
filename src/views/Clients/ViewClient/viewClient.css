@@ -3,4 +3,11 @@
 }
 .borer-left{
 	border:1px solid left;
+}.icon-design{
+	margin-right: 9px;
+	margin-top: 6px;
+}
+.border-bottom{
+	border-bottom:2px solid dimgray;
+	margin-bottom: 20px;
 }

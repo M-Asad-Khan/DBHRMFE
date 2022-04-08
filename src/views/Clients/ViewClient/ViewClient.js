@@ -6,6 +6,10 @@ import {
   updateNewClientAction,
 } from "src/redux/Clients/clients.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
+import { FiUser } from "react-icons/fi";
+import { RiSettings2Line } from "react-icons/ri";
+import { AiOutlineFundProjectionScreen } from "react-icons/ai";
+import { BsGlobe } from "react-icons/bs";
 
 const ViewClient = () => {
   const clientsState = useSelector((state) => state.clients);
@@ -19,6 +23,7 @@ const ViewClient = () => {
     <>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
+          <div className="col-sm-12">
           <div className="card">
             <div className="">
               <div className="">
@@ -29,6 +34,8 @@ const ViewClient = () => {
                   <IoArrowBackSharp />
                 </button>
               </div>
+              </div>
+              
               <div className="form-card">
                 <div className="d-flex">
                   <img
@@ -36,38 +43,83 @@ const ViewClient = () => {
                     alt="100x100"
                     src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
                     data-holder-rendered="true"
-                  />
+                    />
                 </div>
                 <div className="text-center">
-                  <h1>Name:{clientsState.newClient.name}</h1>
+                  <h1>{clientsState.newClient.name}</h1>
                   <h5 className="mx-auto" style={{ color: "dimgrey" }}>
-                    email:{clientsState.newClient.email}
+                    {clientsState.newClient.email}
                   </h5>
-                  <h5 className="mx-auto" style={{ color: "dimgrey" }}>
-                    project:{clientsState.newClient.project}
-                  </h5>
-                  <h5 className="mx-auto" style={{ color: "dimgrey" }}>
-                    technology:{clientsState.newClient.technology}
-                  </h5>
+                  
                 </div>
               </div>
             </div>
-            <div className="row mt-5 mb-5">
-              <div className="col-lg-6 border-left">
-                <h1>Personal Details</h1>
+        </div>
+                    </div>
+
+                <div className="row">
+              <div className="col-sm-4">
+               <div className="card" style={{height: "338px"}}>
+             
+             
+                <h1  className="border-bottom">Personal Details</h1>
+                <div className="d-flex">
+                <FiUser className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								gender:{clientsState.newClient.gender}
                 </h5>
+                </div>
+                <div className="d-flex">
+                  <AiOutlineFundProjectionScreen className="icon-design"/>
+               <h5 className="" style={{ color: "dimgrey" }}>
+                    project:{clientsState.newClient.project}
+                  </h5>
+                  </div>
+                  <div className="d-flex">
+                  <RiSettings2Line className="icon-design"/>
+                  <h5 className="" style={{ color: "dimgrey" }}>
+                    technology:{clientsState.newClient.technology}
+                  </h5>
+                  </div>
               </div>
-              <div className="col-lg-6 border-left">
-                <h1>Contact Details</h1>
+            
+              </div>
+             
+              <div className="col-sm-4">
+                <div className="card" style={{height: "338px"}}>
+                <div className="row d-flex justify-content-center">
+
+                <h1 className="border-bottom">Contact Details</h1>
+                <div className="d-flex">
+                <BsGlobe className="icon-design"/>
                 <h5 className="" style={{ color: "dimgrey" }}>
 								country:{clientsState.newClient.country}
                 </h5>
-              </div>
+                </div>
+
+              </div></div>
+             
             </div>
-          </div>
-        </div>
+
+
+            <div className="col-sm-4">
+                <div className="card" style={{height: "338px"}}>
+                <div className="row d-flex justify-content-center">
+
+                <h1 className="border-bottom">Team Details</h1>
+                <div className="d-flex">
+                <BsGlobe className="icon-design"/>
+                <h5 className="" style={{ color: "dimgrey" }}>
+								country:{clientsState.newClient.country}
+                </h5>
+                </div>
+              </div></div>
+             
+            </div>
+
+
+
+</div>
       </div>
     </>
   );
