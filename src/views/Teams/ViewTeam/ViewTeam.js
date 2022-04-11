@@ -23,7 +23,7 @@ const ViewTeam = () => {
   console.log(teamsState)
   return (
     <>
-      <div className="container-fluid px-1 py-5 mx-auto">
+      <div className="container-fluid px-1 mx-auto">
         <div className="row d-flex justify-content-center">
         <div className="col-sm-12">
           <div className="card">

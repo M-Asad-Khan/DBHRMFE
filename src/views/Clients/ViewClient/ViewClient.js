@@ -21,21 +21,21 @@ const ViewClient = () => {
   };
   return (
     <>
-      <div className="container-fluid px-1 py-5 mx-auto">
+      <div className="container-fluid px-1 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12">
-          <div className="card">
-            <div className="">
+            <div className="card">
               <div className="">
-                <button
-                  className="btn btn-outline-primary"
-                  onClick={handleCancel}
-                >
-                  <IoArrowBackSharp />
-                </button>
+                <div className="">
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={handleCancel}
+                  >
+                    <IoArrowBackSharp />
+                  </button>
+                </div>
               </div>
-              </div>
-              
+
               <div className="form-card">
                 <div className="d-flex">
                   <img
@@ -43,104 +43,89 @@ const ViewClient = () => {
                     alt="100x100"
                     src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
                     data-holder-rendered="true"
-                    />
+                  />
                 </div>
                 <div className="text-center">
                   <h1>{clientsState.newClient.name}</h1>
                   <h5 className="mx-auto" style={{ color: "dimgrey" }}>
                     {clientsState.newClient.email}
                   </h5>
-                  
                 </div>
               </div>
             </div>
+          </div>
         </div>
-                    </div>
 
-                <div className="row">
-              <div className="col-sm-4">
-               <div className="card" style={{height: "338px"}}>
-             
-             
-                <h1  className="border-bottom">Personal Details</h1>
-                <div className="d-flex justify-content-between">
+        <div className="row">
+          <div className="col-sm-4">
+            <div className="card" style={{ height: "338px" }}>
+              <h1 className="border-bottom">Personal Details</h1>
+              <div className="d-flex justify-content-between">
                 <div className="d-flex">
-                <FiUser className="icon-design"/>
-                <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-								gender:
-                </h5>
+                  <FiUser className="icon-design" />
+                  <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    gender:
+                  </h5>
                 </div>
                 <div>{clientsState.newClient.gender}</div>
-                </div>
-                <div className="d-flex justify-content-between">
+              </div>
+              <div className="d-flex justify-content-between">
                 <div className="d-flex">
-                  <AiOutlineFundProjectionScreen className="icon-design"/>
-               <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                  <AiOutlineFundProjectionScreen className="icon-design" />
+                  <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
                     project:
-                    </h5>
-                    </div>
-                    <div>{clientsState.newClient.project}</div>
-                  
-                  </div>
-                  <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                  <RiSettings2Line className="icon-design"/>
+                  </h5>
+                </div>
+                <div>{clientsState.newClient.project}</div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <RiSettings2Line className="icon-design" />
                   <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
                     technology:
-                    </h5>
-                    </div>
-                    <div>{clientsState.newClient.technology}</div>
-                  
-                  </div>
+                  </h5>
+                </div>
+                <div>{clientsState.newClient.technology}</div>
               </div>
-            
-              </div>
-             
-              <div className="col-sm-4">
-                <div className="card" style={{height: "338px"}}>
-                <div className="row d-flex justify-content-center">
+            </div>
+          </div>
 
+          <div className="col-sm-4">
+            <div className="card" style={{ height: "338px" }}>
+              <div className="row d-flex justify-content-center">
                 <h1 className="border-bottom">Contact Details</h1>
                 <div className="d-flex justify-content-between">
-                <div className="d-flex">
-                <BsGlobe className="icon-design"/>
-                <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-								country:
-                </h5>
-                </div>
-                
-                <div>{clientsState.newClient.country}</div>
-               
-                </div>
+                  <div className="d-flex">
+                    <BsGlobe className="icon-design" />
+                    <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                      country:
+                    </h5>
+                  </div>
 
-              </div></div>
-             
+                  <div>{clientsState.newClient.country}</div>
+                </div>
+              </div>
             </div>
+          </div>
 
-
-            <div className="col-sm-4">
-                <div className="card" style={{height: "338px"}}>
-                <div className="row d-flex justify-content-center">
-
+          <div className="col-sm-4">
+            <div className="card" style={{ height: "338px" }}>
+              <div className="row d-flex justify-content-center">
                 <h1 className="border-bottom">Team Details</h1>
                 <div className="d-flex justify-content-between">
-                <div className="d-flex">
-                <BsGlobe className="icon-design"/>
-                <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-								country:
-                </h5>
+                  <div className="d-flex">
+                    <BsGlobe className="icon-design" />
+                    <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                      country:
+                    </h5>
+                  </div>
+
+                  <div>{clientsState.newClient.country}</div>
                 </div>
-                
-                <div>{clientsState.newClient.country}</div>
-                
-                </div>
-              </div></div>
-             
+              </div>
             </div>
-
-
-
-</div>
+          </div>
+        </div>
       </div>
     </>
   );
