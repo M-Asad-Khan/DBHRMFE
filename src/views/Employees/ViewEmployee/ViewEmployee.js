@@ -17,6 +17,8 @@ import {
 import { BiTimeFive } from "react-icons/bi";
 import { FaRegAddressBook, FaUserTie } from "react-icons/fa";
 import { RiSettings2Line } from "react-icons/ri";
+import { AiOutlineMail } from "react-icons/ai";
+import { GrProjects } from "react-icons/gr";
 
 const ViewEmployee = () => {
   const state = useSelector((state) => state.employees);
@@ -146,6 +148,16 @@ const ViewEmployee = () => {
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
+                    <AiOutlineMail className="icon-design" />
+                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Business Email:
+                    </h5>
+                  </div>
+                  <div>{state.newEmployee.email}</div>
+                </div>
+
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex">
                     <FaRegAddressBook className="icon-design" />
                     <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Address:
@@ -163,6 +175,24 @@ const ViewEmployee = () => {
                   <div>{state.newEmployee.designation}</div>
                 </div>
 
+              </div>
+            </div>
+          </div>
+
+          <div className="col-sm-4">
+            <div className="card" style={{ height: "338px" }}>
+              <div className="row d-flex justify-content-center">
+                <h1 className="border-bottom">Employee History</h1>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex">
+                  <GrProjects className="icon-design" />
+                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Projects:
+                    </h5>
+                  </div>
+                  {state.newEmployee.phoneNumber}
+                </div>
+                
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsBagPlus className="icon-design" />
@@ -182,38 +212,6 @@ const ViewEmployee = () => {
                   </div>
                   <div>{state.newEmployee.technology}</div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-sm-4">
-            <div className="card" style={{ height: "338px" }}>
-              <div className="row d-flex justify-content-center">
-                <h1 className="border-bottom">Employee History</h1>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Phone Number:
-                    </h5>
-                  </div>
-                  {state.newEmployee.phoneNumber}
-                </div>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Address:
-                    </h5>
-                  </div>
-                  <div> {state.newEmployee.address}</div>
-                </div>
-                <div className="d-flex justify-content-between">
-                <div className="d-flex">
-                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                  Email:
-                  </h5>
-                  </div>
-                 <div> {state.newEmployee.email}</div>
-                 </div>
                 {" "}
               </div>
             </div>

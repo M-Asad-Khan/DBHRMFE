@@ -8,8 +8,9 @@ import {
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import { RiSettings2Line } from "react-icons/ri";
-import { AiOutlineFundProjectionScreen } from "react-icons/ai";
-import { BsGlobe } from "react-icons/bs";
+import { AiOutlineFundProjectionScreen, AiOutlineMail } from "react-icons/ai";
+import {  BsTelephoneForward,BsGlobe } from "react-icons/bs";
+
 
 const ViewClient = () => {
   const clientsState = useSelector((state) => state.clients);
@@ -103,6 +104,25 @@ const ViewClient = () => {
                   </div>
 
                   <div>{clientsState.newClient.country}</div>
+                </div>
+               
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex">
+                    <BsTelephoneForward className="icon-design" />
+                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Phone Number:
+                    </h5>
+                  </div>
+                  <div>{clientsState.newClient.contactNumber}</div>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex">
+                    <AiOutlineMail className="icon-design" />
+                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Business Email:
+                    </h5>
+                  </div>
+                  <div>{clientsState.newClient.email}</div>
                 </div>
               </div>
             </div>

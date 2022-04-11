@@ -66,7 +66,7 @@ const ViewTeam = () => {
 								Team Members:
                 </h5>
                 </div>
-               <div> {teamsState.newTeam.Member}</div>
+               <div> {teamsState.newTeam.members}</div>
                
                 </div>
               </div>
@@ -86,7 +86,7 @@ const ViewTeam = () => {
 								Project Manager:
                 </h5>
                 </div>
-                <div>{teamsState.newTeam.projectManager}</div>
+                <div>{teamsState.newTeam.manager}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                 <div className="d-flex">
