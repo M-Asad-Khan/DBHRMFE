@@ -163,6 +163,7 @@ function Teams() {
 
           <MDBDataTable
             className="mdbDataTableDesign"
+            infoLabel={["Showing", "to", "of", "teams"]}
             bordered
             displayEntries={false}
             hover

@@ -159,6 +159,7 @@ function employees() {
             </button>
             <MDBDataTable
               className="mdbDataTableDesign"
+              infoLabel={["Showing", "to", "of", "employees"]}
               bordered
               displayEntries={false}
               hover
