@@ -367,7 +367,7 @@ const addclients = ({}) => {
                       value="female"
                       onChange={(e) => handleChange(e)}
                     />
-                    <span>Female </span>
+                    <span className="ml-1">Female </span>
                   </label>
 
                   {fieldsWithError.gender === true ? (

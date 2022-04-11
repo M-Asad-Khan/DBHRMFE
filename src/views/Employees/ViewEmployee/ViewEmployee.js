@@ -23,31 +23,11 @@ const ViewEmployee = () => {
 
   const dispatch = useDispatch();
 
-  const employee = {
-    contactNumber: "123123123",
-    country: "usa",
-    createdAt: "2022-04-01T06:34:56.385Z",
-    email: "client1@loki.com",
-    gender: "male",
-    id: "aa1c8701-f0b5-435f-87c7-4c09837f1d1c",
-    name: "client 1",
-    project: "Dbhrm",
-    technology: "react",
-    updatedAt: "2022-04-01T06:34:56..385Z",
-  };
   const handleCancel = () => {
     dispatch(updateIsViewClickedAction(false));
     dispatch(updateNewEmployeeAction({}));
   };
-  // 	contactNumber: "123123123"
-  // country: "usa"
-  // createdAt: "2022-04-01T06:34:56.385Z"
-  // email: "client1@loki.com"
-  // gender: "male"
-  // id: "aa1c8701-f0b5-435f-87c7-4c09837f1d1c"
-  // name: "client 1"
-  // project: "Dbhrm"
-  // technology: "react" IoChevronBackCircleOutline
+
   return (
     <>
       <div>
