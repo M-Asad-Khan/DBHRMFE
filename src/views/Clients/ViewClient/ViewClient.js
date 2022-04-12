@@ -47,10 +47,10 @@ const ViewClient = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h1>{clientsState.newClient.name}</h1>
-                  <h5 className="mx-auto" style={{ color: "dimgrey" }}>
+                  <h2>{clientsState.newClient.name}</h2>
+                  <h6 className="mx-auto" style={{ color: "dimgrey" }}>
                     {clientsState.newClient.email}
-                  </h5>
+                  </h6>
                 </div>
               </div>
             </div>
@@ -60,31 +60,31 @@ const ViewClient = () => {
         <div className="row">
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
-              <h1 className="border-bottom">Personal Details</h1>
+              <h2 className="border-bottom">Personal Details</h2>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <FiUser className="icon-design" />
-                  <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                    gender:
-                  </h5>
+                  <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    Gender:
+                  </h6>
                 </div>
                 <div>{clientsState.newClient.gender}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <AiOutlineFundProjectionScreen className="icon-design" />
-                  <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                    project:
-                  </h5>
+                  <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    Project:
+                  </h6>
                 </div>
                 <div>{clientsState.newClient.project}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <RiSettings2Line className="icon-design" />
-                  <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                    technology:
-                  </h5>
+                  <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    Technology:
+                  </h6>
                 </div>
                 <div>{clientsState.newClient.technology}</div>
               </div>
@@ -94,13 +94,13 @@ const ViewClient = () => {
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
-                <h1 className="border-bottom">Contact Details</h1>
+                <h2 className="border-bottom">Contact Details</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsGlobe className="icon-design" />
-                    <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                      country:
-                    </h5>
+                    <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                      Country:
+                    </h6>
                   </div>
 
                   <div>{clientsState.newClient.country}</div>
@@ -109,18 +109,18 @@ const ViewClient = () => {
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsTelephoneForward className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Phone Number:
-                    </h5>
+                    </h6>
                   </div>
                   <div>{clientsState.newClient.contactNumber}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <AiOutlineMail className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Business Email:
-                    </h5>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Email:
+                    </h6>
                   </div>
                   <div>{clientsState.newClient.email}</div>
                 </div>
@@ -131,13 +131,13 @@ const ViewClient = () => {
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
-                <h1 className="border-bottom">Team Details</h1>
+                <h2 className="border-bottom">Team Details</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsGlobe className="icon-design" />
-                    <h5 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                      country:
-                    </h5>
+                    <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                      Country:
+                    </h6>
                   </div>
 
                   <div>{clientsState.newClient.country}</div>

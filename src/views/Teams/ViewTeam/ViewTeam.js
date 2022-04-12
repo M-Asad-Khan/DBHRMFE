@@ -20,7 +20,7 @@ const ViewTeam = () => {
     dispatch(updateIsViewClickedAction(false));
     dispatch(updateNewTeamAction({}));
   };
-  console.log(teamsState)
+  console.log(teamsState)   
   return (
     <>
       <div className="container-fluid px-1 mx-auto">
@@ -47,7 +47,9 @@ const ViewTeam = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h1>Team Name:{teamsState.newTeam.name}</h1>
+                  <h2>
+                    {teamsState?.newTeam[0]?.team?.teamName} 
+                    </h2>
                  
                 </div>
               </div>
@@ -58,15 +60,22 @@ const ViewTeam = () => {
               <div className="col-sm-4">
                <div className="card" style={{height: "338px"}}>
                
-                <h1 className="border-bottom">Team Members</h1>
+                <h2 className="border-bottom">Team Members</h2>
                 <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <FaUsers className="icon-design"/>
-                <h5 className="" style={{ color: "dimgrey" }}>
+                <h6 className="" style={{ color: "dimgrey" }}>
 								Team Members:
-                </h5>
+                </h6>
                 </div>
-               <div> {teamsState.newTeam.members}</div>
+               <div> 
+                 {/* {teamsState?.newTeam?.forEach(element => {
+                   element.employee.name
+                 })}  */}
+                  {teamsState?.newTeam.length>0 && teamsState?.newTeam?.map(element => {
+                   return (element.employee.name)
+                 })} 
+                 </div>
                
                 </div>
               </div>
@@ -78,34 +87,38 @@ const ViewTeam = () => {
                 <div className="card" style={{height: "338px"}}>
                 <div className="row d-flex justify-content-center">
 
-                <h1 className="border-bottom">Team Details</h1>
+                <h2 className="border-bottom">Team Details</h2>
                 <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <GrUserManager className="icon-design"/>
-                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
 								Project Manager:
-                </h5>
+                </h6>
                 </div>
-                <div>{teamsState.newTeam.manager}</div>
+                <div>
+                   {teamsState?.newTeam[0]?.team?.managerName?.name} 
+                  </div>
                 </div>
                 <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <RiTeamLine className="icon-design"/>
-                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
 								Team Lead:
-                </h5>
+                </h6>
                 </div>
-                <div>{teamsState.newTeam.teamLead}</div>
+                <div>
+                  {teamsState?.newTeam[0]?.team?.teamLeadName?.name} 
+                  </div>
                
                 </div>
                 <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <BsCalendar2Date className="icon-design"/>
-                <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
 								Start Date:
-                </h5>
+                </h6>
                 </div>
-                <div>{teamsState?.newTeam?.startDate?.slice(0,10)}</div>
+                <div>{teamsState?.newTeam[0]?.team?.startDate?.slice(0,10)}</div>
                 
                 </div>
                 </div></div>

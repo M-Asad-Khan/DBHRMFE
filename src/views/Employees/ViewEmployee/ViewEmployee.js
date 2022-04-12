@@ -56,10 +56,10 @@ const ViewEmployee = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h1>{state.newEmployee.name}</h1>
-                  <h5 className="" style={{ color: "dimgrey" }}>
+                  <h2>{state.newEmployee.name}</h2>
+                  <h6 className="" style={{ color: "dimgrey" }}>
                     {state.newEmployee.email}
-                  </h5>
+                  </h6>
                 </div>
               </div>
             </div>
@@ -69,13 +69,13 @@ const ViewEmployee = () => {
         <div className="row">
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
-              <h1 className="border-bottom">Personal Details</h1>
+              <h2 className="border-bottom">Personal Details</h2>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <BiTimeFive className="icon-design" />
-                  <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     Age:
-                  </h5>
+                  </h6>
                 </div>
                 <div>{state.newEmployee.age}</div>
               </div>
@@ -83,9 +83,9 @@ const ViewEmployee = () => {
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <FiUser className="icon-design" />
-                  <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     Gender:
-                  </h5>
+                  </h6>
                 </div>
 
                 <div>{state.newEmployee.gender}</div>
@@ -94,9 +94,9 @@ const ViewEmployee = () => {
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <FiLayers className="icon-design" />
-                  <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     Salary:
-                  </h5>
+                  </h6>
                 </div>
                 <div>{state.newEmployee.salary}</div>
               </div>
@@ -104,18 +104,18 @@ const ViewEmployee = () => {
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <MdCastForEducation className="icon-design" />
-                  <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     Education:
-                  </h5>
+                  </h6>
                 </div>
                 <div>{state.newEmployee.education}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <BsFillCalendarDateFill className="icon-design" />
-                  <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     Date of Birth:
-                  </h5>
+                  </h6>
                 </div>
 
                 <div>{state?.newEmployee?.dateOfBirth?.slice(0, 10)}</div>
@@ -124,9 +124,9 @@ const ViewEmployee = () => {
                 <div className="d-flex">
                   <BsCalendar2Date className="icon-design" />
 
-                  <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     joiningDate:
-                  </h5>
+                  </h6>
                 </div>
                 <div>{state?.newEmployee?.joiningDate?.slice(0, 10)}</div>
               </div>
@@ -136,22 +136,22 @@ const ViewEmployee = () => {
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
-                <h1 className="border-bottom">Contact Details</h1>
+                <h2 className="border-bottom">Contact Details</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsTelephoneForward className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Phone Number:
-                    </h5>
+                    </h6>
                   </div>
                   <div>{state.newEmployee.phoneNumber}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <AiOutlineMail className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Business Email:
-                    </h5>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Email:
+                    </h6>
                   </div>
                   <div>{state.newEmployee.email}</div>
                 </div>
@@ -159,18 +159,18 @@ const ViewEmployee = () => {
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <FaRegAddressBook className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Address:
-                    </h5>
+                    </h6>
                   </div>
                   <div>{state.newEmployee.address}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <FaUserTie className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Designation:
-                    </h5>
+                    </h6>
                   </div>
                   <div>{state.newEmployee.designation}</div>
                 </div>
@@ -182,13 +182,13 @@ const ViewEmployee = () => {
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
-                <h1 className="border-bottom">Employee History</h1>
+                <h2 className="border-bottom">History</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                   <GrProjects className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Projects:
-                    </h5>
+                    </h6>
                   </div>
                   {state.newEmployee.phoneNumber}
                 </div>
@@ -196,9 +196,9 @@ const ViewEmployee = () => {
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsBagPlus className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Work Experience:
-                    </h5>
+                    </h6>
                   </div>
                   <div>{state.newEmployee.workExperience}</div>
                 </div>
@@ -206,9 +206,9 @@ const ViewEmployee = () => {
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <RiSettings2Line className="icon-design" />
-                    <h5 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Technology:
-                    </h5>
+                    </h6>
                   </div>
                   <div>{state.newEmployee.technology}</div>
                 </div>

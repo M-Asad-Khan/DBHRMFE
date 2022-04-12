@@ -15,6 +15,7 @@ import {
 import { getTeamsApi } from "src/API/GetTeamsApi";
 import { deleteTeamsApi } from "src/API/DeleteTeamsApi";
 import ViewTeam from "./ViewTeam/ViewTeam";
+import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
 
 function Teams() {
   debugger;
@@ -83,10 +84,21 @@ function Teams() {
     dispatch(updateNewTeamAction(team));
     dispatch(updateIsEditTeamClickedAction(true));
   };
-  const handleView = (team) => {
+  const handleView = async (team) => {
     debugger;
-    dispatch(updateIsViewClickedAction(true));
-    dispatch(updateNewTeamAction(team));
+    try{
+      const res =await getTeamMembersApi(team.id);
+      if(res.error === false){
+        debugger;
+        // handleGetTeamsApi()
+        dispatch(updateIsViewClickedAction(true));
+        dispatch(updateNewTeamAction(res.data));
+      }
+    } catch(err){
+      console.log(err);
+    }
+ 
+    debugger;
   };
   const handleGetTeamsApi = async () => {
     try {
