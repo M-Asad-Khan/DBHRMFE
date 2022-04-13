@@ -4,7 +4,7 @@ import {
   updateClients,
   updateIsEditClientClicked,
 	updateClientsDataTable,
-	updateIsViewClicked,
+	updateIsViewClientClicked,
 } from "./clients.types";
 
 const INITIAL_STATE = {
@@ -32,7 +32,7 @@ const INITIAL_STATE = {
     ],
     rows: [],
 	},
-	isViewClicked:null
+	isViewClientClicked:null
 
 };
 
@@ -66,10 +66,10 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         clientsDataTable: action.payload,
 			};
-			case updateIsViewClicked:
+			case updateIsViewClientClicked:
 				return {
 					...state,
-					isViewClicked: action.payload,
+					isViewClientClicked: action.payload,
 				};
 
     default:

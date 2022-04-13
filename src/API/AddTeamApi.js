@@ -17,6 +17,7 @@ export const addTeamApi = async (team) => {
 			clientId: team.clientId,
 			manager: team.manager,
 			members: team.members,
+			project:team.project
 		}
 	})
 		.then((result) => {

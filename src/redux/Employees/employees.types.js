@@ -3,4 +3,4 @@ export const updateIsAddEmployeeClicked = 'updateIsAddEmployeeClicked';
 export const updateEmployees = "updateEmployees";
 export const updateIsEditEmployeeClicked = "updateIsEditEmployeeClicked";
 export const updateEmployeesDataTable = "updateEmployeesDataTable";
-export const updateIsViewClicked = "updateIsViewClicked";
+export const updateIsViewEmpClicked = "updateIsViewEmpClicked";

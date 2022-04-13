@@ -6,7 +6,7 @@ import {
   updateEmployeesAction,
   updateIsEditEmployeeClickedAction,
   updateEmployeesDataTableAction,
-  updateIsViewClickedAction,
+  updateIsViewEmpClickedAction,
 } from "../../redux/Employees/employees.actions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -17,6 +17,7 @@ import { getEmployeesApi } from "src/API/GetEmployeesApi";
 import { deleteEmployeeApi } from "src/API/DeleteEmployeeApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
+import { getEmployeeWorkHistory } from "src/API/getEmployeeWorkHistory";
 
 function employees() {
   debugger;
@@ -84,10 +85,20 @@ function employees() {
     dispatch(updateNewEmployeeAction(employee));
     dispatch(updateIsEditEmployeeClickedAction(true));
   };
-  const handleView = (employee) => {
+  const handleView =async (employee) => {
     debugger;
-    dispatch(updateIsViewClickedAction(true));
-    dispatch(updateNewEmployeeAction(employee));
+    try {
+      const res = await getEmployeeWorkHistory(employee.id);
+			if (res.error === false) {
+				debugger;
+				var tempObj = { employee: employee, workHistory: res.data }
+				dispatch(updateNewEmployeeAction(tempObj));
+				dispatch(updateIsViewEmpClickedAction(true));
+				debugger;
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleGetEmployeeApi = async () => {
     try {
@@ -142,7 +153,7 @@ function employees() {
   console.log("state:", state);
   return (
     <>
-      {state.isViewClicked ? (
+      {state.isViewEmpClicked ? (
         <ViewEmployee />
       ) : state.isAddEmployeeClicked === true ||
         state.isEditEmployeeClicked === true ? (

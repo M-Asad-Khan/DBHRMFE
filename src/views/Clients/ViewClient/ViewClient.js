@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import "./viewClient.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updateIsViewClickedAction,
+  updateIsViewClientClickedAction,
   updateNewClientAction,
 } from "src/redux/Clients/clients.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import { RiSettings2Line } from "react-icons/ri";
 import { AiOutlineFundProjectionScreen, AiOutlineMail } from "react-icons/ai";
-import {  BsTelephoneForward,BsGlobe } from "react-icons/bs";
+import { BsTelephoneForward, BsGlobe } from "react-icons/bs";
+import { useHistory } from "react-router-dom";
+
 
 
 const ViewClient = () => {
+	let history = useHistory();
+
   const clientsState = useSelector((state) => state.clients);
 
   const dispatch = useDispatch();
   const handleCancel = () => {
-    dispatch(updateIsViewClickedAction(false));
+    dispatch(updateIsViewClientClickedAction(false));
     dispatch(updateNewClientAction({}));
   };
   return (
@@ -140,7 +144,7 @@ const ViewClient = () => {
                     </h6>
                   </div>
 
-                  <div>{clientsState.newClient.country}</div>
+                  <div onClick={ () => history.push("/teams")}>{clientsState.newClient.country}</div>
                 </div>
               </div>
             </div>

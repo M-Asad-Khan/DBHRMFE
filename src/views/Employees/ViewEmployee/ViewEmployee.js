@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./viewEmployee.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updateIsViewClickedAction,
+  updateIsViewEmpClickedAction,
   updateNewEmployeeAction,
 } from "src/redux/Employees/employees.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
@@ -26,10 +26,10 @@ const ViewEmployee = () => {
   const dispatch = useDispatch();
 
   const handleCancel = () => {
-    dispatch(updateIsViewClickedAction(false));
+    dispatch(updateIsViewEmpClickedAction(false));
     dispatch(updateNewEmployeeAction({}));
   };
-
+  console.log("viewState", state);
   return (
     <>
       <div>
@@ -56,9 +56,9 @@ const ViewEmployee = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h2>{state.newEmployee.name}</h2>
+                  <h2>{state?.newEmployee?.employee?.name}</h2>
                   <h6 className="" style={{ color: "dimgrey" }}>
-                    {state.newEmployee.email}
+                    {state?.newEmployee?.employee?.email}
                   </h6>
                 </div>
               </div>
@@ -77,7 +77,7 @@ const ViewEmployee = () => {
                     Age:
                   </h6>
                 </div>
-                <div>{state.newEmployee.age}</div>
+                <div>{state?.newEmployee?.employee?.age}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -88,7 +88,7 @@ const ViewEmployee = () => {
                   </h6>
                 </div>
 
-                <div>{state.newEmployee.gender}</div>
+                <div>{state?.newEmployee?.employee?.gender}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -98,7 +98,7 @@ const ViewEmployee = () => {
                     Salary:
                   </h6>
                 </div>
-                <div>{state.newEmployee.salary}</div>
+                <div>{state?.newEmployee?.employee?.salary}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -108,7 +108,7 @@ const ViewEmployee = () => {
                     Education:
                   </h6>
                 </div>
-                <div>{state.newEmployee.education}</div>
+                <div>{state?.newEmployee?.employee?.education}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -144,16 +144,16 @@ const ViewEmployee = () => {
                       Phone Number:
                     </h6>
                   </div>
-                  <div>{state.newEmployee.phoneNumber}</div>
+                  <div>{state?.newEmployee?.employee?.phoneNumber}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <AiOutlineMail className="icon-design" />
                     <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                    Email:
+                      Email:
                     </h6>
                   </div>
-                  <div>{state.newEmployee.email}</div>
+                  <div>{state?.newEmployee?.employee?.email}</div>
                 </div>
 
                 <div className="d-flex justify-content-between">
@@ -163,7 +163,7 @@ const ViewEmployee = () => {
                       Address:
                     </h6>
                   </div>
-                  <div>{state.newEmployee.address}</div>
+                  <div>{state?.newEmployee?.employee?.address}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -172,9 +172,8 @@ const ViewEmployee = () => {
                       Designation:
                     </h6>
                   </div>
-                  <div>{state.newEmployee.designation}</div>
+                  <div>{state?.newEmployee?.employee?.designation}</div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -185,24 +184,13 @@ const ViewEmployee = () => {
                 <h2 className="border-bottom">History</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
-                  <GrProjects className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Projects:
-                    </h6>
-                  </div>
-                  {state.newEmployee.phoneNumber}
-                </div>
-                
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
                     <BsBagPlus className="icon-design" />
                     <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                       Work Experience:
                     </h6>
                   </div>
-                  <div>{state.newEmployee.workExperience}</div>
+                  <div>{state?.newEmployee?.employee?.workExperience}</div>
                 </div>
-
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <RiSettings2Line className="icon-design" />
@@ -210,9 +198,21 @@ const ViewEmployee = () => {
                       Technology:
                     </h6>
                   </div>
-                  <div>{state.newEmployee.technology}</div>
+                  <div>{state?.newEmployee?.employee?.technology}</div>
                 </div>
-                {" "}
+                <div>
+                  <div className="d-flex">
+                    <GrProjects className="icon-design" />
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Projects:
+                    </h6>
+                  </div>
+                  <ul>
+                    {state?.newEmployee?.workHistory?.map((item,i) => {
+                      return <li key={i}>{item.team.teamName}</li>;
+                    })}
+                  </ul>
+                </div>{" "}
               </div>
             </div>
           </div>

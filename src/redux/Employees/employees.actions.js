@@ -4,7 +4,7 @@ import {
   updateEmployees,
   updateIsEditEmployeeClicked,
 	updateEmployeesDataTable,
-	updateIsViewClicked
+	updateIsViewEmpClicked
 } from "./employees.types";
 
 export const updateNewEmployeeAction = (params) => {
@@ -38,9 +38,9 @@ export const updateEmployeesDataTableAction = (params) => {
     payload: params,
   };
 };
-export const updateIsViewClickedAction = (params) => {
+export const updateIsViewEmpClickedAction = (params) => {
   return {
-    type: updateIsViewClicked,
+    type: updateIsViewEmpClicked,
     payload: params,
   };
 };

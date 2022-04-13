@@ -4,7 +4,7 @@ import {
   updateTeams,
   updateIsEditTeamClicked,
 updateTeamsDataTable,
-updateIsViewClicked
+updateIsViewTeamClicked
 } from "./teams.types";
 
 export const updateNewTeamAction = (params) => {
@@ -47,9 +47,9 @@ export const updateTeamsDataTableAction = (params) => {
 //     payload: params,
 //   };
 // };
-export const updateIsViewClickedAction = (params) => {
+export const updateIsViewTeamClickedAction = (params) => {
   return {
-    type: updateIsViewClicked,
+    type: updateIsViewTeamClicked,
     payload: params,
   };
 };

@@ -5,9 +5,8 @@
 	border:1px solid left;
 }
 .icon-design{
-	padding-bottom: 4px;
 	margin-right: 9px;
-	margin-top: 6px;
+	margin-top: 2px;
 }
 .border-bottom{
 	border-bottom:2px solid dimgray;
@@ -16,6 +15,6 @@
 .w-full{
 	width: 100%;
 }
-.one {
+/* .one {
 		list-style: square;
-	  }
+	  } */

@@ -32,7 +32,8 @@ const Addteams = () => {
     manager: null,
     members: null,
     startDate: null,
-    teamLead: null,
+		teamLead: null,
+		project:null
   });
   const [errorInfo, setErrorInfo] = useState({});
 
@@ -446,6 +447,34 @@ const Addteams = () => {
                       <>
                         <label className="error form-control-label px-3">
                           {errorInfo.startDate}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    {" "}
+                    <label className="form-control-label px-3">
+                      Project<span className="text-danger"> *</span>
+                    </label>{" "}
+                    <input
+                      className={
+                        fieldsWithError.project === true ? "redBorder" : ""
+                      }
+                      value={teamsState.project}
+                      onChange={handleChange}
+                      type="text"
+                      id="project"
+                      name="project"
+                      placeholder="Enter project name"
+                    />{" "}
+                    {fieldsWithError.project === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.project}
                         </label>{" "}
                       </>
                     ) : (

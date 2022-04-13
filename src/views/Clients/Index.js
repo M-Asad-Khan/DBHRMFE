@@ -6,7 +6,7 @@ import {
   updateClientsAction,
   updateIsEditClientClickedAction,
   updateClientsDataTableAction,
-  updateIsViewClickedAction,
+  updateIsViewClientClickedAction,
 } from "../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
 import ViewClient from "./ViewClient/ViewClient";
@@ -86,7 +86,7 @@ function Clients() {
   };
   const handleView = (client) => {
     debugger;
-    dispatch(updateIsViewClickedAction(true));
+    dispatch(updateIsViewClientClickedAction(true));
     dispatch(updateNewClientAction(client));
   };
   const handleGetClientsApi = async () => {
@@ -143,7 +143,7 @@ function Clients() {
 
   return (
     <>
-      {clientsState.isViewClicked ? (
+      {clientsState.isViewClientClicked ? (
         <ViewClient/>
       ) : clientsState.isAddClientClicked === true ||
         clientsState.isEditClientClicked === true ? (

@@ -4,7 +4,7 @@ import {
   updateClients,
   updateIsEditClientClicked,
 	updateClientsDataTable,
-	updateIsViewClicked
+	updateIsViewClientClicked
 } from "./clients.types";
 
 export const updateNewClientAction = (params) => {
@@ -39,9 +39,9 @@ export const updateClientsDataTableAction = (params) => {
     payload: params,
   };
 };
-export const updateIsViewClickedAction = (params) => {
+export const updateIsViewClientClickedAction = (params) => {
 	  return {
-	    type: updateIsViewClicked,
+	    type: updateIsViewClientClicked,
 	    payload: params,
 	  };
 	};

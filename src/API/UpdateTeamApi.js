@@ -15,6 +15,7 @@ export const updateTeamApi = async (team) => {
       teamLead: team.teamLead,
       startDate: team.startDate,
       manager: team.manager,
+      project: team.project,
     },
   })
     .then((result) => {

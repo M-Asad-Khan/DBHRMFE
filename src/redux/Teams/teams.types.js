@@ -3,6 +3,5 @@ export const updateIsAddTeamClicked = 'updateIsAddTeamClicked';
 export const updateTeams = "updateTeams";
 export const updateIsEditTeamClicked = "updateIsEditTeamClicked";
 export const updateTeamsDataTable = "updateTeamsDataTable";
-export const updateIsViewClicked = "updateIsViewClicked";
-// export const updateEmployees = "updateEmployees";
-// export const updateClients = "updateClients";
+export const updateIsViewTeamClicked = "updateIsViewTeamClicked";
+

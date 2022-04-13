@@ -18,17 +18,9 @@ const addclients = ({}) => {
     email: false,
     contactNumber: false,
     technology: false,
-    project: false,
+    // project: false,
   });
-  const [errorInfo, setErrorInfo] = useState({
-    country: null,
-    gender: null,
-    name: null,
-    email: null,
-    contactNumber: null,
-    technology: null,
-    project: null,
-  });
+  const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
 
@@ -315,7 +307,7 @@ const addclients = ({}) => {
                   ""
                 )}
               </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
+              {/* <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
                   Project<span className="text-danger"> *</span>
@@ -340,7 +332,7 @@ const addclients = ({}) => {
                 ) : (
                   ""
                 )}
-              </div>
+              </div> */}
             </div>
 
             <div className="row justify-content-between text-left">

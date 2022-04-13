@@ -15,7 +15,6 @@ export const addClientApi = async (client) => {
 			email: client.email,
 			contactNumber: client.contactNumber,
 			technology: client.technology,
-			project: client.project,
 			country: client.country
 		}
 	})
