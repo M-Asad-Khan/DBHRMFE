@@ -61,23 +61,25 @@ const ViewTeam = () => {
                <div className="card" style={{height: "338px"}}>
                
                 <h2 className="border-bottom">Team Members</h2>
-                <div className="d-flex justify-content-between">
+                {/* <div className="d-flex justify-content-between"> */}
                 <div className="d-flex">
                   <FaUsers className="icon-design"/>
                 <h6 className="" style={{ color: "dimgrey" }}>
 								Team Members:
                 </h6>
                 </div>
-               <div> 
+               <ul className="one"> 
                  {/* {teamsState?.newTeam?.forEach(element => {
                    element.employee.name
                  })}  */}
                   {teamsState?.newTeam.length>0 && teamsState?.newTeam?.map(element => {
-                   return (element.employee.name)
+                   return (
+                   <li>{element.employee.name}</li>
+                   )
                  })} 
-                 </div>
+                 </ul>
                
-                </div>
+               {/*  </div> */}
               </div>
               
               </div>

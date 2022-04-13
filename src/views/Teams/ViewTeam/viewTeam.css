@@ -16,3 +16,6 @@
 .w-full{
 	width: 100%;
 }
+.one {
+		list-style: square;
+	  }
