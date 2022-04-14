@@ -16,6 +16,7 @@ import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
 import { addTeamMembersApi } from "src/API/AddTeamMembersApi";
 import { updateTeamApi } from "src/API/UpdateTeamApi";
 import { deleteTeamMemberApi } from "src/API/DeleteTeamMemberApi";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 const Addteams = () => {
   //var selectedTeamMembers = [];
@@ -296,6 +297,12 @@ const Addteams = () => {
       <div className="row d-flex justify-content-center">
         <div className="card">
           <div className="form-card">
+          <button
+                    className="btn btn-outline-primary mb-3"
+                    onClick={handleCancel}
+                  >
+                    <IoArrowBackSharp />
+                  </button>
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}

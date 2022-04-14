@@ -118,7 +118,7 @@ const ViewEmployee = () => {
                   </h6>
                 </div>
 
-                <div>{state?.newEmployee?.dateOfBirth?.slice(0, 10)}</div>
+                <div>{state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10)}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -128,7 +128,7 @@ const ViewEmployee = () => {
                     joiningDate:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.joiningDate?.slice(0, 10)}</div>
+                <div>{state?.newEmployee?.employee?.joiningDate?.slice(0, 10)}</div>
               </div>
             </div>
           </div>

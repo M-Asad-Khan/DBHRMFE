@@ -9,6 +9,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addEmployeeApi } from "src/API/AddEmployeeApi";
 import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 // import backIcon from '/src/assets/back-icon.png'
 
@@ -178,6 +179,12 @@ const AddEmployee = ({}) => {
       <div className="row d-flex justify-content-center">
         <div className="card">
           <div className="form-card">
+          <button
+                    className="btn btn-outline-primary mb-3"
+                    onClick={handleCancel}
+                  >
+                    <IoArrowBackSharp />
+                  </button>
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}

@@ -9,6 +9,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addClientApi } from "src/API/AddClientApi";
 import { updateClientApi } from "src/API/UpdateClientApi";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 const addclients = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -173,6 +174,12 @@ const addclients = ({}) => {
       <div className="row d-flex justify-content-center">
         <div className="card">
           <div className="form-card">
+          <button
+                    className="btn btn-outline-primary mb-3"
+                    onClick={handleCancel}
+                  >
+                    <IoArrowBackSharp />
+                  </button>
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}

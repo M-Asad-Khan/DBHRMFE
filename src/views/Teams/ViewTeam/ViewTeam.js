@@ -7,7 +7,7 @@ import {
 } from "src/redux/Teams/teams.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
-import { GrUserManager } from "react-icons/gr";
+import { GrUserManager, GrUserNew } from "react-icons/gr";
 import { RiTeamLine } from "react-icons/ri";
 import { BsCalendar2Date } from "react-icons/bs";
 const ViewTeam = () => {
@@ -77,6 +77,18 @@ const ViewTeam = () => {
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
                 <h2 className="border-bottom">Team Details</h2>
+
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex">
+                    <GrUserNew className="icon-design" />
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Client Name:
+                    </h6>
+                  </div>
+                  <div>{teamsState?.newTeam[0]?.client?.name}</div>
+                </div>
+
+
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <GrUserManager className="icon-design" />

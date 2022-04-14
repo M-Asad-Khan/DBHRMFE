@@ -161,7 +161,7 @@ const ViewClient = () => {
                   <div className="d-flex">
                     <BsGlobe className="icon-design" />
                     <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                      Projects:
+                      Teams:
                     </h6>
                   </div>
 
