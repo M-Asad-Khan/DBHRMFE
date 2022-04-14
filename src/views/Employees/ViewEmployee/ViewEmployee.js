@@ -87,7 +87,6 @@ const ViewEmployee = () => {
                     Gender:
                   </h6>
                 </div>
-
                 <div>{state?.newEmployee?.employee?.gender}</div>
               </div>
 
@@ -118,17 +117,16 @@ const ViewEmployee = () => {
                   </h6>
                 </div>
 
-                <div>{state?.newEmployee?.dateOfBirth?.slice(0, 10)}</div>
+                <div>{state?.newEmployee?.employee.dateOfBirth?.slice(0, 10)}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <BsCalendar2Date className="icon-design" />
-
                   <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                     joiningDate:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.joiningDate?.slice(0, 10)}</div>
+                <div>{state?.newEmployee?.employee?.joiningDate?.slice(0, 10)}</div>
               </div>
             </div>
           </div>
@@ -208,7 +206,7 @@ const ViewEmployee = () => {
                     </h6>
                   </div>
                   <ul>
-                    {state?.newEmployee?.workHistory?.map((item,i) => {
+                    {state?.newEmployee?.workHistory?.map((item, i) => {
                       return <li key={i}>{item.team.teamName}</li>;
                     })}
                   </ul>

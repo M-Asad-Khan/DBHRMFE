@@ -1,19 +1,19 @@
-import React from 'react'
-import CIcon from '@coreui/icons-react'
+import React from "react";
+import CIcon from "@coreui/icons-react";
 import {
   cilChartPie,
   cilCursor,
   cilNotes,
   cilPuzzle,
   cilSpeedometer,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem } from '@coreui/react'
+} from "@coreui/icons";
+import { CNavGroup, CNavItem } from "@coreui/react";
 
 const _nav = [
   {
     component: CNavItem,
-    name: 'Dashboard',
-    to: '/dashboard',
+    name: "Dashboard",
+    to: "/dashboard",
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     // badge: {
     //   color: 'info',
@@ -22,56 +22,52 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Resource Plaining',
-    to: '/dashboard',
+    name: "Resource Plaining",
+    to: "/dashboard",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Client',
-        to: '/clients',
+        name: "Client",
+        to: "/clients",
       },
       {
         component: CNavItem,
-        name: 'Employee',
-        to: '/Employee',
+        name: "Employee",
+        to: "/Employee",
       },
       {
         component: CNavItem,
-        name: 'Teams',
-        to: '/teams',
+        name: "Teams",
+        to: "/teams",
       },
     ],
   },
   {
     component: CNavGroup,
-    name: 'HR',
-    to: '/buttons',
+    name: "HR",
+    to: "/buttons",
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
-    items: [
-     ],
+    items: [],
   },
   {
     component: CNavGroup,
-    name: 'Accounts',
+    name: "Accounts",
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    items: [
-    
-    ],
+    items: [],
   },
   {
     component: CNavItem,
-    name: 'Attendence',
-    to: '/charts',
+    name: "Attendence",
+    to: "/charts",
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Login',
-    to: '/login',
+    name: "Login",
+    to: "/login",
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  }
-  
-]
+  },
+];
 
-export default _nav
+export default _nav;

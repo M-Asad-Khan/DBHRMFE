@@ -464,7 +464,7 @@ const Addteams = () => {
                       className={
                         fieldsWithError.project === true ? "redBorder" : ""
                       }
-                      value={teamsState.project}
+                      value={tempTeam?.project}
                       onChange={handleChange}
                       type="text"
                       id="project"
