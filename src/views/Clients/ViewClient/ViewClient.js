@@ -11,11 +11,18 @@ import { RiSettings2Line } from "react-icons/ri";
 import { AiOutlineFundProjectionScreen, AiOutlineMail } from "react-icons/ai";
 import { BsTelephoneForward, BsGlobe } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
-
-
+import {
+  updateIsViewTeamClicked,
+  updateNewTeam,
+} from "src/redux/Teams/teams.types";
+import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
+import {
+  updateIsViewTeamClickedAction,
+  updateNewTeamAction,
+} from "src/redux/Teams/teams.actions";
 
 const ViewClient = () => {
-	let history = useHistory();
+  let history = useHistory();
 
   const clientsState = useSelector((state) => state.clients);
 
@@ -23,6 +30,20 @@ const ViewClient = () => {
   const handleCancel = () => {
     dispatch(updateIsViewClientClickedAction(false));
     dispatch(updateNewClientAction({}));
+  };
+  const handleProjectClick = async (teamId) => {
+    try {
+      const res = await getTeamMembersApi(teamId);
+      if (res.error === false) {
+        debugger;
+        // handleGetTeamsApi()
+        dispatch(updateIsViewTeamClickedAction(true));
+        dispatch(updateNewTeamAction(res.data));
+        history.push("/teams");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
@@ -51,9 +72,9 @@ const ViewClient = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h2>{clientsState.newClient.name}</h2>
+                  <h2>{clientsState?.newClient?.client?.name}</h2>
                   <h6 className="mx-auto" style={{ color: "dimgrey" }}>
-                    {clientsState.newClient.email}
+                    {clientsState?.newClient?.client?.email}
                   </h6>
                 </div>
               </div>
@@ -72,17 +93,17 @@ const ViewClient = () => {
                     Gender:
                   </h6>
                 </div>
-                <div>{clientsState.newClient.gender}</div>
+                <div>{clientsState?.newClient?.client?.gender}</div>
               </div>
-              <div className="d-flex justify-content-between">
+              {/* <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <AiOutlineFundProjectionScreen className="icon-design" />
                   <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
                     Project:
                   </h6>
                 </div>
-                <div>{clientsState.newClient.project}</div>
-              </div>
+                <div>{clientsState?.newClient?.client?.project}</div>
+              </div> */}
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <RiSettings2Line className="icon-design" />
@@ -90,7 +111,7 @@ const ViewClient = () => {
                     Technology:
                   </h6>
                 </div>
-                <div>{clientsState.newClient.technology}</div>
+                <div>{clientsState?.newClient?.client?.technology}</div>
               </div>
             </div>
           </div>
@@ -107,9 +128,9 @@ const ViewClient = () => {
                     </h6>
                   </div>
 
-                  <div>{clientsState.newClient.country}</div>
+                  <div>{clientsState?.newClient?.client?.country}</div>
                 </div>
-               
+
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsTelephoneForward className="icon-design" />
@@ -117,7 +138,7 @@ const ViewClient = () => {
                       Phone Number:
                     </h6>
                   </div>
-                  <div>{clientsState.newClient.contactNumber}</div>
+                  <div>{clientsState?.newClient?.client?.contactNumber}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -126,7 +147,7 @@ const ViewClient = () => {
                       Email:
                     </h6>
                   </div>
-                  <div>{clientsState.newClient.email}</div>
+                  <div>{clientsState?.newClient?.client?.email}</div>
                 </div>
               </div>
             </div>
@@ -136,15 +157,27 @@ const ViewClient = () => {
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
                 <h2 className="border-bottom">Team Details</h2>
-                <div className="d-flex justify-content-between">
+                <div className="">
                   <div className="d-flex">
                     <BsGlobe className="icon-design" />
                     <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                      Country:
+                      Projects:
                     </h6>
                   </div>
 
-                  <div onClick={ () => history.push("/teams")}>{clientsState.newClient.country}</div>
+                  <ul>
+                    {clientsState?.newClient?.projects?.map((item, i) => {
+                      return (
+                        <li
+                          key={item.team.id + i}
+													onClick={() => handleProjectClick(item.team.id)}
+													className='anchor'
+                        >
+                          {item.team.project}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </div>
             </div>

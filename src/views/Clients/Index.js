@@ -16,6 +16,7 @@ import { getClientsApi } from "../../API/getClientsApi";
 import { deleteClientApi } from "src/API/DeleteClientApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
+import { GetClientProjectsApi } from "src/API/GetClientProjectsApi";
 
 function Clients() {
   debugger;
@@ -84,10 +85,17 @@ function Clients() {
     dispatch(updateNewClientAction(client));
     dispatch(updateIsEditClientClickedAction(true));
   };
-  const handleView = (client) => {
+  const handleView = async(client) => {
     debugger;
-    dispatch(updateIsViewClientClickedAction(true));
-    dispatch(updateNewClientAction(client));
+    try {
+      const res = await GetClientProjectsApi(client.id);
+      if (res.error === false) {
+        dispatch(updateIsViewClientClickedAction(true));
+        dispatch(updateNewClientAction({client:client,projects:res.data}));
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleGetClientsApi = async () => {
     try {
@@ -144,11 +152,11 @@ function Clients() {
   return (
     <>
       {clientsState.isViewClientClicked ? (
-        <ViewClient/>
+        <ViewClient />
       ) : clientsState.isAddClientClicked === true ||
         clientsState.isEditClientClicked === true ? (
         <>
-          <Addclients/>
+          <Addclients />
         </>
       ) : (
         <div className="card mt-0">

@@ -14,11 +14,23 @@ $enable-rtl: true;
 @import "example";
 
 // If you want to add custom CSS you can put it here.
+
 @import "custom";
+
+//to hide data table bottom header
 tbody + thead {
   display: none;
 }
+
 .mdbDataTableDesign {
   font-size: 20px !important;
   text-align: center !important;
+}
+
+.anchor{
+	color:blue;
+	cursor: pointer;
+}
+.anchor:hover{
+	text-decoration: underline;
 }
