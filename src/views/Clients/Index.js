@@ -165,7 +165,7 @@ function Clients() {
             className="btn btn-outline-primary col-sm-2"
             onClick={handleAddClient}
           >
-            Add Clients
+            Add Client
           </button>
 
           <MDBDataTable

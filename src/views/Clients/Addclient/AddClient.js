@@ -380,8 +380,6 @@ const addclients = ({}) => {
               </div>
             </div>
 
-            <div className="row justify-content-between text-left"></div>
-
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 ">
                 <button

@@ -16,7 +16,9 @@ import { IoArrowBackSharp } from "react-icons/io5";
 const AddEmployee = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
     name: false,
-    age: false,
+    employeeNo: false,
+    cnic:false,
+    personalEmail:false,
     address: false,
     dateOfBirth: false,
     email: false,
@@ -26,8 +28,10 @@ const AddEmployee = ({}) => {
     designation: false,
     salary: false,
     education: false,
-    workExperience: false,
+    linkedIn: false,
     gender: false,
+    status:false,
+    permanentDate:false,
   });
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
@@ -213,22 +217,22 @@ const AddEmployee = ({}) => {
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
-                  Age<span className="text-danger"> *</span>
+                  Employee No.<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
-                  className={fieldsWithError.age === true ? "redBorder" : ""}
-                  value={state.newEmployee.age}
+                  className={fieldsWithError.employeeNo === true ? "redBorder" : ""}
+                  value={state.newEmployee.employeeNo}
                   onChange={handleChange}
                   type="text"
-                  id="age"
-                  name="age"
-                  placeholder="Enter your age"
+                  id="employeeNo"
+                  name="employeeNo"
+                  placeholder="Enter Employee No."
                   // onBlur={(e) => validateNumberOnly(e.target.value)}
                 />{" "}
-                {fieldsWithError.age === true ? (
+                {fieldsWithError.employeeNo === true ? (
                   <>
                     <label className="error form-control-label px-3">
-                      {errorInfo.age}
+                      {errorInfo.employeeNo}
                     </label>{" "}
                   </>
                 ) : (
@@ -236,27 +240,28 @@ const AddEmployee = ({}) => {
                 )}
               </div>
             </div>
+
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
-                  Address<span className="text-danger"> *</span>
+                  CNIC<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
                   className={
-                    fieldsWithError.address === true ? "redBorder" : ""
+                    fieldsWithError.cnic === true ? "redBorder" : ""
                   }
-                  value={state.newEmployee.address}
+                  value={state.newEmployee.cnic}
                   onChange={handleChange}
                   type="text"
-                  id="address"
-                  name="address"
-                  placeholder=""
+                  id="cnic"
+                  name="cnic"
+                  placeholder="Enter your CNIC"
                 />{" "}
-                {fieldsWithError.address === true ? (
+                {fieldsWithError.cnic === true ? (
                   <>
                     <label className="error form-control-label px-3">
-                      {errorInfo.address}
+                      {errorInfo.cnic}
                     </label>{" "}
                   </>
                 ) : (
@@ -266,29 +271,88 @@ const AddEmployee = ({}) => {
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
-                  Date of Birth<span className="text-danger"> *</span>
+                  Personal Email<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
                   className={
-                    fieldsWithError.dateOfBirth === true ? "redBorder" : ""
+                    fieldsWithError.personalEmail === true ? "redBorder" : ""
                   }
-                  value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
+                  value={state.newEmployee.personalEmail}
                   onChange={handleChange}
-                  type="date"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  placeholder="Enter your date of birth"
+                  type="text"
+                  id="personalEmail"
+                  name="personalEmail"
+                  placeholder=""
                 />{" "}
-                {fieldsWithError.dateOfBirth === true ? (
+                {fieldsWithError.personalEmail === true ? (
                   <>
                     <label className="error form-control-label px-3">
-                      {errorInfo.dateOfBirth}
+                      {errorInfo.personalEmail}
                     </label>{" "}
                   </>
                 ) : (
                   ""
                 )}
               </div>
+            </div>
+           
+
+
+
+            <div className="row justify-content-between text-left">
+            <div className="form-group col-sm-6 flex-column d-flex">
+                {" "}
+                <label className="form-control-label px-3">
+                  Permanent Date<span className="text-danger"> *</span>
+                </label>{" "}
+                <input
+                  className={
+                    fieldsWithError.permanentDate === true ? "redBorder" : ""
+                  }
+                  value={state?.newEmployee?.permanentDate?.slice(0, 10)}
+                  onChange={handleChange}
+                  type="date"
+                  id="permanentDate"
+                  name="permanentDate"
+                  placeholder=""
+                />{" "}
+                {fieldsWithError.permanentDate=== true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.permanentDate}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                {" "}
+                <label className="form-control-label px-3">
+                Status<span className="text-danger"> *</span>
+                </label>{" "}
+                <input
+                  className={
+                    fieldsWithError.status === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.address}
+                  onChange={handleChange}
+                  type="text"
+                  id="status"
+                  name="status"
+                  placeholder=""
+                />{" "}
+                {fieldsWithError.status === true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.status}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+             
             </div>
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -344,6 +408,63 @@ const AddEmployee = ({}) => {
                 )}
               </div>
             </div>
+          
+
+            <div className="row justify-content-between text-left">
+              <div className="form-group col-sm-6 flex-column d-flex">
+                {" "}
+                <label className="form-control-label px-3">
+                Home Address<span className="text-danger"> *</span>
+                </label>{" "}
+                <input
+                  className={
+                    fieldsWithError.address === true ? "redBorder" : ""
+                  }
+                  value={state.newEmployee.address}
+                  onChange={handleChange}
+                  type="text"
+                  id="address"
+                  name="address"
+                  placeholder=""
+                />{" "}
+                {fieldsWithError.address === true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.address}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                {" "}
+                <label className="form-control-label px-3">
+                  Date of Birth<span className="text-danger"> *</span>
+                </label>{" "}
+                <input
+                  className={
+                    fieldsWithError.dateOfBirth === true ? "redBorder" : ""
+                  }
+                  value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
+                  onChange={handleChange}
+                  type="date"
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  placeholder="Enter your date of birth"
+                />{" "}
+                {fieldsWithError.dateOfBirth === true ? (
+                  <>
+                    <label className="error form-control-label px-3">
+                      {errorInfo.dateOfBirth}
+                    </label>{" "}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
@@ -455,7 +576,7 @@ const AddEmployee = ({}) => {
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
-                  Education<span className="text-danger"> *</span>
+                  Qualification<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
                   className={
@@ -481,23 +602,23 @@ const AddEmployee = ({}) => {
               <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
-                  Work Experience<span className="text-danger"> *</span>
+                  LinkedIn Profile<span className="text-danger"> *</span>
                 </label>{" "}
                 <input
                   className={
-                    fieldsWithError.workExperience === true ? "redBrder" : ""
+                    fieldsWithError. linkedIn === true ? "redBrder" : ""
                   }
-                  value={state.newEmployee.workExperience}
+                  value={state.newEmployee. linkedIn}
                   onChange={handleChange}
                   type="text"
-                  id="workExperience"
-                  name="workExperience"
+                  id="linkedIn"
+                  name="linkedIn"
                   placeholder=""
                 />{" "}
-                {fieldsWithError.workExperience === true ? (
+                {fieldsWithError. linkedIn === true ? (
                   <>
                     <label className="error form-control-label px-3">
-                      {errorInfo.workExperience}
+                      {errorInfo. linkedIn}
                     </label>{" "}
                   </>
                 ) : (
@@ -508,8 +629,10 @@ const AddEmployee = ({}) => {
             <div className="row justify-content-between text-left"></div>
 
             <div className="form-group">
+              
               <div className="maxl">
                 <label className="radio inline">
+                  <p>Gender:</p>
                   <input
                     id="male"
                     type="radio"

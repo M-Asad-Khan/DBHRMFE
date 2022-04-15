@@ -170,7 +170,7 @@ function Teams() {
             className="btn btn-outline-primary col-sm-2"
             onClick={handleAddClient}
           >
-            Add team
+            Add Team
           </button>
 
           <MDBDataTable
