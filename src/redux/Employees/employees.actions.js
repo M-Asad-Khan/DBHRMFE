@@ -14,6 +14,7 @@ export const updateNewEmployeeAction = (params) => {
   };
 };
 export const updateIsAddEmployeeClickedAction = (params) => {
+	debugger;
   return {
     type: updateIsAddEmployeeClicked,
     payload: params,

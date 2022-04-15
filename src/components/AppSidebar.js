@@ -15,6 +15,9 @@ import 'simplebar/dist/simplebar.min.css'
 // sidebar nav config
 import navigation from '../_nav'
 import { updateShowSidebarAction } from 'src/redux/AppSidebar/appSidebar.actions'
+import { updateIsAddClientClickedAction,updateIsEditClientClickedAction,updateIsViewClientClickedAction } from 'src/redux/Clients/clients.actions'
+import { updateIsAddEmployeeClickedAction,updateIsEditEmployeeClickedAction,updateIsViewEmpClickedAction } from 'src/redux/Employees/employees.actions'
+import { updateIsAddTeamClickedAction,updateIsEditTeamClickedAction,updateIsViewTeamClickedAction } from 'src/redux/Teams/teams.actions'
 
 const AppSidebar = () => {
 	const dispatch = useDispatch()
@@ -23,6 +26,25 @@ const AppSidebar = () => {
   // const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   // const sidebarShow = useSelector((state) => state.sidebarShow)
 	console.log(appSidebarState)
+	const handleSidebarClick = () => {
+		debugger;
+		console.log('flags resets')
+		//client flags
+		dispatch(updateIsAddClientClickedAction(null));
+		dispatch(updateIsEditClientClickedAction(null));
+		dispatch(updateIsViewClientClickedAction(null));
+
+		// Employee flags
+		dispatch(updateIsAddEmployeeClickedAction(null));
+		dispatch(updateIsEditEmployeeClickedAction(null));
+		dispatch(updateIsViewEmpClickedAction(null));
+
+		//team flags
+		dispatch(updateIsAddTeamClickedAction(null));
+		dispatch(updateIsEditTeamClickedAction(null));
+		dispatch(updateIsViewTeamClickedAction(null));
+
+	}
   return (
     <CSidebar
       position="fixed"
@@ -31,6 +53,7 @@ const AppSidebar = () => {
       // onVisibleChange={(visible) => {
       //   dispatch({ type: 'set', sidebarShow: visible })
       // }}
+			onClick={handleSidebarClick}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
         {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} /> */}

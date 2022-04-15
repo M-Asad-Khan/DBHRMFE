@@ -163,7 +163,7 @@ function Clients() {
           <button
             type="button"
             className="btn btn-outline-primary col-sm-2"
-            onClick={handleAddClient}
+            onClick={()=>handleAddClient()}
           >
             Add Client
           </button>
