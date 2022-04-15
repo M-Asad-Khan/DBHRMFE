@@ -43,31 +43,31 @@ const _nav = [
       },
     ],
   },
-  // {
-  //   component: CNavGroup,
-  //   name: "HR",
-  //   to: "/buttons",
-  //   icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
-  //   items: [],
-  // },
-  // {
-  //   component: CNavGroup,
-  //   name: "Accounts",
-  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  //   items: [],
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: "Attendence",
-  //   to: "/charts",
-  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: "Login",
-  //   to: "/login",
-  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavGroup,
+    name: "HR",
+    to: "/buttons",
+    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    items: [],
+  },
+  {
+    component: CNavGroup,
+    name: "Accounts",
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    items: [],
+  },
+  {
+    component: CNavItem,
+    name: "Attendence",
+    to: "/charts",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: "Login",
+    to: "/login",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
 ];
 
 export default _nav;
