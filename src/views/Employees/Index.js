@@ -147,8 +147,10 @@ function employees() {
     }
   };
 
-  function handleAddEmployee() {
-    dispatch(updateIsAddEmployeeClickedAction(true));
+	function handleAddEmployee() {
+		// console.log('true ho gya...!')
+		debugger;
+   dispatch(updateIsAddEmployeeClickedAction(true));
   }
   console.log("state:", state);
   return (
@@ -164,7 +166,7 @@ function employees() {
             <button
               type="button"
               className="btn btn-outline-primary col-sm-2"
-              onClick={handleAddEmployee}
+              onClick={()=>handleAddEmployee()}
             >
               Add Employee
             </button>

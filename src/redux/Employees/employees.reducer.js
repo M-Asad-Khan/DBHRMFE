@@ -49,7 +49,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         employees: action.payload,
       };
 
-    case updateIsAddEmployeeClicked:
+		case updateIsAddEmployeeClicked:
+			debugger;
       return {
         ...state,
         isAddEmployeeClicked: action.payload,

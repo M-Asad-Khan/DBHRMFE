@@ -14,6 +14,7 @@ export const updateNewClientAction = (params) => {
   };
 };
 export const updateIsAddClientClickedAction = (params) => {
+	debugger;
   return {
     type: updateIsAddClientClicked,
     payload: params,
