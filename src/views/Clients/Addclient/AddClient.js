@@ -10,6 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addClientApi } from "src/API/AddClientApi";
 import { updateClientApi } from "src/API/UpdateClientApi";
 import { IoArrowBackSharp } from "react-icons/io5";
+import {
+  CButton,CModalTitle,
+  CModal,CModalHeader,CModalBody,CModalFooter
+} from '@coreui/react'
 
 const addclients = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -22,6 +26,7 @@ const addclients = ({}) => {
     // project: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
 
@@ -71,7 +76,7 @@ const addclients = ({}) => {
           debugger;
           if (res.error === false) {
             debugger;
-            alert("Client Created");
+            
             dispatch(updateClientsAction([...clientsState.clients, res.data]));
             dispatch(updateIsAddClientClickedAction(false));
           }
@@ -170,6 +175,26 @@ const addclients = ({}) => {
   console.log("errorInfo", errorInfo);
 
   return (
+ 
+
+    <>
+
+
+    <CModal visible={visible} 
+    onClose={() => setVisible(false)}>
+      {/* <CModalHeader onClose={() => setVisible(false)}>
+        <CModalTitle>Modal title</CModalTitle>
+      </CModalHeader> */}
+      <CModalBody>Woohoo,Client saved!</CModalBody>
+      <CModalFooter>
+        <CButton color="secondary" onClick={() => setVisible(false)}>
+          Close
+        </CButton>
+        <CButton color="primary" onClick={addAndUpdateClient}>Save changes</CButton>
+      </CModalFooter>
+    </CModal>
+
+
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
         <div className="card">
@@ -390,20 +415,22 @@ const addclients = ({}) => {
                 </button>
               </div>
               <div className="form-group col-sm-6 ">
-                <button
-                  className="btn-block btn-primary"
-                  onClick={addAndUpdateClient}
-                >
-                  {clientsState.isEditClientClicked
+              <CButton 
+              
+              className="btn-block btn-primary"
+              
+              onClick={() => setVisible(!visible)}> 
+               {clientsState.isEditClientClicked
                     ? "Update Client"
-                    : "Add Client"}
-                </button>
+                    : "Add Client"}</CButton>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

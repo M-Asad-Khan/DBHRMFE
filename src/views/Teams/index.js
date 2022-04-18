@@ -76,7 +76,7 @@ function Teams() {
         handleGetTeamsApi();
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data);
     }
   };
   const handleEdit = (team) => {

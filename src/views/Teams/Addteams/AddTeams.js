@@ -17,11 +17,16 @@ import { addTeamMembersApi } from "src/API/AddTeamMembersApi";
 import { updateTeamApi } from "src/API/UpdateTeamApi";
 import { deleteTeamMemberApi } from "src/API/DeleteTeamMemberApi";
 import { IoArrowBackSharp } from "react-icons/io5";
+import {
+  CButton,CModalTitle,
+  CModal,CModalHeader,CModalBody,CModalFooter
+} from '@coreui/react'
 
 const Addteams = () => {
   //var selectedTeamMembers = [];
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
   const teamsState = useSelector((state) => state.teams);
   const [employees, setEmployees] = useState([]);
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
@@ -189,7 +194,7 @@ const Addteams = () => {
           debugger;
           if (res.error === false) {
             debugger;
-            alert("team Created");
+            
             dispatch(updateTeamsAction([...teamsState.teams, res.data]));
             dispatch(updateIsAddTeamClickedAction(false));
             dispatch(updateIsEditTeamClickedAction(false));
@@ -293,6 +298,23 @@ const Addteams = () => {
   console.log("selectedClient", selectedClient);
   console.log("selectedTeamMembers", selectedTeamMembers);
   return (
+    <>
+
+
+    <CModal visible={visible} 
+    onClose={() => setVisible(false)}>
+      {/* <CModalHeader onClose={() => setVisible(false)}>
+        <CModalTitle>Modal title</CModalTitle>
+      </CModalHeader> */}
+      <CModalBody>Woohoo,Team Saved!</CModalBody>
+      <CModalFooter>
+        <CButton color="secondary" onClick={() => setVisible(false)}>
+          Close
+        </CButton>
+        <CButton color="primary" onClick={addAndUpdateTeam}>Save changes</CButton>
+      </CModalFooter>
+    </CModal>
+
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
         <div className="card">
@@ -498,20 +520,22 @@ const Addteams = () => {
                     </button>
                   </div>
                   <div className="form-group col-sm-6 ">
-                    <button
-                      className="btn-block btn-primary"
-                      onClick={addAndUpdateTeam}
-                    >
-                      {teamsState.isEditTeamClicked
+                  <CButton 
+              
+              className="btn-block btn-primary"
+              
+              onClick={() => setVisible(!visible)}> 
+              {teamsState.isEditTeamClicked
                         ? "Update Team"
-                        : "Add Team"}
-                    </button>
+                        : "Add Team"}</CButton>
+                  
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        </>
       
   );
 };

@@ -34,6 +34,8 @@ export const addEmployeeApi = async (newEmployee) => {
 		})
 		.catch((err) => {
 			debugger;
+			const error = JSON.stringify(err)
+			console.log("Employee Error",error)
 			return {
 				error: true,
 				data:err

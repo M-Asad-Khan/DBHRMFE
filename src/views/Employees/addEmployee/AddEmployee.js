@@ -10,6 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addEmployeeApi } from "src/API/AddEmployeeApi";
 import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
+import {
+  CButton,CModalTitle,
+  CModal,CModalHeader,CModalBody,CModalFooter
+} from '@coreui/react'
 
 // import backIcon from '/src/assets/back-icon.png'
 
@@ -34,6 +38,7 @@ const AddEmployee = ({}) => {
     permanentDate:false,
   });
   const [errorInfo, setErrorInfo] = useState({});
+  const [visible, setVisible] = useState(false)
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
@@ -179,6 +184,26 @@ const AddEmployee = ({}) => {
   console.log("state", state);
 
   return (
+<>
+
+
+    
+
+    <CModal visible={visible} 
+    onClose={() => setVisible(false)}>
+      {/* <CModalHeader onClose={() => setVisible(false)}>
+        <CModalTitle>Modal title</CModalTitle>
+      </CModalHeader> */}
+      <CModalBody>Woohoo,Employee Created!</CModalBody>
+      <CModalFooter>
+        <CButton color="secondary" onClick={() => setVisible(false)}>
+          Close
+        </CButton>
+        <CButton color="primary" onClick={addAndUpdateEmployee}>Save changes</CButton>
+      </CModalFooter>
+    </CModal>
+
+
     <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
         <div className="card">
@@ -673,20 +698,22 @@ const AddEmployee = ({}) => {
                 </button>
               </div>
               <div className="form-group col-sm-6 ">
-                <button
-                  className="btn-block btn-primary"
-                  onClick={addAndUpdateEmployee}
-                >
-                  {state.isEditEmployeeClicked
-                    ? "Update Employee"
-                    : "Add Employee"}
-                </button>
+              <CButton 
+              
+              className="btn-block btn-primary"
+              
+              onClick={() => setVisible(!visible)}> 
+               {state.isEditEmployeeClicked
+                ? "Update Employee"
+                : "Add Employee"}</CButton>
+               
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
 
