@@ -10,8 +10,8 @@ export const addEmployeeApi = async (newEmployee) => {
 			mode: "no-cors"
 		},
 		data: {
+			employee_No:newEmployee.employeeNo,
 			name: newEmployee.name,
-			//age: newEmployee.age,
 			gender: newEmployee.gender,
 			dateOfBirth: newEmployee.dateOfBirth,
 			education: newEmployee.education,
@@ -20,13 +20,11 @@ export const addEmployeeApi = async (newEmployee) => {
 			designation: newEmployee.designation,
 			address: newEmployee.address,
 			phoneNumber: newEmployee.phoneNumber,
-			//technology: newEmployee.technology,
-			//workExperience: newEmployee.workExperience,
 			salary: newEmployee.salary,
 			personalEmail:newEmployee.personalEmail,
 			cnic:newEmployee.cnic,
 			permanentDate:newEmployee.permanentDate,
-			linkedIn:newEmployee.linkedIn,
+			linkedInPrfile:newEmployee.linkedIn,
 			appointmentStatus:newEmployee.appointmentStatus,
 			agreementStatus:newEmployee.agreementStatus,
 

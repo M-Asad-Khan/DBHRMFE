@@ -17,8 +17,13 @@ import {
   CModal,
   CModalHeader,
   CModalBody,
-  CModalFooter,
+	CModalFooter,
+	CToast,
+	CToastBody,
+	CToastHeader,
+	CToastClose
 } from "@coreui/react";
+
 import { useParams } from "react-router-dom";
 
 // import backIcon from '/src/assets/back-icon.png'
@@ -73,7 +78,6 @@ const AddEmployee = ({}) => {
     dateOfBirth: false,
     email: false,
     phoneNumber: false,
-    technology: false,
     joiningDate: false,
     designation: false,
     salary: false,
@@ -105,8 +109,8 @@ const AddEmployee = ({}) => {
     dispatch(updateIsAddEmployeeClickedAction(false));
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
-  const addAndUpdateEmployee = async () => {
-    debugger;
+	const addAndUpdateEmployee = async () => {
+		debugger;
     if (!doValidation()) {
       if (state.isEditEmployeeClicked === true) {
         try {
@@ -243,23 +247,13 @@ const AddEmployee = ({}) => {
 
   return (
     <>
-      <CModal visible={visible} onClose={() => setVisible(false)}>
-        {/* <CModalHeader onClose={() => setVisible(false)}>
-        <CModalTitle>Modal title</CModalTitle>
-      </CModalHeader> */}
-        <CModalBody>Woohoo,Employee Created!</CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
-            Close
-          </CButton>
-          <CButton color="primary" onClick={addAndUpdateEmployee}>
-            Save changes
-          </CButton>
-        </CModalFooter>
-      </CModal>
-
-   
-     <div className="container-fluid px-1 py-5 mx-auto">
+   <CToast autohide={false} visible={true} color="primary" className="text-white align-items-center">
+  <div className="d-flex">
+    <CToastBody>Hello, world! This is a toast message.</CToastBody>
+    <CToastClose className="me-2 m-auto" white />
+  </div>
+</CToast>
+      <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
             <div className="form-card">
