@@ -700,9 +700,9 @@ const AddEmployee = ({}) => {
                     <input
                       id="appointmentStatus"
                       type="radio"
-                      checked={state.newEmployee.gender === "male"}
+                      checked={state.newEmployee.appointmentStatus === "true"}
                       name="appointmentStatus"
-                      value="Yes"
+                      value="true"
                       onChange={(e) => handleChange(e)}
                     />
                     <span> Yes </span>
@@ -714,14 +714,14 @@ const AddEmployee = ({}) => {
                     <input
                       id="appointmentStatus"
                       type="radio"
-                      checked={state.newEmployee.gender === "female"}
+                      checked={state.newEmployee.appointmentStatus === "false"}
                       name="appointmentStatus"
-                      value="No"
+                      value="false"
                       onChange={(e) => handleChange(e)}
                     />
                     <span className="ml-1">No </span>
                   </label>
-                  {fieldsWithError.gender === true ? (
+                  {fieldsWithError.appointmentStatus === true ? (
                     <div>
                       <label style={{ color: "red" }}>please select one</label>
                     </div>
@@ -738,9 +738,9 @@ const AddEmployee = ({}) => {
                     <input
                       id="agreementStatus"
                       type="radio"
-                      checked={state.newEmployee.gender === "male"}
+                      checked={state.newEmployee.agreementStatus === "true"}
                       name="agreementStatus"
-                      value="Yes"
+                      value="true"
                       onChange={(e) => handleChange(e)}
                     />
                     <span> Yes </span>
@@ -752,14 +752,14 @@ const AddEmployee = ({}) => {
                     <input
                       id="agreementStatus"
                       type="radio"
-                      checked={state.newEmployee.gender === "female"}
+                      checked={state.newEmployee.agreementStatus === "false"}
                       name="agreementStatus"
-                      value="No"
+                      value="false"
                       onChange={(e) => handleChange(e)}
                     />
                     <span className="ml-1">No </span>
                   </label>
-                  {fieldsWithError.gender === true ? (
+                  {fieldsWithError.agreementStatus === true ? (
                     <div>
                       <label style={{ color: "red" }}>please select one</label>
                     </div>
