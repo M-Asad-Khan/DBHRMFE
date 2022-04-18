@@ -24,7 +24,7 @@ export const addEmployeeApi = async (newEmployee) => {
 			personalEmail:newEmployee.personalEmail,
 			cnic:newEmployee.cnic,
 			permanentDate:newEmployee.permanentDate,
-			linkedInPrfile:newEmployee.linkedIn,
+			linkedInProfile:newEmployee.linkedIn,
 			appointmentStatus:newEmployee.appointmentStatus,
 			agreementStatus:newEmployee.agreementStatus,
 
