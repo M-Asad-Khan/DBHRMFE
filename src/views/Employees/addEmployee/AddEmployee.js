@@ -46,13 +46,18 @@ const AddEmployee = ({}) => {
     { value: "Team Lead", label: "Team Lead", field: "designation" },
     { value: "SQA Engineer", label: "SQA Engineer", field: "designation" },
     {
+      value: "Sr.SQA Engineer",
+      label: "Sr.SQA Engineer",
+      field: "designation",
+    },
+    {
       value: "Automation Engineer",
       label: "Automation Engineer",
       field: "designation",
     },
     {
-      value: "Sr.SQA Engineer",
-      label: "Sr.SQA Engineer",
+      value: "Sr.Automation Engineer",
+      label: "Sr.Automation Engineer",
       field: "designation",
     },
     { value: "HR", label: "HR", field: "designation" },
@@ -101,6 +106,7 @@ const AddEmployee = ({}) => {
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
   const addAndUpdateEmployee = async () => {
+    debugger;
     if (!doValidation()) {
       if (state.isEditEmployeeClicked === true) {
         try {
@@ -252,7 +258,8 @@ const AddEmployee = ({}) => {
         </CModalFooter>
       </CModal>
 
-      <div className="container-fluid px-1 py-5 mx-auto">
+   
+     <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
             <div className="form-card">
@@ -344,75 +351,23 @@ const AddEmployee = ({}) => {
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label px-3">
-                    Personal Email<span className="text-danger"> *</span>
+                    Date of Birth<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
                     className={
-                      fieldsWithError.personalEmail === true ? "redBorder" : ""
+                      fieldsWithError.dateOfBirth === true ? "redBorder" : ""
                     }
-                    value={state.newEmployee.personalEmail}
-                    onChange={handleChange}
-                    type="text"
-                    id="personalEmail"
-                    name="personalEmail"
-                    placeholder=""
-                  />{" "}
-                  {fieldsWithError.personalEmail === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.personalEmail}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <label className="form-control-label px-3">
-                    Permanent Date<span className="text-danger"> *</span>
-                  </label>{" "}
-                  <input
-                    className={
-                      fieldsWithError.permanentDate === true ? "redBorder" : ""
-                    }
-                    value={state?.newEmployee?.permanentDate?.slice(0, 10)}
+                    value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
                     onChange={handleChange}
                     type="date"
-                    id="permanentDate"
-                    name="permanentDate"
-                    placeholder=""
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    placeholder="Enter your date of birth"
                   />{" "}
-                  {fieldsWithError.permanentDate === true ? (
+                  {fieldsWithError.dateOfBirth === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.permanentDate}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <label className="form-control-label px-3">
-                    Status<span className="text-danger"> *</span>
-                  </label>{" "}
-                  <Select
-                    /* value={} */
-
-                    id="status"
-                    name="status"
-                    options={empStatusOptions}
-                    onChange={handleReactSelectChange}
-                  ></Select>{" "}
-                  {fieldsWithError.status === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.status}
+                        {errorInfo.dateOfBirth}
                       </label>{" "}
                     </>
                   ) : (
@@ -420,6 +375,8 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
               </div>
+
+             
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
@@ -451,24 +408,23 @@ const AddEmployee = ({}) => {
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label px-3">
-                    Phone number<span className="text-danger"> *</span>
+                    Personal Email<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
                     className={
-                      fieldsWithError.phoneNumber === true ? "redBorder" : ""
+                      fieldsWithError.personalEmail === true ? "redBorder" : ""
                     }
-                    value={state.newEmployee.phoneNumber}
+                    value={state.newEmployee.personalEmail}
                     onChange={handleChange}
                     type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
+                    id="personalEmail"
+                    name="personalEmail"
                     placeholder=""
-                    onBlur={(e) => validateNumberOnly(e.target.value)}
                   />{" "}
-                  {fieldsWithError.phoneNumber === true ? (
+                  {fieldsWithError.personalEmail === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.phoneNumber}
+                        {errorInfo.personalEmail}
                       </label>{" "}
                     </>
                   ) : (
@@ -504,36 +460,39 @@ const AddEmployee = ({}) => {
                     ""
                   )}
                 </div>
+
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label px-3">
-                    Date of Birth<span className="text-danger"> *</span>
+                    Phone number<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
                     className={
-                      fieldsWithError.dateOfBirth === true ? "redBorder" : ""
+                      fieldsWithError.phoneNumber === true ? "redBorder" : ""
                     }
-                    value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
+                    value={state.newEmployee.phoneNumber}
                     onChange={handleChange}
-                    type="date"
-                    id="dateOfBirth"
-                    name="dateOfBirth"
-                    placeholder="Enter your date of birth"
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder=""
+                    onBlur={(e) => validateNumberOnly(e.target.value)}
                   />{" "}
-                  {fieldsWithError.dateOfBirth === true ? (
+                  {fieldsWithError.phoneNumber === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.dateOfBirth}
+                        {errorInfo.phoneNumber}
                       </label>{" "}
                     </>
                   ) : (
                     ""
                   )}
                 </div>
+                
               </div>
-
               <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
+
+              <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
                     Gender<span className="text-danger"> *</span>
                   </label>{" "}
@@ -543,8 +502,8 @@ const AddEmployee = ({}) => {
                     id="gender"
                     name="gender"
                     options={[
-                      { label: "male", value: "male", field: "gender" },
-                      { label: "female", value: "female", field: "gender" },
+                      { label: "Male", value: "male", field: "gender" },
+                      { label: "Female", value: "female", field: "gender" },
                     ]}
                     onChange={handleReactSelectChange}
                   ></Select>{" "}
@@ -556,6 +515,64 @@ const AddEmployee = ({}) => {
                     ""
                   )}
                 </div>
+             
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Status<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    /* value={} */
+
+                    id="status"
+                    name="status"
+                    options={empStatusOptions}
+                    onChange={handleReactSelectChange}
+                  ></Select>{" "}
+                  {fieldsWithError.status === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.status}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Permanent Date<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.permanentDate === true ? "redBorder" : ""
+                    }
+                    value={state?.newEmployee?.permanentDate?.slice(0, 10)}
+                    onChange={handleChange}
+                    type="date"
+                    id="permanentDate"
+                    name="permanentDate"
+                    placeholder=""
+                  />{" "}
+                  {fieldsWithError.permanentDate === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.permanentDate}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+
+
+
+             
+                
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label px-3">
@@ -583,6 +600,8 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
               </div>
+
+
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
@@ -786,7 +805,7 @@ const AddEmployee = ({}) => {
                 <div className="form-group col-sm-6 ">
                   <CButton
                     className="btn-block btn-primary"
-                    onClick={() => setVisible(!visible)}
+                    onClick={() => addAndUpdateEmployee()}
                   >
                     {state.isEditEmployeeClicked
                       ? "Update Employee"
@@ -798,7 +817,10 @@ const AddEmployee = ({}) => {
           </div>
         </div>
       </div>
-    </>
+   
+    
+    
+     </>
   );
 };
 
