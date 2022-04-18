@@ -22,7 +22,15 @@ export const addEmployeeApi = async (newEmployee) => {
 			phoneNumber: newEmployee.phoneNumber,
 			technology: newEmployee.technology,
 			workExperience: newEmployee.workExperience,
-			salary: newEmployee.salary
+			salary: newEmployee.salary,
+			personalEmail:newEmployee.personalEmail,
+			cnic:newEmployee.cnic,
+			permanentDate:newEmployee.permanentDate,
+			linkedIn:newEmployee.linkedIn,
+			appointmentStatus:newEmployee.appointmentStatus,
+			agreementStatus:newEmployee.agreementStatus,
+
+
 		}
 	})
 		.then((result) => {

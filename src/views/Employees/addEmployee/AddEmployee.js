@@ -10,19 +10,60 @@ import { useSelector, useDispatch } from "react-redux";
 import { addEmployeeApi } from "src/API/AddEmployeeApi";
 import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
+import Select from "react-select";
 import {
-  CButton,CModalTitle,
-  CModal,CModalHeader,CModalBody,CModalFooter
-} from '@coreui/react'
+  CButton,
+  CModalTitle,
+  CModal,
+  CModalHeader,
+  CModalBody,
+  CModalFooter,
+} from "@coreui/react";
+import { useParams } from "react-router-dom";
 
 // import backIcon from '/src/assets/back-icon.png'
 
 const AddEmployee = ({}) => {
+  const empStatusOptions = [
+    { value: "Active", label: "Active", field: "status" },
+    { value: "Pending", label: "Pending", field: "status" },
+    { value: "Associated", label: "Associated", field: "status" },
+    { value: "FreePool", label: "FreePool", field: "status" },
+    { value: "OnLeave", label: "OnLeave", field: "status" },
+  ];
+
+  const empDesignationOptions = [
+    {
+      value: "Software Engineer",
+      label: "Software Engineer",
+      field: "designation",
+    },
+    {
+      value: "Sr.Software Engineer",
+      label: "Sr.Software Engineer",
+      field: "designation",
+    },
+    { value: "Team Lead", label: "Team Lead", field: "designation" },
+    { value: "SQA Engineer", label: "SQA Engineer", field: "designation" },
+    {
+      value: "Automation Engineer",
+      label: "Automation Engineer",
+      field: "designation",
+    },
+    {
+      value: "Sr.SQA Engineer",
+      label: "Sr.SQA Engineer",
+      field: "designation",
+    },
+    { value: "HR", label: "HR", field: "designation" },
+    { value: "Other", label: "Other", field: "designation" },
+  ];
+
   const [fieldsWithError, setFieldsWithError] = useState({
     name: false,
     employeeNo: false,
-    cnic:false,
-    personalEmail:false,
+    cnic: false,
+    personalEmail: false,
     address: false,
     dateOfBirth: false,
     email: false,
@@ -34,11 +75,13 @@ const AddEmployee = ({}) => {
     education: false,
     linkedIn: false,
     gender: false,
-    status:false,
-    permanentDate:false,
+    status: false,
+    permanentDate: false,
+    appointmentStatus:false,
+    agreementStatus:false,
   });
   const [errorInfo, setErrorInfo] = useState({});
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
@@ -179,540 +222,582 @@ const AddEmployee = ({}) => {
       });
     }
   }
+  const handleReactSelectChange = (param) => {
+    dispatch(
+      updateNewEmployeeAction({
+        ...state.newEmployee,
+        [param.field]: param.value,
+      })
+    );
+  };
+
   // console.log("fieldsWithError", fieldsWithError);
   // console.log("errorInfo", errorInfo);
   console.log("state", state);
 
   return (
-<>
-
-
-    
-
-    <CModal visible={visible} 
-    onClose={() => setVisible(false)}>
-      {/* <CModalHeader onClose={() => setVisible(false)}>
+    <>
+      <CModal visible={visible} onClose={() => setVisible(false)}>
+        {/* <CModalHeader onClose={() => setVisible(false)}>
         <CModalTitle>Modal title</CModalTitle>
       </CModalHeader> */}
-      <CModalBody>Woohoo,Employee Created!</CModalBody>
-      <CModalFooter>
-        <CButton color="secondary" onClick={() => setVisible(false)}>
-          Close
-        </CButton>
-        <CButton color="primary" onClick={addAndUpdateEmployee}>Save changes</CButton>
-      </CModalFooter>
-    </CModal>
+        <CModalBody>Woohoo,Employee Created!</CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="primary" onClick={addAndUpdateEmployee}>
+            Save changes
+          </CButton>
+        </CModalFooter>
+      </CModal>
+
+      <div className="container-fluid px-1 py-5 mx-auto">
+        <div className="row d-flex justify-content-center">
+          <div className="card">
+            <div className="form-card">
+              <button
+                className="btn btn-outline-primary mb-3"
+                onClick={handleCancel}
+              >
+                <IoArrowBackSharp />
+              </button>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Name<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={fieldsWithError.name === true ? "redBorder" : ""}
+                    value={state.newEmployee.name}
+                    onChange={handleChange}
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                  />{" "}
+                  {fieldsWithError.name === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.name}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Employee No.<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.employeeNo === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.employeeNo}
+                    onChange={handleChange}
+                    type="text"
+                    id="employeeNo"
+                    name="employeeNo"
+                    placeholder="Enter Employee No."
+                    // onBlur={(e) => validateNumberOnly(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.employeeNo === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.employeeNo}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    CNIC<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={fieldsWithError.cnic === true ? "redBorder" : ""}
+                    value={state.newEmployee.cnic}
+                    onChange={handleChange}
+                    type="text"
+                    id="cnic"
+                    name="cnic"
+                    placeholder="Enter your CNIC"
+                  />{" "}
+                  {fieldsWithError.cnic === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.cnic}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Personal Email<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.personalEmail === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.personalEmail}
+                    onChange={handleChange}
+                    type="text"
+                    id="personalEmail"
+                    name="personalEmail"
+                    placeholder=""
+                  />{" "}
+                  {fieldsWithError.personalEmail === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.personalEmail}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Permanent Date<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.permanentDate === true ? "redBorder" : ""
+                    }
+                    value={state?.newEmployee?.permanentDate?.slice(0, 10)}
+                    onChange={handleChange}
+                    type="date"
+                    id="permanentDate"
+                    name="permanentDate"
+                    placeholder=""
+                  />{" "}
+                  {fieldsWithError.permanentDate === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.permanentDate}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Status<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    /* value={} */
+
+                    id="status"
+                    name="status"
+                    options={empStatusOptions}
+                    onChange={handleReactSelectChange}
+                  ></Select>{" "}
+                  {fieldsWithError.status === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.status}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Business email<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.email === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.email}
+                    onChange={handleChange}
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder=""
+                    onBlur={(e) => validateEmail(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.email === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.email}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Phone number<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.phoneNumber === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.phoneNumber}
+                    onChange={handleChange}
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder=""
+                    onBlur={(e) => validateNumberOnly(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.phoneNumber === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.phoneNumber}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Home Address<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.address === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.address}
+                    onChange={handleChange}
+                    type="text"
+                    id="address"
+                    name="address"
+                    placeholder=""
+                  />{" "}
+                  {fieldsWithError.address === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.address}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Date of Birth<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.dateOfBirth === true ? "redBorder" : ""
+                    }
+                    value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
+                    onChange={handleChange}
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    placeholder="Enter your date of birth"
+                  />{" "}
+                  {fieldsWithError.dateOfBirth === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.dateOfBirth}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Gender<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    /* value={} */
+
+                    id="gender"
+                    name="gender"
+                    options={[
+                      { label: "male", value: "male", field: "gender" },
+                      { label: "female", value: "female", field: "gender" },
+                    ]}
+                    onChange={handleReactSelectChange}
+                  ></Select>{" "}
+                  {fieldsWithError.gender === true ? (
+                    <div>
+                      <label style={{ color: "red" }}>please select one</label>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Joining Date<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.joiningDate === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.joiningDate}
+                    onChange={handleChange}
+                    type="date"
+                    id="joiningDate"
+                    name="joiningDate"
+                    placeholder="Enter your Joining date"
+                  />{" "}
+                  {fieldsWithError.joiningDate === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.joiningDate}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Designation<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    /* value={} */
+
+                    id="designation"
+                    name="designation"
+                    options={empDesignationOptions}
+                    onChange={handleReactSelectChange}
+                  ></Select>{" "}
+                  {fieldsWithError.designation === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.designation}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Salary<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.salary === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.salary}
+                    onChange={handleChange}
+                    type="text"
+                    id="salary"
+                    name="salary"
+                    placeholder="Enter salary"
+                    onBlur={(e) => validateNumberOnly(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.salary === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.salary}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Qualification<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.education === true ? "redBorder" : ""
+                    }
+                    value={state.newEmployee.education}
+                    onChange={handleChange}
+                    type="text"
+                    id="education"
+                    name="education"
+                    placeholder=""
+                  />{" "}
+                  {fieldsWithError.education === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.education}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    LinkedIn Profile<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.linkedIn === true ? "redBrder" : ""
+                    }
+                    value={state.newEmployee.linkedIn}
+                    onChange={handleChange}
+                    type="text"
+                    id="linkedIn"
+                    name="linkedIn"
+                    placeholder=""
+                  />{" "}
+                  {fieldsWithError.linkedIn === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.linkedIn}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+
+               <div className="form-group col-sm-6 flex-column d-flex">
+                <div className="maxl">
+                <label className="form-control-label px-3 radio inline">
+                  Appointment Letter Status<span className="text-danger"> *</span>
+                  </label> 
+                    <input
+                      id="appointmentStatus"
+                      type="radio"
+                      checked={state.newEmployee.gender === "male"}
+                      name="appointmentStatus"
+                      value="Yes"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <span> Yes </span>
+                 
+                  <label
+                    style={{ marginLeft: "20px" }}
+                    className="radio inline"
+                  >
+                    <input
+                      id="appointmentStatus"
+                      type="radio"
+                      checked={state.newEmployee.gender === "female"}
+                      name="appointmentStatus"
+                      value="No"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <span className="ml-1">No </span>
+                  </label>
+                  {fieldsWithError.gender === true ? (
+                    <div>
+                      <label style={{ color: "red" }}>please select one</label>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div> 
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <div className="maxl">
+                  <label className="form-control-label px-3 radio inline">
+                  Agreement Sign Status<span className="text-danger"> *</span>
+                  </label> 
+                    <input
+                      id="agreementStatus"
+                      type="radio"
+                      checked={state.newEmployee.gender === "male"}
+                      name="agreementStatus"
+                      value="Yes"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <span> Yes </span>
+                  
+                  <label
+                    style={{ marginLeft: "20px" }}
+                    className="radio inline"
+                  >
+                    <input
+                      id="agreementStatus"
+                      type="radio"
+                      checked={state.newEmployee.gender === "female"}
+                      name="agreementStatus"
+                      value="No"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <span className="ml-1">No </span>
+                  </label>
+                  {fieldsWithError.gender === true ? (
+                    <div>
+                      <label style={{ color: "red" }}>please select one</label>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div> 
+              </div>
+
+             
+ 
 
 
-    <div className="container-fluid px-1 py-5 mx-auto">
-      <div className="row d-flex justify-content-center">
-        <div className="card">
-          <div className="form-card">
-          <button
-                    className="btn btn-outline-primary mb-3"
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 ">
+                  <button
+                    className="btn-block btn-primary"
                     onClick={handleCancel}
                   >
-                    <IoArrowBackSharp />
+                    Cancel
                   </button>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Name<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={fieldsWithError.name === true ? "redBorder" : ""}
-                  value={state.newEmployee.name}
-                  onChange={handleChange}
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your name"
-                />{" "}
-                {fieldsWithError.name === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.name}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Employee No.<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={fieldsWithError.employeeNo === true ? "redBorder" : ""}
-                  value={state.newEmployee.employeeNo}
-                  onChange={handleChange}
-                  type="text"
-                  id="employeeNo"
-                  name="employeeNo"
-                  placeholder="Enter Employee No."
-                  // onBlur={(e) => validateNumberOnly(e.target.value)}
-                />{" "}
-                {fieldsWithError.employeeNo === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.employeeNo}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  CNIC<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.cnic === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.cnic}
-                  onChange={handleChange}
-                  type="text"
-                  id="cnic"
-                  name="cnic"
-                  placeholder="Enter your CNIC"
-                />{" "}
-                {fieldsWithError.cnic === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.cnic}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Personal Email<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.personalEmail === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.personalEmail}
-                  onChange={handleChange}
-                  type="text"
-                  id="personalEmail"
-                  name="personalEmail"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.personalEmail === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.personalEmail}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-           
-
-
-
-            <div className="row justify-content-between text-left">
-            <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Permanent Date<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.permanentDate === true ? "redBorder" : ""
-                  }
-                  value={state?.newEmployee?.permanentDate?.slice(0, 10)}
-                  onChange={handleChange}
-                  type="date"
-                  id="permanentDate"
-                  name="permanentDate"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.permanentDate=== true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.permanentDate}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                Status<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.status === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.address}
-                  onChange={handleChange}
-                  type="text"
-                  id="status"
-                  name="status"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.status === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.status}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-             
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Business email<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={fieldsWithError.email === true ? "redBorder" : ""}
-                  value={state.newEmployee.email}
-                  onChange={handleChange}
-                  type="text"
-                  id="email"
-                  name="email"
-                  placeholder=""
-                  onBlur={(e) => validateEmail(e.target.value)}
-                />{" "}
-                {fieldsWithError.email === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.email}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Phone number<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.phoneNumber === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.phoneNumber}
-                  onChange={handleChange}
-                  type="text"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder=""
-                  onBlur={(e) => validateNumberOnly(e.target.value)}
-                />{" "}
-                {fieldsWithError.phoneNumber === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.phoneNumber}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-          
-
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                Home Address<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.address === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.address}
-                  onChange={handleChange}
-                  type="text"
-                  id="address"
-                  name="address"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.address === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.address}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Date of Birth<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.dateOfBirth === true ? "redBorder" : ""
-                  }
-                  value={state?.newEmployee?.dateOfBirth?.slice(0, 10)}
-                  onChange={handleChange}
-                  type="date"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  placeholder="Enter your date of birth"
-                />{" "}
-                {fieldsWithError.dateOfBirth === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.dateOfBirth}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Technology<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.technology === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.technology}
-                  onChange={handleChange}
-                  type="text"
-                  id="technology"
-                  name="technology"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.technology === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.technology}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Joining Date<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.joiningDate === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.joiningDate}
-                  onChange={handleChange}
-                  type="date"
-                  id="joiningDate"
-                  name="joiningDate"
-                  placeholder="Enter your Joining date"
-                />{" "}
-                {fieldsWithError.joiningDate === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.joiningDate}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Designation<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.designation === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.designation}
-                  onChange={handleChange}
-                  type="text"
-                  id="designation"
-                  name="designation"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.designation === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.designation}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Salary<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={fieldsWithError.salary === true ? "redBorder" : ""}
-                  value={state.newEmployee.salary}
-                  onChange={handleChange}
-                  type="text"
-                  id="salary"
-                  name="salary"
-                  placeholder="Enter salary"
-                  onBlur={(e) => validateNumberOnly(e.target.value)}
-                />{" "}
-                {fieldsWithError.salary === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.salary}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Qualification<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.education === true ? "redBorder" : ""
-                  }
-                  value={state.newEmployee.education}
-                  onChange={handleChange}
-                  type="text"
-                  id="education"
-                  name="education"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError.education === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.education}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  LinkedIn Profile<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError. linkedIn === true ? "redBrder" : ""
-                  }
-                  value={state.newEmployee. linkedIn}
-                  onChange={handleChange}
-                  type="text"
-                  id="linkedIn"
-                  name="linkedIn"
-                  placeholder=""
-                />{" "}
-                {fieldsWithError. linkedIn === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo. linkedIn}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="row justify-content-between text-left"></div>
-
-            <div className="form-group">
-              
-              <div className="maxl">
-                <label className="radio inline">
-                  <p>Gender:</p>
-                  <input
-                    id="male"
-                    type="radio"
-                    checked={state.newEmployee.gender === "male"}
-                    name="gender"
-                    value="male"
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <span> Male </span>
-                </label>
-                <label style={{ marginLeft: "20px" }} className="radio inline">
-                  <input
-                    id="female"
-                    type="radio"
-                    checked={state.newEmployee.gender === "female"}
-                    name="gender"
-                    value="female"
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <span className="ml-1">Female </span>
-                </label>
-                {fieldsWithError.gender === true ? (
-                  <div>
-                    <label style={{ color: "red" }}>please select one</label>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 ">
-                <button
-                  className="btn-block btn-primary"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
-              </div>
-              <div className="form-group col-sm-6 ">
-              <CButton 
-              
-              className="btn-block btn-primary"
-              
-              onClick={() => setVisible(!visible)}> 
-               {state.isEditEmployeeClicked
-                ? "Update Employee"
-                : "Add Employee"}</CButton>
-               
+                </div>
+                <div className="form-group col-sm-6 ">
+                  <CButton
+                    className="btn-block btn-primary"
+                    onClick={() => setVisible(!visible)}
+                  >
+                    {state.isEditEmployeeClicked
+                      ? "Update Employee"
+                      : "Add Employee"}
+                  </CButton>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
