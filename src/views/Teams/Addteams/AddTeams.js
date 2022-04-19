@@ -317,7 +317,7 @@ const Addteams = () => {
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label ">
                     Team Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -343,7 +343,7 @@ const Addteams = () => {
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Project<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -370,7 +370,7 @@ const Addteams = () => {
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Client<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -395,7 +395,7 @@ const Addteams = () => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Project Manager <span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -424,7 +424,7 @@ const Addteams = () => {
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label ">
                     Team Lead <span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -448,7 +448,7 @@ const Addteams = () => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Members<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -473,7 +473,7 @@ const Addteams = () => {
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Enter Start Date<span className="text-danger"> *</span>
                   </label>{" "}
                   <input

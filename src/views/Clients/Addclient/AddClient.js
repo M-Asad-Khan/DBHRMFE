@@ -193,7 +193,7 @@ const addclients = ({}) => {
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label ">
                     Country<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -220,7 +220,7 @@ const addclients = ({}) => {
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -246,7 +246,7 @@ const addclients = ({}) => {
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label ">
                     Business email<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -273,7 +273,7 @@ const addclients = ({}) => {
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Phone number<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -302,7 +302,7 @@ const addclients = ({}) => {
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Technology<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
