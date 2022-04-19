@@ -85,7 +85,7 @@ const AddEmployee = ({}) => {
 
   function handleChange(evt) {
     debugger;
-		const value = evt.target.value;
+    const value = evt.target.value;
     dispatch(
       updateNewEmployeeAction({
         ...state.newEmployee,
@@ -278,19 +278,20 @@ const AddEmployee = ({}) => {
                 </div>
                 
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Employee No.<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
                     className={
                       fieldsWithError.employee_No === true ? "redBorder" : ""
                     }
-                    value={state.newEmployee.employee_No}
+                    value={state.newEmployee.employee_No?state.newEmployee.employee_No:"emp-"+(state.employees.length+1)}
                     onChange={handleChange}
                     type="text"
                     id="employee_No"
                     name="employee_No"
-                    placeholder="Enter Employee No."
+											placeholder="Enter Employee No."
+											disabled
                     // onBlur={(e) => validateNumberOnly(e.target.value)}
                   />{" "}
                   {fieldsWithError.employee_No === true ? (
@@ -307,7 +308,7 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     CNIC<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -321,7 +322,7 @@ const AddEmployee = ({}) => {
                   />{" "}
                   {fieldsWithError.cnic === true ? (
                     <>
-                      <label className="error form-control-label">
+                      <label className="error form-control-label px-3">
                         {errorInfo.cnic}
                       </label>{" "}
                     </>
@@ -330,7 +331,7 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     Date of Birth<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -346,7 +347,7 @@ const AddEmployee = ({}) => {
                   />{" "}
                   {fieldsWithError.dateOfBirth === true ? (
                     <>
-                      <label className="error form-control-label">
+                      <label className="error form-control-label px-3">
                         {errorInfo.dateOfBirth}
                       </label>{" "}
                     </>
@@ -358,7 +359,7 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Business email<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -384,7 +385,7 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     Personal Email<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -400,7 +401,7 @@ const AddEmployee = ({}) => {
                   />{" "}
                   {fieldsWithError.personalEmail === true ? (
                     <>
-                      <label className="error form-control-label">
+                      <label className="error form-control-label px-3">
                         {errorInfo.personalEmail}
                       </label>{" "}
                     </>
@@ -412,7 +413,7 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Home Address<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -439,7 +440,7 @@ const AddEmployee = ({}) => {
 
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     Phone number<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -467,7 +468,7 @@ const AddEmployee = ({}) => {
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     Gender<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -497,7 +498,7 @@ const AddEmployee = ({}) => {
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     Status<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -528,7 +529,7 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Permanent Date<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -554,7 +555,7 @@ const AddEmployee = ({}) => {
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Joining Date<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -582,7 +583,7 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     Designation<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -612,7 +613,7 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Salary<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -640,7 +641,7 @@ const AddEmployee = ({}) => {
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
+                  <label className="form-control-label px-3">
                     Qualification<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -656,7 +657,7 @@ const AddEmployee = ({}) => {
                   />{" "}
                   {fieldsWithError.education === true ? (
                     <>
-                      <label className="error form-control-label">
+                      <label className="error form-control-label px-3">
                         {errorInfo.education}
                       </label>{" "}
                     </>
@@ -666,7 +667,7 @@ const AddEmployee = ({}) => {
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
+                  <label className="form-control-label px-3">
                     LinkedIn Profile<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
