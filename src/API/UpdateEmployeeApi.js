@@ -11,19 +11,24 @@ export const updateEmployeeApi = async ( newEmployee) => {
 			mode: "no-cors"
 		},
 		data: {
-			name: newEmployee.name,
-			age: newEmployee.age,
+			name:newEmployee.name,
 			gender: newEmployee.gender,
 			dateOfBirth: newEmployee.dateOfBirth,
 			education: newEmployee.education,
 			email: newEmployee.email,
-			joiningDate: newEmployee.joiningDate,
-			designation: newEmployee.designation,
-			address: newEmployee.address,
-			phoneNumber: newEmployee.phoneNumber,
-			technology: newEmployee.technology,
-			workExperience: newEmployee.workExperience,
-			salary: newEmployee.salary
+			joiningDate:newEmployee.joiningDate,
+			designation : newEmployee.designation,
+			address : newEmployee.address,
+			phoneNumber : newEmployee.phoneNumber,
+			salary: newEmployee.salary,
+			permanentDate: newEmployee.permanentDate,
+			status:newEmployee.status,
+			appointmentLetterStatus:newEmployee.appointmentLetterStatus,
+			agreementSignStatus: newEmployee.agreementSignStatus,
+			linkedInProfile:newEmployee.linkedInProfile,
+			personalEmail:newEmployee.personalEmail,
+			cnic:newEmployee.cnic,
+			employee_No:newEmployee.employee_No 
 		}
 	})
 		.then((result) => {
