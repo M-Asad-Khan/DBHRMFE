@@ -18,9 +18,13 @@ import { updateTeamApi } from "src/API/UpdateTeamApi";
 import { deleteTeamMemberApi } from "src/API/DeleteTeamMemberApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import {
-  CButton,CModalTitle,
-  CModal,CModalHeader,CModalBody,CModalFooter
-} from '@coreui/react'
+  CButton,
+  CModalTitle,
+  CModal,
+  CModalHeader,
+  CModalBody,
+  CModalFooter,
+} from "@coreui/react";
 
 const Addteams = () => {
   //var selectedTeamMembers = [];
@@ -38,8 +42,8 @@ const Addteams = () => {
     manager: null,
     members: null,
     startDate: null,
-		teamLead: null,
-		project:null
+    teamLead: null,
+    project: null,
   });
   const [errorInfo, setErrorInfo] = useState({});
 
@@ -194,7 +198,7 @@ const Addteams = () => {
           debugger;
           if (res.error === false) {
             debugger;
-            
+
             dispatch(updateTeamsAction([...teamsState.teams, res.data]));
             dispatch(updateIsAddTeamClickedAction(false));
             dispatch(updateIsEditTeamClickedAction(false));
@@ -299,244 +303,239 @@ const Addteams = () => {
   console.log("selectedTeamMembers", selectedTeamMembers);
   return (
     <>
-
-
-    <CModal visible={visible} 
-    onClose={() => setVisible(false)}>
-      {/* <CModalHeader onClose={() => setVisible(false)}>
+      <CModal visible={visible} onClose={() => setVisible(false)}>
+        {/* <CModalHeader onClose={() => setVisible(false)}>
         <CModalTitle>Modal title</CModalTitle>
       </CModalHeader> */}
-      <CModalBody>Woohoo,Team Saved!</CModalBody>
-      <CModalFooter>
-        <CButton color="secondary" onClick={() => setVisible(false)}>
-          Close
-        </CButton>
-        <CButton color="primary" onClick={addAndUpdateTeam}>Save changes</CButton>
-      </CModalFooter>
-    </CModal>
+        <CModalBody>Woohoo,Team Saved!</CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="primary" onClick={addAndUpdateTeam}>
+            Save changes
+          </CButton>
+        </CModalFooter>
+      </CModal>
 
-    <div className="container-fluid px-1 py-5 mx-auto">
-      <div className="row d-flex justify-content-center">
-        <div className="card">
-          <div className="form-card">
-          <button
-                    className="btn btn-outline-primary mb-3"
-                    onClick={handleCancel}
-                  >
-                    <IoArrowBackSharp />
-                  </button>
-                  <div className="row justify-content-between text-left">
-                      <div className="form-group col-sm-6 flex-column d-flex">
-                        {" "}
-                        <label className="form-control-label px-3">
-                          Team Name<span className="text-danger"> *</span>
-                        </label>{" "}
-                        <input
-                          value={tempTeam.teamName}
-                          onChange={handleChange}
-                          type="text"
-                          id="teamName"
-                          name="teamName"
-                          placeholder="Enter Team Name"
-                          className={
-                            fieldsWithError.teamName === true ? "redBorder" : ""
-                          }
-                        />{" "}
-                        {fieldsWithError.teamName === true ? (
-                          <>
-                            <label className="error form-control-label px-3">
-                              {errorInfo.teamName}
-                            </label>{" "}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className="form-group col-sm-6 flex-column d-flex">
-                            {" "}
-                            <label className="form-control-label px-3">
-                              Project<span className="text-danger"> *</span>
-                            </label>{" "}
-                            <input
-                              className={
-                                fieldsWithError.project === true ? "redBorder" : ""
-                              }
-                              value={teamsState.project}
-                              onChange={handleChange}
-                              type="text"
-                              id="project"
-                              name="project"
-                              placeholder="Enter project name"
-                            />{" "}
-                            {fieldsWithError.project === true ? (
-                              <>
-                                <label className="error form-control-label px-3">
-                                  {errorInfo.project}
-                                </label>{" "}
-                              </>
-                            ) : (
-                              ""
-                            )}
-                      </div>
+      <div className="container-fluid px-1 py-5 mx-auto">
+        <div className="row d-flex justify-content-center">
+          <div className="card">
+            <div className="form-card">
+              <button
+                className="btn btn-outline-primary mb-3"
+                onClick={handleCancel}
+              >
+                <IoArrowBackSharp />
+              </button>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Team Name<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    value={tempTeam.teamName}
+                    onChange={handleChange}
+                    type="text"
+                    id="teamName"
+                    name="teamName"
+                    placeholder="Enter Team Name"
+                    className={
+                      fieldsWithError.teamName === true ? "redBorder" : ""
+                    }
+                  />{" "}
+                  {fieldsWithError.teamName === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.teamName}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Project<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.project === true ? "redBorder" : ""
+                    }
+                    value={tempTeam.project}
+                    onChange={handleChange}
+                    type="text"
+                    id="project"
+                    name="project"
+                    placeholder="Enter project name"
+                  />{" "}
+                  {fieldsWithError.project === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.project}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
               <div className="row justify-content-between text-left">
-                      <div className="form-group col-sm-6 flex-column d-flex">
-                        <label className="form-control-label px-3">
-                          Client<span className="text-danger"> *</span>
-                        </label>{" "}
-                        <Select
-                          // defaultValue={selectedClient}
-                          value={selectedClient}
-                          id="clientId"
-                          name="clientId"
-                          options={clients}
-                          onChange={handleClientSelectChange}
-                          className={
-                            fieldsWithError.teamName === true ? "redBorder" : ""
-                          }
-                        ></Select>
-                        {fieldsWithError.clientId === true ? (
-                          <>
-                            <label className="error form-control-label px-3">
-                              {errorInfo.clientId}
-                            </label>{" "}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className="form-group col-sm-6 flex-column d-flex">
-                          <label className="form-control-label px-3">
-                            Project Manager <span className="text-danger"> *</span>
-                          </label>{" "}
-                          <Select
-                            defaultValue={{
-                              label: teamsState.newTeam.managerName,
-                              value: teamsState.newTeam.managerName,
-                            }}
-                            id="manager"
-                            name="manager"
-                            options={employees}
-                            onChange={handleProjectManagerSelectChange}
-                            className={
-                              fieldsWithError.teamName === true ? "redBorder" : ""
-                            }
-                          ></Select>
-                          {fieldsWithError.manager === true ? (
-                            <>
-                              <label className="error form-control-label px-3">
-                                {errorInfo.manager}
-                              </label>{" "}
-                            </>
-                          ) : (
-                            ""
-                          )}
-                      </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Client<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    // defaultValue={selectedClient}
+                    value={selectedClient}
+                    id="clientId"
+                    name="clientId"
+                    options={clients}
+                    onChange={handleClientSelectChange}
+                    className={
+                      fieldsWithError.teamName === true ? "redBorder" : ""
+                    }
+                  ></Select>
+                  {fieldsWithError.clientId === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.clientId}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Project Manager <span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    defaultValue={{
+                      label: teamsState.newTeam.managerName,
+                      value: teamsState.newTeam.managerName,
+                    }}
+                    id="manager"
+                    name="manager"
+                    options={employees}
+                    onChange={handleProjectManagerSelectChange}
+                    className={
+                      fieldsWithError.teamName === true ? "redBorder" : ""
+                    }
+                  ></Select>
+                  {fieldsWithError.manager === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.manager}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-                <div className="row justify-content-between text-left">
-                      <div className="form-group col-sm-6 flex-column d-flex">
-                        <label className="form-control-label px-3">
-                        Team Lead <span className="text-danger"> *</span>
-                        </label>{" "}
-                        <Select
-                              defaultValue={{
-                                label: teamsState.newTeam.teamLeadName,
-                                value: teamsState.newTeam.teamLeadName,
-                              }}
-                              id="teamLead"
-                              name="teamLead"
-                              onChange={handleTeamLeadSelectChange}
-                              options={employees}
-                            ></Select>
-                            {fieldsWithError.teamLead === true ? (
-                              <>
-                                <label className="error form-control-label px-3">
-                                  {errorInfo.teamLead}
-                                </label>{" "}
-                              </>
-                            ) : (
-                              ""
-                            )}
-                      </div>
-                      <div className="form-group col-sm-6 flex-column d-flex">
-                        <label className="form-control-label px-3">
-                          Members<span className="text-danger"> *</span>
-                        </label>{" "}
-                        <Select
-                          value={selectedTeamMembers}
-                          isMulti
-                          id="members"
-                          name="members"
-                          options={employees}
-                          onChange={handleEmployeesSelectChange}
-                        ></Select>
-                        {fieldsWithError.members === true ? (
-                          <>
-                            <label className="error form-control-label px-3">
-                              {errorInfo.members}
-                            </label>{" "}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-               </div>
-               <div className="row justify-content-between text-left">
-                        <div className="form-group col-sm-6 flex-column d-flex">
-                          {" "}
-                          <label className="form-control-label px-3">
-                            Enter Start Date<span className="text-danger"> *</span>
-                          </label>{" "}
-                          <input
-                            value={
-                              tempTeam &&
-                              tempTeam.startDate &&
-                              tempTeam.startDate.slice(0, 10)
-                            }
-                            onChange={handleChange}
-                            type="date"
-                            id="startDate"
-                            name="startDate"
-                            placeholder="Enter start Date"
-                          />{" "}
-                          {fieldsWithError.startDate === true ? (
-                            <>
-                              <label className="error form-control-label px-3">
-                                {errorInfo.startDate}
-                              </label>{" "}
-                            </>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-               </div>
-                <div className="row justify-content-between text-left">
-                  <div className="form-group col-sm-6 ">
-                    <button
-                      className="btn-block btn-primary"
-                      onClick={handleCancel}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                  <div className="form-group col-sm-6 ">
-                  <CButton 
-              
-              className="btn-block btn-primary"
-              
-              onClick={() => setVisible(!visible)}> 
-              {teamsState.isEditTeamClicked
-                        ? "Update Team"
-                        : "Add Team"}</CButton>
-                  
-                  </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Team Lead <span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    defaultValue={{
+                      label: teamsState.newTeam.teamLeadName,
+                      value: teamsState.newTeam.teamLeadName,
+                    }}
+                    id="teamLead"
+                    name="teamLead"
+                    onChange={handleTeamLeadSelectChange}
+                    options={employees}
+                  ></Select>
+                  {fieldsWithError.teamLead === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.teamLead}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Members<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    value={selectedTeamMembers}
+                    isMulti
+                    id="members"
+                    name="members"
+                    options={employees}
+                    onChange={handleEmployeesSelectChange}
+                  ></Select>
+                  {fieldsWithError.members === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.members}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Enter Start Date<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    value={
+                      tempTeam &&
+                      tempTeam.startDate &&
+                      tempTeam.startDate.slice(0, 10)
+                    }
+                    onChange={handleChange}
+                    type="date"
+                    id="startDate"
+                    name="startDate"
+                    placeholder="Enter start Date"
+                  />{" "}
+                  {fieldsWithError.startDate === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.startDate}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 ">
+                  <button
+                    className="btn-block btn-primary"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div className="form-group col-sm-6 ">
+                  <CButton
+                    className="btn-block btn-primary"
+                    onClick={() => setVisible(!visible)}
+                  >
+                    {teamsState.isEditTeamClicked ? "Update Team" : "Add Team"}
+                  </CButton>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </>
-      
+      </div>
+    </>
   );
 };
 

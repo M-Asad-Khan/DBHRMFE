@@ -499,7 +499,7 @@ const AddEmployee = ({}) => {
                   </label>{" "}
                   <Select
                     /* value={} */
-
+                    value={{label:state.newEmployee.gender?state.newEmployee.gender.charAt(0).toUpperCase() + state.newEmployee.gender.slice(1):null,value:state.newEmployee.gender}}
                     id="gender"
                     name="gender"
                     options={[
@@ -524,7 +524,8 @@ const AddEmployee = ({}) => {
                   </label>{" "}
                   <Select
                     /* value={} */
-
+                    value={{label:state.newEmployee.status?state.newEmployee.status.charAt(0).toUpperCase() + state.newEmployee.status.slice(1):null,value:state.newEmployee.status}}
+                
                     id="status"
                     name="status"
                     options={empStatusOptions}
@@ -583,7 +584,7 @@ const AddEmployee = ({}) => {
                     className={
                       fieldsWithError.joiningDate === true ? "redBorder" : ""
                     }
-                    value={state.newEmployee.joiningDate}
+                    value={state?.newEmployee?.joiningDate?.slice(0, 10)}
                     onChange={handleChange}
                     type="date"
                     id="joiningDate"
@@ -611,7 +612,8 @@ const AddEmployee = ({}) => {
                   </label>{" "}
                   <Select
                     /* value={} */
-
+                    value={{label:state.newEmployee.designation?state.newEmployee.designation.charAt(0).toUpperCase() + state.newEmployee.designation.slice(1):null,value:state.newEmployee.designation}}
+                
                     id="designation"
                     name="designation"
                     options={empDesignationOptions}
