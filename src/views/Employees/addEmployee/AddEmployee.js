@@ -12,9 +12,8 @@ import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
 import { CButton } from "@coreui/react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-import { useParams } from "react-router-dom";
 
 // import backIcon from '/src/assets/back-icon.png'
 
@@ -285,7 +284,8 @@ const AddEmployee = ({}) => {
                     className={
                       fieldsWithError.employee_No === true ? "redBorder" : ""
                     }
-                    value={state.newEmployee.employee_No?state.newEmployee.employee_No:"emp-"+(state.employees.length+1)}
+                    // value={state.newEmployee.employee_No?state.newEmployee.employee_No:"emp-"+(state.employees.length+1)}
+                    value={state.newEmployee.employee_No}
                     onChange={handleChange}
                     type="text"
                     id="employee_No"

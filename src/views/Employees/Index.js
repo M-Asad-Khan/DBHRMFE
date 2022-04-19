@@ -152,7 +152,8 @@ function employees() {
 	function handleAddEmployee() {
 		// console.log('true ho gya...!')
 		debugger;
-   dispatch(updateIsAddEmployeeClickedAction(true));
+		dispatch(updateNewEmployeeAction({employee_No:"emp-"+(state.employees.length+1)}))
+		dispatch(updateIsAddEmployeeClickedAction(true));
   }
   console.log("state:", state);
   return (
