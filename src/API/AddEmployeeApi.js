@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const addEmployeeApi = async (newEmployee) => {
 	console.log(newEmployee)
+	debugger
 	return axios({
 		method: 'post',
 		url: 'http://localhost:4000/api/v1/employees',
@@ -24,8 +25,8 @@ export const addEmployeeApi = async (newEmployee) => {
 			salary: newEmployee.salary,
 			permanentDate: newEmployee.permanentDate,
 			status:newEmployee.status,
-			appointmentLetterStatus:newEmployee.appointmentLetterStatus,
-			agreementSignStatus: newEmployee.agreementSignStatus,
+			appointmentLetterStatus:newEmployee.appointmentLetterStatus==='true',
+			agreementSignStatus: newEmployee.agreementSignStatus==='true',
 			linkedInProfile:newEmployee.linkedInProfile,
 			personalEmail:newEmployee.personalEmail,
 			cnic:newEmployee.cnic,

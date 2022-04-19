@@ -11,18 +11,8 @@ import { addEmployeeApi } from "src/API/AddEmployeeApi";
 import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
-import {
-  CButton,
-  CModalTitle,
-  CModal,
-  CModalHeader,
-  CModalBody,
-	CModalFooter,
-	CToast,
-	CToastBody,
-	CToastHeader,
-	CToastClose
-} from "@coreui/react";
+import { CButton } from "@coreui/react";
+import { ToastContainer, toast } from "react-toastify";
 
 import { useParams } from "react-router-dom";
 
@@ -86,17 +76,16 @@ const AddEmployee = ({}) => {
     gender: false,
     status: false,
     permanentDate: false,
-    appointmentLetterStatus:false,
-    agreementSignStatus:false,
+    appointmentLetterStatus: false,
+    agreementSignStatus: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
-  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
 
   function handleChange(evt) {
     debugger;
-    const value = evt.target.value;
+		const value = evt.target.value;
     dispatch(
       updateNewEmployeeAction({
         ...state.newEmployee,
@@ -109,25 +98,24 @@ const AddEmployee = ({}) => {
     dispatch(updateIsAddEmployeeClickedAction(false));
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
-	const addAndUpdateEmployee = async () => {
-		debugger;
+  const addAndUpdateEmployee = async () => {
+    debugger;
     if (!doValidation()) {
       if (state.isEditEmployeeClicked === true) {
         try {
           debugger;
           const res = await updateEmployeeApi(state.newEmployee);
           console.log("updateEmployee Response", res);
-
-          debugger;
           if (res.error === false) {
             debugger;
-            alert("Employee Updated");
+            toast.success("Employee Updated !");
             let temp = state.employees.filter((item) => item.id != res.data.id);
             dispatch(updateEmployeesAction([...temp, res.data]));
             dispatch(updateIsAddEmployeeClickedAction(false));
             dispatch(updateIsEditEmployeeClickedAction(false));
           }
         } catch (e) {
+          toast.error("error !");
           debugger;
         }
       } else {
@@ -135,19 +123,21 @@ const AddEmployee = ({}) => {
           debugger;
           const res = await addEmployeeApi(state.newEmployee);
           console.log("addEmployeeApi Response", res);
-
           debugger;
           if (res.error === false) {
-            alert("Employee Created");
+            toast.success("Employee Added !");
+            debugger;
             dispatch(updateEmployeesAction([...state.employees, res.data]));
             dispatch(updateIsAddEmployeeClickedAction(false));
             dispatch(updateIsEditEmployeeClickedAction(false));
           }
         } catch (e) {
           debugger;
+          toast.error("error");
         }
       }
     } else {
+      toast.error("validation failed");
       console.log("validation failed");
       debugger;
     }
@@ -170,13 +160,13 @@ const AddEmployee = ({}) => {
             isError = false;
           }
         } else {
-          debugger
+          debugger;
           tempFieldsWithError[x[0]] = true;
           tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
           isError = true;
         }
       } else {
-        debugger
+        debugger;
         tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
         isError = true;
@@ -187,14 +177,13 @@ const AddEmployee = ({}) => {
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
       if (x[1] === true) {
-        debugger
+        debugger;
         isError = true;
       }
     });
     console.log("isError", isError);
     return isError;
   };
-
 
   function validateEmail(email) {
     {
@@ -218,7 +207,6 @@ const AddEmployee = ({}) => {
       }
     }
   }
-
 
   function validateNumberOnly(num) {
     var reg = new RegExp("^[0-9]*$");
@@ -254,12 +242,6 @@ const AddEmployee = ({}) => {
 
   return (
     <>
-   <CToast autohide={false} visible={true} color="primary" className="text-white align-items-center">
-  <div className="d-flex">
-    <CToastBody>Hello, world! This is a toast message.</CToastBody>
-    <CToastClose className="me-2 m-auto" white />
-  </div>
-</CToast>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
@@ -272,8 +254,7 @@ const AddEmployee = ({}) => {
               </button>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <label className="form-control-label px-3">
+                  <label className="form-control-label">
                     Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -296,7 +277,6 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Employee No.<span className="text-danger"> *</span>
                   </label>{" "}
@@ -326,7 +306,6 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     CNIC<span className="text-danger"> *</span>
                   </label>{" "}
@@ -350,7 +329,6 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Date of Birth<span className="text-danger"> *</span>
                   </label>{" "}
@@ -377,10 +355,8 @@ const AddEmployee = ({}) => {
                 </div>
               </div>
 
-             
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Business email<span className="text-danger"> *</span>
                   </label>{" "}
@@ -407,7 +383,6 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Personal Email<span className="text-danger"> *</span>
                   </label>{" "}
@@ -436,7 +411,6 @@ const AddEmployee = ({}) => {
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Home Address<span className="text-danger"> *</span>
                   </label>{" "}
@@ -489,17 +463,21 @@ const AddEmployee = ({}) => {
                     ""
                   )}
                 </div>
-                
               </div>
               <div className="row justify-content-between text-left">
-
-              <div className="form-group col-sm-6 flex-column d-flex">
+                <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
                     Gender<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
                     /* value={} */
-                    value={{label:state.newEmployee.gender?state.newEmployee.gender.charAt(0).toUpperCase() + state.newEmployee.gender.slice(1):null,value:state.newEmployee.gender}}
+                    value={{
+                      label: state.newEmployee.gender
+                        ? state.newEmployee.gender.charAt(0).toUpperCase() +
+                          state.newEmployee.gender.slice(1)
+                        : null,
+                      value: state.newEmployee.gender,
+                    }}
                     id="gender"
                     name="gender"
                     options={[
@@ -516,16 +494,20 @@ const AddEmployee = ({}) => {
                     ""
                   )}
                 </div>
-             
+
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Status<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
                     /* value={} */
-                    value={{label:state.newEmployee.status?state.newEmployee.status.charAt(0).toUpperCase() + state.newEmployee.status.slice(1):null,value:state.newEmployee.status}}
-                
+                    value={{
+                      label: state.newEmployee.status
+                        ? state.newEmployee.status.charAt(0).toUpperCase() +
+                          state.newEmployee.status.slice(1)
+                        : null,
+                      value: state.newEmployee.status,
+                    }}
                     id="status"
                     name="status"
                     options={empStatusOptions}
@@ -542,10 +524,9 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
               </div>
-              
+
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Permanent Date<span className="text-danger"> *</span>
                   </label>{" "}
@@ -571,12 +552,7 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
 
-
-
-             
-                
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Joining Date<span className="text-danger"> *</span>
                   </label>{" "}
@@ -603,17 +579,22 @@ const AddEmployee = ({}) => {
                 </div>
               </div>
 
-
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Designation<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
                     /* value={} */
-                    value={{label:state.newEmployee.designation?state.newEmployee.designation.charAt(0).toUpperCase() + state.newEmployee.designation.slice(1):null,value:state.newEmployee.designation}}
-                
+                    value={{
+                      label: state.newEmployee.designation
+                        ? state.newEmployee.designation
+                            .charAt(0)
+                            .toUpperCase() +
+                          state.newEmployee.designation.slice(1)
+                        : null,
+                      value: state.newEmployee.designation,
+                    }}
                     id="designation"
                     name="designation"
                     options={empDesignationOptions}
@@ -630,7 +611,6 @@ const AddEmployee = ({}) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Salary<span className="text-danger"> *</span>
                   </label>{" "}
@@ -659,7 +639,6 @@ const AddEmployee = ({}) => {
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     Qualification<span className="text-danger"> *</span>
                   </label>{" "}
@@ -686,7 +665,6 @@ const AddEmployee = ({}) => {
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
                   <label className="form-control-label px-3">
                     LinkedIn Profile<span className="text-danger"> *</span>
                   </label>{" "}
@@ -713,88 +691,95 @@ const AddEmployee = ({}) => {
                 </div>
               </div>
               <div className="row justify-content-between text-left">
-
-               <div className="form-group col-sm-6 flex-column d-flex">
-                <div className="maxl">
-                <label className="form-control-label px-3 radio inline">
-                  Appointment Letter Status<span className="text-danger"> *</span>
-                  </label> 
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <div className="maxl">
+                    <label className="form-control-label px-3 radio inline">
+                      Appointment Letter Status
+                      <span className="text-danger"> *</span>
+                    </label>
                     <input
                       id="appointmentLetterStatus"
                       type="radio"
-                      checked={state.newEmployee.appointmentLetterStatus === "true"}
+                      checked={
+                        state.newEmployee.appointmentLetterStatus === "true"
+                      }
                       name="appointmentLetterStatus"
                       value="true"
                       onChange={(e) => handleChange(e)}
                     />
                     <span> Yes </span>
-                 
-                  <label
-                    style={{ marginLeft: "20px" }}
-                    className="radio inline"
-                  >
-                    <input
-                      id="appointmentLetterStatus"
-                      type="radio"
-                      checked={state.newEmployee.appointmentLetterStatus === "false"}
-                      name="appointmentLetterStatus"
-                      value="false"
-                      onChange={(e) => handleChange(e)}
-                    />
-                    <span className="ml-1">No </span>
-                  </label>
-                  {fieldsWithError.appointmentLetterStatus === true ? (
-                    <div>
-                      <label style={{ color: "red" }}>please select one</label>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+
+                    <label
+                      style={{ marginLeft: "20px" }}
+                      className="radio inline"
+                    >
+                      <input
+                        id="appointmentLetterStatus"
+                        type="radio"
+                        checked={
+                          state.newEmployee.appointmentLetterStatus === "false"
+                        }
+                        name="appointmentLetterStatus"
+                        value="false"
+                        onChange={(e) => handleChange(e)}
+                      />
+                      <span className="ml-1">No </span>
+                    </label>
+                    {fieldsWithError.appointmentLetterStatus === true ? (
+                      <div>
+                        <label style={{ color: "red" }}>
+                          please select one
+                        </label>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-              </div> 
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <div className="maxl">
-                  <label className="form-control-label px-3 radio inline">
-                  Agreement Sign Status<span className="text-danger"> *</span>
-                  </label> 
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <div className="maxl">
+                    <label className="form-control-label px-3 radio inline">
+                      Agreement Sign Status
+                      <span className="text-danger"> *</span>
+                    </label>
                     <input
                       id="agreementSignStatus"
                       type="radio"
                       checked={state.newEmployee.agreementSignStatus === "true"}
                       name="agreementSignStatus"
-                      value="true"
+                      value={true}
                       onChange={(e) => handleChange(e)}
                     />
                     <span> Yes </span>
-                  
-                  <label
-                    style={{ marginLeft: "20px" }}
-                    className="radio inline"
-                  >
-                    <input
-                      id="agreementSignStatus"
-                      type="radio"
-                      checked={state.newEmployee.agreementSignStatus === "false"}
-                      name="agreementSignStatus"
-                      value="false"
-                      onChange={(e) => handleChange(e)}
-                    />
-                    <span className="ml-1">No </span>
-                  </label>
-                  {fieldsWithError.agreementSignStatus === true ? (
-                    <div>
-                      <label style={{ color: "red" }}>please select one</label>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+
+                    <label
+                      style={{ marginLeft: "20px" }}
+                      className="radio inline"
+                    >
+                      <input
+                        id="agreementSignStatus"
+                        type="radio"
+                        checked={
+                          state.newEmployee.agreementSignStatus === "false"
+                        }
+                        name="agreementSignStatus"
+                        value={false}
+                        onChange={(e) => handleChange(e)}
+                      />
+                      <span className="ml-1">No </span>
+                    </label>
+                    {fieldsWithError.agreementSignStatus === true ? (
+                      <div>
+                        <label style={{ color: "red" }}>
+                          please select one
+                        </label>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-              </div> 
               </div>
-
-             
- 
-
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 ">
@@ -820,10 +805,7 @@ const AddEmployee = ({}) => {
           </div>
         </div>
       </div>
-   
-    
-    
-     </>
+    </>
   );
 };
 

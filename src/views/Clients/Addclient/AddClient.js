@@ -10,10 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addClientApi } from "src/API/AddClientApi";
 import { updateClientApi } from "src/API/UpdateClientApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-import {
-  CButton,CModalTitle,
-  CModal,CModalHeader,CModalBody,CModalFooter
-} from '@coreui/react'
+import { CButton } from "@coreui/react";
+import { ToastContainer, toast } from "react-toastify";
 
 const addclients = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -56,7 +54,7 @@ const addclients = ({}) => {
           debugger;
           if (res.error === false) {
             debugger;
-            alert("Client Updated");
+            toast.success("Client Updated");
             let temp = clientsState.clients.filter(
               (item) => item.id != res.data.id
             );
@@ -65,6 +63,8 @@ const addclients = ({}) => {
             dispatch(updateIsEditClientClickedAction(false));
           }
         } catch (e) {
+          toast.error("error");
+
           debugger;
         }
       } else {
@@ -76,26 +76,30 @@ const addclients = ({}) => {
           debugger;
           if (res.error === false) {
             debugger;
-            
+            toast.success("Client Added");
+
             dispatch(updateClientsAction([...clientsState.clients, res.data]));
             dispatch(updateIsAddClientClickedAction(false));
           }
         } catch (e) {
+          toast.error("error");
+
           debugger;
         }
       }
     } else {
       console.log("validation failed");
+      toast.error("validation failed");
       debugger;
     }
   };
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
-    var tempErrorInfo = {...errorInfo};
+    var tempErrorInfo = { ...errorInfo };
     debugger;
-    
-		Object.entries(fieldsWithError).forEach((x) => {
+
+    Object.entries(fieldsWithError).forEach((x) => {
       debugger;
       if (clientsState.newClient[x[0]] !== undefined) {
         if (clientsState.newClient[x[0]] !== "") {
@@ -124,7 +128,7 @@ const addclients = ({}) => {
       if (x[1] === true) {
         isError = true;
       }
-    })
+    });
     console.log("isError", isError);
     return isError;
   };
@@ -155,191 +159,174 @@ const addclients = ({}) => {
     var reg = new RegExp("^[0-9]*$");
 
     if (reg.test(num) == false) {
-			console.log(false);
-			setFieldsWithError({
-				...fieldsWithError,
-				contactNumber: true,
-			});
-			setErrorInfo({
-				...errorInfo,
-				contactNumber: "only Numbers allowed",
-			});
-		} else {
-			setFieldsWithError({
-				...fieldsWithError,
-				contactNumber: false,
-			});
-		}
+      console.log(false);
+      setFieldsWithError({
+        ...fieldsWithError,
+        contactNumber: true,
+      });
+      setErrorInfo({
+        ...errorInfo,
+        contactNumber: "only Numbers allowed",
+      });
+    } else {
+      setFieldsWithError({
+        ...fieldsWithError,
+        contactNumber: false,
+      });
+    }
   }
   console.log("fieldsWithError", fieldsWithError);
   console.log("errorInfo", errorInfo);
 
   return (
- 
-
     <>
-
-
-    <CModal visible={visible} 
-    onClose={() => setVisible(false)}>
-      {/* <CModalHeader onClose={() => setVisible(false)}>
-        <CModalTitle>Modal title</CModalTitle>
-      </CModalHeader> */}
-      <CModalBody>Woohoo,Client saved!</CModalBody>
-      <CModalFooter>
-        <CButton color="secondary" onClick={() => setVisible(false)}>
-          Close
-        </CButton>
-        <CButton color="primary" onClick={addAndUpdateClient}>Save changes</CButton>
-      </CModalFooter>
-    </CModal>
-
-
-    <div className="container-fluid px-1 py-5 mx-auto">
-      <div className="row d-flex justify-content-center">
-        <div className="card">
-          <div className="form-card">
-          <button
-                    className="btn btn-outline-primary mb-3"
-                    onClick={handleCancel}
-                  >
-                    <IoArrowBackSharp />
-                  </button>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Country<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.country === true ? "redBorder" : ""
-                  }
-                  value={clientsState.newClient.country}
-                  onChange={handleChange}
-                  type="text"
-                  id="country"
-                  name="country"
-                  placeholder="Enter country"
-                  // onBlur={}
-                />{" "}
-                {fieldsWithError.country === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.country}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
+      <div className="container-fluid px-1 py-5 mx-auto">
+        <div className="row d-flex justify-content-center">
+          <div className="card">
+            <div className="form-card">
+              <button
+                className="btn btn-outline-primary mb-3"
+                onClick={handleCancel}
+              >
+                <IoArrowBackSharp />
+              </button>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Country<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.country === true ? "redBorder" : ""
+                    }
+                    value={clientsState.newClient.country}
+                    onChange={handleChange}
+                    type="text"
+                    id="country"
+                    name="country"
+                    placeholder="Enter country"
+                    // onBlur={}
+                  />{" "}
+                  {fieldsWithError.country === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.country}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Name<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={fieldsWithError.name === true ? "redBorder" : ""}
+                    value={clientsState.newClient.name}
+                    onChange={(e) => handleChange(e)}
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter name"
+                  />{" "}
+                  {fieldsWithError.name === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.name}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Name<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={fieldsWithError.name === true ? "redBorder" : ""}
-                  value={clientsState.newClient.name}
-                  onChange={(e) => handleChange(e)}
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter name"
-                />{" "}
-                {fieldsWithError.name === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.name}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Business email<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.email === true ? "redBorder" : ""
+                    }
+                    value={clientsState.newClient.email}
+                    onChange={handleChange}
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email"
+                    onBlur={(e) => validateEmail(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.email === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.email}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Phone number<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.contactNumber === true ? "redBorder" : ""
+                    }
+                    value={clientsState.newClient.contactNumber}
+                    onChange={handleChange}
+                    type="text"
+                    id="contactNumber"
+                    name="contactNumber"
+                    placeholder="Enter contact number"
+                    onBlur={(e) => validateNumberOnly(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.contactNumber === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.contactNumber}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Business email<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={fieldsWithError.email === true ? "redBorder" : ""}
-                  value={clientsState.newClient.email}
-                  onChange={handleChange}
-                  type="text"
-                  id="email"
-                  name="email"
-                  placeholder="Enter email"
-                  onBlur={(e) => validateEmail(e.target.value)}
-                />{" "}
-                {fieldsWithError.email === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.email}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Phone number<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.contactNumber === true ? "redBorder" : ""
-                  }
-                  value={clientsState.newClient.contactNumber}
-                  onChange={handleChange}
-                  type="text"
-                  id="contactNumber"
-                  name="contactNumber"
-									placeholder="Enter contact number"
-									onBlur={e=>validateNumberOnly(e.target.value)}
-                />{" "}
-                {fieldsWithError.contactNumber === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.contactNumber}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Technology<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.technology === true ? "redBorder" : ""
-                  }
-                  value={clientsState.newClient.technology}
-                  onChange={handleChange}
-                  type="text"
-                  id="technology"
-                  name="technology"
-                  placeholder="Enter technology"
-                />{" "}
-                {fieldsWithError.technology === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.technology}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              {/* <div className="form-group col-sm-6 flex-column d-flex">
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label px-3">
+                    Technology<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.technology === true ? "redBorder" : ""
+                    }
+                    value={clientsState.newClient.technology}
+                    onChange={handleChange}
+                    type="text"
+                    id="technology"
+                    name="technology"
+                    placeholder="Enter technology"
+                  />{" "}
+                  {fieldsWithError.technology === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.technology}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {/* <div className="form-group col-sm-6 flex-column d-flex">
                 {" "}
                 <label className="form-control-label px-3">
                   Project<span className="text-danger"> *</span>
@@ -365,71 +352,72 @@ const addclients = ({}) => {
                   ""
                 )}
               </div> */}
-            </div>
+              </div>
 
-            <div className="row justify-content-between text-left">
-              <div className="form-group">
-                <div className="maxl">
-                  <label className="radio inline">
-                    <input
-                      checked={clientsState.newClient.gender === "male"}
-                      type="radio"
-                      name="gender"
-                      value="male"
-                      onChange={(e) => handleChange(e)}
-                    />
-                    <span> Male </span>
-                  </label>
-                  <label
-                    style={{ marginLeft: "20px" }}
-                    className="radio inline"
-                  >
-                    <input
-                      checked={clientsState.newClient.gender === "female"}
-                      type="radio"
-                      name="gender"
-                      value="female"
-                      onChange={(e) => handleChange(e)}
-                    />
-                    <span className="ml-1">Female </span>
-                  </label>
+              <div className="row justify-content-between text-left">
+                <div className="form-group">
+                  <div className="maxl">
+                    <label className="radio inline">
+                      <input
+                        checked={clientsState.newClient.gender === "male"}
+                        type="radio"
+                        name="gender"
+                        value="male"
+                        onChange={(e) => handleChange(e)}
+                      />
+                      <span> Male </span>
+                    </label>
+                    <label
+                      style={{ marginLeft: "20px" }}
+                      className="radio inline"
+                    >
+                      <input
+                        checked={clientsState.newClient.gender === "female"}
+                        type="radio"
+                        name="gender"
+                        value="female"
+                        onChange={(e) => handleChange(e)}
+                      />
+                      <span className="ml-1">Female </span>
+                    </label>
 
-                  {fieldsWithError.gender === true ? (
-                    <div>
-                      <label style={{ color: "red" }}>please select one</label>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                    {fieldsWithError.gender === true ? (
+                      <div>
+                        <label style={{ color: "red" }}>
+                          please select one
+                        </label>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 ">
-                <button
-                  className="btn-block btn-primary"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
-              </div>
-              <div className="form-group col-sm-6 ">
-              <CButton 
-              
-              className="btn-block btn-primary"
-              
-              onClick={() => setVisible(!visible)}> 
-               {clientsState.isEditClientClicked
-                    ? "Update Client"
-                    : "Add Client"}</CButton>
-                
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 ">
+                  <button
+                    className="btn-block btn-primary"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div className="form-group col-sm-6 ">
+                  <CButton
+                    className="btn-block btn-primary"
+                    onClick={() => addAndUpdateClient()}
+                  >
+                    {clientsState.isEditClientClicked
+                      ? "Update Client"
+                      : "Add Client"}
+                  </CButton>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

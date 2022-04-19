@@ -109,7 +109,9 @@ function employees() {
         var tempArr = [];
         res.data.map((x) => {
           tempArr.push({
-            ...x,
+						...x,
+						appointmentLetterStatus: x.appointmentLetterStatus ? "true" : "false",
+						agreementSignStatus:x.agreementSignStatus?"true":"false",
             action: (
               <>
                 <FiEye

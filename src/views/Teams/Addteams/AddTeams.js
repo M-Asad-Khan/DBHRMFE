@@ -17,14 +17,8 @@ import { addTeamMembersApi } from "src/API/AddTeamMembersApi";
 import { updateTeamApi } from "src/API/UpdateTeamApi";
 import { deleteTeamMemberApi } from "src/API/DeleteTeamMemberApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-import {
-  CButton,
-  CModalTitle,
-  CModal,
-  CModalHeader,
-  CModalBody,
-  CModalFooter,
-} from "@coreui/react";
+import { toast } from "react-toastify";
+
 
 const Addteams = () => {
   //var selectedTeamMembers = [];
@@ -50,13 +44,9 @@ const Addteams = () => {
   useEffect(() => {
     handleGetEmployeesApi();
     handleGetClientsApi();
-  }, []);
-  useEffect(() => {
-    if (teamsState.isEditTeamClicked === true) {
-      debugger;
-      handleGetTeamMembers(teamsState.newTeam.id);
-      setTempTeam(teamsState.newTeam);
-    }
+		if (teamsState.isEditTeamClicked === true) {
+			handleGetTeamMembers(teamsState.newTeam.id);
+		}
   }, []);
 
   const handleGetTeamMembers = async (teamId) => {
@@ -76,12 +66,21 @@ const Addteams = () => {
             id: item.employee.id,
           });
         });
-        setSelectedTeamMembers(arr);
+				setSelectedTeamMembers(arr);
+				
         setSelectedClient({
           label: tempClient.name,
           value: tempClient.name,
           id: tempClient.id,
-        });
+				});
+				setTempTeam({
+					...teamsState.newTeam,
+					members: arr,
+					clientId:tempClient.id
+				})
+
+				debugger;
+				console.log(tempTeam)
       }
     } catch (err) {
       console.log(err);
@@ -147,7 +146,8 @@ const Addteams = () => {
           debugger;
           if (res.error === false) {
             debugger;
-            alert("team Updated");
+						toast.success('team Updated')
+
             let temp = teamsState.teams.filter(
               (item) => item.id != res.data.id
             );
@@ -160,7 +160,8 @@ const Addteams = () => {
           }
         } catch (err) {
           apiError = true;
-          alert("err in update team", err);
+					// alert("err in update team", err);
+					toast.error('error');
           console.log("err in update team", err);
           debugger;
         }
@@ -174,14 +175,14 @@ const Addteams = () => {
           debugger;
           if (res.error === false) {
             debugger;
-            alert("team Updated");
           }
           if (res.error === true) {
             apiError = true;
           }
         } catch (e) {
           apiError = true;
-          alert("err in update team-members", err);
+					// alert("err in update team-members", err);
+					toast.error('error')
           console.log("err in update team-members", err);
           debugger;
         }
@@ -303,21 +304,6 @@ const Addteams = () => {
   console.log("selectedTeamMembers", selectedTeamMembers);
   return (
     <>
-      <CModal visible={visible} onClose={() => setVisible(false)}>
-        {/* <CModalHeader onClose={() => setVisible(false)}>
-        <CModalTitle>Modal title</CModalTitle>
-      </CModalHeader> */}
-        <CModalBody>Woohoo,Team Saved!</CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
-            Close
-          </CButton>
-          <CButton color="primary" onClick={addAndUpdateTeam}>
-            Save changes
-          </CButton>
-        </CModalFooter>
-      </CModal>
-
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
@@ -523,12 +509,12 @@ const Addteams = () => {
                   </button>
                 </div>
                 <div className="form-group col-sm-6 ">
-                  <CButton
+                  <button
                     className="btn-block btn-primary"
-                    onClick={() => setVisible(!visible)}
+                    onClick={() => addAndUpdateTeam()}
                   >
                     {teamsState.isEditTeamClicked ? "Update Team" : "Add Team"}
-                  </CButton>
+                  </button>
                 </div>
               </div>
             </div>
