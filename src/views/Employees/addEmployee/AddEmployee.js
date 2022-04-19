@@ -276,6 +276,7 @@ const AddEmployee = ({}) => {
                     ""
                   )}
                 </div>
+                
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label">
                     Employee No.<span className="text-danger"> *</span>
