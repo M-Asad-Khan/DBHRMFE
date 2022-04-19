@@ -71,7 +71,7 @@ const AddEmployee = ({}) => {
 
   const [fieldsWithError, setFieldsWithError] = useState({
     name: false,
-    employeeNo: false,
+    employee_No: false,
     cnic: false,
     personalEmail: false,
     address: false,
@@ -82,12 +82,12 @@ const AddEmployee = ({}) => {
     designation: false,
     salary: false,
     education: false,
-    linkedIn: false,
+    linkedInProfile: false,
     gender: false,
     status: false,
     permanentDate: false,
-    appointmentStatus:false,
-    agreementStatus:false,
+    appointmentLetterStatus:false,
+    agreementSignStatus:false,
   });
   const [errorInfo, setErrorInfo] = useState({});
   const [visible, setVisible] = useState(false);
@@ -170,11 +170,13 @@ const AddEmployee = ({}) => {
             isError = false;
           }
         } else {
+          debugger
           tempFieldsWithError[x[0]] = true;
           tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
           isError = true;
         }
       } else {
+        debugger
         tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
         isError = true;
@@ -185,12 +187,15 @@ const AddEmployee = ({}) => {
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
       if (x[1] === true) {
+        debugger
         isError = true;
       }
     });
     console.log("isError", isError);
     return isError;
   };
+
+
   function validateEmail(email) {
     {
       var regx = /\S+@\S+\.\S+/;
@@ -213,6 +218,8 @@ const AddEmployee = ({}) => {
       }
     }
   }
+
+
   function validateNumberOnly(num) {
     var reg = new RegExp("^[0-9]*$");
 
@@ -241,8 +248,8 @@ const AddEmployee = ({}) => {
     );
   };
 
-  // console.log("fieldsWithError", fieldsWithError);
-  // console.log("errorInfo", errorInfo);
+  console.log("fieldsWithError", fieldsWithError);
+  console.log("errorInfo", errorInfo);
   console.log("state", state);
 
   return (
@@ -295,20 +302,20 @@ const AddEmployee = ({}) => {
                   </label>{" "}
                   <input
                     className={
-                      fieldsWithError.employeeNo === true ? "redBorder" : ""
+                      fieldsWithError.employee_No === true ? "redBorder" : ""
                     }
-                    value={state.newEmployee.employeeNo}
+                    value={state.newEmployee.employee_No}
                     onChange={handleChange}
                     type="text"
-                    id="employeeNo"
-                    name="employeeNo"
+                    id="employee_No"
+                    name="employee_No"
                     placeholder="Enter Employee No."
                     // onBlur={(e) => validateNumberOnly(e.target.value)}
                   />{" "}
-                  {fieldsWithError.employeeNo === true ? (
+                  {fieldsWithError.employee_No === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.employeeNo}
+                        {errorInfo.employee_No}
                       </label>{" "}
                     </>
                   ) : (
@@ -683,19 +690,19 @@ const AddEmployee = ({}) => {
                   </label>{" "}
                   <input
                     className={
-                      fieldsWithError.linkedIn === true ? "redBrder" : ""
+                      fieldsWithError.linkedInProfile === true ? "redBrder" : ""
                     }
-                    value={state.newEmployee.linkedIn}
+                    value={state.newEmployee.linkedInProfile}
                     onChange={handleChange}
                     type="text"
-                    id="linkedIn"
-                    name="linkedIn"
+                    id="linkedInProfile"
+                    name="linkedInProfile"
                     placeholder=""
                   />{" "}
-                  {fieldsWithError.linkedIn === true ? (
+                  {fieldsWithError.linkedInProfile === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.linkedIn}
+                        {errorInfo.linkedInProfile}
                       </label>{" "}
                     </>
                   ) : (
@@ -711,10 +718,10 @@ const AddEmployee = ({}) => {
                   Appointment Letter Status<span className="text-danger"> *</span>
                   </label> 
                     <input
-                      id="appointmentStatus"
+                      id="appointmentLetterStatus"
                       type="radio"
-                      checked={state.newEmployee.appointmentStatus === "true"}
-                      name="appointmentStatus"
+                      checked={state.newEmployee.appointmentLetterStatus === "true"}
+                      name="appointmentLetterStatus"
                       value="true"
                       onChange={(e) => handleChange(e)}
                     />
@@ -725,16 +732,16 @@ const AddEmployee = ({}) => {
                     className="radio inline"
                   >
                     <input
-                      id="appointmentStatus"
+                      id="appointmentLetterStatus"
                       type="radio"
-                      checked={state.newEmployee.appointmentStatus === "false"}
-                      name="appointmentStatus"
+                      checked={state.newEmployee.appointmentLetterStatus === "false"}
+                      name="appointmentLetterStatus"
                       value="false"
                       onChange={(e) => handleChange(e)}
                     />
                     <span className="ml-1">No </span>
                   </label>
-                  {fieldsWithError.appointmentStatus === true ? (
+                  {fieldsWithError.appointmentLetterStatus === true ? (
                     <div>
                       <label style={{ color: "red" }}>please select one</label>
                     </div>
@@ -749,10 +756,10 @@ const AddEmployee = ({}) => {
                   Agreement Sign Status<span className="text-danger"> *</span>
                   </label> 
                     <input
-                      id="agreementStatus"
+                      id="agreementSignStatus"
                       type="radio"
-                      checked={state.newEmployee.agreementStatus === "true"}
-                      name="agreementStatus"
+                      checked={state.newEmployee.agreementSignStatus === "true"}
+                      name="agreementSignStatus"
                       value="true"
                       onChange={(e) => handleChange(e)}
                     />
@@ -763,16 +770,16 @@ const AddEmployee = ({}) => {
                     className="radio inline"
                   >
                     <input
-                      id="agreementStatus"
+                      id="agreementSignStatus"
                       type="radio"
-                      checked={state.newEmployee.agreementStatus === "false"}
-                      name="agreementStatus"
+                      checked={state.newEmployee.agreementSignStatus === "false"}
+                      name="agreementSignStatus"
                       value="false"
                       onChange={(e) => handleChange(e)}
                     />
                     <span className="ml-1">No </span>
                   </label>
-                  {fieldsWithError.agreementStatus === true ? (
+                  {fieldsWithError.agreementSignStatus === true ? (
                     <div>
                       <label style={{ color: "red" }}>please select one</label>
                     </div>

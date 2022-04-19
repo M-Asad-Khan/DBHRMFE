@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const addEmployeeApi = async (newEmployee) => {
+	console.log(newEmployee)
 	return axios({
 		method: 'post',
 		url: 'http://localhost:4000/api/v1/employees',
@@ -10,24 +11,44 @@ export const addEmployeeApi = async (newEmployee) => {
 			mode: "no-cors"
 		},
 		data: {
-			employee_No:newEmployee.employeeNo,
-			name: newEmployee.name,
+
+			name:newEmployee.name,
 			gender: newEmployee.gender,
 			dateOfBirth: newEmployee.dateOfBirth,
 			education: newEmployee.education,
 			email: newEmployee.email,
-			joiningDate: newEmployee.joiningDate,
-			designation: newEmployee.designation,
-			address: newEmployee.address,
-			phoneNumber: newEmployee.phoneNumber,
+			joiningDate:newEmployee.joiningDate,
+			designation : newEmployee.designation,
+			address : newEmployee.address,
+			phoneNumber : newEmployee.phoneNumber,
 			salary: newEmployee.salary,
+			permanentDate: newEmployee.permanentDate,
+			status:newEmployee.status,
+			appointmentLetterStatus:newEmployee.appointmentLetterStatus,
+			agreementSignStatus: newEmployee.agreementSignStatus,
+			linkedInProfile:newEmployee.linkedInProfile,
 			personalEmail:newEmployee.personalEmail,
 			cnic:newEmployee.cnic,
-			permanentDate:newEmployee.permanentDate,
-			linkedInProfile:newEmployee.linkedIn,
-			appointmentStatus:newEmployee.appointmentStatus,
-			agreementStatus:newEmployee.agreementStatus,
+			employee_No:newEmployee.employee_No 
 
+			
+			// name: newEmployee.name,
+			// gender: newEmployee.gender,
+			// dateOfBirth: newEmployee.dateOfBirth,
+			// education: newEmployee.education,
+			// email: newEmployee.email,
+			// joiningDate: newEmployee.joiningDate,
+			// designation: newEmployee.designation,
+			// address: newEmployee.address,
+			// phoneNumber: newEmployee.phoneNumber,
+			// salary: newEmployee.salary,
+			// personalEmail:newEmployee.personalEmail,
+			// cnic:newEmployee.cnic,
+			// permanentDate:newEmployee.permanentDate,
+			// linkedInProfile:newEmployee.linkedInProfile,
+			// appointmentLetterStatus:newEmployee.appointmentLetterStatus,
+			// agreementSignStatus:newEmployee.agreementSignStatus, 
+            // employee_No:newEmployee.employee_No,
 
 		}
 	})
