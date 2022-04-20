@@ -45,6 +45,7 @@ const ViewClient = () => {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="container-fluid px-1 mx-auto">
@@ -173,7 +174,7 @@ const ViewClient = () => {
 													onClick={() => handleProjectClick(item.team.id)}
 													className='anchor'
                         >
-                          {item.team.project}
+                          {item.team.teamName}
                         </li>
                       );
                     })}
