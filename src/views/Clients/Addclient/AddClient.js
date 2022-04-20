@@ -7,11 +7,10 @@ import {
   updateIsEditClientClickedAction,
 } from "../../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
-import { addClientApi } from "src/API/AddClientApi";
-import { updateClientApi } from "src/API/UpdateClientApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
+import { clientRequests } from "src/API/ClientApi";
 
 const addclients = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -48,7 +47,7 @@ const addclients = ({}) => {
       if (clientsState.isEditClientClicked === true) {
         try {
           debugger;
-          const res = await updateClientApi(clientsState.newClient);
+          const res = await clientRequests.updateClientApi(clientsState.newClient);
           console.log("updateClient Response", res);
 
           debugger;
@@ -70,7 +69,7 @@ const addclients = ({}) => {
       } else {
         try {
           debugger;
-          const res = await addClientApi(clientsState.newClient);
+          const res = await clientRequests.addClientApi(clientsState.newClient);
           console.log("addClientApi Response", res);
 
           debugger;
