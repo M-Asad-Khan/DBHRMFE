@@ -7,8 +7,7 @@ import {
   updateIsEditEmployeeClickedAction,
 } from "../../../redux/Employees/employees.actions";
 import { useSelector, useDispatch } from "react-redux";
-import { addEmployeeApi } from "src/API/AddEmployeeApi";
-import { updateEmployeeApi } from "src/API/UpdateEmployeeApi";
+import { employeeRequests } from "src/API/EmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
 import { CButton } from "@coreui/react";
@@ -105,7 +104,7 @@ const AddEmployee = ({}) => {
       if (state.isEditEmployeeClicked === true) {
         try {
           debugger;
-          const res = await updateEmployeeApi(state.newEmployee);
+          const res = await employeeRequests.updateEmployeeApi(state.newEmployee);
           console.log("updateEmployee Response", res);
           if (res.error === false) {
             debugger;
@@ -122,7 +121,7 @@ const AddEmployee = ({}) => {
       } else {
         try {
           debugger;
-          const res = await addEmployeeApi(state.newEmployee);
+          const res = await employeeRequests.addEmployeeApi(state.newEmployee);
           console.log("addEmployeeApi Response", res);
           debugger;
           if (res.error === false) {

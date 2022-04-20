@@ -12,11 +12,9 @@ import { useSelector, useDispatch } from "react-redux";
 import ViewClient from "./ViewClient/ViewClient";
 
 import Addclients from "./Addclient/AddClient";
-import { getClientsApi } from "../../API/getClientsApi";
-import { deleteClientApi } from "src/API/DeleteClientApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
-import { GetClientProjectsApi } from "src/API/GetClientProjectsApi";
+import { clientRequests } from "src/API/ClientApi";
 
 function Clients() {
   debugger;
@@ -72,7 +70,7 @@ function Clients() {
   const handleDelete = async (client) => {
     debugger;
     try {
-      const res = await deleteClientApi(client.id);
+      const res = await clientRequests.deleteClientApi(client.id);
       if (res.error === false) {
         handleGetClientsApi();
       }
@@ -88,7 +86,7 @@ function Clients() {
   const handleView = async(client) => {
     debugger;
     try {
-      const res = await GetClientProjectsApi(client.id);
+      const res = await clientRequests.GetClientProjectsApi(client.id);
       if (res.error === false) {
         dispatch(updateIsViewClientClickedAction(true));
         dispatch(updateNewClientAction({client:client,projects:res.data}));
@@ -99,7 +97,7 @@ function Clients() {
   };
   const handleGetClientsApi = async () => {
     try {
-      const res = await getClientsApi();
+      const res = await clientRequests.getClientsApi();
       debugger;
       if (res.error === false) {
         dispatch(updateClientsAction(res.data));
