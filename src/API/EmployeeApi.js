@@ -31,6 +31,8 @@ class employeeApi {
         personalEmail: newEmployee.personalEmail,
         cnic: newEmployee.cnic,
         employee_No: newEmployee.employee_No,
+        workExperience: newEmployee.workExperience,
+        technology: newEmployee.technology,
       },
     })
       .then((result) => {
