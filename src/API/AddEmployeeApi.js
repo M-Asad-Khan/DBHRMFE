@@ -30,7 +30,9 @@ export const addEmployeeApi = async (newEmployee) => {
 			linkedInProfile:newEmployee.linkedInProfile,
 			personalEmail:newEmployee.personalEmail,
 			cnic:newEmployee.cnic,
-			employee_No:newEmployee.employee_No 
+			employee_No:newEmployee.employee_No,
+			workExperience:newEmployee.workExperience,
+			technology:newEmployee.technology,
 
 			
 			// name: newEmployee.name,

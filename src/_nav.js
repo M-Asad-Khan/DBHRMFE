@@ -48,7 +48,14 @@ const _nav = [
     name: "HR",
     to: "/buttons",
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
-    items: [],
+    items: [
+      {
+        component: CNavItem,
+        name:"Job Posting",
+        to:"/jobPosting"
+      
+      } 
+    ],
   },
   {
     component: CNavGroup,
