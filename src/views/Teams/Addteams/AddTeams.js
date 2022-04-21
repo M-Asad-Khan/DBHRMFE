@@ -9,7 +9,7 @@ import {
   updateIsEditTeamClickedAction,
 } from "../../../redux/Teams/teams.actions";
 
-import { getClientsApi } from "../../../API/getClientsApi";
+import { clientAPI } from "src/API/ClientApi";
 import { getEmployeesApi } from "../../../API/GetEmployeesApi";
 import { addTeamApi } from "../../../API/AddTeamApi";
 import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
@@ -88,7 +88,7 @@ const Addteams = () => {
   };
   const handleGetClientsApi = async () => {
     try {
-      const res = await getClientsApi();
+      const res = await clientAPI.getClientsApi();
       debugger;
       if (res.error === false) {
         var tempArr = [];

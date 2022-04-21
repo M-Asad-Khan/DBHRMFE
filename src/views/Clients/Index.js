@@ -12,8 +12,8 @@ import { useSelector, useDispatch } from "react-redux";
 import ViewClient from "./ViewClient/ViewClient";
 
 import Addclients from "./Addclient/AddClient";
-import { getClientsApi } from "../../API/getClientsApi";
-import { deleteClientApi } from "src/API/DeleteClientApi";
+import { clientAPI } from "src/API/ClientApi";
+
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 import { GetClientProjectsApi } from "src/API/GetClientProjectsApi";
@@ -72,7 +72,7 @@ function Clients() {
   const handleDelete = async (client) => {
     debugger;
     try {
-      const res = await deleteClientApi(client.id);
+      const res = await clientAPI.deleteClientApi(client.id);
       if (res.error === false) {
         handleGetClientsApi();
       }
@@ -99,7 +99,7 @@ function Clients() {
   };
   const handleGetClientsApi = async () => {
     try {
-      const res = await getClientsApi();
+      const res = await clientAPI.getClientsApi();
       debugger;
       if (res.error === false) {
         dispatch(updateClientsAction(res.data));

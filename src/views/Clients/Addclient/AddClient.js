@@ -7,7 +7,8 @@ import {
   updateIsEditClientClickedAction,
 } from "../../../redux/Clients/clients.actions";
 import { useSelector, useDispatch } from "react-redux";
-import { addClientApi } from "src/API/AddClientApi";
+
+import { clientAPI } from "src/API/ClientApi";
 import { updateClientApi } from "src/API/UpdateClientApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
@@ -70,7 +71,7 @@ const addclients = ({}) => {
       } else {
         try {
           debugger;
-          const res = await addClientApi(clientsState.newClient);
+          const res = await clientAPI.addClientApi(clientsState.newClient);
           console.log("addClientApi Response", res);
 
           debugger;
