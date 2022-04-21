@@ -30,6 +30,17 @@ const ViewEmployee = () => {
     dispatch(updateNewEmployeeAction({}));
   };
   console.log("viewState", state);
+
+  function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
   return (
     <>
       <div>
@@ -77,7 +88,7 @@ const ViewEmployee = () => {
                     Age:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.employee?.age}</div>
+                <div>{state?.newEmployee?.employee?.dateOfBirth &&getAge(state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10))}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -202,7 +213,7 @@ const ViewEmployee = () => {
                   <div className="d-flex">
                     <GrProjects className="icon-design" />
                     <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Projects:
+                      Teams:
                     </h6>
                   </div>
                   <ul>

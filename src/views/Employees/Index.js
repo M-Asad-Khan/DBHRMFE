@@ -13,11 +13,9 @@ import { useSelector, useDispatch } from "react-redux";
 import ViewEmployee from "./ViewEmployee/ViewEmployee";
 
 import AddEmployee from "./addEmployee/AddEmployee";
-import { getEmployeesApi } from "src/API/GetEmployeesApi";
-import { deleteEmployeeApi } from "src/API/DeleteEmployeeApi";
+import { employeeRequests } from "src/API/EmployeeApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
-import { getEmployeeWorkHistory } from "src/API/getEmployeeWorkHistory";
 
 function employees() {
   debugger;
@@ -72,7 +70,7 @@ function employees() {
   const handleDelete = async (employee) => {
     debugger;
     try {
-      const res = await deleteEmployeeApi(employee.id);
+      const res = await employeeRequests.deleteEmployeeApi(employee.id);
       if (res.error === false) {
         handleGetEmployeeApi();
       }
@@ -88,7 +86,7 @@ function employees() {
   const handleView =async (employee) => {
     debugger;
     try {
-      const res = await getEmployeeWorkHistory(employee.id);
+      const res = await employeeRequests.getEmployeeWorkHistory(employee.id);
 			if (res.error === false) {
 				debugger;
 				var tempObj = { employee: employee, workHistory: res.data }
@@ -102,7 +100,7 @@ function employees() {
   };
   const handleGetEmployeeApi = async () => {
     try {
-      const res = await getEmployeesApi();
+      const res = await employeeRequests.getEmployeesApi();
       debugger;
       if (res.error === false) {
         dispatch(updateEmployeesAction(res.data));
@@ -152,7 +150,8 @@ function employees() {
 	function handleAddEmployee() {
 		// console.log('true ho gya...!')
 		debugger;
-   dispatch(updateIsAddEmployeeClickedAction(true));
+		dispatch(updateNewEmployeeAction({employee_No:"emp-"+(state.employees.length+1)}))
+		dispatch(updateIsAddEmployeeClickedAction(true));
   }
   console.log("state:", state);
   return (

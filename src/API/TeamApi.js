@@ -1,23 +1,23 @@
 import axios from "axios";
-
-class clientApi {
-  constructor() {}
-  addClientApi = async (client) => {
+class TeamApi {
+  addTeamApi = async (team) => {
+    debugger;
     return axios({
       method: "post",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/client`,
+      url: "${process.env.REACT_APP_API_LOCAL_PATH}/teams",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
       },
       data: {
-        name: client.name,
-        gender: client.gender,
-        email: client.email,
-        contactNumber: client.contactNumber,
-        technology: client.technology,
-        country: client.country,
+        teamName: team.teamName,
+        teamLead: team.teamLead,
+        startDate: team.startDate,
+        clientId: team.clientId,
+        manager: team.manager,
+        members: team.members,
+        project: team.project,
       },
     })
       .then((result) => {
@@ -36,11 +36,11 @@ class clientApi {
       });
   };
 
-  deleteClientApi = async (id) => {
+  deleteTeamsApi = async (id) => {
     debugger;
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/${id}`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams/${id}`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
@@ -63,48 +63,22 @@ class clientApi {
       });
   };
 
-  getClientsApi = async () => {
-    return axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/client`,
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-        mode: "no-cors",
-      },
-    })
-      .then((result) => {
-        return {
-          error: false,
-          data: result.data,
-        };
-      })
-      .catch((err) => {
-        debugger;
-        return {
-          error: true,
-          data: err,
-        };
-      });
-  };
-
-  updateClientApi = async (client) => {
+  updateTeamApi = async (team) => {
     debugger;
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/${client.id}`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams/${team.id}`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
       },
       data: {
-        name: client.name,
-        gender: client.gender,
-        email: client.email,
-        contactNumber: client.contactNumber,
-        technology: client.technology,
-        country: client.country,
+        teamName: team.teamName,
+        teamLead: team.teamLead,
+        startDate: team.startDate,
+        manager: team.manager,
+        project: team.project,
       },
     })
       .then((result) => {
@@ -123,10 +97,10 @@ class clientApi {
       });
   };
 
-  GetClientProjectsApi = async (clientId) => {
+  getTeamsApi = async () => {
     return axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/projects/${clientId}`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
@@ -148,4 +122,4 @@ class clientApi {
   };
 }
 
-export let clientRequests = new clientApi();
+export let teamRequests = new TeamApi();

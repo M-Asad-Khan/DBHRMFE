@@ -8,14 +8,11 @@ import {
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import { RiSettings2Line } from "react-icons/ri";
-import { AiOutlineFundProjectionScreen, AiOutlineMail } from "react-icons/ai";
+import {  AiOutlineMail } from "react-icons/ai";
 import { BsTelephoneForward, BsGlobe } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
-import {
-  updateIsViewTeamClicked,
-  updateNewTeam,
-} from "src/redux/Teams/teams.types";
-import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
+
+import { teamMembersRequests } from "src/API/teamMembersApi";
 import {
   updateIsViewTeamClickedAction,
   updateNewTeamAction,
@@ -33,7 +30,7 @@ const ViewClient = () => {
   };
   const handleProjectClick = async (teamId) => {
     try {
-      const res = await getTeamMembersApi(teamId);
+      const res = await teamMembersRequests.getTeamMembersApi(teamId);
       if (res.error === false) {
         debugger;
         // handleGetTeamsApi()
@@ -45,6 +42,7 @@ const ViewClient = () => {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="container-fluid px-1 mx-auto">
@@ -173,7 +171,7 @@ const ViewClient = () => {
 													onClick={() => handleProjectClick(item.team.id)}
 													className='anchor'
                         >
-                          {item.team.project}
+                          {item.team.teamName}
                         </li>
                       );
                     })}
