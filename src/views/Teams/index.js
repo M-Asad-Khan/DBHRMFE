@@ -135,12 +135,11 @@ function Teams() {
               </>
             ),
             clickEvent: setSelectedRow,
-            managerName: x.managerName.name,
-            teamLeadName: x.teamLeadName.name,
+            managerName: x?.managerName?.name,
+            teamLeadName: x?.teamLeadName?.name,
           });
         });
         debugger;
-        console.log("eventarr", tempArr);
         var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
         dispatch(updateTeamsDataTableAction(tempObj));
       }

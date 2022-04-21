@@ -6,13 +6,13 @@ const jobPosting = () => {
     <div>
       <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
-          <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+        
             
             <div class="card">
-              <form class="form-card" onsubmit="event.preventDefault()">
+              
                 <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label">
                     Job Title <span class="text-danger"> *</span>
                     </label>
                     <input
@@ -38,7 +38,7 @@ const jobPosting = () => {
                 </div>
                 <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label">
                       Reports to<span class="text-danger"> *</span>
                     </label>
                     <input
@@ -50,7 +50,7 @@ const jobPosting = () => {
                     />{" "}
                   </div>
                   <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label">
                       Effective Date<span class="text-danger"> *</span>
                     </label>
                     <input
@@ -64,7 +64,7 @@ const jobPosting = () => {
                 </div>
                 <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label">
                       Qualification<span class="text-danger"> *</span>
                     </label>
                     <input
@@ -76,7 +76,7 @@ const jobPosting = () => {
                     />{" "}
                   </div>
                   <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label ">
                       Work Experience<span class="text-danger"> *</span>
                     </label>
                     <input
@@ -90,7 +90,7 @@ const jobPosting = () => {
                 </div>
                 <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label ">
                     Vacant Positions<span class="text-danger"> *</span>
                     </label>
                     <input
@@ -105,7 +105,7 @@ const jobPosting = () => {
                 
                 <div class="row justify-content-between text-left">
                   <div class="form-group col-12 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                    <label class="form-control-label">
                       Job Description
                       <span class="text-danger"> *</span>
                     </label>
@@ -127,12 +127,12 @@ const jobPosting = () => {
                     </button>{" "}
                   </div>
                 </div>
-              </form>
+            
             </div>
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 
