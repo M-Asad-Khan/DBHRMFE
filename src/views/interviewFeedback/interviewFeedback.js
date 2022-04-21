@@ -4,13 +4,13 @@ import "./interviewFeedback.css";
 const interviewFeedback = () => {
   return (
     <div>
-      <div class="container-fluid px-1 py-5 mx-auto">
-        <div class="row d-flex justify-content-center">
-          <div class="card">
-            <div class="row justify-content-between text-left">
-              <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label">
-                  Interviewer <span class="text-danger"> *</span>
+      <div className="container-fluid px-1 py-5 mx-auto">
+        <div className="row d-flex justify-content-center">
+          <div className="card">
+            <div className="row justify-content-between text-left">
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label">
+                  Interviewer <span className="text-danger"> *</span>
                 </label>
                 <input
                   type="text"
@@ -19,9 +19,9 @@ const interviewFeedback = () => {
                   placeholder=""
                 />{" "}
               </div>
-              <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label">
-                  Date of Interview<span class="text-danger"> *</span>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label">
+                  Date of Interview<span className="text-danger"> *</span>
                 </label>
                 <input
                   type="date"
@@ -32,10 +32,10 @@ const interviewFeedback = () => {
                 />{" "}
               </div>
             </div>
-            <div class="row justify-content-between text-left">
-              <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label">
-                  Candidate Name<span class="text-danger"> *</span>
+            <div className="row justify-content-between text-left">
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label">
+                  Candidate Name<span className="text-danger"> *</span>
                 </label>
                 <input
                   type="text"
@@ -45,9 +45,9 @@ const interviewFeedback = () => {
                   onblur="validate(3)"
                 />{" "}
               </div>
-              <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">
-                  Position<span class="text-danger"> *</span>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label px-3">
+                  Position<span className="text-danger"> *</span>
                 </label>
                 <input
                   type="text"
@@ -59,12 +59,43 @@ const interviewFeedback = () => {
               </div>
             </div>
             
+
+           
+        <div className="d-flex justify-content-between align-items-center">
+            <div className="ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> </div>
+            <h6 className="review-count">12 Reviews</h6>
+        </div>
+        <div className="mt-5 d-flex justify-content-between align-items-center">
+            <h6 className="review-stat">Educational Background</h6>
+            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
+        </div>
+        <div className="mt-1 d-flex justify-content-between align-items-center">
+            <h6 className="review-stat">Work Experience</h6>
+            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> </div>
+        </div>
+        <div className="mt-1 d-flex justify-content-between align-items-center">
+            <h6 className="review-stat">Qualification</h6>
+            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
+        </div>
+        <div className="mt-1 d-flex justify-content-between align-items-center">
+            <h6 className="review-stat">Verbal Communication</h6>
+            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> </div>
+        </div>
+        <div className="mt-1 d-flex justify-content-between align-items-center">
+            <h6 className="review-stat">Candidate Interest</h6>
+            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
+        </div>
+        <div className="mt-1 d-flex justify-content-between align-items-center">
+            <h6 className="review-stat">Overall Impression and Recommendation</h6>
+            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
+        </div>
+    
  
 
-            <div class="row justify-content-end">
-              <div class="form-group col-sm-6">
+            <div className="row justify-content-end">
+              <div className="form-group col-sm-6">
                 {" "}
-                <button type="submit" class="btn-block btn-primary">
+                <button type="submit" className="btn-block btn-primary">
                   submit
                 </button>{" "}
               </div>
