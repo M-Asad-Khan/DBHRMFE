@@ -123,11 +123,11 @@ function Teams() {
                   }}
                 />
                 <FiTrash
-                  onClick={() => (action = "delete")}
+                  // onClick={() => (action = "delete")}
                   style={{
                     color: "red",
                     marginLeft: "20px",
-                    cursor: "pointer",
+                    cursor: "not-allowed",
                   }}
                 />
               </>

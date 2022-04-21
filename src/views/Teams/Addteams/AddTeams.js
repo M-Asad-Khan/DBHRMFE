@@ -66,14 +66,14 @@ const Addteams = () => {
 				setSelectedTeamMembers(arr);
 				
         setSelectedClient({
-          label: tempClient.name,
-          value: tempClient.name,
-          id: tempClient.id,
+          label: tempClient?.name,
+          value: tempClient?.name,
+          id: tempClient?.id,
 				});
 				setTempTeam({
 					...teamsState.newTeam,
 					members: arr,
-					clientId:tempClient.id
+					clientId:tempClient?.id
 				})
 
 				debugger;
