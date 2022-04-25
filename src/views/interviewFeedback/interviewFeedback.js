@@ -2,6 +2,7 @@ import React from "react";
 import "./interviewFeedback.css";
 
 const interviewFeedback = () => {
+   
   return (
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
@@ -58,39 +59,175 @@ const interviewFeedback = () => {
                 />{" "}
               </div>
             </div>
-            
 
-           
-        <div className="d-flex justify-content-between align-items-center">
-            <div className="ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> </div>
-            <h6 className="review-count">12 Reviews</h6>
-        </div>
-        <div className="mt-5 d-flex justify-content-between align-items-center">
-            <h6 className="review-stat">Educational Background</h6>
-            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
-        </div>
-        <div className="mt-1 d-flex justify-content-between align-items-center">
-            <h6 className="review-stat">Work Experience</h6>
-            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> </div>
-        </div>
-        <div className="mt-1 d-flex justify-content-between align-items-center">
-            <h6 className="review-stat">Qualification</h6>
-            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
-        </div>
-        <div className="mt-1 d-flex justify-content-between align-items-center">
-            <h6 className="review-stat">Verbal Communication</h6>
-            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> </div>
-        </div>
-        <div className="mt-1 d-flex justify-content-between align-items-center">
-            <h6 className="review-stat">Candidate Interest</h6>
-            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
-        </div>
-        <div className="mt-1 d-flex justify-content-between align-items-center">
-            <h6 className="review-stat">Overall Impression and Recommendation</h6>
-            <div className="small-ratings"> <i className="fa fa-star rating-color"></i> <i className="fa fa-star rating-color"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </div>
-        </div>
-    
- 
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Job Interview Criteria</th>
+                  <th scope="col">Ranking</th>
+                  <th scope="col">Comments</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">Educational Background</td>
+                  <td>
+                      
+                      <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+
+                <tr>
+                  <td scope="row">Prior Work Experience</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+                <tr>
+                  <td scope="row">Qualification</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+
+                <tr>
+                  <td scope="row">Verbal Communication</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+                 
+                <tr>
+                  <td scope="row">Candidate Interest</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+
+                <tr>
+                  <td scope="row">Knowledge of Organisation</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+
+                <tr>
+                  <td scope="row">Team Building skills</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+                <tr>
+                  <td scope="row">Initiative</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+                <tr>
+                  <td scope="row">Time Management</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+                <tr>
+                  <td scope="row">Overall Impression and Recommendations</td>
+                  <td>
+                      
+                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
+                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
+                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
+                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
+                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                  </td>
+
+                  <td> <div><input type="string"/></div> </td>
+                
+                </tr>
+
+
+
+
+
+
+
+
+
+
+
+              </tbody>
+            </table>
 
             <div className="row justify-content-end">
               <div className="form-group col-sm-6">
