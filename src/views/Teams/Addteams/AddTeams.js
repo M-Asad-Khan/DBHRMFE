@@ -9,13 +9,10 @@ import {
   updateIsEditTeamClickedAction,
 } from "../../../redux/Teams/teams.actions";
 
-import { getClientsApi } from "../../../API/getClientsApi";
-import { getEmployeesApi } from "../../../API/GetEmployeesApi";
-import { addTeamApi } from "../../../API/AddTeamApi";
-import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
-import { addTeamMembersApi } from "src/API/AddTeamMembersApi";
-import { updateTeamApi } from "src/API/UpdateTeamApi";
-import { deleteTeamMemberApi } from "src/API/DeleteTeamMemberApi";
+import { teamRequests } from "../../../API/TeamApi";
+import { employeeRequests } from "../../../API/EmployeeApi";
+import { teamMembersRequests } from "src/API/teamMembersApi";
+import { clientRequests } from "src/API/ClientApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 
@@ -24,7 +21,6 @@ const Addteams = () => {
   //var selectedTeamMembers = [];
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
   const teamsState = useSelector((state) => state.teams);
   const [employees, setEmployees] = useState([]);
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
@@ -51,7 +47,7 @@ const Addteams = () => {
 
   const handleGetTeamMembers = async (teamId) => {
     try {
-      const res = await getTeamMembersApi(teamId);
+      const res = await teamMembersRequests.getTeamMembersApi(teamId);
       debugger;
       var arr = [];
       var tempClient;
@@ -69,14 +65,14 @@ const Addteams = () => {
 				setSelectedTeamMembers(arr);
 				
         setSelectedClient({
-          label: tempClient.name,
-          value: tempClient.name,
-          id: tempClient.id,
+          label: tempClient?.name,
+          value: tempClient?.name,
+          id: tempClient?.id,
 				});
 				setTempTeam({
 					...teamsState.newTeam,
 					members: arr,
-					clientId:tempClient.id
+					clientId:tempClient?.id
 				})
 
 				debugger;
@@ -88,7 +84,7 @@ const Addteams = () => {
   };
   const handleGetClientsApi = async () => {
     try {
-      const res = await getClientsApi();
+      const res = await clientRequests.getClientsApi();
       debugger;
       if (res.error === false) {
         var tempArr = [];
@@ -105,7 +101,7 @@ const Addteams = () => {
 
   const handleGetEmployeesApi = async () => {
     try {
-      const res = await getEmployeesApi();
+      const res = await employeeRequests.getEmployeesApi();
       debugger;
       if (res.error === false) {
         var tempArr = [];
@@ -140,7 +136,7 @@ const Addteams = () => {
       if (teamsState.isEditTeamClicked === true) {
         try {
           debugger;
-          const res = await updateTeamApi(tempTeam);
+          const res = await teamRequests.updateTeamApi(tempTeam);
           console.log("updateTeam Response", res);
 
           debugger;
@@ -169,7 +165,7 @@ const Addteams = () => {
         // for team member and client
         try {
           debugger;
-          const res = await addTeamMembersApi(tempTeam);
+          const res = await teamMembersRequests.addTeamMembersApi(tempTeam);
           console.log("updateTeam Response", res);
 
           debugger;
@@ -193,7 +189,7 @@ const Addteams = () => {
       } else {
         try {
           debugger;
-          const res = await addTeamApi(tempTeam);
+          const res = await teamRequests.addTeamApi(tempTeam);
           console.log("addTeamApi Response", res);
 
           debugger;
@@ -292,7 +288,7 @@ const Addteams = () => {
 
   const handleDeleteTeamMember = async (teamId, member) => {
     debugger;
-    var res = await deleteTeamMemberApi(teamId, member);
+    var res = await teamMembersRequests.deleteTeamMemberApi(teamId, member);
     if (res.error === false) {
       console.log("team member removed", res.data);
     }
@@ -421,7 +417,8 @@ const Addteams = () => {
                     ""
                   )}
                 </div>
-              </div>
+							</div>
+							
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label ">

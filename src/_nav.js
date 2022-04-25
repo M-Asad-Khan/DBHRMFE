@@ -90,6 +90,12 @@ const _nav = [
     name: "Login",
     to: "/login",
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+	},
+	{
+    component: CNavItem,
+    name: "User Managment",
+    to: "/userManagment",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
 ];
 

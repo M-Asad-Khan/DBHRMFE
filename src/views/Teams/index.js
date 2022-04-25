@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import AddTeams from "./Addteams/AddTeams";
 import { useSelector, useDispatch } from "react-redux";
 import { MDBDataTable } from "mdbreact";
@@ -12,10 +11,9 @@ import {
   updateTeamsDataTableAction,
   updateIsViewTeamClickedAction,
 } from "../../redux/Teams/teams.actions";
-import { getTeamsApi } from "src/API/GetTeamsApi";
-import { deleteTeamsApi } from "src/API/DeleteTeamsApi";
+import { teamRequests } from "src/API/TeamApi";
 import ViewTeam from "./ViewTeam/ViewTeam";
-import { getTeamMembersApi } from "src/API/GetTeamMembersAPI";
+import { teamMembersRequests } from "src/API/teamMembersApi";
 
 function Teams() {
   debugger;
@@ -71,7 +69,7 @@ function Teams() {
   const handleDelete = async (team) => {
     debugger;
     try {
-      const res = await deleteTeamsApi(team.id);
+      const res = await teamRequests.deleteTeamsApi(team.id);
       if (res.error === false) {
         handleGetTeamsApi();
       }
@@ -87,7 +85,7 @@ function Teams() {
   const handleView = async (team) => {
     debugger;
     try{
-      const res =await getTeamMembersApi(team.id);
+      const res =await teamMembersRequests.getTeamMembersApi(team.id);
       if(res.error === false){
         debugger;
         // handleGetTeamsApi()
@@ -102,7 +100,7 @@ function Teams() {
   };
   const handleGetTeamsApi = async () => {
     try {
-      const res = await getTeamsApi();
+      const res = await teamRequests.getTeamsApi();
       debugger;
       if (res.error === false) {
         dispatch(updateTeamsAction(res.data));
@@ -125,11 +123,11 @@ function Teams() {
                   }}
                 />
                 <FiTrash
-                  onClick={() => (action = "delete")}
+                  // onClick={() => (action = "delete")}
                   style={{
                     color: "red",
                     marginLeft: "20px",
-                    cursor: "pointer",
+                    cursor: "not-allowed",
                   }}
                 />
               </>
