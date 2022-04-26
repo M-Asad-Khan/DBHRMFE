@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./interviewFeedback.css";
 
-
+import RatingAtom from "./rating";
 
 const interviewFeedback = () => {
+  const [rating, setRating] = useState({
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    8: 0,
+    9: 0,
+    10: 0,
+  }); // initial rating value
+
+  // Catch Rating value
+  const handleRating = (rate, question) => {
+    setRating((prevState) => ({
+      ...prevState,
+      [question]: rate,
+    }));
+    // Some logic
+  };
   return (
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
@@ -19,7 +39,7 @@ const interviewFeedback = () => {
                   id="interviewer"
                   name="interviewer"
                   placeholder=""
-                />{" "}
+                />
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label">
@@ -31,7 +51,7 @@ const interviewFeedback = () => {
                   name="date"
                   placeholder=""
                   onblur="validate(4)"
-                />{" "}
+                />
               </div>
             </div>
             <div className="row justify-content-between text-left">
@@ -45,7 +65,7 @@ const interviewFeedback = () => {
                   name="name"
                   placeholder=""
                   onblur="validate(3)"
-                />{" "}
+                />
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
@@ -57,10 +77,15 @@ const interviewFeedback = () => {
                   name="position"
                   placeholder="Enter position"
                   onblur="validate(2)"
-                />{" "}
+                />
               </div>
             </div>
-            <p><strong>Overall how would you rate this individual's performance based on your expectations for the role?</strong></p>
+            <p>
+              <strong>
+                Overall how would you rate this individual's performance based
+                on your expectations for the role?
+              </strong>
+            </p>
 
             <table className="table table-bordered">
               <thead>
@@ -74,318 +99,172 @@ const interviewFeedback = () => {
                 <tr>
                   <td scope="row">Educational Background</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) => handleRating(rate, "1")}
+                      rating={rating["1"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Prior Work Experience</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) => handleRating(rate, "2")}
+                      rating={rating["2"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td scope="row">Qualification</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["3"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Verbal Communication</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2
-                      <input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["4"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Candidate Interest</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["5"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Knowledge of Organisation</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["6"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Team Building skills</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["7"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td scope="row">Initiative</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["8"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td scope="row">Time Management</td>
                   <td>
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["9"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td scope="row">Overall Impression and Recommendations</td>
                   <td>
-                      
-                    <label className="option">
-                      1<input type="radio" name="radio" value="1" />{" "}
-                    </label>
-                    <label className="option">
-                      2<input type="radio" name="radio" value="2" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      3<input type="radio" name="radio" value="3" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      4<input type="radio" name="radio" value="4" />{" "}
-                
-                    </label>
-                    <label className="option">
-                      5<input type="radio" name="radio" value="5" />{" "}
-                
-                    </label>
+                    <RatingAtom
+                      handleRating={(rate) =>
+                        handleRating(rate, "Educational Background")
+                      }
+                      rating={rating["10"]}
+                    />
                   </td>
 
                   <td>
-                    {" "}
                     <div>
                       <input type="string" />
-                    </div>{" "}
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -393,10 +272,15 @@ const interviewFeedback = () => {
 
             <div className="row justify-content-end">
               <div className="form-group col-sm-6">
-                {" "}
-                <button type="submit" className="btn-block btn-primary">
+                <button
+                  type="submit"
+                  className="btn-block btn-primary"
+                  onClick={() => {
+                    alert(JSON.stringify(rating));
+                  }}
+                >
                   submit
-                </button>{" "}
+                </button>
               </div>
             </div>
           </div>
