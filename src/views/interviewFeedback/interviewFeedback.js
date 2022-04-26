@@ -1,8 +1,9 @@
 import React from "react";
 import "./interviewFeedback.css";
 
+
+
 const interviewFeedback = () => {
-   
   return (
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
@@ -59,6 +60,7 @@ const interviewFeedback = () => {
                 />{" "}
               </div>
             </div>
+            <p><strong>Overall how would you rate this individual's performance based on your expectations for the role?</strong></p>
 
             <table className="table table-bordered">
               <thead>
@@ -66,166 +68,326 @@ const interviewFeedback = () => {
                   <th scope="col">Job Interview Criteria</th>
                   <th scope="col">Ranking</th>
                   <th scope="col">Comments</th>
-                 
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td scope="row">Educational Background</td>
                   <td>
-                      
-                      <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Prior Work Experience</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
                 <tr>
                   <td scope="row">Qualification</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Verbal Communication</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2
+                      <input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
-                 
+
                 <tr>
                   <td scope="row">Candidate Interest</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Knowledge of Organisation</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
 
                 <tr>
                   <td scope="row">Team Building skills</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
                 <tr>
                   <td scope="row">Initiative</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
                 <tr>
                   <td scope="row">Time Management</td>
                   <td>
-                      
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
                 <tr>
                   <td scope="row">Overall Impression and Recommendations</td>
                   <td>
                       
-                  <label className="option">1<input type="radio" name="radio" value="1" /> </label>
-                      <label className="option">2<input type="radio" name="radio" value="2"/> <span className="checkmark"/></label>
-                      <label className="option">3<input type="radio" name="radio" value="3" /> <span className="checkmark"/></label>
-                      <label className="option">4<input type="radio" name="radio" value="4" /> <span className="checkmark"/></label>
-                      <label className="option">5<input type="radio" name="radio" value="5"/> <span className="checkmark"/></label>
+                    <label className="option">
+                      1<input type="radio" name="radio" value="1" />{" "}
+                    </label>
+                    <label className="option">
+                      2<input type="radio" name="radio" value="2" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      3<input type="radio" name="radio" value="3" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      4<input type="radio" name="radio" value="4" />{" "}
+                
+                    </label>
+                    <label className="option">
+                      5<input type="radio" name="radio" value="5" />{" "}
+                
+                    </label>
                   </td>
 
-                  <td> <div><input type="string"/></div> </td>
-                
+                  <td>
+                    {" "}
+                    <div>
+                      <input type="string" />
+                    </div>{" "}
+                  </td>
                 </tr>
-
-
-
-
-
-
-
-
-
-
-
               </tbody>
             </table>
 
