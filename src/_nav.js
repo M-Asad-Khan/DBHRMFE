@@ -67,6 +67,11 @@ const _nav = [
             name:"Interview Feedback",
             to:"/interviewFeedback"
           },
+          {
+            component:CNavItem,
+            name:"Candidates",
+            to:"/candidates",
+          },
         
         ]
       
