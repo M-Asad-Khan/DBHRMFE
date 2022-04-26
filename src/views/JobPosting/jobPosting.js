@@ -34,7 +34,7 @@ const jobPosting = () => {
 
                     <label className="form-control-label px-3">
 
-                      Deparrtment<span className="text-danger"> *</span>
+                      Department<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="text"
