@@ -21,7 +21,6 @@ const Addteams = () => {
   //var selectedTeamMembers = [];
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
   const teamsState = useSelector((state) => state.teams);
   const [employees, setEmployees] = useState([]);
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
@@ -418,7 +417,8 @@ const Addteams = () => {
                     ""
                   )}
                 </div>
-              </div>
+							</div>
+							
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label ">
