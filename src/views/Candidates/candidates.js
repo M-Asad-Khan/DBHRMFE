@@ -2,6 +2,7 @@ import React from "react";
 import Select from "react-select";
 const candidates = () => {
   const candStatusOptions = [
+    { value: "Applied", label: "Applied", field: "status" },
     { value: "Scheduled", label: "Scheduled Interview", field: "status" },
     { value: "Offered", label: "Offered", field: "status" },
     { value: "Hired", label: "Hired", field: "status" },
