@@ -4,13 +4,20 @@ import AddUser from "./User/AddUser";
 import { userManagmentRequests } from "src/API/UserManagmentApi";
 import { useSelector, useDispatch } from "react-redux";
 import {
-	updateIsAddUserClickedAction,
+  updateIsAddPermissionClickedAction,
+  updateIsAddRoleClickedAction,
+  updateIsAddUserClickedAction,
+  updatePermissionsAction,
+  updatePermissionsDataTableAction,
+  updateRolesAction,
+  updateRolesDataTableAction,
   updateUsersAction,
   updateUsersDataTableAction,
 } from "src/redux/UserManagment/userManagment.actions";
 import { MDBDataTable } from "mdbreact";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import AddRole from "./Role/AddRole";
+import AddPermission from "./Permission/AddPermission";
 
 function UserManagment() {
   const dispatch = useDispatch();
@@ -18,13 +25,15 @@ function UserManagment() {
   const userManagmentState = useSelector((state) => state.userManagment);
 
   useEffect(() => {
-    handlegetUsers();
+    handleGetUsers();
+    handleGetRoles();
+    handleGetPermissions();
   }, []);
 
-  const handlegetUsers = async () => {
+  const handleGetUsers = async () => {
     try {
       const res = await userManagmentRequests.getUsers();
-      debugger;
+       
       if (res.error === false) {
         dispatch(updateUsersAction(res.data));
         var tempArr = [];
@@ -58,7 +67,7 @@ function UserManagment() {
             clickEvent: setSelectedRow,
           });
         });
-        debugger;
+         
         console.log("eventarr", tempArr);
         var tempObj = { ...userManagmentState.usersDataTable, rows: tempArr };
         dispatch(updateUsersDataTableAction(tempObj));
@@ -68,14 +77,103 @@ function UserManagment() {
     }
   };
 
+  const handleGetRoles = async () => {
+    try {
+      const res = await userManagmentRequests.getRoles();
+       
+      if (res.error === false) {
+        dispatch(updateRolesAction(res.data));
+        var tempArr = [];
+        res.data.map((x) => {
+          tempArr.push({
+            ...x,
+            action: (
+              <>
+                <FiEye
+                  onClick={() => (action = "view")}
+                  style={{ color: "blue", cursor: "pointer" }}
+                />
+                <FiEdit
+                  onClick={() => (action = "edit")}
+                  style={{
+                    color: "orange",
+                    marginLeft: "20px",
+                    cursor: "pointer",
+                  }}
+                />
+                <FiTrash
+                  // onClick={() => (action = "delete")}
+                  style={{
+                    color: "red",
+                    marginLeft: "20px",
+                    cursor: "not-allowed",
+                  }}
+                />
+              </>
+            ),
+            clickEvent: setSelectedRow,
+          });
+        });
+         
+        console.log("eventarr", tempArr);
+        var tempObj = { ...userManagmentState.rolesDataTable, rows: tempArr };
+        dispatch(updateRolesDataTableAction(tempObj));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleGetPermissions = async () => {
+    try {
+      const res = await userManagmentRequests.getPermission();
+			debugger;
+      if (res.error === false) {
+        dispatch(updatePermissionsAction(res.data));
+        var tempArr = [];
+        var dataAcquiredIds = [];
+        res.data.map((x) => {
+          if (!dataAcquiredIds.includes(x.userId)) {
+						dataAcquiredIds.push(x.userId);
+						var mutex = false;
+            res.data
+              .filter((item) => item.userId == x.userId)
+							.map((y) => {
+								if (mutex) return;
+                tempArr.push({
+                  clickEvent: setSelectedRow,
+                  email: y.user.email,
+                  userId: y.userId,
+                  roles: res.data
+                    .filter((item) => item.userId == x.userId)
+                    .map((z) => z.role.name+", "),
+								});
+								console.log('here000',tempArr)
+								mutex = true;
+              });
+          }
+        });
+				debugger;
+        console.log("tempArr 111222", tempArr);
+        var tempObj = {
+          ...userManagmentState.permissionsDataTable,
+          rows: tempArr,
+        };
+        dispatch(updatePermissionsDataTableAction(tempObj));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   function setSelectedRow(rowData) {
-    debugger;
+     
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+           
           handleDelete(rowData);
           break;
         case "view":
@@ -136,7 +234,7 @@ function UserManagment() {
                 <button
                   type="button"
                   className="btn btn-outline-primary col-sm-2"
-                  onClick={() =>dispatch(updateIsAddUserClickedAction(true))}
+                  onClick={() => dispatch(updateIsAddUserClickedAction(true))}
                 >
                   Add User
                 </button>
@@ -159,27 +257,27 @@ function UserManagment() {
             aria-labelledby="role-tab"
             visible={activeKey === "role"}
           >
-             {userManagmentState.isAddRoleClicked ? (
+            {userManagmentState.isAddRoleClicked ? (
               <AddRole />
             ) : (
               <div className="mt-4">
                 <button
                   type="button"
                   className="btn btn-outline-primary col-sm-2"
-                  onClick={() =>dispatch(updateIsAddUserClickedAction(true))}
+                  onClick={() => dispatch(updateIsAddRoleClickedAction(true))}
                 >
-                  Add User
+                  Add Role
                 </button>
                 <MDBDataTable
                   className="mdbDataTableDesign"
-                  infoLabel={["Showing", "to", "of", "Users"]}
+                  infoLabel={["Showing", "to", "of", "Roles"]}
                   bordered
                   displayEntries={false}
                   hover
                   entriesOptions={[5, 20, 25]}
                   entries={5}
                   pagesAmount={4}
-                  // data={userManagmentState.usersDataTable}
+                  data={userManagmentState.rolesDataTable}
                 />
               </div>
             )}
@@ -189,15 +287,33 @@ function UserManagment() {
             aria-labelledby="profile-tab"
             visible={activeKey === "permission"}
           >
-            Etsy mixtape wayfarers, ethical wes anderson tofu before they sold
-            out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table
-            readymade. Messenger bag gentrify pitchfork tattooed craft beer,
-            iphone skateboard locavore carles etsy salvia banksy hoodie
-            helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit
-            cred pitchfork. Williamsburg banh mi whatever gluten-free, carles
-            pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester
-            cred you probably haven't heard of them, vinyl craft beer blog
-            stumptown. Pitchfork sustainable tofu synth chambray yr.
+            {userManagmentState.isAddPermissionClicked ? (
+              <AddPermission />
+            ) : (
+              <div className="mt-4">
+                <button
+                  type="button"
+                  className="btn btn-outline-primary col-sm-2"
+                  onClick={() => {
+                     
+                    dispatch(updateIsAddPermissionClickedAction(true));
+                  }}
+                >
+                  Add Permission
+                </button>
+                <MDBDataTable
+                  className="mdbDataTableDesign"
+                  infoLabel={["Showing", "to", "of", "Permissions"]}
+                  bordered
+                  displayEntries={false}
+                  hover
+                  entriesOptions={[5, 20, 25]}
+                  entries={5}
+                  pagesAmount={4}
+                  data={userManagmentState.permissionsDataTable}
+                />
+              </div>
+            )}
           </CTabPane>
         </CTabContent>
       </div>

@@ -3,18 +3,26 @@ import {
   updateIsAddUserClicked,
   updateUsers,
   updateIsEditUserClicked,
-updateUsersDataTable,
+  updateUsersDataTable,
 	updateIsViewUserClicked,
-
-
-	updateNewRole,
+	
+  updateNewRole,
   updateIsAddRoleClicked,
   updateRoles,
   updateIsEditRoleClicked,
-updateRolesDataTable,
-	updateIsViewRoleClicke
+  updateRolesDataTable,
+	updateIsViewRoleClicked,
+	
+  updateNewPermission,
+  updateIsAddPermissionClicked,
+  updatePermissions,
+  updateIsEditPermissionClicked,
+  updatePermissionsDataTable,
+	updateIsViewPermissionClicked,
+	
 } from "./userManagment.types";
 
+//user actions
 export const updateNewUserAction = (params) => {
   return {
     type: updateNewUser,
@@ -62,9 +70,7 @@ export const updateIsViewUserClickedAction = (params) => {
   };
 };
 
-
-
-//Role module action
+//Role actions
 export const updateNewRoleAction = (params) => {
   return {
     type: updateNewRole,
@@ -102,6 +108,49 @@ export const updateRolesDataTableAction = (params) => {
 export const updateIsViewRoleClickedAction = (params) => {
   return {
     type: updateIsViewRoleClicked,
+    payload: params,
+  };
+};
+
+//Permission actions
+export const updateNewPermissionAction = (params) => {
+  return {
+    type: updateNewPermission,
+    payload: params,
+  };
+};
+export const updateIsAddPermissionClickedAction = (params) => {
+	debugger;
+  return {
+    type: updateIsAddPermissionClicked,
+    payload: params,
+  };
+};
+
+export const updatePermissionsAction = (params) => {
+  return {
+    type: updatePermissions,
+    payload: params,
+  };
+};
+
+export const updateIsEditPermissionClickedAction = (params) => {
+  return {
+    type: updateIsEditPermissionClicked,
+    payload: params,
+  };
+};
+
+export const updatePermissionsDataTableAction = (params) => {
+  return {
+    type: updatePermissionsDataTable,
+    payload: params,
+  };
+};
+
+export const updateIsViewPermissionClickedAction = (params) => {
+  return {
+    type: updateIsViewPermissionClicked,
     payload: params,
   };
 };

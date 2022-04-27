@@ -10,7 +10,14 @@ import {
   updateRoles,
   updateIsEditRoleClicked,
   updateRolesDataTable,
-  updateIsViewRoleClicked,
+	updateIsViewRoleClicked,
+	
+	updateNewPermission,
+  updateIsAddPermissionClicked,
+  updatePermissions,
+  updateIsEditPermissionClicked,
+  updatePermissionsDataTable,
+  updateIsViewPermissionClicked,
 } from "./userManagment.types";
 
 const INITIAL_STATE = {
@@ -30,11 +37,11 @@ const INITIAL_STATE = {
         field: "email",
         width: 200,
       },
-      {
-        label: "Action",
-        field: "action",
-        width: 200,
-      },
+      // {
+      //   label: "Action",
+      //   field: "action",
+      //   width: 200,
+      // },
     ],
     rows: [],
   },
@@ -42,7 +49,7 @@ const INITIAL_STATE = {
 
   roles: [],
   newRole: {},
-  isAddRoleClicked: true,
+  isAddRoleClicked: null,
   isEditRoleClicked: null,
   rolesDataTable: {
     columns: [
@@ -52,13 +59,34 @@ const INITIAL_STATE = {
       //   width: 270,
       // },
       {
+        label: "Name",
+        field: "name",
+        width: 200,
+      },
+      {
+        label: "Description",
+        field: "description",
+        width: 200,
+      },
+    ],
+    rows: [],
+  },
+  isViewRoleClicked: null,
+
+  permissions: [],
+  newPermission: {},
+  isAddPermissionClicked: null,
+  isEditPermissionClicked: null,
+  permissionsDataTable: {
+    columns: [
+      {
         label: "Email",
         field: "email",
         width: 200,
       },
       {
-        label: "Action",
-        field: "action",
+        label: "Roles",
+        field: "roles",
         width: 200,
       },
     ],
@@ -69,6 +97,7 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    //user
     case updateNewUser:
       return {
         ...state,
@@ -104,6 +133,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         isViewUserClicked: action.payload,
       };
 
+    //role
     case updateNewRole:
       return {
         ...state,
@@ -137,6 +167,42 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isViewRoleClicked: action.payload,
+      };
+
+    //permission
+    case updateNewPermission:
+      return {
+        ...state,
+        newPermission: action.payload,
+      };
+
+    case updatePermissions:
+      return {
+        ...state,
+        permissions: action.payload,
+      };
+
+    case updateIsAddPermissionClicked:
+      return {
+        ...state,
+        isAddPermissionClicked: action.payload,
+      };
+
+    case updateIsEditPermissionClicked:
+      return {
+        ...state,
+        isEditPermissionClicked: action.payload,
+      };
+
+    case updatePermissionsDataTable:
+      return {
+        ...state,
+        permissionsDataTable: action.payload,
+      };
+    case updateIsViewPermissionClicked:
+      return {
+        ...state,
+        isViewPermissionClicked: action.payload,
       };
 
     default:

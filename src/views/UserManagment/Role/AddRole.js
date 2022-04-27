@@ -1,6 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userManagmentRequests } from "src/API/UserManagmentApi";
+import {
+  updateIsAddRoleClickedAction,
+  updateIsEditRoleClickedAction,
+  updateRolesAction,
+} from "src/redux/UserManagment/userManagment.actions";
+import { toast } from "react-toastify";
+
 
 export default function AddRole() {
+  const dispatch = useDispatch();
+  const userManagmentState = useSelector((state) => state.userManagment);
+
   const [tempRole, setTempRole] = useState({});
   const [roles, setRoles] = useState([]);
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -12,12 +24,10 @@ export default function AddRole() {
   const handleChange = (evt) => {
     debugger;
     const value = evt.target.value;
-    dispatch(
-      updateNewClientAction({
-        ...tempRole,
-        [evt.target.name]: value,
-      })
-    );
+    setTempRole({
+      ...tempRole,
+      [evt.target.name]: value,
+    });
   };
 
   const doValidation = () => {
@@ -55,6 +65,49 @@ export default function AddRole() {
     console.log("isError", isError);
     return isError;
   };
+  const handleCancel = () => {
+    dispatch(updateIsAddRoleClickedAction(false));
+  };
+
+  const handleAddAndUpdateRole = async () => {
+    if (!doValidation()) {
+      if (userManagmentState.isEditEmployeeClicked === true) {
+        try {
+          debugger;
+          const res = await userManagmentRequests.addRole(tempRole);
+          if (res.error === false) {
+            debugger;
+            toast.success("Role Updated !");
+            let temp = state.employees.filter((item) => item.id != res.data.id);
+            dispatch(updateRolesAction([...temp, res.data]));
+            dispatch(updateIsAddRoleClickedAction(false));
+            dispatch(updateIsEditRoleClickedAction(false));
+          }
+        } catch (e) {
+          toast.error("error !");
+          debugger;
+        }
+      } else {
+        try {
+          debugger;
+          const res = await userManagmentRequests.addRole(tempRole);
+          if (res.error === false) {
+            debugger;
+            toast.success("Role added !");
+            dispatch(updateRolesAction([res.data]));
+            dispatch(updateIsAddRoleClickedAction(false));
+            dispatch(updateIsEditRoleClickedAction(false));
+          }
+        } catch (e) {
+          toast.error("error !");
+          debugger;
+        }
+      }
+    } else {
+      toast.error("validation failed");
+      debugger;
+    }
+  };
 
   console.log("tempRole", tempRole);
 
@@ -86,7 +139,7 @@ export default function AddRole() {
         </div>
         <div className="form-group col-sm-6 flex-column d-flex">
           <label className="form-control-label">
-            Email<span className="text-danger"> *</span>
+            Description<span className="text-danger"> *</span>
           </label>
           <input
             value={tempRole.description}
@@ -108,20 +161,16 @@ export default function AddRole() {
 
       <div className="row justify-content-between text-left">
         <div className="form-group col-sm-6 ">
-          <button
-            className="btn-block btn-primary"
-            // onClick={handleCancel}
-          >
+          <button className="btn-block btn-primary" onClick={handleCancel}>
             Cancel
           </button>
         </div>
         <div className="form-group col-sm-6 ">
           <button
             className="btn-block btn-primary"
-            onClick={() => doValidation()}
+            onClick={() => handleAddAndUpdateRole()}
           >
-            {/* {teamsState.isEditTeamClicked ? "Update Team" : "Add User"} */}
-            {true ? "Update Role" : "Add Role"}
+            {userManagmentState.isEditRoleClicked ? "Update Role" : "Add Role"}
           </button>
         </div>
       </div>
