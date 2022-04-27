@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState } from "react";
 import Select from "react-select";
 import {
   updateNewCandidateAction,
@@ -12,23 +12,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 
-const addcandidates = ({}) => {
+const Candidates = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
-    firstname: false,
-    lastname: false,
+    FirstName: false,
+    lastName: false,
     email: false,
     phoneNumber: false,
     gender:false,
     status:false,
-    postAplliedFor:false,
-    appliedDate: false,
+    postAppliedFor:false,
+    AppliedDate: false,
     skills:false,
     
   });
   const [errorInfo, setErrorInfo] = useState({});
-  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-  const hrState = useSelector((state) => state.candidates);
+  const hrState = useSelector((state) => state.candidate);
 
   function handleChange(evt) {
     debugger;
@@ -49,17 +48,17 @@ const addcandidates = ({}) => {
   const addAndUpdateCandidate = async () => {
     debugger;
     if (!doValidation()) {
-      if (hrstate.isEditCandidateClicked === true) {
+      if (hrState.isEditCandidateClicked === true) {
         try {
           debugger;
           const res = await candidateRequests.updateCandidateApi(
-            hrstate.newCandidate
+            hrState.newCandidate
           );
           console.log("updateCandidate Response", res);
           if (res.error === false) {
             debugger;
             toast.success("Candidate Updated !");
-            let temp = state.candidates.filter(
+            let temp = hrState.candidates.filter(
               (item) => item.id != res.data.id
             );
             dispatch(updateCandidatesAction([...temp, res.data]));
@@ -74,14 +73,14 @@ const addcandidates = ({}) => {
         try {
           debugger;
           const res = await candidateRequests.addCandidateApi(
-            state.newCandidate
+            hrState.newCandidate
           );
           console.log("addCandidateApi Response", res);
           debugger;
           if (res.error === false) {
             toast.success("Candidate Added !");
             debugger;
-            dispatch(updateCandidatesAction([...hrstate.candidates, res.data]));
+            dispatch(updateCandidatesAction([...hrState.candidates, res.data]));
             dispatch(updateIsAddCandidateClickedAction(false));
             dispatch(updateIsEditCandidateClickedAction(false));
           }
@@ -209,19 +208,19 @@ const addcandidates = ({}) => {
                   </label>
                   <input
                   className={
-                    fieldsWithError.firstname === true ? "redBorder" : ""
+                    fieldsWithError.FirstName === true ? "redBorder" : ""
                   }
-                    value={hrState.newCandidate.firstname}
+                    value={hrState.newCandidate.FirstName}
                     onChange={handleChange}
                     type="text"
                     id="FirstName"
                     name="FirstName"
                     placeholder="Enter your first name"
                   />{" "}
-                  {fieldsWithError.firstname === true ? (
+                  {fieldsWithError.FirstName === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.firstname}
+                        {errorInfo.FirstName}
                       </label>{" "}
                     </>
                   ) : (
@@ -236,18 +235,18 @@ const addcandidates = ({}) => {
                   <input
                    
                    className=
-                   {fieldsWithError.lastname === true ? "redBorder" : ""}
-                   value={hrState.newCandidate.lastname}
+                   {fieldsWithError.lastName === true ? "redBorder" : ""}
+                   value={hrState.newCandidate.lastName}
                    onChange={handleChange}
                    type="text"
-                    id="lastname"
-                    name="lastname"
+                    id="lastName"
+                    name="lastName"
                     placeholder="Enter your last name"
                  />{" "}
-                 {fieldsWithError.lastname === true ? (
+                 {fieldsWithError.lastName === true ? (
                    <>
                      <label className="error form-control-label px-3">
-                       {errorInfo.lastname}
+                       {errorInfo.lastName}
                      </label>{" "}
                    </>
                  ) : (
@@ -261,24 +260,50 @@ const addcandidates = ({}) => {
                     Email<span className="text-danger"> *</span>
                   </label>
                   <input
+                   className={
+                    fieldsWithError.email === true ? "redBorder" : ""
+                  }
+                   value={hrState.newCandidate.email}
+                   onChange={handleChange}
                     type="text"
                     id="email"
                     name="email"
                     placeholder=""
-                    onblur="validate(3)"
-                  />
+                 />
+                  {fieldsWithError.email === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.email}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
                     Phone number<span className="text-danger"> *</span>
                   </label>
                   <input
+                  className={
+                    fieldsWithError.phoneNumber === true ? "redBorder" : ""
+                  }
+                  value={hrState.newCandidate.phoneNumber}
+                   onChange={handleChange}
                     type="text"
                     id="phoneNumber"
                     name="phoneNumber"
                     placeholder=""
-                    onblur="validate(4)"
                   />
+                   {fieldsWithError.phoneNumber === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.phoneNumber}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="row justify-content-between text-left">
@@ -318,23 +343,50 @@ const addcandidates = ({}) => {
                     <span className="text-danger"> *</span>
                   </label>
                   <input
+                   className={
+                    fieldsWithError.postAppliedFor === true ? "redBorder" : ""
+                  }
                     type="text"
+                    value={hrState.newCandidate.postAppliedFor}
+                   onChange={handleChange}
                     id="postAppliedFor"
                     name="postAppliedFor"
                     placeholder=""
-                    onblur="validate(6)"
-                  />
+                  />{" "}
+                  {fieldsWithError.postAppliedFor === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.postAppliedFor}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
                     Applied Date<span className="text-danger"> *</span>
                   </label>
                   <input
+                  className={
+                    fieldsWithError.AppliedDate === true ? "redBorder" : ""
+                  }
+                  value={hrState.newCandidate.AppliedDate}
+                  onChange={handleChange}
                     type="date"
                     id="AppliedDate"
                     name="AppliedDate"
                     placeholder=""
                   />
+                   {fieldsWithError.AppliedDate === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.AppliedDate}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="row justify-content-between text-left">
@@ -344,12 +396,26 @@ const addcandidates = ({}) => {
                     <span className="text-danger"> *</span>
                   </label>
                   <textarea
+                    className={
+                      fieldsWithError.skills === true ? "redBorder" : ""
+                    }
+                    value={hrState.newCandidate.skills}
+                  onChange={handleChange}
                     id="skills"
                     name="skills"
                     placeholder="Write your skills here"
                     rows="4"
                     required="required"
                   ></textarea>
+                   {fieldsWithError.skills === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.skills}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="row justify-content-between text-left">
@@ -364,11 +430,11 @@ const addcandidates = ({}) => {
                 <div className="form-group col-sm-6 ">
                   <CButton
                     className="btn-block btn-primary"
-                    onClick={() => addAndUpdateEmployee()}
+                    onClick={() => addAndUpdateCandidate()}
                   >
-                    {state.isEditEmployeeClicked
-                      ? "Update Employee"
-                      : "Add Employee"}
+                    {hrState.isEditCandidateClicked
+                      ? "Update Candidate"
+                      : "Add Candidate"}
                   </CButton>
                 </div>
               </div>
@@ -380,4 +446,4 @@ const addcandidates = ({}) => {
   );
 };
 
-export default addcandidates;
+export default Candidates;
