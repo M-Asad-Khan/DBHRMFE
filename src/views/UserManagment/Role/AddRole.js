@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userManagmentRequests } from "src/API/UserManagmentApi";
 import {
@@ -18,7 +18,13 @@ export default function AddRole() {
   const [fieldsWithError, setFieldsWithError] = useState({
     name: null,
     description: null,
-  });
+	});
+	useEffect(() => {
+		if (userManagmentState.isEditRoleClicked) {
+			setTempRole(userManagmentState.newRole)
+		}
+	}, [userManagmentState.isEditRoleClicked ])
+	
   const [errorInfo, setErrorInfo] = useState({});
 
   const handleChange = (evt) => {
@@ -67,19 +73,19 @@ export default function AddRole() {
   };
   const handleCancel = () => {
     dispatch(updateIsAddRoleClickedAction(false));
+    dispatch(updateIsEditRoleClickedAction(false));
   };
 
   const handleAddAndUpdateRole = async () => {
     if (!doValidation()) {
-      if (userManagmentState.isEditEmployeeClicked === true) {
+      if (userManagmentState.isEditRoleClicked === true) {
         try {
           debugger;
-          const res = await userManagmentRequests.addRole(tempRole);
+          const res = await userManagmentRequests.updateRole(tempRole);
           if (res.error === false) {
             debugger;
             toast.success("Role Updated !");
-            let temp = state.employees.filter((item) => item.id != res.data.id);
-            dispatch(updateRolesAction([...temp, res.data]));
+            dispatch(updateRolesAction([ res.data]));
             dispatch(updateIsAddRoleClickedAction(false));
             dispatch(updateIsEditRoleClickedAction(false));
           }
@@ -118,11 +124,8 @@ export default function AddRole() {
           <label className="form-control-label ">
             Enter Role Name <span className="text-danger"> *</span>
           </label>
-          <input
-            // defaultValue={{
-            //   label: tempRole.newTeam.teamLeadName,
-            //   value: tempRole.newTeam.teamLeadName,
-            // }}
+					<input
+						value={tempRole.name}
             id="name"
             name="name"
             onChange={handleChange}

@@ -29,13 +29,21 @@ export default function AddUser() {
   });
   const [errorInfo, setErrorInfo] = useState({});
 
+  useEffect(() => {
+		if (userManagmentState.isEditUserClicked) {
+			var tempObj = { ...userManagmentState.newUser };
+			tempObj.user=userManagmentState.newUser.id
+      setTempUser(tempObj);
+    }
+  }, [userManagmentState.isEditUserClicked]);
   const handleEmpSelectChange = (param) => {
     let tempEmail;
     employees !== null
       ? (tempEmail = employees.find((x) => x.id === param.id).email)
       : (tempEmail = clients.find((x) => x.id === param.id).email);
     setTempUser({
-      ...tempUser,
+			...tempUser,
+			name:param.name,
       user: param.id,
       email: tempEmail,
     });
@@ -70,7 +78,7 @@ export default function AddUser() {
       debugger;
       if (res.error === false) {
         var tempArr = [];
-        console.log("data", res.data);
+        console.log("data of  get emp in addUser", res.data);
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.name, label: x.name };
         });
@@ -93,7 +101,7 @@ export default function AddUser() {
             console.log("updateEmployee Response", res);
             if (res.error === false) {
               debugger;
-              toast.success("Employee Updated !");
+              toast.success("User Updated !");
               let temp = state.employees.filter(
                 (item) => item.id != res.data.id
               );
@@ -113,10 +121,7 @@ export default function AddUser() {
             if (res.error === false) {
               debugger;
               toast.success("User added !");
-              // let temp = state.employees.filter(
-              //   (item) => item.id != res.data.id
-              // );
-              dispatch(updateUsersAction([ res.data]));
+              dispatch(updateUsersAction([res.data]));
               dispatch(updateIsAddUserClickedAction(false));
               dispatch(updateIsEditUserClickedAction(false));
             }
@@ -184,6 +189,7 @@ export default function AddUser() {
   };
   const handleCancel = () => {
     dispatch(updateIsAddUserClickedAction(false));
+    dispatch(updateIsEditUserClickedAction(false));
   };
 
   console.log("tempUser", tempUser);
@@ -197,6 +203,8 @@ export default function AddUser() {
           </label>
           <div className="d-flex">
             <input
+              checked={tempUser.type === "client"}
+              disabled={userManagmentState.isEditUserClicked}
               type="radio"
               id="type"
               name="type"
@@ -207,6 +215,8 @@ export default function AddUser() {
           </div>
           <div className="d-flex">
             <input
+              checked={tempUser.type === "employee"}
+              disabled={userManagmentState.isEditUserClicked}
               type="radio"
               id="type"
               name="type"
@@ -232,12 +242,16 @@ export default function AddUser() {
             Select User <span className="text-danger"> *</span>
           </label>
           <Select
+            isDisabled={userManagmentState.isEditUserClicked}
             // defaultValue={{
-            //   label: tempUser.newTeam.teamLeadName,
-            //   value: tempUser.newTeam.teamLeadName,
-            // }}
-            // id="user"
-            // name="user"
+            //   label: tempUser?.name,
+            //   value: tempUser?.name,
+						// }}
+						value={{
+              label: tempUser?.name,
+              value: tempUser?.name,
+						}}
+						
             onChange={handleEmpSelectChange}
             options={employees || clients}
           ></Select>

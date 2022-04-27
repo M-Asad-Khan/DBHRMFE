@@ -7,6 +7,10 @@ import {
   updateIsAddPermissionClickedAction,
   updateIsAddRoleClickedAction,
   updateIsAddUserClickedAction,
+  updateIsEditRoleClickedAction,
+  updateIsEditUserClickedAction,
+  updateNewRoleAction,
+  updateNewUserAction,
   updatePermissionsAction,
   updatePermissionsDataTableAction,
   updateRolesAction,
@@ -20,20 +24,25 @@ import AddRole from "./Role/AddRole";
 import AddPermission from "./Permission/AddPermission";
 
 function UserManagment() {
+  var action = "";
   const dispatch = useDispatch();
   const [activeKey, setActiveKey] = useState("user");
   const userManagmentState = useSelector((state) => state.userManagment);
 
   useEffect(() => {
     handleGetUsers();
-    handleGetRoles();
+  }, [userManagmentState.isAddUserClicked]);
+  useEffect(() => {
     handleGetPermissions();
-  }, []);
+  }, [userManagmentState.isAddPermissionClicked]);
+  useEffect(() => {
+    handleGetRoles();
+  }, [userManagmentState.isAddRoleClicked]);
 
   const handleGetUsers = async () => {
     try {
       const res = await userManagmentRequests.getUsers();
-       
+
       if (res.error === false) {
         dispatch(updateUsersAction(res.data));
         var tempArr = [];
@@ -42,12 +51,12 @@ function UserManagment() {
             ...x,
             action: (
               <>
-                <FiEye
-                  onClick={() => (action = "view")}
+                {/* <FiEye
+                  onClick={() => (action = "viewUser")}
                   style={{ color: "blue", cursor: "pointer" }}
-                />
+                /> */}
                 <FiEdit
-                  onClick={() => (action = "edit")}
+                  onClick={() => (action = "editUser")}
                   style={{
                     color: "orange",
                     marginLeft: "20px",
@@ -55,7 +64,7 @@ function UserManagment() {
                   }}
                 />
                 <FiTrash
-                  // onClick={() => (action = "delete")}
+                  // onClick={() => (action = "deleteUser")}
                   style={{
                     color: "red",
                     marginLeft: "20px",
@@ -67,7 +76,7 @@ function UserManagment() {
             clickEvent: setSelectedRow,
           });
         });
-         
+
         console.log("eventarr", tempArr);
         var tempObj = { ...userManagmentState.usersDataTable, rows: tempArr };
         dispatch(updateUsersDataTableAction(tempObj));
@@ -80,7 +89,7 @@ function UserManagment() {
   const handleGetRoles = async () => {
     try {
       const res = await userManagmentRequests.getRoles();
-       
+
       if (res.error === false) {
         dispatch(updateRolesAction(res.data));
         var tempArr = [];
@@ -89,12 +98,12 @@ function UserManagment() {
             ...x,
             action: (
               <>
-                <FiEye
-                  onClick={() => (action = "view")}
+                {/* <FiEye
+                  onClick={() => (action = "viewRole")}
                   style={{ color: "blue", cursor: "pointer" }}
-                />
+                /> */}
                 <FiEdit
-                  onClick={() => (action = "edit")}
+                  onClick={() => (action = "editRole")}
                   style={{
                     color: "orange",
                     marginLeft: "20px",
@@ -102,7 +111,7 @@ function UserManagment() {
                   }}
                 />
                 <FiTrash
-                  // onClick={() => (action = "delete")}
+                  // onClick={() => (action = "deleteRole")}
                   style={{
                     color: "red",
                     marginLeft: "20px",
@@ -114,7 +123,7 @@ function UserManagment() {
             clickEvent: setSelectedRow,
           });
         });
-         
+
         console.log("eventarr", tempArr);
         var tempObj = { ...userManagmentState.rolesDataTable, rows: tempArr };
         dispatch(updateRolesDataTableAction(tempObj));
@@ -127,33 +136,57 @@ function UserManagment() {
   const handleGetPermissions = async () => {
     try {
       const res = await userManagmentRequests.getPermission();
-			debugger;
+      debugger;
       if (res.error === false) {
         dispatch(updatePermissionsAction(res.data));
         var tempArr = [];
         var dataAcquiredIds = [];
         res.data.map((x) => {
           if (!dataAcquiredIds.includes(x.userId)) {
-						dataAcquiredIds.push(x.userId);
-						var mutex = false;
+            dataAcquiredIds.push(x.userId);
+            var mutex = false;
             res.data
               .filter((item) => item.userId == x.userId)
-							.map((y) => {
-								if (mutex) return;
+              .map((y) => {
+                if (mutex) return;
                 tempArr.push({
+                  action: (
+                    <>
+                      {/* <FiEye
+												onClick={() => (action = "viewPermission")}
+												style={{ color: "blue", cursor: "pointer" }}
+											/> */}
+                      <FiEdit
+                        onClick={() => (action = "editPermission")}
+                        style={{
+                          color: "orange",
+                          marginLeft: "20px",
+                          cursor: "pointer",
+                        }}
+                      />
+                      <FiTrash
+                        // onClick={() => (action = "deletePermission")}
+                        style={{
+                          color: "red",
+                          marginLeft: "20px",
+                          cursor: "not-allowed",
+                        }}
+                      />
+                    </>
+                  ),
                   clickEvent: setSelectedRow,
                   email: y.user.email,
                   userId: y.userId,
                   roles: res.data
                     .filter((item) => item.userId == x.userId)
-                    .map((z) => z.role.name+"  "),
-								});
-								console.log('here000',tempArr)
-								mutex = true;
+                    .map((z) => z.role.name + "  "),
+                });
+                console.log("here000", tempArr);
+                mutex = true;
               });
           }
         });
-				debugger;
+        debugger;
         console.log("tempArr 111222", tempArr);
         var tempObj = {
           ...userManagmentState.permissionsDataTable,
@@ -165,22 +198,39 @@ function UserManagment() {
       console.log(err);
     }
   };
-
+  const handleEditUser = (employee) => {
+    debugger;
+    dispatch(updateNewUserAction(employee));
+    dispatch(updateIsEditUserClickedAction(true));
+  };
+  const handleEditRole = (role) => {
+    debugger;
+    dispatch(updateNewRoleAction(role));
+    dispatch(updateIsEditRoleClickedAction(true));
+  };
   function setSelectedRow(rowData) {
-     
     if (action == "") {
       return;
     } else {
       switch (action) {
-        case "delete":
-           
-          handleDelete(rowData);
+        case "deleteUser":
+          handleDeleteUser(rowData);
           break;
-        case "view":
-          handleView(rowData);
+        case "viewUser":
+          // handleViewRole(rowData);
           break;
-        case "edit":
-          handleEdit(rowData);
+        case "editUser":
+          handleEditUser(rowData);
+          break;
+
+        case "deleteRole":
+          handleDeleteRole(rowData);
+          break;
+        case "viewRole":
+          // handleViewRole(rowData);
+          break;
+        case "editRole":
+          handleEditRole(rowData);
           break;
 
         default:
@@ -227,7 +277,8 @@ function UserManagment() {
             aria-labelledby="user-tab"
             visible={activeKey === "user"}
           >
-            {userManagmentState.isAddUserClicked ? (
+            {userManagmentState.isAddUserClicked ||
+            userManagmentState.isEditUserClicked ? (
               <AddUser />
             ) : (
               <div className="mt-4">
@@ -257,7 +308,8 @@ function UserManagment() {
             aria-labelledby="role-tab"
             visible={activeKey === "role"}
           >
-            {userManagmentState.isAddRoleClicked ? (
+            {userManagmentState.isAddRoleClicked ||
+            userManagmentState.isEditRoleClicked ? (
               <AddRole />
             ) : (
               <div className="mt-4">
@@ -295,7 +347,6 @@ function UserManagment() {
                   type="button"
                   className="btn btn-outline-primary col-sm-2"
                   onClick={() => {
-                     
                     dispatch(updateIsAddPermissionClickedAction(true));
                   }}
                 >

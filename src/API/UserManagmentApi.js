@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 class UserManagment {
   addUser(user) {
@@ -10,7 +11,8 @@ class UserManagment {
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
       },
-      data: {
+			data: {
+				name:user.name,
         id: user.user,
         password: user.password,
         email: user.email,
@@ -69,6 +71,60 @@ class UserManagment {
         name: role.name,
         description: role.description,
       },
+    })
+      .then((result) => {
+        return {
+          error: false,
+          data: result.data,
+        };
+      })
+      .catch((err) => {
+        return {
+          error: true,
+          data: err,
+        };
+      });
+	}
+	
+	updateRole(role) {
+		debugger;
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/role/${role.id}`,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+      },
+      data: {
+        name: role.name,
+        description: role.description,
+      },
+    })
+      .then((result) => {
+        return {
+          error: false,
+          data: result.data,
+        };
+      })
+      .catch((err) => {
+        return {
+          error: true,
+          data: err,
+        };
+      });
+  }
+
+	deleteRole(role) {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/role/${role.id}`,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+      },
+      data: {},
     })
       .then((result) => {
         return {

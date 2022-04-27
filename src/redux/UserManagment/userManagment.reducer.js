@@ -37,11 +37,11 @@ const INITIAL_STATE = {
         field: "email",
         width: 200,
       },
-      // {
-      //   label: "Action",
-      //   field: "action",
-      //   width: 200,
-      // },
+      {
+        label: "Action",
+        field: "action",
+        width: 200,
+      },
     ],
     rows: [],
   },
@@ -67,7 +67,12 @@ const INITIAL_STATE = {
         label: "Description",
         field: "description",
         width: 200,
-      },
+			},
+			{
+        label: "Action",
+        field: "action",
+        width: 270,
+      }
     ],
     rows: [],
   },
