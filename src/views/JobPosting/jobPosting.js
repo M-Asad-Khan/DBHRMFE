@@ -1,10 +1,10 @@
 import React from "react";
-import "./jobPosting.css";
+
 
 const jobPosting = () => {
   return (
     <div>
-      <div className="container-fluid px-1 py-5 mx-auto">
+      <div className="container-fluid px-1 mx-auto">
 
         <div className="row d-flex justify-content-center">
 

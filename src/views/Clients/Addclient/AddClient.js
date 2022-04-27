@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./addclient.css";
 import {
   updateNewClientAction,
   updateClientsAction,
@@ -179,7 +178,7 @@ const addclients = ({}) => {
 
   return (
     <>
-      <div className="container-fluid px-1 py-5 mx-auto">
+      <div className="container-fluid px-1 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
             <div className="form-card">
