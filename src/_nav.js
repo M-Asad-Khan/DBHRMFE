@@ -50,9 +50,30 @@ const _nav = [
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
     items: [
       {
-        component: CNavItem,
-        name:"Job Posting",
-        to:"/jobPosting"
+        component: CNavGroup,
+        name:"Recruitment",
+        to:"/buttons",
+        items:[
+          
+          {
+            component: CNavItem,
+            name:"Job Posting",
+            to:"/jobPosting",
+          },
+          
+          
+          {
+            component:CNavItem,
+            name:"Interview Feedback",
+            to:"/interviewFeedback"
+          },
+          {
+            component:CNavItem,
+            name:"Candidates",
+            to:"/candidates",
+          },
+        
+        ]
       
       } 
     ],

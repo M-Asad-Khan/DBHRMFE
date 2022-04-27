@@ -146,7 +146,7 @@ function UserManagment() {
                   userId: y.userId,
                   roles: res.data
                     .filter((item) => item.userId == x.userId)
-                    .map((z) => z.role.name+", "),
+                    .map((z) => z.role.name+"  "),
 								});
 								console.log('here000',tempArr)
 								mutex = true;

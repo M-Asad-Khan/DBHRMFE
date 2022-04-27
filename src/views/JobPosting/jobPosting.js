@@ -4,16 +4,23 @@ import "./jobPosting.css";
 const jobPosting = () => {
   return (
     <div>
-      <div class="container-fluid px-1 py-5 mx-auto">
-        <div class="row d-flex justify-content-center">
-          <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+      <div className="container-fluid px-1 py-5 mx-auto">
+
+        <div className="row d-flex justify-content-center">
+
+        
             
-            <div class="card">
-              <form class="form-card" onsubmit="event.preventDefault()">
-                <div class="row justify-content-between text-left">
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                    Job Title <span class="text-danger"> *</span>
+            <div className="card">
+
+              
+                <div className="row justify-content-between text-left">
+
+                  <div className="form-group col-sm-6 flex-column d-flex">
+
+                    <label className="form-control-label">
+
+                    Job Title <span className="text-danger"> *</span>
+
                     </label>
                     <input
                       type="text"
@@ -23,9 +30,11 @@ const jobPosting = () => {
                      
                     />{" "}
                   </div>
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                      Deparrtment<span class="text-danger"> *</span>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+
+                    <label className="form-control-label px-3">
+
+                      Department<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="text"
@@ -36,10 +45,10 @@ const jobPosting = () => {
                     />{" "}
                   </div>
                 </div>
-                <div class="row justify-content-between text-left">
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                      Reports to<span class="text-danger"> *</span>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label">
+                      Reports to<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="text"
@@ -49,9 +58,9 @@ const jobPosting = () => {
                       onblur="validate(3)"
                     />{" "}
                   </div>
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                      Effective Date<span class="text-danger"> *</span>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label">
+                      Effective Date<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="date"
@@ -62,10 +71,10 @@ const jobPosting = () => {
                     />{" "}
                   </div>
                 </div>
-                <div class="row justify-content-between text-left">
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                      Qualification<span class="text-danger"> *</span>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label">
+                      Qualification<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="text"
@@ -75,9 +84,9 @@ const jobPosting = () => {
                       onblur="validate(5)"
                     />{" "}
                   </div>
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                      Work Experience<span class="text-danger"> *</span>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label ">
+                      Work Experience<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="text"
@@ -88,10 +97,10 @@ const jobPosting = () => {
                     />{" "}
                   </div>
                 </div>
-                <div class="row justify-content-between text-left">
-                  <div class="form-group col-sm-6 flex-column d-flex">
-                    <label class="form-control-label px-3">
-                    Vacant Positions<span class="text-danger"> *</span>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label ">
+                    Vacant Positions<span className="text-danger"> *</span>
                     </label>
                     <input
                       type="text"
@@ -103,11 +112,11 @@ const jobPosting = () => {
                   </div>
                   </div>
                 
-                <div class="row justify-content-between text-left">
-                  <div class="form-group col-12 flex-column d-flex">
-                    <label class="form-control-label px-3">
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-12 flex-column d-flex">
+                    <label className="form-control-label">
                       Job Description
-                      <span class="text-danger"> *</span>
+                      <span className="text-danger"> *</span>
                     </label>
                     <textarea
                               id="description"
@@ -119,20 +128,20 @@ const jobPosting = () => {
                             ></textarea>{" "}
                   </div>
                 </div>
-                <div class="row justify-content-end">
-                  <div class="form-group col-sm-6">
+                <div className="row justify-content-end">
+                  <div className="form-group col-sm-6">
                     {" "}
-                    <button type="submit" class="btn-block btn-primary">
+                    <button type="submit" className="btn-block btn-primary">
                      submit
                     </button>{" "}
                   </div>
                 </div>
-              </form>
+            
             </div>
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

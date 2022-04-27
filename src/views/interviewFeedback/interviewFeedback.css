@@ -69,3 +69,15 @@ button:focus {
 .error{
 color: red;
 }
+/* .option {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    background: lightblue;
+  } */
+.option:hover {
+    margin: 1px;
+    padding: 1px;
+    border-radius: 3px;
+    background:rgb(11, 98, 175);
+  }
