@@ -31,15 +31,9 @@ export default function AddPermission() {
     if (userManagmentState.isEditPermissionClicked) {
       setTempPermission({
         ...userManagmentState.newPermission,
-        roles: userManagmentState.newPermission.prevRoles.map((x) => x),
+				roles: userManagmentState.newPermission.prevRoles.map((x) => x),
+				user:userManagmentState.newPermission.userId
       });
-			
-			userManagmentState?.roles?.map((role) => { 
-				debugger;
-				console.log("malikasd",userManagmentState.newPermission.prevRoles.includes(role.id))	
-
-				})
-			
     }
   }, [userManagmentState.isEditPermissionClicked]);
 
