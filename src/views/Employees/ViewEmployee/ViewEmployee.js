@@ -172,7 +172,7 @@ const ViewEmployee = () => {
                       Address:
                     </h6>
                   </div>
-                  <div>{state?.newEmployee?.employee?.address}</div>
+                  <div className="w-50">{state?.newEmployee?.employee?.address}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">

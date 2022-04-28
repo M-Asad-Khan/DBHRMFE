@@ -192,6 +192,34 @@ class UserManagment {
           data: err,
         };
       });
+	}
+	
+	updatePermission(permission) {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/permission`,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+      },
+			data: {
+        roleIds: permission.roles,
+        userId: permission.user,
+      },
+    })
+      .then((result) => {
+        return {
+          error: false,
+          data: result.data,
+        };
+      })
+      .catch((err) => {
+        return {
+          error: true,
+          data: err,
+        };
+      });
   }
 
   getPermission() {

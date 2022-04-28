@@ -7,8 +7,10 @@ import {
   updateIsAddPermissionClickedAction,
   updateIsAddRoleClickedAction,
   updateIsAddUserClickedAction,
+  updateIsEditPermissionClickedAction,
   updateIsEditRoleClickedAction,
   updateIsEditUserClickedAction,
+  updateNewPermissionAction,
   updateNewRoleAction,
   updateNewUserAction,
   updatePermissionsAction,
@@ -180,6 +182,9 @@ function UserManagment() {
                   roles: res.data
                     .filter((item) => item.userId == x.userId)
                     .map((z) => z.role.name + "  "),
+                  prevRoles: res.data
+                    .filter((item) => item.userId == x.userId)
+                    .map((z) => z.role.id),
                 });
                 console.log("here000", tempArr);
                 mutex = true;
@@ -208,6 +213,13 @@ function UserManagment() {
     dispatch(updateNewRoleAction(role));
     dispatch(updateIsEditRoleClickedAction(true));
   };
+
+  const handleEditPermission = (permission) => {
+    debugger;
+    console.log("permission", permission);
+    dispatch(updateNewPermissionAction(permission));
+    dispatch(updateIsEditPermissionClickedAction(true));
+  };
   function setSelectedRow(rowData) {
     if (action == "") {
       return;
@@ -231,6 +243,16 @@ function UserManagment() {
           break;
         case "editRole":
           handleEditRole(rowData);
+          break;
+
+        case "deletePermission":
+          handleDeletePermission(rowData);
+          break;
+        case "viewPermission":
+          // handleViewPermission(rowData);
+          break;
+        case "editPermission":
+          handleEditPermission(rowData);
           break;
 
         default:
@@ -339,7 +361,8 @@ function UserManagment() {
             aria-labelledby="profile-tab"
             visible={activeKey === "permission"}
           >
-            {userManagmentState.isAddPermissionClicked ? (
+            {userManagmentState.isAddPermissionClicked ||
+            userManagmentState.isEditPermissionClicked ? (
               <AddPermission />
             ) : (
               <div className="mt-4">

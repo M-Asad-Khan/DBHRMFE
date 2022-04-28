@@ -93,6 +93,11 @@ const INITIAL_STATE = {
         label: "Roles",
         field: "roles",
         width: 200,
+			},
+			{
+        label: "Action",
+        field: "action",
+        width: 200,
       },
     ],
     rows: [],

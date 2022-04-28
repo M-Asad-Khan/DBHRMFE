@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { updateIsAddPermissionClickedAction, updateIsAddRoleClickedAction, updateIsEditPermissionClickedAction, updatePermissionsAction } from "src/redux/UserManagment/userManagment.actions";
+import {
+  updateIsAddPermissionClickedAction,
+  updateIsAddRoleClickedAction,
+  updateIsEditPermissionClickedAction,
+  updatePermissionsAction,
+} from "src/redux/UserManagment/userManagment.actions";
 import { userManagmentRequests } from "src/API/UserManagmentApi";
 
 export default function AddPermission() {
@@ -22,6 +27,22 @@ export default function AddPermission() {
     getDataReadyforSelect();
   }, [userManagmentState.users]);
 
+  useEffect(() => {
+    if (userManagmentState.isEditPermissionClicked) {
+      setTempPermission({
+        ...userManagmentState.newPermission,
+        roles: userManagmentState.newPermission.prevRoles.map((x) => x),
+      });
+			
+			userManagmentState?.roles?.map((role) => { 
+				debugger;
+				console.log("malikasd",userManagmentState.newPermission.prevRoles.includes(role.id))	
+
+				})
+			
+    }
+  }, [userManagmentState.isEditPermissionClicked]);
+
   const getDataReadyforSelect = () => {
     var tempUsers = userManagmentState.users.map((x) => {
       return { ...x, value: x.id, label: x.email };
@@ -35,20 +56,35 @@ export default function AddPermission() {
       user: param.id,
     });
   };
+  // const handleRemoveRoleFromPermissions = (roleId) => {
+  //   var tempObj = {
+  //     userId: userManagmentState.permissions.userID,
+  //     roleId: roleId,
+  //   };
+  //   userManagmentRequests.deleteRoleFromPermissions(tempObj);
+  // };
   const handleChange = (evt) => {
     debugger;
-    var temp = tempPermission.roles
-      ? [...tempPermission.roles,evt.target.value]
-      : [evt.target.value];
-    setTempPermission({
-      ...tempPermission,
-      roles: temp,
-    });
-    debugger;
+    if (evt.target.checked) {
+      debugger;
+      var temp = tempPermission.roles
+        ? [...tempPermission.roles, evt.target.value]
+        : [evt.target.value];
+      setTempPermission({
+        ...tempPermission,
+        roles: temp,
+      });
+      debugger;
+    } else {
+      setTempPermission({
+        ...tempPermission,
+        roles: tempPermission.roles.filter((x) => x !== evt.target.value),
+      });
+    }
   };
 
-	const doValidation = () => {
-		debugger;
+  const doValidation = () => {
+    debugger;
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
@@ -82,25 +118,27 @@ export default function AddPermission() {
     });
     console.log("isError", isError);
     return isError;
-	};
-	const handleAddAndUpdatePermission = async () => {
+  };
+  const handleAddAndUpdatePermission = async () => {
     if (!doValidation()) {
       if (userManagmentState.isEditPermissionClicked === true) {
-        // try {
-        //   debugger;
-        //   const res = await userManagmentRequests.updatePermission(tempRole);
-        //   if (res.error === false) {
-        //     debugger;
-        //     toast.success("Permission Updated !");
-        //     let temp = state.employees.filter((item) => item.id != res.data.id);
-        //     dispatch(updatePermissionsAction([...temp, res.data]));
-        //     dispatch(updateIsAddPermissionClickedAction(false));
-        //     dispatch(updateIsEditPermissionClickedAction(false));
-        //   }
-        // } catch (e) {
-        //   toast.error("error !");
-        //   debugger;
-        // }
+        try {
+          debugger;
+          const res = await userManagmentRequests.updatePermission(
+            tempPermission
+          );
+          if (res.error === false) {
+            debugger;
+            toast.success("Permission Updated !");
+            // let temp = state.employees.filter((item) => item.id != res.data.id);
+            dispatch(updatePermissionsAction([...temp, res.data]));
+            dispatch(updateIsAddPermissionClickedAction(false));
+            dispatch(updateIsEditPermissionClickedAction(false));
+          }
+        } catch (e) {
+          toast.error("error !");
+          debugger;
+        }
       } else {
         try {
           debugger;
@@ -123,9 +161,9 @@ export default function AddPermission() {
     }
   };
   console.log("userManagmentState In addPermission", userManagmentState);
-  console.log("tempPermission In addPermission", tempPermission);
-  console.log("fieldsWithError In addPermission", fieldsWithError);
-  console.log("errorInfo In addPermission", errorInfo);
+  console.log("tempPermission 123", tempPermission);
+  // console.log("fieldsWithError In addPermission", fieldsWithError);
+  // console.log("errorInfo In addPermission", errorInfo);
 
   return (
     <>
@@ -135,12 +173,11 @@ export default function AddPermission() {
             Select User <span className="text-danger"> *</span>
           </label>
           <Select
-            // defaultValue={{
-            //   label: tempPermission.newTeam.teamLeadName,
-            //   value: tempPermission.newTeam.teamLeadName,
-            // }}
-            // id="user"
-            // name="user"
+            isDisabled={userManagmentState.isEditPermissionClicked}
+            value={{
+              label: tempPermission.email,
+              value: tempPermission.email,
+            }}
             onChange={handleSelectChange}
             options={users}
           ></Select>
@@ -161,6 +198,7 @@ export default function AddPermission() {
                 <div key={role.id}>
                   <p className="form-control-label mr-5">{role.name}</p>
                   <input
+                    checked={tempPermission?.prevRoles?.includes(role.id)}
                     type="checkbox"
                     id={role.id}
                     name={role.name}
@@ -187,7 +225,10 @@ export default function AddPermission() {
         <div className="form-group col-sm-6 ">
           <button
             className="btn-block btn-primary"
-            onClick={()=> dispatch(updateIsAddPermissionClickedAction(false))}
+            onClick={() => {
+              dispatch(updateIsAddPermissionClickedAction(false));
+              dispatch(updateIsEditPermissionClickedAction(false));
+            }}
           >
             Cancel
           </button>
@@ -197,7 +238,7 @@ export default function AddPermission() {
             className="btn-block btn-primary"
             onClick={() => handleAddAndUpdatePermission()}
           >
-            {userManagmentState.isEditUserClicked
+            {userManagmentState.isEditPermissionClicked
               ? "Update Permission"
               : "Add Permission"}
           </button>
