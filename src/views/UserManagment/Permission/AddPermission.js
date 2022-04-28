@@ -119,7 +119,7 @@ export default function AddPermission() {
             debugger;
             toast.success("Permission Updated !");
             // let temp = state.employees.filter((item) => item.id != res.data.id);
-            dispatch(updatePermissionsAction([...temp, res.data]));
+            dispatch(updatePermissionsAction([ res.data]));
             dispatch(updateIsAddPermissionClickedAction(false));
             dispatch(updateIsEditPermissionClickedAction(false));
           }
