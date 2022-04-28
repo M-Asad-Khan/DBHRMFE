@@ -9,7 +9,7 @@ const Teams = React.lazy(() => import("./views/Teams/index"));
 const jobPosting = React.lazy(() => import("./views/JobPosting/jobPosting"));
 const UserManagment = React.lazy(() => import("./views/UserManagment/index"));
 const interviewFeedback = React.lazy(() => import("./views/interviewFeedback/interviewFeedback")); 
-const candidates=React.lazy(() => import("./views/Candidates/candidates")); 
+const candidates=React.lazy(() => import("./views/Candidates/Index")); 
 
 const routes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },

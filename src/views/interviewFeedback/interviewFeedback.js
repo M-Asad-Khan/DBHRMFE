@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./interviewFeedback.css";
+
 
 import RatingAtom from "./rating";
 
