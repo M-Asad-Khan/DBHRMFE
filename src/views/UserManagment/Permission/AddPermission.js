@@ -56,13 +56,7 @@ export default function AddPermission() {
       user: param.id,
     });
   };
-  // const handleRemoveRoleFromPermissions = (roleId) => {
-  //   var tempObj = {
-  //     userId: userManagmentState.permissions.userID,
-  //     roleId: roleId,
-  //   };
-  //   userManagmentRequests.deleteRoleFromPermissions(tempObj);
-  // };
+
   const handleChange = (evt) => {
     debugger;
     if (evt.target.checked) {
@@ -198,7 +192,7 @@ export default function AddPermission() {
                 <div key={role.id}>
                   <p className="form-control-label mr-5">{role.name}</p>
                   <input
-                    checked={tempPermission?.prevRoles?.includes(role.id)}
+                    checked={tempPermission?.roles?.includes(role.id)}
                     type="checkbox"
                     id={role.id}
                     name={role.name}
