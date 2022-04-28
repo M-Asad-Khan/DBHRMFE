@@ -1,9 +1,87 @@
 import React, { useState } from "react";
-
+import {
+  updateNewFeedbackAction,
+  updateFeedbacksAction,
+  updateIsAddFeedbackClickedAction,
+  updateIsEditFeedbackClickedAction,
+} from "../../../redux/interviewFeedback/interviewFeedback.actions";
+import { useSelector, useDispatch } from "react-redux";
+import { IoArrowBackSharp } from "react-icons/io5";
+import { CButton } from "@coreui/react";
+import {  toast } from "react-toastify";
+import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 
 import RatingAtom from "./rating";
 
 const interviewFeedback = () => {
+  const dispatch = useDispatch();
+  const hrState = useSelector((state) => state.interviewFeedback);
+
+  function handleChange(evt) {
+    debugger;
+    const value = evt.target.value;
+    dispatch(
+      updateNewFeedbackAction({
+        ...hrState.newFeedback,
+        [evt.target.name]: value,
+      })
+    );
+  }
+  const handleCancel = () => {
+    dispatch(updateNewFeedbackAction({}));
+    dispatch(updateIsAddFeedbackClickedAction(false));
+    dispatch(updateIsEditFeedbackClickedAction(false));
+  };
+  const addAndUpdateFeedback = async () => {
+    if (!doValidation()) {
+      if (hrState.isEditFeedbackClicked === true) {
+        try {
+          debugger;
+          const res = await interviewFeedbackRequests.updateFeedbackApi(hrState.newFeedback);
+          console.log("updateFeedback Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            toast.success("Feedback Updated");
+            let temp = hrState.interviewFeedback.filter(
+              (item) => item.id != res.data.id
+            );
+            dispatch(updateFeedbacksAction([...temp, res.data]));
+            dispatch(updateIsAddFeedbackClickedAction(false));
+            dispatch(updateIsEditFeedbackClickedAction(false));
+          }
+        } catch (e) {
+          toast.error("error");
+
+          debugger;
+        }
+      } else {
+        try {
+          debugger;
+          const res = await interviewFeedbackRequests.addFeedbackApi(hrState.newFeedback);
+          console.log("addFeedbackApi Response", res);
+
+          debugger;
+          if (res.error === false) {
+            debugger;
+            toast.success("Feedback Added");
+
+            dispatch(updateFeedbacksAction([...hrState.interviewFeedback, res.data]));
+            dispatch(updateIsAddFeedbackClickedAction(false));
+          }
+        } catch (e) {
+          toast.error("error");
+
+          debugger;
+        }
+      }
+    } else {
+      console.log("validation failed");
+      toast.error("validation failed");
+      debugger;
+    }
+  };
   const [rating, setRating] = useState({
     1: 0,
     2: 0,
@@ -29,12 +107,20 @@ const interviewFeedback = () => {
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
+          <div className="form-card">
+              <button
+                className="btn btn-outline-primary mb-3"
+                onClick={handleCancel}
+              >
+                <IoArrowBackSharp />
+              </button>
             <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label">
                   Interviewer <span className="text-danger"> *</span>
                 </label>
                 <input
+                onChange={handleChange}
                   type="text"
                   id="interviewer"
                   name="interviewer"
@@ -271,16 +357,30 @@ const interviewFeedback = () => {
             </table>
 
             <div className="row justify-content-end">
+            <div className="form-group col-sm-6 ">
+                  <button
+                    className="btn-block btn-primary"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+
               <div className="form-group col-sm-6">
-                <button
+              <CButton
                   type="submit"
                   className="btn-block btn-primary"
                   onClick={() => {
+                    addAndUpdateClient()
                     alert(JSON.stringify(rating));
                   }}
                 >
-                  submit
-                </button>
+                  {hrState.isEditFeedbackClicked
+                      ? "Update Feedback"
+                      : "Add Feedback"}
+                  
+                </CButton>
+              </div>
               </div>
             </div>
           </div>
