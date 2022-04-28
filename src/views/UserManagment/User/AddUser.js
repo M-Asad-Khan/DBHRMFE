@@ -333,7 +333,7 @@ export default function AddUser() {
             className="btn-block btn-primary"
             onClick={() => handleAddAndUpdateUser()}
           >
-            {userManagmentState.isEditUserClicked ? "Update Team" : "Add User"}
+            {userManagmentState.isEditUserClicked ? "Update User" : "Add User"}
           </button>
         </div>
       </div>
