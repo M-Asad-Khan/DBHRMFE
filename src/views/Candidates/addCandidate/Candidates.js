@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import {
   updateNewCandidateAction,
@@ -18,12 +18,11 @@ const Candidates = ({}) => {
     lastName: false,
     email: false,
     phoneNumber: false,
-    gender:false,
-    status:false,
-    postAppliedFor:false,
+    gender: false,
+    status: false,
+    postAppliedFor: false,
     AppliedDate: false,
-    skills:false,
-    
+    skills: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
@@ -31,11 +30,12 @@ const Candidates = ({}) => {
 
   function handleChange(evt) {
     debugger;
-    const value = evt.target.value;
+    const value = evt.target ? evt.target.value : evt.value;
+    const name = evt.target ? evt.target.name : evt.field;
     dispatch(
       updateNewCandidateAction({
         ...hrState.newCandidate,
-        [evt.target.name]: value,
+        [name]: value,
       })
     );
   }
@@ -58,7 +58,7 @@ const Candidates = ({}) => {
           if (res.error === false) {
             debugger;
             toast.success("Candidate Updated !");
-            let temp = hrState.candidates.filter(
+            let temp = hrState.candidate.filter(
               (item) => item.id != res.data.id
             );
             dispatch(updateCandidatesAction([...temp, res.data]));
@@ -80,7 +80,7 @@ const Candidates = ({}) => {
           if (res.error === false) {
             toast.success("Candidate Added !");
             debugger;
-            dispatch(updateCandidatesAction([...hrState.candidates, res.data]));
+            dispatch(updateCandidatesAction([...hrState.candidate, res.data]));
             dispatch(updateIsAddCandidateClickedAction(false));
             dispatch(updateIsEditCandidateClickedAction(false));
           }
@@ -180,7 +180,6 @@ const Candidates = ({}) => {
   console.log("fieldsWithError", fieldsWithError);
   console.log("errorInfo", errorInfo);
 
-
   const candStatusOptions = [
     { value: "Applied", label: "Applied", field: "status" },
     { value: "Scheduled", label: "Scheduled Interview", field: "status" },
@@ -195,7 +194,7 @@ const Candidates = ({}) => {
         <div className="row d-flex justify-content-center">
           <div className="card">
             <form className="form-card">
-            <button
+              <button
                 className="btn btn-outline-primary mb-3"
                 onClick={handleCancel}
               >
@@ -207,9 +206,9 @@ const Candidates = ({}) => {
                     First name<span className="text-danger"> *</span>
                   </label>
                   <input
-                  className={
-                    fieldsWithError.FirstName === true ? "redBorder" : ""
-                  }
+                    className={
+                      fieldsWithError.FirstName === true ? "redBorder" : ""
+                    }
                     value={hrState.newCandidate.FirstName}
                     onChange={handleChange}
                     type="text"
@@ -226,32 +225,31 @@ const Candidates = ({}) => {
                   ) : (
                     ""
                   )}
-
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
                     Last name<span className="text-danger"> *</span>
                   </label>
                   <input
-                   
-                   className=
-                   {fieldsWithError.lastName === true ? "redBorder" : ""}
-                   value={hrState.newCandidate.lastName}
-                   onChange={handleChange}
-                   type="text"
+                    className={
+                      fieldsWithError.lastName === true ? "redBorder" : ""
+                    }
+                    value={hrState.newCandidate.lastName}
+                    onChange={handleChange}
+                    type="text"
                     id="lastName"
                     name="lastName"
                     placeholder="Enter your last name"
-                 />{" "}
-                 {fieldsWithError.lastName === true ? (
-                   <>
-                     <label className="error form-control-label px-3">
-                       {errorInfo.lastName}
-                     </label>{" "}
-                   </>
-                 ) : (
-                   ""
-                 )}
+                  />{" "}
+                  {fieldsWithError.lastName === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.lastName}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="row justify-content-between text-left">
@@ -260,16 +258,17 @@ const Candidates = ({}) => {
                     Email<span className="text-danger"> *</span>
                   </label>
                   <input
-                   className={
-                    fieldsWithError.email === true ? "redBorder" : ""
-                  }
-                   value={hrState.newCandidate.email}
-                   onChange={handleChange}
+                    className={
+                      fieldsWithError.email === true ? "redBorder" : ""
+                    }
+                    value={hrState.newCandidate.email}
+                    onChange={handleChange}
                     type="text"
                     id="email"
                     name="email"
                     placeholder=""
-                 />
+                    onBlur={(e) => validateEmail(e.target.value)}
+                  />
                   {fieldsWithError.email === true ? (
                     <>
                       <label className="error form-control-label px-3">
@@ -285,17 +284,18 @@ const Candidates = ({}) => {
                     Phone number<span className="text-danger"> *</span>
                   </label>
                   <input
-                  className={
-                    fieldsWithError.phoneNumber === true ? "redBorder" : ""
-                  }
-                  value={hrState.newCandidate.phoneNumber}
-                   onChange={handleChange}
+                    className={
+                      fieldsWithError.phoneNumber === true ? "redBorder" : ""
+                    }
+                    value={hrState.newCandidate.phoneNumber}
+                    onChange={handleChange}
                     type="text"
                     id="phoneNumber"
                     name="phoneNumber"
                     placeholder=""
+                    onBlur={(e) => validateNumberOnly(e.target.value)}
                   />
-                   {fieldsWithError.phoneNumber === true ? (
+                  {fieldsWithError.phoneNumber === true ? (
                     <>
                       <label className="error form-control-label px-3">
                         {errorInfo.phoneNumber}
@@ -320,6 +320,7 @@ const Candidates = ({}) => {
                       { label: "Male", value: "male", field: "gender" },
                       { label: "Female", value: "female", field: "gender" },
                     ]}
+                    onChange={handleChange}
                   ></Select>
                 </div>
 
@@ -333,6 +334,7 @@ const Candidates = ({}) => {
                     id="status"
                     name="status"
                     options={candStatusOptions}
+                    onChange={handleChange}
                   ></Select>
                 </div>
               </div>
@@ -343,12 +345,12 @@ const Candidates = ({}) => {
                     <span className="text-danger"> *</span>
                   </label>
                   <input
-                   className={
-                    fieldsWithError.postAppliedFor === true ? "redBorder" : ""
-                  }
+                    className={
+                      fieldsWithError.postAppliedFor === true ? "redBorder" : ""
+                    }
                     type="text"
                     value={hrState.newCandidate.postAppliedFor}
-                   onChange={handleChange}
+                    onChange={handleChange}
                     id="postAppliedFor"
                     name="postAppliedFor"
                     placeholder=""
@@ -368,17 +370,17 @@ const Candidates = ({}) => {
                     Applied Date<span className="text-danger"> *</span>
                   </label>
                   <input
-                  className={
-                    fieldsWithError.AppliedDate === true ? "redBorder" : ""
-                  }
-                  value={hrState.newCandidate.AppliedDate}
-                  onChange={handleChange}
+                    className={
+                      fieldsWithError.AppliedDate === true ? "redBorder" : ""
+                    }
+                    value={hrState.newCandidate.AppliedDate}
+                    onChange={handleChange}
                     type="date"
                     id="AppliedDate"
                     name="AppliedDate"
                     placeholder=""
                   />
-                   {fieldsWithError.AppliedDate === true ? (
+                  {fieldsWithError.AppliedDate === true ? (
                     <>
                       <label className="error form-control-label px-3">
                         {errorInfo.AppliedDate}
@@ -400,14 +402,14 @@ const Candidates = ({}) => {
                       fieldsWithError.skills === true ? "redBorder" : ""
                     }
                     value={hrState.newCandidate.skills}
-                  onChange={handleChange}
+                    onChange={handleChange}
                     id="skills"
                     name="skills"
                     placeholder="Write your skills here"
                     rows="4"
                     required="required"
                   ></textarea>
-                   {fieldsWithError.skills === true ? (
+                  {fieldsWithError.skills === true ? (
                     <>
                       <label className="error form-control-label px-3">
                         {errorInfo.skills}

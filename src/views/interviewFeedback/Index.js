@@ -32,7 +32,6 @@ function Feedbacks() {
       hrState.isAddFeedbackClicked === false ||
       hrState.isEditFeedbackClicked === false
     ) {
-
       handleGetFeedbackApi();
     }
   }, [hrState.isAddFeedbackClicked, hrState.isEditFeedbackClicked]);
@@ -70,7 +69,9 @@ function Feedbacks() {
   const handleDelete = async (feedback) => {
     debugger;
     try {
-      const res = await interviewFeedbackRequests.deleteFeedbackApi(feedback.id);
+      const res = await interviewFeedbackRequests.deleteFeedbackApi(
+        feedback.id
+      );
       if (res.error === false) {
         handleGetFeedbackApi();
       }
@@ -161,7 +162,7 @@ function Feedbacks() {
           <button
             type="button"
             className="btn btn-outline-primary col-sm-2"
-            onClick={()=>handleAddFeedback()}
+            onClick={() => handleAddFeedback()}
           >
             Add Feedback
           </button>

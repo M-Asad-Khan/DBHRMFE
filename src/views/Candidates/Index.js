@@ -8,7 +8,7 @@ import {
   updateIsViewCandidateClickedAction,
 } from "../../redux/Candidates/candidates.actions";
 import { useSelector, useDispatch } from "react-redux";
-/* import ViewClient from "./ViewClient/ViewClient"; */
+ import ViewCandidate from "./ViewCandidate/viewCandidate"; 
 import Addcandidates from "./addCandidate/Candidates";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
@@ -81,18 +81,18 @@ function Candidates() {
     dispatch(updateNewCandidateAction(candidate));
     dispatch(updateIsEditCandidateClickedAction(true));
   };
-  /* const handleView = async(candidate) => {
+   const handleView = async(candidate) => {
     debugger;
     try {
-      const res = await candidateRequests.GetClientProjectsApi(client.id);
+      const res = await candidateRequests.getCandidatesApi(candidate.id);
       if (res.error === false) {
-        dispatch(updateIsViewClientClickedAction(true));
-        dispatch(updateNewClientAction({client:client,projects:res.data}));
+        dispatch(updateIsViewCandidateClickedAction(true));
+        dispatch(updateNewCandidateAction(res.data));
       }
     } catch (err) {
       console.log(err);
     }
-  }; */
+  }; 
   const handleGetCandidatesApi = async () => {
     try {
       const res = await candidateRequests.getCandidatesApi();

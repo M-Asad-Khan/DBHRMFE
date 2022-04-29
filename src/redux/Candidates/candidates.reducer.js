@@ -17,7 +17,7 @@ import {
       columns: [
         {
           label: "Candidate Name",
-          field: "name",
+          field: "FirstName",
           width: 270,
         },
         {
