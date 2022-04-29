@@ -1,44 +1,45 @@
 import React, { useState, useEffect } from "react";
 import {
-  updateNewCandidateAction,
-  updateIsAddCandidateClickedAction,
-  updateCandidatesAction,
-  updateIsEditCandidateClickedAction,
-  updateCandidatesDataTableAction,
-  updateIsViewCandidateClickedAction,
-} from "../../redux/Candidates/candidates.actions";
+  updateNewFeedbackAction,
+  updateIsAddFeedbackClickedAction,
+  updateFeedbacksAction,
+  updateIsEditFeedbackClickedAction,
+  updateFeedbacksDataTableAction,
+  updateIsViewFeedbackClickedAction,
+} from "../../redux/interviewFeedback/interviewFeedback.actions";
 import { useSelector, useDispatch } from "react-redux";
- import ViewCandidate from "./ViewCandidate/viewCandidate"; 
-import Addcandidates from "./addCandidate/Candidates";
+import ViewFeedback from "./ViewinterviewFeedback/viewFeedback";
+
+import AddinterviewFeedback from "./addinterviewFeedback/interviewFeedback";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
-import { candidateRequests } from "src/API/CandidateApi";
+import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 
-function Candidates() {
+function Feedbacks() {
   debugger;
   var action = "";
 
-  const hrState = useSelector((state) => state.candidate);
+  const hrState = useSelector((state) => state.interviewFeedback);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
     debugger;
-    handleGetCandidatesApi();
+    handleGetFeedbackApi();
   }, []);
   useEffect(() => {
     if (
-      hrState.isAddCandidateClicked === false ||
-      hrState.isEditCandidateClicked === false
+      hrState.isAddFeedbackClicked === false ||
+      hrState.isEditFeedbackClicked === false
     ) {
-      handleGetCandidatesApi();
+      handleGetFeedbackApi();
     }
-  }, [hrState.isAddCandidateClicked, hrState.isEditCandidateClicked]);
+  }, [hrState.isAddFeedbackClicked, hrState.isEditFeedbackClicked]);
 
   useEffect(() => {
     debugger;
-    setColumnsAndRows(hrState.candidatesDataTable);
-  }, [hrState.candidatesDataTable]);
+    setColumnsAndRows(hrState.feedbacksDataTable);
+  }, [hrState.feedbacksDataTable]);
 
   function setSelectedRow(rowData) {
     debugger;
@@ -65,40 +66,42 @@ function Candidates() {
     console.log("action", action);
   }
 
-  const handleDelete = async (candidate) => {
+  const handleDelete = async (feedback) => {
     debugger;
     try {
-      const res = await candidateRequests.deleteCandidateApi(candidate.id);
+      const res = await interviewFeedbackRequests.deleteFeedbackApi(
+        feedback.id
+      );
       if (res.error === false) {
-        handleGetCandidatesApi();
+        handleGetFeedbackApi();
       }
     } catch (err) {
       console.log(err);
     }
   };
-  const handleEdit = (candidate) => {
+  const handleEdit = (feedback) => {
     debugger;
-    dispatch(updateNewCandidateAction(candidate));
-    dispatch(updateIsEditCandidateClickedAction(true));
+    dispatch(updateNewFeedbackAction(feedback));
+    dispatch(updateIsEditFeedbackClickedAction(true));
   };
-   const handleView = async(candidate) => {
+  /* const handleView = async(feedback) => {
     debugger;
     try {
-      const res = await candidateRequests.getCandidatesApi(candidate.id);
+      const res = await interviewFeedbackRequests.GetClientProjectsApi(client.id);
       if (res.error === false) {
-        dispatch(updateIsViewCandidateClickedAction(true));
-        dispatch(updateNewCandidateAction(res.data));
+        dispatch(updateIsViewClientClickedAction(true));
+        dispatch(updateNewClientAction({client:client,projects:res.data}));
       }
     } catch (err) {
       console.log(err);
     }
-  }; 
-  const handleGetCandidatesApi = async () => {
+  }; */
+  const handleGetFeedbackApi = async () => {
     try {
-      const res = await candidateRequests.getCandidatesApi();
+      const res = await interviewFeedbackRequests.getFeedackApi();
       debugger;
       if (res.error === false) {
-        dispatch(updateCandidatesAction(res.data));
+        dispatch(updateFeedbacksAction(res.data));
         var tempArr = [];
         res.data.map((x) => {
           tempArr.push({
@@ -132,41 +135,41 @@ function Candidates() {
         });
         debugger;
         console.log("eventarr", tempArr);
-        var tempObj = { ...hrState.candidatesDataTable, rows: tempArr };
-        dispatch(updateCandidatesDataTableAction(tempObj));
+        var tempObj = { ...hrState.feedbacksDataTable, rows: tempArr };
+        dispatch(updateFeedbacksDataTableAction(tempObj));
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  function handleAddCandidate() {
-    dispatch(updateIsAddCandidateClickedAction(true));
+  function handleAddFeedback() {
+    dispatch(updateIsAddFeedbackClickedAction(true));
   }
   console.log("hrState", hrState);
 
   return (
     <>
-      {hrState.isViewCandidateClicked ? (
-        <ViewCandidate />
-      ) : hrState.isAddCandidateClicked === true ||
-        hrState.isEditCandidateClicked === true ? (
+      {hrState.isViewFeedbackClicked ? (
+        <ViewFeedback />
+      ) : hrState.isAddFeedbackClicked === true ||
+        hrState.isEditFeedbackClicked === true ? (
         <>
-          <Addcandidates />
+          <AddinterviewFeedback />
         </>
       ) : (
         <div className="card mt-0">
           <button
             type="button"
             className="btn btn-outline-primary col-sm-2"
-            onClick={()=>handleAddCandidate()}
+            onClick={() => handleAddFeedback()}
           >
-            Add Candidate
+            Add Feedback
           </button>
 
           <MDBDataTable
             className="mdbDataTableDesign"
-            infoLabel={["Showing", "to", "of", "candidates"]}
+            infoLabel={["Showing", "to", "of", "feedbacks"]}
             bordered
             displayEntries={false}
             hover
@@ -180,4 +183,4 @@ function Candidates() {
     </>
   );
 }
-export default Candidates;
+export default Feedbacks;

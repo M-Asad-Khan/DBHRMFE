@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from "react";
 import {
-  updateNewCandidateAction,
-  updateIsAddCandidateClickedAction,
-  updateCandidatesAction,
-  updateIsEditCandidateClickedAction,
-  updateCandidatesDataTableAction,
-  updateIsViewCandidateClickedAction,
-} from "../../redux/Candidates/candidates.actions";
+  updateNewPostingAction,
+  updateIsAddPostingClickedAction,
+  updatePostingsAction,
+  updateIsEditPostingClickedAction,
+  updatePostingsDataTableAction,
+
+} from "../../redux/jobPosting/jobPosting.actions";
 import { useSelector, useDispatch } from "react-redux";
- import ViewCandidate from "./ViewCandidate/viewCandidate"; 
-import Addcandidates from "./addCandidate/Candidates";
+import {ViewjobPosting} from "./ViewjobPosting/ViewJobposting"
+import Addposting from "./addjobPosting/jobPosting";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
-import { candidateRequests } from "src/API/CandidateApi";
+import { jobPostingRequests } from "src/API/JobPostingApi";
 
-function Candidates() {
+function JobPosting() {
   debugger;
   var action = "";
 
-  const hrState = useSelector((state) => state.candidate);
+  const hrState = useSelector((state) => state.jobPosting);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
     debugger;
-    handleGetCandidatesApi();
+    handleGetjobPostingApi();
   }, []);
   useEffect(() => {
     if (
-      hrState.isAddCandidateClicked === false ||
-      hrState.isEditCandidateClicked === false
+      hrState.isAddPostingClicked === false ||
+      hrState.isEditPostingClicked === false
     ) {
-      handleGetCandidatesApi();
+      handleGetjobPostingApi();
     }
-  }, [hrState.isAddCandidateClicked, hrState.isEditCandidateClicked]);
+  }, [hrState.isAddPostingClicked, hrState.isEditPostingClicked]);
 
   useEffect(() => {
     debugger;
-    setColumnsAndRows(hrState.candidatesDataTable);
-  }, [hrState.candidatesDataTable]);
+    setColumnsAndRows(hrState.postingsDataTable);
+  }, [hrState.postingsDataTable]);
 
   function setSelectedRow(rowData) {
     debugger;
@@ -65,40 +65,40 @@ function Candidates() {
     console.log("action", action);
   }
 
-  const handleDelete = async (candidate) => {
+  const handleDelete = async (positions) => {
     debugger;
     try {
-      const res = await candidateRequests.deleteCandidateApi(candidate.id);
+      const res = await jobPostingRequests.deletejobPostingApi(positions.id);
       if (res.error === false) {
-        handleGetCandidatesApi();
+        handleGetjobPostingApi();
       }
     } catch (err) {
       console.log(err);
     }
   };
-  const handleEdit = (candidate) => {
+  const handleEdit = (positions) => {
     debugger;
-    dispatch(updateNewCandidateAction(candidate));
-    dispatch(updateIsEditCandidateClickedAction(true));
+    dispatch(updateNewPostingAction(positions));
+    dispatch(updateIsEditPostingClickedAction(true));
   };
-   const handleView = async(candidate) => {
+  /* const handleView = async(positions) => {
     debugger;
     try {
-      const res = await candidateRequests.getCandidatesApi(candidate.id);
+      const res = await jobPostingRequests.GetClientProjectsApi(client.id);
       if (res.error === false) {
-        dispatch(updateIsViewCandidateClickedAction(true));
-        dispatch(updateNewCandidateAction(res.data));
+        dispatch(updateIsViewClientClickedAction(true));
+        dispatch(updateNewClientAction({client:client,projects:res.data}));
       }
     } catch (err) {
       console.log(err);
     }
-  }; 
-  const handleGetCandidatesApi = async () => {
+  }; */
+  const handleGetjobPostingApi = async () => {
     try {
-      const res = await candidateRequests.getCandidatesApi();
+      const res = await jobPostingRequests.getjobPostingsApi();
       debugger;
       if (res.error === false) {
-        dispatch(updateCandidatesAction(res.data));
+        dispatch(updatePostingsAction(res.data));
         var tempArr = [];
         res.data.map((x) => {
           tempArr.push({
@@ -132,41 +132,41 @@ function Candidates() {
         });
         debugger;
         console.log("eventarr", tempArr);
-        var tempObj = { ...hrState.candidatesDataTable, rows: tempArr };
-        dispatch(updateCandidatesDataTableAction(tempObj));
+        var tempObj = { ...hrState.postingsDataTable, rows: tempArr };
+        dispatch(updatePostingsDataTableAction(tempObj));
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  function handleAddCandidate() {
-    dispatch(updateIsAddCandidateClickedAction(true));
+  function handleAddPositions() {
+    dispatch(updateIsAddPostingClickedAction(true));
   }
   console.log("hrState", hrState);
 
   return (
     <>
-      {hrState.isViewCandidateClicked ? (
-        <ViewCandidate />
-      ) : hrState.isAddCandidateClicked === true ||
-        hrState.isEditCandidateClicked === true ? (
+      {hrState.isViewPostingClicked ? (
+        <ViewjobPosting />
+      ) : hrState.isAddPostingClicked === true ||
+        hrState.isEditPostingClicked === true ? (
         <>
-          <Addcandidates />
+          <Addposting />
         </>
       ) : (
         <div className="card mt-0">
           <button
             type="button"
             className="btn btn-outline-primary col-sm-2"
-            onClick={()=>handleAddCandidate()}
+            onClick={()=>handleAddPositions()}
           >
-            Add Candidate
+            Add Job Positions
           </button>
 
           <MDBDataTable
             className="mdbDataTableDesign"
-            infoLabel={["Showing", "to", "of", "candidates"]}
+            infoLabel={["Showing", "to", "of", "jobPosting"]}
             bordered
             displayEntries={false}
             hover
@@ -180,4 +180,4 @@ function Candidates() {
     </>
   );
 }
-export default Candidates;
+export default JobPosting;

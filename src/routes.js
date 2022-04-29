@@ -6,9 +6,9 @@ const Login = React.lazy(() => import("./views/pages/login/Login.js"));
 const Employee = React.lazy(() => import("./views/Employees/Index"));
 const Clients = React.lazy(() => import("./views/Clients/Index"));
 const Teams = React.lazy(() => import("./views/Teams/index"));
-const jobPosting = React.lazy(() => import("./views/JobPosting/jobPosting"));
+const jobPosting = React.lazy(() => import("./views/JobPosting/Index"));
 const UserManagment = React.lazy(() => import("./views/UserManagment/index"));
-const interviewFeedback = React.lazy(() => import("./views/interviewFeedback/interviewFeedback")); 
+const interviewFeedback = React.lazy(() => import("./views/interviewFeedback/Index")); 
 const candidates=React.lazy(() => import("./views/Candidates/Index")); 
 
 const routes = [
