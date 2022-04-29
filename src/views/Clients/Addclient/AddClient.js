@@ -22,7 +22,6 @@ const addclients = ({}) => {
     // project: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
-  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
 
