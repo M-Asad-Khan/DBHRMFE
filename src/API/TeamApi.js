@@ -4,7 +4,7 @@ class TeamApi {
     debugger;
     return axios({
       method: "post",
-      url: "${process.env.REACT_APP_API_LOCAL_PATH}/teams",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
