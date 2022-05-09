@@ -246,8 +246,6 @@ const jobPosting = () => {
                     Reports to<span className="text-danger"> *</span>
                   </label>
                   <Select
-                    /* value={} */
-                   
                     type="text"
                     id="managerId"
                     name="managerId"

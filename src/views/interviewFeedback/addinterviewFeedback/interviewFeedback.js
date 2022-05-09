@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import {
   updateNewFeedbackAction,
   updateFeedbacksAction,
@@ -6,8 +6,10 @@ import {
   updateIsEditFeedbackClickedAction,
 } from "../../../redux/interviewFeedback/interviewFeedback.actions";
 import { useSelector, useDispatch } from "react-redux";
+import { employeeRequests } from "../../../API/EmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
+import Select from "react-select";
 import {  toast } from "react-toastify";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 
@@ -15,15 +17,36 @@ import RatingAtom from "./rating";
 
 const interviewFeedback = () => {
   const dispatch = useDispatch();
+  const [employees, setEmployees] = useState([]);
   const hrState = useSelector((state) => state.interviewFeedback);
+  useEffect(() => {
+    handleGetEmployeesApi();
+  }, []);
+  const handleGetEmployeesApi = async () => {
+    try {
+      const res = await employeeRequests.getEmployeesApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.name, label: x.name };
+        });
+        console.log("tempArr", tempArr);
+        setEmployees(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   function handleChange(evt) {
     debugger;
-    const value = evt.target.value;
+    const value = evt.target ? evt.target.value : evt.value;
+    const name = evt.target ? evt.target.name : evt.field;
     dispatch(
       updateNewFeedbackAction({
         ...hrState.newFeedback,
-        [evt.target.name]: value,
+        name: value,
       })
     );
   }
@@ -119,13 +142,17 @@ const interviewFeedback = () => {
                 <label className="form-control-label">
                   Interviewer <span className="text-danger"> *</span>
                 </label>
-                <input
-                onChange={handleChange}
-                  type="text"
-                  id="interviewer"
-                  name="interviewer"
-                  placeholder=""
-                />
+                <Select
+                 
+                    type="text"
+                    id="interviewer"
+                    name="interviewer"
+                    
+                    
+                    options={employees}
+                    onChange={handleChange}
+                  ></Select>{" "}
+                  
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label">
