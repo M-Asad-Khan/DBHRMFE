@@ -6,7 +6,7 @@ class jobPostingApi {
     debugger;
     return axios({
       method: "post",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosting`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
@@ -15,7 +15,7 @@ class jobPostingApi {
       data: {
         jobTitle: newPosting.jobTitle,
         department: newPosting.department,
-        reportsTo: newPosting.reportsTo,
+        managerId: newPosting.managerId,
         effectiveDate: newPosting.effectiveDate,
         qualification: newPosting.qualification,
         workExperience:newPosting.workExperience,
@@ -34,17 +34,17 @@ class jobPostingApi {
       .catch((err) => {
         debugger;
         const error = JSON.stringify(err);
-        console.log("JobPosting Error", error);
+        console.log("jobPosition Error", error);
         return {
           error: true,
           data: err,
         };
       });
   };
-  getCandidatesApi = async () => {
+  getjobPostingsApi = async () => {
     return axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosting`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
@@ -65,11 +65,11 @@ class jobPostingApi {
       });
   };
 
-  updateCandidateApi = async (newPosting) => {
+  updatejobPostingApi = async (newPosting) => {
     debugger;
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosting/${newCandidate.id}`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${newCandidate.id}`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
@@ -78,7 +78,7 @@ class jobPostingApi {
       data: {
         jobTitle: newPosting.jobTitle,
         department: newPosting.department,
-        reportsTo: newPosting.reportsTo,
+        managerId: newPosting.managerId,
         effectiveDate: newPosting.effectiveDate,
         qualification: newPosting.qualification,
         workExperience:newPosting.workExperience,
@@ -101,11 +101,11 @@ class jobPostingApi {
         };
       });
   };
-  deleteCandidateApi = async (id) => {
+  deletejobPostingApi = async (id) => {
     debugger;
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosting/${id}`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${id}`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",

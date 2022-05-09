@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import {
   updateNewPostingAction,
   updateIsAddPostingClickedAction,
@@ -6,6 +6,7 @@ import {
   updateIsEditPostingClickedAction,
 } from "../../../redux/jobPosting/jobPosting.actions";
 import { useSelector, useDispatch } from "react-redux";
+import { employeeRequests } from "../../../API/EmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
 import { toast } from "react-toastify";
@@ -16,7 +17,7 @@ const jobPosting = () => {
   const [fieldsWithError, setFieldsWithError] = useState({
     jobTitle: false,
     department: false,
-    reportsTo: false,
+    managerId: false,
     effectiveDate: false,
     qualification: false,
     workExperience: false,
@@ -24,19 +25,42 @@ const jobPosting = () => {
     description: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
+  const [employees, setEmployees] = useState([]);
+  const [tempManager, setTempManager] = useState({});
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.jobPosting);
+  useEffect(() => {
+    handleGetEmployeesApi();
+  }, []);
+  const handleGetEmployeesApi = async () => {
+    try {
+      const res = await employeeRequests.getEmployeesApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.name, label: x.name };
+        });
+        console.log("tempArr", tempArr);
+        setEmployees(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   function handleChange(evt) {
     debugger;
-    const value = evt.target.value;
+    const value = evt.target ? evt.target.value : evt.value;
+    const name = evt.target ? evt.target.name : evt.field;
     dispatch(
       updateNewPostingAction({
         ...hrState.newPosting,
-        [evt.target.name]: value,
+        [name]: value,
       })
     );
   }
+ 
   const handleCancel = () => {
     dispatch(updateNewPostingAction({}));
     dispatch(updateIsAddPostingClickedAction(false));
@@ -93,6 +117,7 @@ const jobPosting = () => {
       debugger;
     }
   };
+ 
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
@@ -132,14 +157,22 @@ const jobPosting = () => {
     console.log("isError", isError);
     return isError;
   };
-  const manager = [
-    { value: "Applied", label: "Applied", field: "status" },
-    { value: "Scheduled", label: "Scheduled Interview", field: "status" },
-    { value: "Offered", label: "Offered", field: "status" },
-    { value: "Hired", label: "Hired", field: "status" },
-    { value: "Rejected", label: "Rejected", field: "status" },
-    { value: "NotAppeared", label: "Not Appeared", field: "status" },
-  ];
+  const handleProjectManagerSelectChange = (param) => {
+
+    dispatch(
+      updateNewPostingAction({
+        ...hrState.newPosting,
+        managerId: param.id,
+      })
+    );
+    /*  setTempManager({
+      ...tempManager,
+       managerId: param.id,
+     }); */
+
+   
+  };
+  console.log("tempManager", tempManager);
   return (
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
@@ -214,19 +247,21 @@ const jobPosting = () => {
                   </label>
                   <Select
                     /* value={} */
-                    value={{}}
+                   
                     type="text"
-                    id="report"
-                    name="report"
+                    id="managerId"
+                    name="managerId"
                     
                     
-                    options={manager}
-                    onChange={handleChange}
+                    options={employees}
+                    onChange={handleProjectManagerSelectChange}
                   ></Select>{" "}
-                  {fieldsWithError.reportsTo === true ? (
-                    <div>
-                      <label style={{ color: "red" }}>please select one</label>
-                    </div>
+                  {fieldsWithError.managerId === true ? (
+                   <>
+                   <label className="error form-control-label px-3">
+                     {errorInfo.managerId}
+                   </label>{" "}
+                 </>
                   ) : (
                     ""
                   )}
@@ -239,11 +274,11 @@ const jobPosting = () => {
                   className={
                     fieldsWithError.effectiveDate === true ? "redBorder" : ""
                   }
-                  value={hrState?.newPosting?.effectiveDate?.slice(0, 10)}
+                  value={hrState.newPosting.effectiveDate}
                     onChange={handleChange}
                     type="date"
-                    id="date"
-                    name="date"
+                    id="effectiveDate"
+                    name="effectiveDate"
                     placeholder=""
                     
                   />{" "}
@@ -325,8 +360,8 @@ const jobPosting = () => {
                   value={hrState?.newPosting?.vacantPositions}
                   onChange={handleChange}
                     type="text"
-                    id="vacantPosition"
-                    name="vacantPosition"
+                    id="vacantPositions"
+                    name="vacantPositions"
                     placeholder=""
                     
                   />{" "}

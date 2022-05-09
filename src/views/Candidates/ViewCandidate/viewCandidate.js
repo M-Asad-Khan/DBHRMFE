@@ -129,7 +129,7 @@ const ViewCandidate = () => {
                     Applied Date:
                   </h6>
                 </div>
-                <div>{hrState?.candidates[0]?.appliedDate?.slice(0, 10)}</div>
+                <div>{hrState?.candidates[0]?.AppliedDate?.slice(0, 10)}</div>
               </div>
               </div>
             </div>

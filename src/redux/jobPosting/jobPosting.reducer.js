@@ -16,7 +16,7 @@ import {
       columns: [ 
         {
           label: "Job Title",
-          field: "title",
+          field: "jobTitle",
           width: 270,
         },
         {

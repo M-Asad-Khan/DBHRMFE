@@ -5,10 +5,11 @@ import {
   updatePostingsAction,
   updateIsEditPostingClickedAction,
   updatePostingsDataTableAction,
+  updateIsViewPostingClickedAction
 
 } from "../../redux/jobPosting/jobPosting.actions";
 import { useSelector, useDispatch } from "react-redux";
-import {ViewjobPosting} from "./ViewjobPosting/ViewJobposting"
+import ViewjobPosting from "./ViewjobPosting/ViewJobposting"
 import Addposting from "./addjobPosting/jobPosting";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
@@ -81,18 +82,18 @@ function JobPosting() {
     dispatch(updateNewPostingAction(positions));
     dispatch(updateIsEditPostingClickedAction(true));
   };
-  /* const handleView = async(positions) => {
+  const handleView = async(positions) => {
     debugger;
     try {
-      const res = await jobPostingRequests.GetClientProjectsApi(client.id);
+      const res = await jobPostingRequests.getjobPostingsApi(positions.id);
       if (res.error === false) {
-        dispatch(updateIsViewClientClickedAction(true));
-        dispatch(updateNewClientAction({client:client,projects:res.data}));
+        dispatch(updateIsViewPostingClickedAction(true));
+        dispatch(updateNewPostingAction(res.data));
       }
     } catch (err) {
       console.log(err);
     }
-  }; */
+  }; 
   const handleGetjobPostingApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
