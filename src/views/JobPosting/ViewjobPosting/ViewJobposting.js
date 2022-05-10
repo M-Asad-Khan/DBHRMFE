@@ -10,7 +10,7 @@ import { FiUser } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
 import { RiSettings2Line } from "react-icons/ri";
 import {  VscPersonAdd } from "react-icons/vsc";
-import { BsTelephoneForward,  BsCalendar2Date,BsBagPlus } from "react-icons/bs";
+import { BsCalendar2Date,BsBagPlus } from "react-icons/bs";
 const ViewJobposting = () => {
     const hrState = useSelector((state) =>  state.jobPosting);
 

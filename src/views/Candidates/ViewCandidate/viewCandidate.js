@@ -76,15 +76,7 @@ const ViewCandidate = () => {
                 </div>
                 <div>{hrState?.candidates[0]?.gender}</div>
               </div>
-              {/* <div className="d-flex justify-content-between">
-                <div className="d-flex">
-                  <AiOutlineFundProjectionScreen className="icon-design" />
-                  <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                    Project:
-                  </h6>
-                </div>
-                <div>{clientsState?.newClient?.client?.project}</div>
-              </div> */}
+            
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <RiSettings2Line className="icon-design" />
