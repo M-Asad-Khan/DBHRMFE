@@ -7,8 +7,9 @@ import {
 } from "src/redux/jobPosting/jobPosting.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
+import { FaUsers } from "react-icons/fa";
 import { RiSettings2Line } from "react-icons/ri";
-import {  AiOutlineMail } from "react-icons/ai";
+import {  VscPersonAdd } from "react-icons/vsc";
 import { BsTelephoneForward,  BsCalendar2Date,BsBagPlus } from "react-icons/bs";
 const ViewJobposting = () => {
     const hrState = useSelector((state) =>  state.jobPosting);
@@ -68,18 +69,10 @@ const ViewJobposting = () => {
                   </div>
                   <div>{hrState?.postings[0]?.department}</div>
                 </div>
-                {/* <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <AiOutlineFundProjectionScreen className="icon-design" />
-                    <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                      Project:
-                    </h6>
-                  </div>
-                  <div>{clientsState?.newClient?.client?.project}</div>
-                </div> */}
+                
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
-                    <RiSettings2Line className="icon-design" />
+                    <FaUsers className="icon-design" />
                     <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
                       Reports To:
                     </h6>
@@ -95,25 +88,14 @@ const ViewJobposting = () => {
                   <h2 className="border-bottom">Positions Details</h2>
                   <div className="d-flex justify-content-between">
                     <div className="d-flex">
-                    <BsTelephoneForward className="icon-design" />
+                    <VscPersonAdd className="icon-design" />
                       <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                         Vacant Positions:
                       </h6>
                     </div>
                     <div>{hrState?.postings[0]?.vacantPositions}</div>
                   </div>
-  
-                  
-                  {/* <div className="d-flex justify-content-between">
-                    <div className="d-flex">
-                      <AiOutlineMail className="icon-design" />
-                      <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                        Email:
-                      </h6>
-                    </div>
-                    <div>{hrState?.candidates[0]?.email}</div>
-                  </div> */}
-                  
+
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <BsCalendar2Date className="icon-design" />

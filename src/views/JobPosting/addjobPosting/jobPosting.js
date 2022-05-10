@@ -80,7 +80,7 @@ const jobPosting = () => {
           if (res.error === false) {
             debugger;
             toast.success("Posting Updated !");
-            let temp = hrState.positions.filter(
+            let temp = hrState.Postings.filter(
               (item) => item.id != res.data.id
             );
             dispatch(updatePostingsAction([...temp, res.data]));
@@ -102,7 +102,7 @@ const jobPosting = () => {
           if (res.error === false) {
             toast.success("Posting Added !");
             debugger;
-            dispatch(updatePostingsAction([...hrState.jobPosting, res.data]));
+            dispatch(updatePostingsAction([...hrState.Postings, res.data]));
             dispatch(updateIsAddPostingClickedAction(false));
             dispatch(updateIsEditPostingClickedAction(false));
           }

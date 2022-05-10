@@ -69,7 +69,7 @@ class jobPostingApi {
     debugger;
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${newCandidate.id}`,
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${newPosting.id}`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
