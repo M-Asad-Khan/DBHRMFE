@@ -48,7 +48,7 @@ const ViewJobposting = () => {
                     />
                   </div>
                   <div className="text-center">
-                    <h2>{hrState?.newPosting[0]?.jobTitle}</h2>
+                    <h2>{hrState?.newPosting?.jobTitle}</h2>
                     
                   </div>
                 </div>
@@ -67,7 +67,7 @@ const ViewJobposting = () => {
                       Department:
                     </h6>
                   </div>
-                  <div>{hrState?.postings[0]?.department}</div>
+                  <div>{hrState?.newPosting?.department}</div>
                 </div>
                 
                 <div className="d-flex justify-content-between">
@@ -77,7 +77,7 @@ const ViewJobposting = () => {
                       Reports To:
                     </h6>
                   </div>
-                  <div>{hrState?.postings[0]?.managerName.name}</div>
+                  <div>{hrState?.newPosting.managerName.name}</div>
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@ const ViewJobposting = () => {
                         Vacant Positions:
                       </h6>
                     </div>
-                    <div>{hrState?.postings[0]?.vacantPositions}</div>
+                    <div>{hrState?.newPosting?.vacantPositions}</div>
                   </div>
 
                 <div className="d-flex justify-content-between">
@@ -103,7 +103,7 @@ const ViewJobposting = () => {
                       Effective Date:
                     </h6>
                   </div>
-                  <div>{hrState?.postings[0]?.effectiveDate?.slice(0, 10)}</div>
+                  <div>{hrState?.newPosting?.effectiveDate?.slice(0, 10)}</div>
                 </div>
                 </div>
               </div>
@@ -120,7 +120,7 @@ const ViewJobposting = () => {
                         Work Experience:
                       </h6>
                     </div>
-                    <div>{hrState?.postings[0]?.workExperience}</div>
+                    <div>{hrState?.newPosting?.workExperience}</div>
                   </div>
   
                   <div className="d-flex justify-content-between">
@@ -130,7 +130,7 @@ const ViewJobposting = () => {
                         Qualification:
                       </h6>
                     </div>
-                    <div>{hrState?.postings[0]?.qualification}</div>
+                    <div>{hrState?.newPosting?.qualification}</div>
                   </div>
                   <div></div>
                 </div>

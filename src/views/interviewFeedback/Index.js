@@ -86,15 +86,10 @@ function Feedbacks() {
   };
   /* const handleView = async(feedback) => {
     debugger;
-    try {
-      const res = await interviewFeedbackRequests.GetClientProjectsApi(client.id);
-      if (res.error === false) {
+    
         dispatch(updateIsViewClientClickedAction(true));
-        dispatch(updateNewClientAction({client:client,projects:res.data}));
-      }
-    } catch (err) {
-      console.log(err);
-    }
+        dispatch(updateNewClientAction(feedback));
+      
   }; */
   const handleGetFeedbackApi = async () => {
     try {

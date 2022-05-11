@@ -84,15 +84,10 @@ function JobPosting() {
   };
   const handleView = async(positions) => {
     debugger;
-    try {
-      const res = await jobPostingRequests.getjobPostingsApi(positions.id);
-      if (res.error === false) {
+    
         dispatch(updateIsViewPostingClickedAction(true));
-        dispatch(updateNewPostingAction(res.data));
-      }
-    } catch (err) {
-      console.log(err);
-    }
+        dispatch(updateNewPostingAction(positions));
+      
   }; 
   const handleGetjobPostingApi = async () => {
     try {

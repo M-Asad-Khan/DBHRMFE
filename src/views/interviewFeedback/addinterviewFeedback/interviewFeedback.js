@@ -12,16 +12,26 @@ import { CButton } from "@coreui/react";
 import Select from "react-select";
 import {  toast } from "react-toastify";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
-
+import { jobPostingRequests } from "src/API/JobPostingApi";
+import { candidateRequests } from "src/API/CandidateApi";
 import RatingAtom from "./rating";
 
 const interviewFeedback = () => {
   const dispatch = useDispatch();
   const [employees, setEmployees] = useState([]);
+  const [postings, setPostings] = useState([]);
+  const [candidates, setCandidates] = useState([]);
+  const [questions, setQuestions] = useState({});
+
   const hrState = useSelector((state) => state.interviewFeedback);
   useEffect(() => {
     handleGetEmployeesApi();
+    handleGetJobPostingsApi();
+    handleGetCandidatesApi();
+    handleGetInterviewFeedbackApi();
   }, []);
+
+
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
@@ -31,13 +41,61 @@ const interviewFeedback = () => {
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.name, label: x.name };
         });
-        console.log("tempArr", tempArr);
+        console.log("employee", tempArr);
         setEmployees(tempArr);
       }
     } catch (err) {
       console.log(err);
     }
   };
+  const handleGetJobPostingsApi = async () => {
+    try {
+      const res = await jobPostingRequests.getjobPostingsApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.jobTitle, label: x.jobTitle };
+        });
+        console.log("tempArr", tempArr);
+        setPostings(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGetCandidatesApi = async () => {
+    try {
+      const res = await candidateRequests.getCandidatesApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.FirstName + " " +x.lastName, label: x.FirstName + " " +x.lastName };
+        });
+        console.log("candidates", tempArr);
+        setCandidates(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGetInterviewFeedbackApi = async () => {
+    try {
+      const res = await interviewFeedbackRequests.getinterviewFeedbackApi();
+      debugger;
+      if (res.error === false) {
+      debugger;
+
+        console.log("res.data", res.data);
+        setQuestions( res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
 
   function handleChange(evt) {
     debugger;
@@ -46,7 +104,7 @@ const interviewFeedback = () => {
     dispatch(
       updateNewFeedbackAction({
         ...hrState.newFeedback,
-        name: value,
+        [name]: value,
       })
     );
   }
@@ -60,7 +118,7 @@ const interviewFeedback = () => {
       if (hrState.isEditFeedbackClicked === true) {
         try {
           debugger;
-          const res = await interviewFeedbackRequests.updateFeedbackApi(hrState.newFeedback);
+          const res = await interviewFeedbackRequests.updateinterviewFeedbackApi(hrState.newFeedback);
           console.log("updateFeedback Response", res);
 
           debugger;
@@ -82,7 +140,7 @@ const interviewFeedback = () => {
       } else {
         try {
           debugger;
-          const res = await interviewFeedbackRequests.addFeedbackApi(hrState.newFeedback);
+          const res = await interviewFeedbackRequests.addinterviewFeedbackApi(hrState.newFeedback);
           console.log("addFeedbackApi Response", res);
 
           debugger;
@@ -105,6 +163,10 @@ const interviewFeedback = () => {
       debugger;
     }
   };
+/*   const initState = [
+    { jobInterviewCriteria: questions, Ranking: rate, Comments: 50 },
+   
+  ]; */
   const [rating, setRating] = useState({
     1: 0,
     2: 0,
@@ -143,12 +205,9 @@ const interviewFeedback = () => {
                   Interviewer <span className="text-danger"> *</span>
                 </label>
                 <Select
-                 
                     type="text"
                     id="interviewer"
                     name="interviewer"
-                    
-                    
                     options={employees}
                     onChange={handleChange}
                   ></Select>{" "}
@@ -172,25 +231,26 @@ const interviewFeedback = () => {
                 <label className="form-control-label">
                   Candidate Name<span className="text-danger"> *</span>
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder=""
-                  onblur="validate(3)"
-                />
+                <Select
+                    type="text"
+                    id="candidates"
+                    name="candidates"
+                    options={candidates}
+                    onChange={(e)=>handleChange(e)}
+                  />
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Position<span className="text-danger"> *</span>
                 </label>
-                <input
-                  type="text"
-                  id="position"
-                  name="position"
-                  placeholder="Enter position"
-                  onblur="validate(2)"
-                />
+                <Select
+                 
+                    type="text"
+                    id="position"
+                    name="position"
+                   options={postings}
+                    onChange={handleChange}
+                  ></Select>{" "}
               </div>
             </div>
             <p>
@@ -210,7 +270,7 @@ const interviewFeedback = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td scope="row">Educational Background</td>
+                  <td scope="row">{questions[0]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) => handleRating(rate, "1")}
@@ -226,7 +286,7 @@ const interviewFeedback = () => {
                 </tr>
 
                 <tr>
-                  <td scope="row">Prior Work Experience</td>
+                  <td scope="row">{questions[1]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) => handleRating(rate, "2")}
@@ -241,7 +301,7 @@ const interviewFeedback = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">Qualification</td>
+                  <td scope="row">{questions[2]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -259,7 +319,7 @@ const interviewFeedback = () => {
                 </tr>
 
                 <tr>
-                  <td scope="row">Verbal Communication</td>
+                  <td scope="row">{questions[3]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -277,7 +337,7 @@ const interviewFeedback = () => {
                 </tr>
 
                 <tr>
-                  <td scope="row">Candidate Interest</td>
+                  <td scope="row">{questions[4]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -295,7 +355,7 @@ const interviewFeedback = () => {
                 </tr>
 
                 <tr>
-                  <td scope="row">Knowledge of Organisation</td>
+                  <td scope="row">{questions[5]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -313,7 +373,7 @@ const interviewFeedback = () => {
                 </tr>
 
                 <tr>
-                  <td scope="row">Team Building skills</td>
+                  <td scope="row">{questions[6]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -330,7 +390,7 @@ const interviewFeedback = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">Initiative</td>
+                  <td scope="row">{questions[7]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -347,7 +407,7 @@ const interviewFeedback = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">Time Management</td>
+                  <td scope="row">{questions[8]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -364,7 +424,7 @@ const interviewFeedback = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">Overall Impression and Recommendations</td>
+                  <td scope="row">{questions[9]?.question}</td>
                   <td>
                     <RatingAtom
                       handleRating={(rate) =>
@@ -398,7 +458,7 @@ const interviewFeedback = () => {
                   type="submit"
                   className="btn-block btn-primary"
                   onClick={() => {
-                    addAndUpdateClient()
+                    addAndUpdateFeedback()
                     alert(JSON.stringify(rating));
                   }}
                 >
