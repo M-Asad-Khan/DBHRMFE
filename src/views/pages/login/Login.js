@@ -17,43 +17,54 @@ import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { loginRequest } from "src/API/LoginApi";
 import { toast } from "react-toastify";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateCurrentUserAction } from "src/redux/Login/login.actions";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+	let history = useHistory();
+
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.login.currentUser);
   const [tempLogin, setTempLogin] = useState({});
   const handleChange = (evt) => {
     setTempLogin({
       ...tempLogin,
       [evt.target.name]: evt.target.value,
     });
-	};
-	const handleLogin =async () => {
-		try {
-			debugger;
-			const res = await loginRequest.loginApi(tempLogin);
-			if (res.error === false) {
-				debugger;
-				toast.success("Wellcome !");
-				// dispatch(updateRolesAction([ res.data]));
-				// dispatch(updateIsAddRoleClickedAction(false));
-				// dispatch(updateIsEditRoleClickedAction(false));
-			}
-			if (res.error === true) {
-				debugger;
-				if (res?.data?.response.status === 401) {
-					toast.error("Unauthorized !");
-					
-				}
-				// dispatch(updateRolesAction([ res.data]));
-				// dispatch(updateIsAddRoleClickedAction(false));
-				// dispatch(updateIsEditRoleClickedAction(false));
-			}
+  };
+  const handleLogin = async () => {
+    try {
+      debugger;
+      const res = await loginRequest.loginApi(tempLogin);
+      if (res.error === false) {
+					toast.success("Wellcome !");
+				dispatch(updateCurrentUserAction(res.data))
+				localStorage.setItem("currentUser", JSON.stringify(res.data));
 
-		} catch (e) {
-			toast.error("error !");
-			debugger;
-		}
-	}
+				history.push("/dashboard");
+
+        debugger;
+        // dispatch(updateRolesAction([ res.data]));
+        // dispatch(updateIsAddRoleClickedAction(false));
+        // dispatch(updateIsEditRoleClickedAction(false));
+      }
+      if (res.error === true) {
+        debugger;
+        if (res?.data?.response.status === 401) {
+          toast.error("Unauthorized !");
+        }
+        // dispatch(updateRolesAction([ res.data]));
+        // dispatch(updateIsAddRoleClickedAction(false));
+        // dispatch(updateIsEditRoleClickedAction(false));
+      }
+    } catch (e) {
+      toast.error("error !");
+      debugger;
+    }
+  };
+  console.log(currentUser);
+  // dispatch(updateCurrentUser)
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>

@@ -50,11 +50,16 @@ import avatar3 from 'src/assets/images/avatars/3.jpg'
 import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
+import { useDispatch, useSelector } from 'react-redux'
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
+	const dispatch = useDispatch();
+
+	const currentUser = useSelector((state) => state.login.currentUser);
+
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -178,7 +183,9 @@ const Dashboard = () => {
       payment: { name: 'Amex', icon: cibCcAmex },
       activity: 'Last week',
     },
-  ]
+	]
+	
+  // console.log('currentUser:>',currentUser);
 
   return (
     <>

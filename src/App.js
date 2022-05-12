@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch,useNavigate } from "react-router-dom";
 import "./scss/style.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import ProtectedRoute from "./layout/ProtectedRoute";
 
+//loading for react lazy
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
@@ -19,8 +22,12 @@ const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
-class App extends Component {
-  render() {
+
+
+
+
+const App =()=> {
+	const currentUser = useSelector((state) => state.login.currentUser);
     return (
       <>
         <HashRouter>
@@ -53,7 +60,9 @@ class App extends Component {
               <Route
                 path="/"
                 name="Home"
-                render={(props) => <DefaultLayout {...props} />}
+								render={(props) =>
+										<DefaultLayout {...props}/>
+									}
               />
             </Switch>
           </React.Suspense>
@@ -61,7 +70,6 @@ class App extends Component {
         <ToastContainer />
       </>
     );
-  }
 }
 
 export default App;

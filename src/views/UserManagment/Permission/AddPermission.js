@@ -162,10 +162,10 @@ export default function AddPermission() {
           </label>
           <Select
             isDisabled={userManagmentState.isEditPermissionClicked}
-            value={{
-              label: tempPermission.email,
-              value: tempPermission.email,
-            }}
+							// value={{
+							//   label: tempPermission.email,
+							//   value: tempPermission.email,
+							// }}
             onChange={handleSelectChange}
             options={users}
           ></Select>
