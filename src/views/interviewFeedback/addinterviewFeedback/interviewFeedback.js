@@ -21,7 +21,7 @@ const interviewFeedback = () => {
   const [employees, setEmployees] = useState([]);
   const [postings, setPostings] = useState([]);
   const [candidates, setCandidates] = useState([]);
-  const [questions, setQuestions] = useState({});
+  const [feedBackQuestion, setFeedBackQuestions] = useState();
 
   const hrState = useSelector((state) => state.interviewFeedback);
   useEffect(() => {
@@ -88,7 +88,7 @@ const interviewFeedback = () => {
       debugger;
 
         console.log("res.data", res.data);
-        setQuestions( res.data);
+        setFeedBackQuestions( res.data);
       }
     } catch (err) {
       console.log(err);
@@ -187,7 +187,12 @@ const interviewFeedback = () => {
     }));
     // Some logic
   };
+
+
+  console.log(" feed back question",feedBackQuestion);
   return (
+   
+
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
@@ -269,177 +274,25 @@ const interviewFeedback = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td scope="row">{questions[0]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) => handleRating(rate, "1")}
-                      rating={rating["1"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">{questions[1]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) => handleRating(rate, "2")}
-                      rating={rating["2"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">{questions[2]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["3"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">{questions[3]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["4"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">{questions[4]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["5"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">{questions[5]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["6"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">{questions[6]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["7"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">{questions[7]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["8"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">{questions[8]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["9"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">{questions[9]?.question}</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["10"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
+              {feedBackQuestion &&feedBackQuestion.map((x,i)=>{
+                return (
+                  <tr>
+                      <td scope="row">{x.question}</td>
+                      <td>
+                        <RatingAtom
+                          handleRating={(rate) => handleRating(rate, x.id)}
+                          rating={rating[`${i}`]}
+                        />
+                      </td>
+      
+                      <td>
+                        <div>
+                          <input type="string" />
+                        </div>
+                      </td>
+                  </tr>
+                )
+                })}
               </tbody>
             </table>
 
@@ -474,6 +327,7 @@ const interviewFeedback = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
