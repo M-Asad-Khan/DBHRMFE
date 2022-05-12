@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import {
   updateNewFeedbackAction,
   updateFeedbacksAction,
@@ -6,24 +6,105 @@ import {
   updateIsEditFeedbackClickedAction,
 } from "../../../redux/interviewFeedback/interviewFeedback.actions";
 import { useSelector, useDispatch } from "react-redux";
+import { employeeRequests } from "../../../API/EmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
+import Select from "react-select";
 import {  toast } from "react-toastify";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
-
+import { jobPostingRequests } from "src/API/JobPostingApi";
+import { candidateRequests } from "src/API/CandidateApi";
 import RatingAtom from "./rating";
 
 const interviewFeedback = () => {
   const dispatch = useDispatch();
+  const [employees, setEmployees] = useState([]);
+  const [postings, setPostings] = useState([]);
+  const [candidates, setCandidates] = useState([]);
+  const [feedBackQuestion, setFeedBackQuestions] = useState();
+
   const hrState = useSelector((state) => state.interviewFeedback);
+  useEffect(() => {
+    handleGetEmployeesApi();
+    handleGetJobPostingsApi();
+    handleGetCandidatesApi();
+    handleGetInterviewFeedbackApi();
+  }, []);
+
+
+  const handleGetEmployeesApi = async () => {
+    try {
+      const res = await employeeRequests.getEmployeesApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.name, label: x.name };
+        });
+        console.log("employee", tempArr);
+        setEmployees(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGetJobPostingsApi = async () => {
+    try {
+      const res = await jobPostingRequests.getjobPostingsApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.jobTitle, label: x.jobTitle };
+        });
+        console.log("tempArr", tempArr);
+        setPostings(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGetCandidatesApi = async () => {
+    try {
+      const res = await candidateRequests.getCandidatesApi();
+      debugger;
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.FirstName + " " +x.lastName, label: x.FirstName + " " +x.lastName };
+        });
+        console.log("candidates", tempArr);
+        setCandidates(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGetInterviewFeedbackApi = async () => {
+    try {
+      const res = await interviewFeedbackRequests.getinterviewFeedbackApi();
+      debugger;
+      if (res.error === false) {
+      debugger;
+
+        console.log("res.data", res.data);
+        setFeedBackQuestions( res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
 
   function handleChange(evt) {
     debugger;
-    const value = evt.target.value;
+    const value = evt.target ? evt.target.value : evt.value;
+    const name = evt.target ? evt.target.name : evt.field;
     dispatch(
       updateNewFeedbackAction({
         ...hrState.newFeedback,
-        [evt.target.name]: value,
+        [name]: value,
       })
     );
   }
@@ -37,7 +118,7 @@ const interviewFeedback = () => {
       if (hrState.isEditFeedbackClicked === true) {
         try {
           debugger;
-          const res = await interviewFeedbackRequests.updateFeedbackApi(hrState.newFeedback);
+          const res = await interviewFeedbackRequests.updateinterviewFeedbackApi(hrState.newFeedback);
           console.log("updateFeedback Response", res);
 
           debugger;
@@ -59,7 +140,7 @@ const interviewFeedback = () => {
       } else {
         try {
           debugger;
-          const res = await interviewFeedbackRequests.addFeedbackApi(hrState.newFeedback);
+          const res = await interviewFeedbackRequests.addinterviewFeedbackApi(hrState.newFeedback);
           console.log("addFeedbackApi Response", res);
 
           debugger;
@@ -82,6 +163,10 @@ const interviewFeedback = () => {
       debugger;
     }
   };
+/*   const initState = [
+    { jobInterviewCriteria: questions, Ranking: rate, Comments: 50 },
+   
+  ]; */
   const [rating, setRating] = useState({
     1: 0,
     2: 0,
@@ -102,7 +187,12 @@ const interviewFeedback = () => {
     }));
     // Some logic
   };
+
+
+  console.log(" feed back question",feedBackQuestion);
   return (
+   
+
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
@@ -119,13 +209,14 @@ const interviewFeedback = () => {
                 <label className="form-control-label">
                   Interviewer <span className="text-danger"> *</span>
                 </label>
-                <input
-                onChange={handleChange}
-                  type="text"
-                  id="interviewer"
-                  name="interviewer"
-                  placeholder=""
-                />
+                <Select
+                    type="text"
+                    id="interviewer"
+                    name="interviewer"
+                    options={employees}
+                    onChange={handleChange}
+                  ></Select>{" "}
+                  
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label">
@@ -145,25 +236,26 @@ const interviewFeedback = () => {
                 <label className="form-control-label">
                   Candidate Name<span className="text-danger"> *</span>
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder=""
-                  onblur="validate(3)"
-                />
+                <Select
+                    type="text"
+                    id="candidates"
+                    name="candidates"
+                    options={candidates}
+                    onChange={(e)=>handleChange(e)}
+                  />
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Position<span className="text-danger"> *</span>
                 </label>
-                <input
-                  type="text"
-                  id="position"
-                  name="position"
-                  placeholder="Enter position"
-                  onblur="validate(2)"
-                />
+                <Select
+                 
+                    type="text"
+                    id="position"
+                    name="position"
+                   options={postings}
+                    onChange={handleChange}
+                  ></Select>{" "}
               </div>
             </div>
             <p>
@@ -182,177 +274,25 @@ const interviewFeedback = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td scope="row">Educational Background</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) => handleRating(rate, "1")}
-                      rating={rating["1"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">Prior Work Experience</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) => handleRating(rate, "2")}
-                      rating={rating["2"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">Qualification</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["3"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">Verbal Communication</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["4"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">Candidate Interest</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["5"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">Knowledge of Organisation</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["6"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td scope="row">Team Building skills</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["7"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">Initiative</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["8"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">Time Management</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["9"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">Overall Impression and Recommendations</td>
-                  <td>
-                    <RatingAtom
-                      handleRating={(rate) =>
-                        handleRating(rate, "Educational Background")
-                      }
-                      rating={rating["10"]}
-                    />
-                  </td>
-
-                  <td>
-                    <div>
-                      <input type="string" />
-                    </div>
-                  </td>
-                </tr>
+              {feedBackQuestion &&feedBackQuestion.map((x,i)=>{
+                return (
+                  <tr>
+                      <td scope="row">{x.question}</td>
+                      <td>
+                        <RatingAtom
+                          handleRating={(rate) => handleRating(rate, x.id)}
+                          rating={rating[`${i}`]}
+                        />
+                      </td>
+      
+                      <td>
+                        <div>
+                          <input type="string" />
+                        </div>
+                      </td>
+                  </tr>
+                )
+                })}
               </tbody>
             </table>
 
@@ -371,7 +311,7 @@ const interviewFeedback = () => {
                   type="submit"
                   className="btn-block btn-primary"
                   onClick={() => {
-                    addAndUpdateClient()
+                    addAndUpdateFeedback()
                     alert(JSON.stringify(rating));
                   }}
                 >
@@ -387,6 +327,7 @@ const interviewFeedback = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

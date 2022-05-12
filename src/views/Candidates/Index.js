@@ -82,16 +82,8 @@ function Candidates() {
     dispatch(updateIsEditCandidateClickedAction(true));
   };
    const handleView = async(candidate) => {
-    debugger;
-    try {
-      const res = await candidateRequests.getCandidatesApi(candidate.id);
-      if (res.error === false) {
         dispatch(updateIsViewCandidateClickedAction(true));
-        dispatch(updateNewCandidateAction(res.data));
-      }
-    } catch (err) {
-      console.log(err);
-    }
+        dispatch(updateNewCandidateAction(candidate));
   }; 
   const handleGetCandidatesApi = async () => {
     try {

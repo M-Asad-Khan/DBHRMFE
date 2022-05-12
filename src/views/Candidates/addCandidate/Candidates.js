@@ -51,14 +51,12 @@ const Candidates = ({}) => {
       if (hrState.isEditCandidateClicked === true) {
         try {
           debugger;
-          const res = await candidateRequests.updateCandidateApi(
-            hrState.newCandidate
-          );
+          const res = await candidateRequests.updateCandidateApi(hrState.newCandidate );
           console.log("updateCandidate Response", res);
           if (res.error === false) {
             debugger;
             toast.success("Candidate Updated !");
-            let temp = hrState.candidate.filter(
+            let temp = hrState.candidates.filter(
               (item) => item.id != res.data.id
             );
             dispatch(updateCandidatesAction([...temp, res.data]));
@@ -73,14 +71,13 @@ const Candidates = ({}) => {
         try {
           debugger;
           const res = await candidateRequests.addCandidateApi(
-            hrState.newCandidate
-          );
+            hrState.newCandidate);
           console.log("addCandidateApi Response", res);
           debugger;
           if (res.error === false) {
             toast.success("Candidate Added !");
             debugger;
-            dispatch(updateCandidatesAction([...hrState.candidate, res.data]));
+            dispatch(updateCandidatesAction([...hrState.candidates, res.data]));
             dispatch(updateIsAddCandidateClickedAction(false));
             dispatch(updateIsEditCandidateClickedAction(false));
           }

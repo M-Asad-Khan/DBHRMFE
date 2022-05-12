@@ -53,9 +53,9 @@ const ViewCandidate = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h2>{hrState?.candidates[0]?.FirstName}</h2>
+                  <h2>{hrState?.newCandidate?.FirstName}</h2>
                   <h6 className="mx-auto" style={{ color: "dimgrey" }}>
-                    {hrState?.candidates[0]?.email}
+                    {hrState?.newCandidate?.email}
                   </h6>
                 </div>
               </div>
@@ -74,17 +74,9 @@ const ViewCandidate = () => {
                     Gender:
                   </h6>
                 </div>
-                <div>{hrState?.candidates[0]?.gender}</div>
+                <div>{hrState?.newCandidate?.gender}</div>
               </div>
-              {/* <div className="d-flex justify-content-between">
-                <div className="d-flex">
-                  <AiOutlineFundProjectionScreen className="icon-design" />
-                  <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                    Project:
-                  </h6>
-                </div>
-                <div>{clientsState?.newClient?.client?.project}</div>
-              </div> */}
+            
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <RiSettings2Line className="icon-design" />
@@ -92,7 +84,7 @@ const ViewCandidate = () => {
                     Status:
                   </h6>
                 </div>
-                <div>{hrState?.candidates[0]?.status}</div>
+                <div>{hrState?.newCandidate?.status}</div>
               </div>
             </div>
           </div>
@@ -108,7 +100,7 @@ const ViewCandidate = () => {
                       Phone Number:
                     </h6>
                   </div>
-                  <div>{hrState?.candidates[0]?.phoneNumber}</div>
+                  <div>{hrState?.newCandidate?.phoneNumber}</div>
                 </div>
 
                 
@@ -119,7 +111,7 @@ const ViewCandidate = () => {
                       Email:
                     </h6>
                   </div>
-                  <div>{hrState?.candidates[0]?.email}</div>
+                  <div>{hrState?.newCandidate?.email}</div>
                 </div>
                 
               <div className="d-flex justify-content-between">
@@ -129,7 +121,7 @@ const ViewCandidate = () => {
                     Applied Date:
                   </h6>
                 </div>
-                <div>{hrState?.candidates[0]?.appliedDate?.slice(0, 10)}</div>
+                <div>{hrState?.newCandidate?.AppliedDate?.slice(0, 10)}</div>
               </div>
               </div>
             </div>
@@ -146,7 +138,7 @@ const ViewCandidate = () => {
                       Work Experience:
                     </h6>
                   </div>
-                  <div>{hrState?.candidates[0]?.workExperience}</div>
+                  <div>{hrState?.newCandidate?.workExperience}</div>
                 </div>
 
                 <div className="d-flex justify-content-between">
@@ -156,7 +148,7 @@ const ViewCandidate = () => {
                       Skills:
                     </h6>
                   </div>
-                  <div>{hrState?.candidates[0]?.skills}</div>
+                  <div>{hrState?.newCandidate?.skills}</div>
                 </div>
                 <div></div>
               </div>
