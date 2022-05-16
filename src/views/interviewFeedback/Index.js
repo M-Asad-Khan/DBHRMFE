@@ -8,13 +8,11 @@ import {
   updateIsViewFeedbackClickedAction,
 } from "../../redux/interviewFeedback/interviewFeedback.actions";
 import { useSelector, useDispatch } from "react-redux";
-import ViewFeedback from "./ViewinterviewFeedback/viewFeedback";
-
 import AddinterviewFeedback from "./addinterviewFeedback/interviewFeedback";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
-
+import { interviewFeedbackFormRequests } from "src/API/interviewFeedbackFormApi";
 function Feedbacks() {
   debugger;
   var action = "";
@@ -25,14 +23,14 @@ function Feedbacks() {
 
   useEffect(() => {
     debugger;
-    handleGetFeedbackApi();
+    handleGetFeedbackFormApi();
   }, []);
   useEffect(() => {
     if (
       hrState.isAddFeedbackClicked === false ||
       hrState.isEditFeedbackClicked === false
     ) {
-      handleGetFeedbackApi();
+      handleGetFeedbackFormApi();
     }
   }, [hrState.isAddFeedbackClicked, hrState.isEditFeedbackClicked]);
 
@@ -51,9 +49,7 @@ function Feedbacks() {
           debugger;
           handleDelete(rowData);
           break;
-        case "view":
-          handleView(rowData);
-          break;
+       
         case "edit":
           handleEdit(rowData);
           break;
@@ -69,11 +65,9 @@ function Feedbacks() {
   const handleDelete = async (feedback) => {
     debugger;
     try {
-      const res = await interviewFeedbackRequests.deleteFeedbackApi(
-        feedback.id
-      );
+      const res = await interviewFeedbackFormRequests.deleteinterviewFeedbackFormApi(feedback.id);
       if (res.error === false) {
-        handleGetFeedbackApi();
+        handleGetFeedbackFormApi();
       }
     } catch (err) {
       console.log(err);
@@ -84,16 +78,10 @@ function Feedbacks() {
     dispatch(updateNewFeedbackAction(feedback));
     dispatch(updateIsEditFeedbackClickedAction(true));
   };
-  /* const handleView = async(feedback) => {
-    debugger;
-    
-        dispatch(updateIsViewClientClickedAction(true));
-        dispatch(updateNewClientAction(feedback));
-      
-  }; */
-  const handleGetFeedbackApi = async () => {
+   
+  const handleGetFeedbackFormApi = async () => {
     try {
-      const res = await interviewFeedbackRequests.getFeedackApi();
+      const res = await interviewFeedbackFormRequests. getinterviewFeedbackFormApi();
       debugger;
       if (res.error === false) {
         dispatch(updateFeedbacksAction(res.data));
@@ -103,10 +91,7 @@ function Feedbacks() {
             ...x,
             action: (
               <>
-                <FiEye
-                  onClick={() => (action = "view")}
-                  style={{ color: "blue", cursor: "pointer" }}
-                />
+               
                 <FiEdit
                   onClick={() => (action = "edit")}
                   style={{

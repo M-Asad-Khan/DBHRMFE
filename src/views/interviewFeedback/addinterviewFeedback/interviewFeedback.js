@@ -14,24 +14,34 @@ import {  toast } from "react-toastify";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { candidateRequests } from "src/API/CandidateApi";
+import { interviewFeedbackFormRequests } from "src/API/interviewFeedbackFormApi";
 import RatingAtom from "./rating";
-
+const feedBackQuestionResponse = [
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""},
+  {id:"",rank:"",comment:""}];
 const interviewFeedback = () => {
   const dispatch = useDispatch();
   const [employees, setEmployees] = useState([]);
   const [postings, setPostings] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [feedBackQuestion, setFeedBackQuestions] = useState();
-
   const hrState = useSelector((state) => state.interviewFeedback);
+  
+
   useEffect(() => {
     handleGetEmployeesApi();
     handleGetJobPostingsApi();
     handleGetCandidatesApi();
     handleGetInterviewFeedbackApi();
   }, []);
-
-
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
@@ -86,7 +96,6 @@ const interviewFeedback = () => {
       debugger;
       if (res.error === false) {
       debugger;
-
         console.log("res.data", res.data);
         setFeedBackQuestions( res.data);
       }
@@ -94,17 +103,15 @@ const interviewFeedback = () => {
       console.log(err);
     }
   };
-
-
-
-  function handleChange(evt) {
+  function handleChange(evt,field) {
+ console.log("user id",evt)
     debugger;
-    const value = evt.target ? evt.target.value : evt.value;
-    const name = evt.target ? evt.target.name : evt.field;
+    // const value = evt.target ? evt.target.value : evt.value;
+    // const name = evt.target ? evt.target.name : evt.field;
     dispatch(
       updateNewFeedbackAction({
         ...hrState.newFeedback,
-        [name]: value,
+        [field]: evt.id,
       })
     );
   }
@@ -114,13 +121,12 @@ const interviewFeedback = () => {
     dispatch(updateIsEditFeedbackClickedAction(false));
   };
   const addAndUpdateFeedback = async () => {
-    if (!doValidation()) {
+    
       if (hrState.isEditFeedbackClicked === true) {
         try {
           debugger;
-          const res = await interviewFeedbackRequests.updateinterviewFeedbackApi(hrState.newFeedback);
+          const res = await interviewFeedbackFormRequests.updateinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
           console.log("updateFeedback Response", res);
-
           debugger;
           if (res.error === false) {
             debugger;
@@ -134,38 +140,29 @@ const interviewFeedback = () => {
           }
         } catch (e) {
           toast.error("error");
-
           debugger;
         }
       } else {
         try {
           debugger;
-          const res = await interviewFeedbackRequests.addinterviewFeedbackApi(hrState.newFeedback);
+          const res = await interviewFeedbackFormRequests.addinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
           console.log("addFeedbackApi Response", res);
-
           debugger;
           if (res.error === false) {
             debugger;
             toast.success("Feedback Added");
-
             dispatch(updateFeedbacksAction([...hrState.interviewFeedback, res.data]));
             dispatch(updateIsAddFeedbackClickedAction(false));
           }
         } catch (e) {
           toast.error("error");
-
           debugger;
         }
       }
-    } else {
-      console.log("validation failed");
-      toast.error("validation failed");
-      debugger;
-    }
+    
   };
 /*   const initState = [
     { jobInterviewCriteria: questions, Ranking: rate, Comments: 50 },
-   
   ]; */
   const [rating, setRating] = useState({
     1: 0,
@@ -178,21 +175,19 @@ const interviewFeedback = () => {
     9: 0,
     10: 0,
   }); // initial rating value
-
   // Catch Rating value
-  const handleRating = (rate, question) => {
+  const handleRating = (rate, id,i) => {
     setRating((prevState) => ({
       ...prevState,
-      [question]: rate,
+      [i]: rate,
     }));
     // Some logic
   };
-
-
-  console.log(" feed back question",feedBackQuestion);
+  const handleComment = (value,i)=>{
+    feedBackQuestionResponse[i].comment = value;
+  }
+  console.log('asdasdasd',hrState)
   return (
-   
-
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
@@ -214,20 +209,33 @@ const interviewFeedback = () => {
                     id="interviewer"
                     name="interviewer"
                     options={employees}
-                    onChange={handleChange}
+                    onChange={(event)=>{
+
+                      console.log(event)
+                      handleChange(event,'intervier');
+                    }}
                   ></Select>{" "}
-                  
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label">
                   Date of Interview<span className="text-danger"> *</span>
                 </label>
                 <input
+                value={hrState?.newFeedback?.dateOfInterview?.slice(0, 10)}
+                  onChange={(event)=>{
+
+                    dispatch(
+                      updateNewFeedbackAction({
+                        ...hrState.newFeedback,
+                        [event.target.name]: event.target.value,
+                      })
+                    );
+                  }}
                   type="date"
                   id="date"
-                  name="date"
+                  name="dateOfInterview"
                   placeholder=""
-                  onblur="validate(4)"
+                  // onblur="validate(4)"
                 />
               </div>
             </div>
@@ -241,7 +249,7 @@ const interviewFeedback = () => {
                     id="candidates"
                     name="candidates"
                     options={candidates}
-                    onChange={(e)=>handleChange(e)}
+                    onChange={(event)=>handleChange(event,'candidates')}
                   />
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -249,12 +257,11 @@ const interviewFeedback = () => {
                   Position<span className="text-danger"> *</span>
                 </label>
                 <Select
-                 
                     type="text"
                     id="position"
                     name="position"
-                   options={postings}
-                    onChange={handleChange}
+                    options={postings}
+                    onChange={(event)=>handleChange(event,'position')}
                   ></Select>{" "}
               </div>
             </div>
@@ -264,7 +271,6 @@ const interviewFeedback = () => {
                 on your expectations for the role?
               </strong>
             </p>
-
             <table className="table table-bordered">
               <thead>
                 <tr>
@@ -276,18 +282,22 @@ const interviewFeedback = () => {
               <tbody>
               {feedBackQuestion &&feedBackQuestion.map((x,i)=>{
                 return (
-                  <tr>
+                  <tr key={i}>
                       <td scope="row">{x.question}</td>
                       <td>
                         <RatingAtom
-                          handleRating={(rate) => handleRating(rate, x.id)}
+                          onChange={(rate) =>{ handleRating(rate, x.id,i);
+                            feedBackQuestionResponse[i].id = x.id;
+                            feedBackQuestionResponse[i].rank = rate/20;
+                          }}
                           rating={rating[`${i}`]}
                         />
                       </td>
-      
                       <td>
                         <div>
-                          <input type="string" />
+                          <input type="text" onChange={(event)=>{
+                             handleComment(event.target.value,i)
+                          }}/>
                         </div>
                       </td>
                   </tr>
@@ -295,7 +305,6 @@ const interviewFeedback = () => {
                 })}
               </tbody>
             </table>
-
             <div className="row justify-content-end">
             <div className="form-group col-sm-6 ">
                   <button
@@ -305,20 +314,18 @@ const interviewFeedback = () => {
                     Cancel
                   </button>
                 </div>
-
               <div className="form-group col-sm-6">
               <CButton
                   type="submit"
                   className="btn-block btn-primary"
                   onClick={() => {
                     addAndUpdateFeedback()
-                    alert(JSON.stringify(rating));
+                   // alert(JSON.stringify(feedBackQuestionResponse));
                   }}
                 >
                   {hrState.isEditFeedbackClicked
                       ? "Update Feedback"
                       : "Add Feedback"}
-                  
                 </CButton>
               </div>
               </div>
@@ -327,8 +334,6 @@ const interviewFeedback = () => {
         </div>
       </div>
     </div>
-    
   );
 };
-
 export default interviewFeedback;

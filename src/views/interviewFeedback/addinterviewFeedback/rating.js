@@ -1,10 +1,9 @@
 import React,{useState} from "react";
 import { Rating } from "react-simple-star-rating";
 const RatingAtom=(props)=>{
- 
 return(
     <Rating
-    onClick={props.handleRating}
+    onClick={props.onChange}
     ratingValue={props.rating}
     size={30}
     label
@@ -14,6 +13,5 @@ return(
     className='foo' // Will remove the inline style if applied
   />
 )
-
 }
 export default RatingAtom;

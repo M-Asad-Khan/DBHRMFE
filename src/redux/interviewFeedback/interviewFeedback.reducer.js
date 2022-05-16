@@ -15,13 +15,13 @@ import {
     feedbacksDataTable: {
       columns: [
         {
-          label: "Candidate Name",
-          field: "name",
+          label: "Interviewer Name",
+          field: "intervier",
           width: 270,
         },
         {
-          label: "Position",
-          field: "position",
+          label: "Candidate Name",
+          field: "candidates",
           width: 200,
         },
         {
