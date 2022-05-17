@@ -131,7 +131,7 @@ const interviewFeedback = () => {
           if (res.error === false) {
             debugger;
             toast.success("Feedback Updated");
-            let temp = hrState.interviewFeedback.filter(
+            let temp = hrState.feedbacks.filter(
               (item) => item.id != res.data.id
             );
             dispatch(updateFeedbacksAction([...temp, res.data]));
@@ -151,7 +151,7 @@ const interviewFeedback = () => {
           if (res.error === false) {
             debugger;
             toast.success("Feedback Added");
-            dispatch(updateFeedbacksAction([...hrState.interviewFeedback, res.data]));
+            dispatch(updateFeedbacksAction([...hrState.feedbacks, res.data]));
             dispatch(updateIsAddFeedbackClickedAction(false));
           }
         } catch (e) {

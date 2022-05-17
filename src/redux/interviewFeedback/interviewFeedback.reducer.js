@@ -16,12 +16,12 @@ import {
       columns: [
         {
           label: "Interviewer Name",
-          field: "intervier",
+          field: "interViewerId",
           width: 270,
         },
         {
           label: "Candidate Name",
-          field: "candidates",
+          field: "candidateId",
           width: 200,
         },
         {
