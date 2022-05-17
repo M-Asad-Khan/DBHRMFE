@@ -81,6 +81,7 @@ class employeeApi {
   };
 
   getEmployeesApi = async () => {
+    debugger
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees`,
