@@ -39,6 +39,11 @@ const jobPosting = () => {
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
+          setTempManager({
+            label: x.name,
+            value: x.name,
+            id: x.id,
+          })
           return { ...x, value: x.name, label: x.name };
         });
         console.log("tempArr", tempArr);
@@ -165,6 +170,7 @@ const jobPosting = () => {
         managerId: param.id,
       })
     );
+    setTempManager(param)
     /*  setTempManager({
       ...tempManager,
        managerId: param.id,
@@ -249,6 +255,7 @@ const jobPosting = () => {
                     type="text"
                     id="managerId"
                     name="managerId"
+                    value={tempManager}
                     
                     
                     options={employees}
@@ -272,7 +279,7 @@ const jobPosting = () => {
                   className={
                     fieldsWithError.effectiveDate === true ? "redBorder" : ""
                   }
-                  value={hrState.newPosting.effectiveDate}
+                  value={hrState?.newPosting?.effectiveDate.slice(0,10)}
                     onChange={handleChange}
                     type="date"
                     id="effectiveDate"

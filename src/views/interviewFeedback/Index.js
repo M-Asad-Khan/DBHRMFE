@@ -7,6 +7,7 @@ import {
   updateFeedbacksDataTableAction,
   updateIsViewFeedbackClickedAction,
 } from "../../redux/interviewFeedback/interviewFeedback.actions";
+import ViewFeedback from "./viewInterviewFeedback/viewFeedback";
 import { useSelector, useDispatch } from "react-redux";
 import AddinterviewFeedback from "./addinterviewFeedback/interviewFeedback";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
@@ -14,7 +15,7 @@ import { MDBDataTable } from "mdbreact";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 import { interviewFeedbackFormRequests } from "src/API/interviewFeedbackFormApi";
 function Feedbacks() {
-  debugger;
+  
   var action = "";
 
   const hrState = useSelector((state) => state.interviewFeedback);
@@ -22,7 +23,7 @@ function Feedbacks() {
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
-    debugger;
+    
     handleGetFeedbackFormApi();
   }, []);
   useEffect(() => {
@@ -35,19 +36,23 @@ function Feedbacks() {
   }, [hrState.isAddFeedbackClicked, hrState.isEditFeedbackClicked]);
 
   useEffect(() => {
-    debugger;
+    
     setColumnsAndRows(hrState.feedbacksDataTable);
   }, [hrState.feedbacksDataTable]);
 
   function setSelectedRow(rowData) {
-    debugger;
+    debugger
+    
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+          
           handleDelete(rowData);
+          break;
+          case "view":
+          handleView(rowData);
           break;
        
         case "edit":
@@ -63,34 +68,56 @@ function Feedbacks() {
   }
 
   const handleDelete = async (feedback) => {
-    debugger;
+    
     try {
       const res = await interviewFeedbackFormRequests.deleteinterviewFeedbackFormApi(feedback.id);
       if (res.error === false) {
         handleGetFeedbackFormApi();
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data);
     }
   };
-  const handleEdit = (feedback) => {
+  const handleView = async (feedback) => {
     debugger;
+    try{
+      const res =await interviewFeedbackFormRequests.getinterviewFeedbackFormApi(feedback.id);
+      if(res.error === false){
+        debugger;
+        
+        dispatch(updateIsViewFeedbackClickedAction(true));
+        dispatch(updateNewFeedbackAction(res.data));
+      }
+    } catch(err){
+      console.log(err);
+    }
+ 
+    debugger;
+  };
+  const handleEdit = (feedback) => {
+    debugger
+    
     dispatch(updateNewFeedbackAction(feedback));
     dispatch(updateIsEditFeedbackClickedAction(true));
   };
    
   const handleGetFeedbackFormApi = async () => {
-    try {
-      const res = await interviewFeedbackFormRequests. getinterviewFeedbackFormApi();
-      debugger;
+        try {
+      const res = await interviewFeedbackFormRequests.getinterviewFeedbackFormApi();
+      
       if (res.error === false) {
         dispatch(updateFeedbacksAction(res.data));
         var tempArr = [];
         res.data.map((x) => {
           tempArr.push({
             ...x,
+            
             action: (
               <>
+              <FiEye
+                  onClick={() => (action = "view")}
+                  style={{ color: "blue", cursor: "pointer" }}
+                />
                
                 <FiEdit
                   onClick={() => (action = "edit")}
@@ -111,10 +138,13 @@ function Feedbacks() {
               </>
             ),
             clickEvent: setSelectedRow,
+            interviwer: x?.interViewer.name,
+            candidate:x?.candidate.FirstName + " " + x?.candidate.FirstName,
+            candidateId:x?.candidate.id,
           });
         });
-        debugger;
-        console.log("eventarr", tempArr);
+        debugger
+        console.log("test value", tempArr);
         var tempObj = { ...hrState.feedbacksDataTable, rows: tempArr };
         dispatch(updateFeedbacksDataTableAction(tempObj));
       }

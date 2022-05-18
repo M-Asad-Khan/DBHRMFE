@@ -65,7 +65,9 @@ const interviewFeedback = () => {
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
-          return { ...x, value: x.jobTitle, label: x.jobTitle };
+          return { ...x, 
+            value: x.jobTitle,
+             label: x.jobTitle };
         });
         console.log("tempArr", tempArr);
         setPostings(tempArr);
@@ -138,6 +140,7 @@ const interviewFeedback = () => {
             dispatch(updateIsAddFeedbackClickedAction(false));
             dispatch(updateIsEditFeedbackClickedAction(false));
           }
+          
         } catch (e) {
           toast.error("error");
           debugger;
