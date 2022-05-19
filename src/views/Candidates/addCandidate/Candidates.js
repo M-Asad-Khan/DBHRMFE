@@ -384,7 +384,7 @@ const Candidates = ({}) => {
                     className={
                       fieldsWithError.AppliedDate === true ? "redBorder" : ""
                     }
-                    value={hrState.newCandidate.AppliedDate}
+                    value={hrState?.newCandidate?.AppliedDate?.slice(0,10)}
                     onChange={handleChange}
                     type="date"
                     id="AppliedDate"

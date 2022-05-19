@@ -12,7 +12,7 @@ import { userManagmentRequests } from "src/API/UserManagmentApi";
 
 export default function AddPermission() {
   const [tempPermission, setTempPermission] = useState({});
-  const [roles, setRoles] = useState();
+  const [tempUser, setTempUser] = useState({});
   const [users, setUsers] = useState();
 
   const dispatch = useDispatch();
@@ -34,6 +34,9 @@ export default function AddPermission() {
 				roles: userManagmentState.newPermission.prevRoles.map((x) => x),
 				user:userManagmentState.newPermission.userId
       });
+      setTempUser({value: userManagmentState.newPermission.email,label: userManagmentState.newPermission.email})
+
+
     }
   }, [userManagmentState.isEditPermissionClicked]);
 
@@ -49,6 +52,7 @@ export default function AddPermission() {
       ...tempPermission,
       user: param.id,
     });
+    setTempUser(param);
   };
 
   const handleChange = (evt) => {
@@ -162,10 +166,7 @@ export default function AddPermission() {
           </label>
           <Select
             isDisabled={userManagmentState.isEditPermissionClicked}
-							// value={{
-							//   label: tempPermission.email,
-							//   value: tempPermission.email,
-							// }}
+							value={tempUser}
             onChange={handleSelectChange}
             options={users}
           ></Select>
