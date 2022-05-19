@@ -313,6 +313,13 @@ const Candidates = ({}) => {
                   <Select
                     id="gender"
                     name="gender"
+                    value={{
+                      label: hrState.newCandidate.gender
+                        ? hrState.newCandidate.gender.charAt(0).toUpperCase() +
+                          hrState.newCandidate.gender.slice(1)
+                        : null,
+                      value: hrState.newCandidate.gender,
+                    }}
                     options={[
                       { label: "Male", value: "male", field: "gender" },
                       { label: "Female", value: "female", field: "gender" },
@@ -330,6 +337,13 @@ const Candidates = ({}) => {
 
                     id="status"
                     name="status"
+                    value={{
+                      label: hrState.newCandidate.status
+                        ? hrState.newCandidate.status.charAt(0).toUpperCase() +
+                          hrState.newCandidate.status.slice(1)
+                        : null,
+                      value: hrState.newCandidate.status,
+                    }}
                     options={candStatusOptions}
                     onChange={handleChange}
                   ></Select>

@@ -165,7 +165,7 @@ const ViewClient = () => {
 
                   <ul>
                     {clientsState?.newClient?.projects?.map((item, i) => {
-                      return (
+                      return ( item.team&&
                         <li
                           key={item.team.id + i}
 													onClick={() => handleProjectClick(item.team.id)}

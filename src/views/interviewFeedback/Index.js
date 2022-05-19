@@ -70,7 +70,7 @@ function Feedbacks() {
   const handleDelete = async (feedback) => {
     
     try {
-      const res = await interviewFeedbackFormRequests.deleteinterviewFeedbackFormApi(feedback.id);
+      const res = await interviewFeedbackFormRequests.deleteinterviewFeedbackFormApi(feedback.candidateId);
       if (res.error === false) {
         handleGetFeedbackFormApi();
       }
@@ -81,12 +81,12 @@ function Feedbacks() {
   const handleView = async (feedback) => {
     debugger;
     try{
-      const res =await interviewFeedbackFormRequests.getinterviewFeedbackFormApi(feedback.id);
+      const res =await interviewFeedbackFormRequests.getOneByIdApi(feedback.candidateId);
       if(res.error === false){
         debugger;
+        dispatch(updateNewFeedbackAction(res.data));
         
         dispatch(updateIsViewFeedbackClickedAction(true));
-        dispatch(updateNewFeedbackAction(res.data));
       }
     } catch(err){
       console.log(err);
@@ -96,6 +96,7 @@ function Feedbacks() {
   };
   const handleEdit = (feedback) => {
     debugger
+   
     
     dispatch(updateNewFeedbackAction(feedback));
     dispatch(updateIsEditFeedbackClickedAction(true));
@@ -119,14 +120,14 @@ function Feedbacks() {
                   style={{ color: "blue", cursor: "pointer" }}
                 />
                
-                <FiEdit
+                {/* <FiEdit
                   onClick={() => (action = "edit")}
                   style={{
                     color: "orange",
                     marginLeft: "20px",
                     cursor: "pointer",
                   }}
-                />
+                /> */}
                 <FiTrash
                   // onClick={() => (action = "delete")}
                   style={{
@@ -139,7 +140,7 @@ function Feedbacks() {
             ),
             clickEvent: setSelectedRow,
             interviwer: x?.interViewer.name,
-            candidate:x?.candidate.FirstName + " " + x?.candidate.FirstName,
+            candidateName:x?.candidate.FirstName + " " + x?.candidate.lastName,
             candidateId:x?.candidate.id,
           });
         });

@@ -21,7 +21,7 @@ import {
         },
         {
           label: "Candidate Name",
-          field: 'candidate',
+          field: 'candidateName',
           width: 200,
         },
         {

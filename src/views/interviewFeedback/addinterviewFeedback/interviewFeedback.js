@@ -17,16 +17,16 @@ import { candidateRequests } from "src/API/CandidateApi";
 import { interviewFeedbackFormRequests } from "src/API/interviewFeedbackFormApi";
 import RatingAtom from "./rating";
 const feedBackQuestionResponse = [
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""},
-  {id:"",rank:"",comment:""}];
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""},
+  {id:"",rating:"",comment:""}];
 const interviewFeedback = () => {
   const dispatch = useDispatch();
   const [employees, setEmployees] = useState([]);
@@ -66,8 +66,7 @@ const interviewFeedback = () => {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
           return { ...x, 
-            value: x.jobTitle,
-             label: x.jobTitle };
+            value: x.jobTitle, label: x.jobTitle };
         });
         console.log("tempArr", tempArr);
         setPostings(tempArr);
@@ -291,7 +290,7 @@ const interviewFeedback = () => {
                         <RatingAtom
                           onChange={(rate) =>{ handleRating(rate, x.id,i);
                             feedBackQuestionResponse[i].id = x.id;
-                            feedBackQuestionResponse[i].rank = rate/20;
+                            feedBackQuestionResponse[i].rating = rate/20;
                           }}
                           rating={rating[`${i}`]}
                         />

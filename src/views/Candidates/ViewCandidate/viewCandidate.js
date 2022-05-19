@@ -131,15 +131,8 @@ const ViewCandidate = () => {
             <div className="card" style={{ height: "338px" }}>
               <div className="row d-flex justify-content-center">
                 <h2 className="border-bottom">Details</h2>
-                <div className="">
-                  <div className="d-flex">
-                  <BsBagPlus className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Work Experience:
-                    </h6>
-                  </div>
-                  <div>{hrState?.newCandidate?.workExperience}</div>
-                </div>
+               
+                  
 
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
