@@ -218,7 +218,7 @@ const ViewEmployee = () => {
                   </div>
                   <ul>
                     {state?.newEmployee?.workHistory?.map((item, i) => {
-                      return <li key={i}>{item.team.teamName}</li>;
+                      return item.team &&<li key={i}>{item.team.teamName}</li>;
                     })}
                   </ul>
                 </div>{" "}
