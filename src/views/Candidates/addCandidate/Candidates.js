@@ -29,7 +29,7 @@ const Candidates = ({}) => {
   const hrState = useSelector((state) => state.candidate);
 
   function handleChange(evt) {
-    debugger;
+    
     const value = evt.target ? evt.target.value : evt.value;
     const name = evt.target ? evt.target.name : evt.field;
     dispatch(
@@ -46,15 +46,15 @@ const Candidates = ({}) => {
   };
 
   const addAndUpdateCandidate = async () => {
-    debugger;
+  
     if (!doValidation()) {
       if (hrState.isEditCandidateClicked === true) {
         try {
-          debugger;
+          
           const res = await candidateRequests.updateCandidateApi(hrState.newCandidate );
           console.log("updateCandidate Response", res);
           if (res.error === false) {
-            debugger;
+            
             toast.success("Candidate Updated !");
             let temp = hrState.candidates.filter(
               (item) => item.id != res.data.id
@@ -65,41 +65,41 @@ const Candidates = ({}) => {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+          
         }
       } else {
         try {
-          debugger;
+          
           const res = await candidateRequests.addCandidateApi(
             hrState.newCandidate);
           console.log("addCandidateApi Response", res);
-          debugger;
+          
           if (res.error === false) {
             toast.success("Candidate Added !");
-            debugger;
+            
             dispatch(updateCandidatesAction([...hrState.candidates, res.data]));
             dispatch(updateIsAddCandidateClickedAction(false));
             dispatch(updateIsEditCandidateClickedAction(false));
           }
         } catch (e) {
-          debugger;
+         
           toast.error("error");
         }
       }
     } else {
       toast.error("validation failed");
-      console.log("validation failed");
-      debugger;
+      //console.log("validation failed");
+      
     }
   };
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+     
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+       
       if (hrState.newCandidate[x[0]] !== undefined) {
         if (hrState.newCandidate[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -120,7 +120,7 @@ const Candidates = ({}) => {
         isError = true;
       }
     });
-    debugger;
+     
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -128,7 +128,7 @@ const Candidates = ({}) => {
         isError = true;
       }
     });
-    console.log("isError", isError);
+   // console.log("isError", isError);
     return isError;
   };
 
@@ -174,8 +174,8 @@ const Candidates = ({}) => {
       });
     }
   }
-  console.log("fieldsWithError", fieldsWithError);
-  console.log("errorInfo", errorInfo);
+ // console.log("fieldsWithError", fieldsWithError);
+ // console.log("errorInfo", errorInfo);
 
   const candStatusOptions = [
     { value: "Applied", label: "Applied", field: "status" },

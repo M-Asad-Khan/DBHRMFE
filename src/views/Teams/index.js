@@ -16,7 +16,7 @@ import ViewTeam from "./ViewTeam/ViewTeam";
 import { teamMembersRequests } from "src/API/teamMembersApi";
 
 function Teams() {
-  debugger;
+       
   var action = "";
 
   const teamsState = useSelector((state) => state.teams);
@@ -24,7 +24,7 @@ function Teams() {
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
-    debugger;
+         
     handleGetTeamsApi();
   }, []);
   useEffect(() => {
@@ -37,18 +37,18 @@ function Teams() {
   }, [teamsState.isAddTeamClicked, teamsState.isEditTeamClicked]);
 
   useEffect(() => {
-    debugger;
+         
     setColumnsAndRows(teamsState.teamsDataTable);
   }, [teamsState.teamsDataTable]);
 
   function setSelectedRow(rowData) {
-    debugger;
+         
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+               
           handleDelete(rowData);
           break;
         case "view":
@@ -62,12 +62,12 @@ function Teams() {
           break;
       }
     }
-    console.log("rowData", rowData);
-    console.log("action", action);
+    /* console.log("rowData", rowData);
+    console.log("action", action); */
   }
 
   const handleDelete = async (team) => {
-    debugger;
+         
     try {
       const res = await teamRequests.deleteTeamsApi(team.id);
       if (res.error === false) {
@@ -78,16 +78,16 @@ function Teams() {
     }
   };
   const handleEdit = (team) => {
-    debugger;
+         
     dispatch(updateNewTeamAction(team));
     dispatch(updateIsEditTeamClickedAction(true));
   };
   const handleView = async (team) => {
-    debugger;
+         
     try{
       const res =await teamMembersRequests.getTeamMembersApi(team.id);
       if(res.error === false){
-        debugger;
+             
         // handleGetTeamsApi()
         dispatch(updateIsViewTeamClickedAction(true));
         dispatch(updateNewTeamAction(res.data));
@@ -96,12 +96,12 @@ function Teams() {
       console.log(err);
     }
  
-    debugger;
+         
   };
   const handleGetTeamsApi = async () => {
     try {
       const res = await teamRequests.getTeamsApi();
-      debugger;
+           
       if (res.error === false) {
         dispatch(updateTeamsAction(res.data));
         var tempArr = [];
@@ -137,19 +137,19 @@ function Teams() {
             teamLeadName: x?.teamLeadName?.name,
           });
         });
-        debugger;
+             
         var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
         dispatch(updateTeamsDataTableAction(tempObj));
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   function handleAddClient() {
     dispatch(updateIsAddTeamClickedAction(true));
   }
-  console.log("teamsState", teamsState);
+ // console.log("teamsState", teamsState);
 
   return (
     <>

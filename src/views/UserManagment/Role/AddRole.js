@@ -28,7 +28,7 @@ export default function AddRole() {
   const [errorInfo, setErrorInfo] = useState({});
 
   const handleChange = (evt) => {
-    debugger;
+         
     const value = evt.target.value;
     setTempRole({
       ...tempRole,
@@ -40,10 +40,10 @@ export default function AddRole() {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+         
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+           
       if (tempRole[x[0]] !== undefined) {
         if (tempRole[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -60,7 +60,7 @@ export default function AddRole() {
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
       }
     });
-    debugger;
+         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -80,10 +80,10 @@ export default function AddRole() {
     if (!doValidation()) {
       if (userManagmentState.isEditRoleClicked === true) {
         try {
-          debugger;
+               
           const res = await userManagmentRequests.updateRole(tempRole);
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Role Updated !");
             dispatch(updateRolesAction([ res.data]));
             dispatch(updateIsAddRoleClickedAction(false));
@@ -91,14 +91,14 @@ export default function AddRole() {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+               
         }
       } else {
         try {
-          debugger;
+               
           const res = await userManagmentRequests.addRole(tempRole);
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Role added !");
             dispatch(updateRolesAction([res.data]));
             dispatch(updateIsAddRoleClickedAction(false));
@@ -106,12 +106,12 @@ export default function AddRole() {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+               
         }
       }
     } else {
       toast.error("validation failed");
-      debugger;
+           
     }
   };
 

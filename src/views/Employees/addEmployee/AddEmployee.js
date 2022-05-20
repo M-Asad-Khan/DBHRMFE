@@ -84,7 +84,7 @@ const AddEmployee = ({}) => {
   const state = useSelector((state) => state.employees);
 
   function handleChange(evt) {
-    debugger;
+         
     const value = evt.target.value;
     dispatch(
       updateNewEmployeeAction({
@@ -99,15 +99,15 @@ const AddEmployee = ({}) => {
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
   const addAndUpdateEmployee = async () => {
-    debugger;
+         
     if (!doValidation()) {
       if (state.isEditEmployeeClicked === true) {
         try {
-          debugger;
+               
           const res = await employeeRequests.updateEmployeeApi(state.newEmployee);
           console.log("updateEmployee Response", res);
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Employee Updated !");
             let temp = state.employees.filter((item) => item.id != res.data.id);
             dispatch(updateEmployeesAction([...temp, res.data]));
@@ -116,40 +116,40 @@ const AddEmployee = ({}) => {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+               
         }
       } else {
         try {
-          debugger;
+               
           const res = await employeeRequests.addEmployeeApi(state.newEmployee);
           console.log("addEmployeeApi Response", res);
-          debugger;
+               
           if (res.error === false) {
             toast.success("Employee Added !");
-            debugger;
+                 
             dispatch(updateEmployeesAction([...state.employees, res.data]));
             dispatch(updateIsAddEmployeeClickedAction(false));
             dispatch(updateIsEditEmployeeClickedAction(false));
           }
         } catch (e) {
-          debugger;
+               
           toast.error("error");
         }
       }
     } else {
       toast.error("validation failed");
       console.log("validation failed");
-      debugger;
+           
     }
   };
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+         
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+           
       if (state.newEmployee[x[0]] !== undefined) {
         if (state.newEmployee[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -160,28 +160,28 @@ const AddEmployee = ({}) => {
             isError = false;
           }
         } else {
-          debugger;
+               
           tempFieldsWithError[x[0]] = true;
           tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
           isError = true;
         }
       } else {
-        debugger;
+             
         tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
         isError = true;
       }
     });
-    debugger;
+         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
       if (x[1] === true) {
-        debugger;
+             
         isError = true;
       }
     });
-    console.log("isError", isError);
+    
     return isError;
   };
 
@@ -236,9 +236,9 @@ const AddEmployee = ({}) => {
     );
   };
 
-  console.log("fieldsWithError", fieldsWithError);
+/*   console.log("fieldsWithError", fieldsWithError);
   console.log("errorInfo", errorInfo);
-  console.log("state", state);
+  console.log("state", state); */
 
   return (
     <>

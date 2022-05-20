@@ -15,7 +15,7 @@ import { MDBDataTable } from "mdbreact";
 import { candidateRequests } from "src/API/CandidateApi";
 
 function Candidates() {
-  debugger;
+     
   var action = "";
 
   const hrState = useSelector((state) => state.candidate);
@@ -23,7 +23,7 @@ function Candidates() {
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
-    debugger;
+       
     handleGetCandidatesApi();
   }, []);
   useEffect(() => {
@@ -36,18 +36,18 @@ function Candidates() {
   }, [hrState.isAddCandidateClicked, hrState.isEditCandidateClicked]);
 
   useEffect(() => {
-    debugger;
+       
     setColumnsAndRows(hrState.candidatesDataTable);
   }, [hrState.candidatesDataTable]);
 
   function setSelectedRow(rowData) {
-    debugger;
+       
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+             
           handleDelete(rowData);
           break;
         case "view":
@@ -61,23 +61,23 @@ function Candidates() {
           break;
       }
     }
-    console.log("rowData", rowData);
-    console.log("action", action);
+    /* console.log("rowData", rowData);
+    console.log("action", action); */
   }
 
   const handleDelete = async (candidate) => {
-    debugger;
+       
     try {
       const res = await candidateRequests.deleteCandidateApi(candidate.id);
       if (res.error === false) {
         handleGetCandidatesApi();
       }
     } catch (err) {
-      console.log(err);
+     // console.log(err);
     }
   };
   const handleEdit = (candidate) => {
-    debugger;
+       
     dispatch(updateNewCandidateAction(candidate));
     dispatch(updateIsEditCandidateClickedAction(true));
   };
@@ -88,7 +88,7 @@ function Candidates() {
   const handleGetCandidatesApi = async () => {
     try {
       const res = await candidateRequests.getCandidatesApi();
-      debugger;
+         
       if (res.error === false) {
         dispatch(updateCandidatesAction(res.data));
         var tempArr = [];
@@ -122,20 +122,20 @@ function Candidates() {
             clickEvent: setSelectedRow,
           });
         });
-        debugger;
-        console.log("eventarr", tempArr);
+           
+       // console.log("eventarr", tempArr);
         var tempObj = { ...hrState.candidatesDataTable, rows: tempArr };
         dispatch(updateCandidatesDataTableAction(tempObj));
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   function handleAddCandidate() {
     dispatch(updateIsAddCandidateClickedAction(true));
   }
-  console.log("hrState", hrState);
+ // console.log("hrState", hrState);
 
   return (
     <>

@@ -45,30 +45,30 @@ const interviewFeedback = () => {
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.name, label: x.name };
         });
-        console.log("employee", tempArr);
+        //console.log("employee", tempArr);
         setEmployees(tempArr);
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
   const handleGetJobPostingsApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
           return { ...x, 
             value: x.jobTitle, label: x.jobTitle };
         });
-        console.log("tempArr", tempArr);
+        //console.log("tempArr", tempArr);
         setPostings(tempArr);
       }
     } catch (err) {
@@ -78,35 +78,35 @@ const interviewFeedback = () => {
   const handleGetCandidatesApi = async () => {
     try {
       const res = await candidateRequests.getCandidatesApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.FirstName + " " +x.lastName, label: x.FirstName + " " +x.lastName };
         });
-        console.log("candidates", tempArr);
+       // console.log("candidates", tempArr);
         setCandidates(tempArr);
       }
     } catch (err) {
-      console.log(err);
+     // console.log(err);
     }
   };
   const handleGetInterviewFeedbackApi = async () => {
     try {
       const res = await interviewFeedbackRequests.getinterviewFeedbackApi();
-      debugger;
+           
       if (res.error === false) {
-      debugger;
-        console.log("res.data", res.data);
+           
+        //.log("res.data", res.data);
         setFeedBackQuestions( res.data);
       }
     } catch (err) {
-      console.log(err);
+     // console.log(err);
     }
   };
   function handleChange(evt,field) {
- console.log("user id",evt)
-    debugger;
+ //console.log("user id",evt)
+         
     // const value = evt.target ? evt.target.value : evt.value;
     // const name = evt.target ? evt.target.name : evt.field;
     dispatch(
@@ -125,12 +125,12 @@ const interviewFeedback = () => {
     
       if (hrState.isEditFeedbackClicked === true) {
         try {
-          debugger;
+               
           const res = await interviewFeedbackFormRequests.updateinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
           console.log("updateFeedback Response", res);
-          debugger;
+               
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Feedback Updated");
             let temp = hrState.feedbacks.filter(
               (item) => item.id != res.data.id
@@ -142,23 +142,23 @@ const interviewFeedback = () => {
           
         } catch (e) {
           toast.error("error");
-          debugger;
+               
         }
       } else {
         try {
-          debugger;
+               
           const res = await interviewFeedbackFormRequests.addinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
           console.log("addFeedbackApi Response", res);
-          debugger;
+               
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Feedback Added");
             dispatch(updateFeedbacksAction([...hrState.feedbacks, res.data]));
             dispatch(updateIsAddFeedbackClickedAction(false));
           }
         } catch (e) {
           toast.error("error");
-          debugger;
+               
         }
       }
     
@@ -188,7 +188,7 @@ const interviewFeedback = () => {
   const handleComment = (value,i)=>{
     feedBackQuestionResponse[i].comment = value;
   }
-  console.log('asdasdasd',hrState)
+ // console.log('asdasdasd',hrState)
   return (
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
@@ -213,7 +213,7 @@ const interviewFeedback = () => {
                     options={employees}
                     onChange={(event)=>{
 
-                      console.log(event)
+                     // console.log(event)
                       handleChange(event,'intervier');
                     }}
                   ></Select>{" "}

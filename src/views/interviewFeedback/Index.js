@@ -63,8 +63,8 @@ function Feedbacks() {
           break;
       }
     }
-    console.log("rowData", rowData);
-    console.log("action", action);
+   /*  console.log("rowData", rowData);
+    console.log("action", action); */
   }
 
   const handleDelete = async (feedback) => {
@@ -75,7 +75,7 @@ function Feedbacks() {
         handleGetFeedbackFormApi();
       }
     } catch (err) {
-      console.log(err.response.data);
+     // console.log(err.response.data);
     }
   };
   const handleView = async (feedback) => {
@@ -89,7 +89,7 @@ function Feedbacks() {
         dispatch(updateIsViewFeedbackClickedAction(true));
       }
     } catch(err){
-      console.log(err);
+     // console.log(err);
     }
  
     debugger;
@@ -145,19 +145,19 @@ function Feedbacks() {
           });
         });
         debugger
-        console.log("test value", tempArr);
+       // console.log("test value", tempArr);
         var tempObj = { ...hrState.feedbacksDataTable, rows: tempArr };
         dispatch(updateFeedbacksDataTableAction(tempObj));
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   function handleAddFeedback() {
     dispatch(updateIsAddFeedbackClickedAction(true));
   }
-  console.log("hrState", hrState);
+ // console.log("hrState", hrState);
 
   return (
     <>

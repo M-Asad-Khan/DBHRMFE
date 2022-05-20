@@ -57,7 +57,7 @@ export default function AddUser() {
   const handleGetClientsApi = async () => {
     try {
       const res = await clientRequests.getClientsApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
@@ -75,7 +75,7 @@ export default function AddUser() {
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         console.log("data of  get emp in addUser", res.data);
@@ -96,11 +96,11 @@ export default function AddUser() {
       if (tempUser.password === tempUser.confirmPassword) {
         if (userManagmentState.isEditEmployeeClicked === true) {
           try {
-            debugger;
+                 
             const res = await userManagmentRequests.addUser(tempUser);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
-              debugger;
+                   
               toast.success("User Updated !");
               let temp = state.employees.filter(
                 (item) => item.id != res.data.id
@@ -111,15 +111,15 @@ export default function AddUser() {
             }
           } catch (e) {
             toast.error("error !");
-            debugger;
+                 
           }
         } else {
           try {
-            debugger;
+                 
             const res = await userManagmentRequests.addUser(tempUser);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
-              debugger;
+                   
               toast.success("User added !");
               dispatch(updateUsersAction([res.data]));
               dispatch(updateIsAddUserClickedAction(false));
@@ -127,7 +127,7 @@ export default function AddUser() {
             }
           } catch (e) {
             toast.error("error !");
-            debugger;
+                 
           }
         }
       } else {
@@ -135,7 +135,7 @@ export default function AddUser() {
       }
     } else {
       toast.error("validation failed");
-      debugger;
+           
     }
   };
 
@@ -143,10 +143,10 @@ export default function AddUser() {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+         
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+           
       if (tempUser[x[0]] !== undefined) {
         if (tempUser[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -163,7 +163,7 @@ export default function AddUser() {
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
       }
     });
-    debugger;
+         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -171,12 +171,12 @@ export default function AddUser() {
         isError = true;
       }
     });
-    console.log("isError", isError);
+   // console.log("isError", isError);
     return isError;
   };
 
   const handleTypeChange = (e) => {
-    debugger;
+         
     if (e.target.value === "client") {
       handleGetClientsApi();
     } else if (e.target.value === "employee") {
@@ -192,8 +192,8 @@ export default function AddUser() {
     dispatch(updateIsEditUserClickedAction(false));
   };
 
-  console.log("tempUser", tempUser);
-  console.log("userManagmentState In adduser", userManagmentState);
+  /* console.log("tempUser", tempUser);
+  console.log("userManagmentState In adduser", userManagmentState); */
   return (
     <>
       <div className="row justify-content-between text-left mt-3">

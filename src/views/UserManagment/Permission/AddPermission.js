@@ -56,9 +56,9 @@ export default function AddPermission() {
   };
 
   const handleChange = (evt) => {
-    debugger;
+         
     if (evt.target.checked) {
-      debugger;
+           
       var temp = tempPermission.roles
         ? [...tempPermission.roles, evt.target.value]
         : [evt.target.value];
@@ -66,7 +66,7 @@ export default function AddPermission() {
         ...tempPermission,
         roles: temp,
       });
-      debugger;
+           
     } else {
       setTempPermission({
         ...tempPermission,
@@ -76,14 +76,14 @@ export default function AddPermission() {
   };
 
   const doValidation = () => {
-    debugger;
+         
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+         
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+           
       if (tempPermission[x[0]] !== undefined) {
         if (tempPermission[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -100,7 +100,7 @@ export default function AddPermission() {
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
       }
     });
-    debugger;
+         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -108,19 +108,19 @@ export default function AddPermission() {
         isError = true;
       }
     });
-    console.log("isError", isError);
+    //console.log("isError", isError);
     return isError;
   };
   const handleAddAndUpdatePermission = async () => {
     if (!doValidation()) {
       if (userManagmentState.isEditPermissionClicked === true) {
         try {
-          debugger;
+               
           const res = await userManagmentRequests.updatePermission(
             tempPermission
           );
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Permission Updated !");
             // let temp = state.employees.filter((item) => item.id != res.data.id);
             dispatch(updatePermissionsAction([ res.data]));
@@ -129,14 +129,14 @@ export default function AddPermission() {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+               
         }
       } else {
         try {
-          debugger;
+               
           const res = await userManagmentRequests.addPermission(tempPermission);
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Permission added !");
             dispatch(updatePermissionsAction([res.data]));
             dispatch(updateIsAddPermissionClickedAction(false));
@@ -144,16 +144,16 @@ export default function AddPermission() {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+               
         }
       }
     } else {
       toast.error("validation failed");
-      debugger;
+           
     }
   };
-  console.log("userManagmentState In addPermission", userManagmentState);
-  console.log("tempPermission 123", tempPermission);
+ // console.log("userManagmentState In addPermission", userManagmentState);
+  //console.log("tempPermission 123", tempPermission);
   // console.log("fieldsWithError In addPermission", fieldsWithError);
   // console.log("errorInfo In addPermission", errorInfo);
 

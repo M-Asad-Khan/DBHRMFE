@@ -36,23 +36,23 @@ const jobPosting = () => {
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
          
           return { ...x, value: x.name, label: x.name };
         });
-        console.log("tempArr", tempArr);
+       // console.log("tempArr", tempArr);
         setEmployees(tempArr);
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   function handleChange(evt) {
-    debugger;
+         
     const value = evt.target ? evt.target.value : evt.value;
     const name = evt.target ? evt.target.name : evt.field;
     dispatch(
@@ -70,17 +70,17 @@ const jobPosting = () => {
   };
 
   const addAndUpdatePosting = async () => {
-    debugger;
+         
     if (!doValidation()) {
       if (hrState.isEditPostingClicked === true) {
         try {
-          debugger;
+               
           const res = await jobPostingRequests.updatejobPostingApi(
             hrState.newPosting
           );
           console.log("updatePosting Response", res);
           if (res.error === false) {
-            debugger;
+                 
             toast.success("Posting Updated !");
             let temp = hrState.postings.filter(
               (item) => item.id != res.data.id
@@ -91,32 +91,32 @@ const jobPosting = () => {
           }
         } catch (e) {
           toast.error("error !");
-          debugger;
+               
         }
       } else {
         try {
-          debugger;
+               
           const res = await jobPostingRequests.addjobPostingApi(
             hrState.newPosting
           );
           console.log("addjobPostingApi Response", res);
-          debugger;
+               
           if (res.error === false) {
             toast.success("Posting Added !");
-            debugger;
+                 
             dispatch(updatePostingsAction([...hrState.postings, res.data]));
             dispatch(updateIsAddPostingClickedAction(false));
             dispatch(updateIsEditPostingClickedAction(false));
           }
         } catch (e) {
-          debugger;
+               
           toast.error("error");
         }
       }
     } else {
       toast.error("validation failed");
-      console.log("validation failed");
-      debugger;
+      //console.log("validation failed");
+           
     }
   };
  
@@ -124,10 +124,10 @@ const jobPosting = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+         
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+           
       if (hrState.newPosting[x[0]] !== undefined) {
         if (hrState.newPosting[x[0]] !== "") {
           if (x[0] === "jobTitle" || x[0] === "department") {
@@ -148,7 +148,7 @@ const jobPosting = () => {
         isError = true;
       }
     });
-    debugger;
+         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -156,7 +156,7 @@ const jobPosting = () => {
         isError = true;
       }
     });
-    console.log("isError", isError);
+   // console.log("isError", isError);
     return isError;
   };
   const handleProjectManagerSelectChange = (param) => {

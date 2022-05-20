@@ -48,11 +48,11 @@ const Addteams = () => {
   const handleGetTeamMembers = async (teamId) => {
     try {
       const res = await teamMembersRequests.getTeamMembersApi(teamId);
-      debugger;
+           
       var arr = [];
       var tempClient;
       if (res.error === false) {
-        debugger;
+             
         res.data.map((item) => {
           tempClient = item.client;
           console.log("item", item);
@@ -75,7 +75,7 @@ const Addteams = () => {
 					clientId:tempClient?.id
 				})
 
-				debugger;
+				     
 				console.log(tempTeam)
       }
     } catch (err) {
@@ -85,39 +85,39 @@ const Addteams = () => {
   const handleGetClientsApi = async () => {
     try {
       const res = await clientRequests.getClientsApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.name, label: x.name };
         });
-        console.log("tempArr", tempArr);
+       // console.log("tempArr", tempArr);
         setClients(tempArr);
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-      debugger;
+           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.name, label: x.name };
         });
-        console.log("tempArr", tempArr);
+        //console.log("tempArr", tempArr);
         setEmployees(tempArr);
       }
     } catch (err) {
-      console.log(err);
+     // console.log(err);
     }
   };
 
   function handleChange(evt) {
-    debugger;
+         
     const value = evt.target.value;
     setTempTeam({
       ...tempTeam,
@@ -135,13 +135,13 @@ const Addteams = () => {
       var apiError = false;
       if (teamsState.isEditTeamClicked === true) {
         try {
-          debugger;
+               
           const res = await teamRequests.updateTeamApi(tempTeam);
-          console.log("updateTeam Response", res);
+         // console.log("updateTeam Response", res);
 
-          debugger;
+               
           if (res.error === false) {
-            debugger;
+                 
 						toast.success('team Updated')
 
             let temp = teamsState.teams.filter(
@@ -158,19 +158,19 @@ const Addteams = () => {
           apiError = true;
 					// alert("err in update team", err);
 					toast.error('error');
-          console.log("err in update team", err);
-          debugger;
+          //console.log("err in update team", err);
+               
         }
 
         // for team member and client
         try {
-          debugger;
+               
           const res = await teamMembersRequests.addTeamMembersApi(tempTeam);
-          console.log("updateTeam Response", res);
+         //console.log("updateTeam Response", res);
 
-          debugger;
+               
           if (res.error === false) {
-            debugger;
+                 
           }
           if (res.error === true) {
             apiError = true;
@@ -179,8 +179,8 @@ const Addteams = () => {
           apiError = true;
 					// alert("err in update team-members", err);
 					toast.error('error')
-          console.log("err in update team-members", err);
-          debugger;
+         // console.log("err in update team-members", err);
+               
         }
         if (apiError === false) {
           dispatch(updateIsAddTeamClickedAction(false));
@@ -188,21 +188,21 @@ const Addteams = () => {
         }
       } else {
         try {
-          debugger;
+               
           const res = await teamRequests.addTeamApi(tempTeam);
-          console.log("addTeamApi Response", res);
+        //  console.log("addTeamApi Response", res);
 
-          debugger;
+               
           if (res.error === false) {
-            debugger;
+                 
 
             dispatch(updateTeamsAction([...teamsState.teams, res.data]));
             dispatch(updateIsAddTeamClickedAction(false));
             dispatch(updateIsEditTeamClickedAction(false));
           }
         } catch (e) {
-          console.log("error in addTeamApi", e);
-          debugger;
+         // console.log("error in addTeamApi", e);
+               
         }
       }
     }
@@ -211,10 +211,10 @@ const Addteams = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+         
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+           
       if (tempTeam[x[0]] !== undefined) {
         if (tempTeam[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -235,7 +235,7 @@ const Addteams = () => {
         isError = true;
       }
     });
-    debugger;
+         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -243,7 +243,7 @@ const Addteams = () => {
         isError = true;
       }
     });
-    console.log("isError", isError);
+    //console.log("isError", isError);
     return isError;
   };
 
@@ -267,7 +267,7 @@ const Addteams = () => {
     });
   };
   const handleEmployeesSelectChange = (param) => {
-    debugger;
+         
     setTempTeam({
       ...tempTeam,
       members: param.map((item) => item.id),
@@ -280,24 +280,24 @@ const Addteams = () => {
       if (empToDelete.length > 0) {
         handleDeleteTeamMember(teamsState.newTeam.id, empToDelete[0].id);
       }
-      console.log(empToDelete);
+     // console.log(empToDelete);
     }
-    console.log(selectedTeamMembers);
+    //console.log(selectedTeamMembers);
     setSelectedTeamMembers(param);
   };
 
   const handleDeleteTeamMember = async (teamId, member) => {
-    debugger;
+         
     var res = await teamMembersRequests.deleteTeamMemberApi(teamId, member);
     if (res.error === false) {
-      console.log("team member removed", res.data);
+     // console.log("team member removed", res.data);
     }
   };
-  console.log("teamsState", teamsState);
-  console.log("tempTeam", tempTeam);
+ // console.log("teamsState", teamsState);
+  //console.log("tempTeam", tempTeam);
 
-  console.log("selectedClient", selectedClient);
-  console.log("selectedTeamMembers", selectedTeamMembers);
+  //console.log("selectedClient", selectedClient);
+ // console.log("selectedTeamMembers", selectedTeamMembers);
   return (
     <>
       <div className="container-fluid px-1 py-5 mx-auto">

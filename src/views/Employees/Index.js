@@ -18,7 +18,7 @@ import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 
 function employees() {
-  debugger;
+       
   var action = "";
 
   const state = useSelector((state) => state.employees);
@@ -33,23 +33,23 @@ function employees() {
       state.isAddEmployeeClicked === false ||
       state.isEditEmployeeClicked === false
     ) {
-      debugger;
+           
       handleGetEmployeeApi();
     }
   }, [state.isAddEmployeeClicked, state.isEditEmployeeClicked]);
 
   useEffect(() => {
-    debugger;
+         
     setColumnsAndRows(state.employeesDataTable);
   }, [state.employeesDataTable]);
   function setSelectedRow(rowData) {
-    debugger;
+         
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+               
           handleDelete(rowData);
           break;
         case "view":
@@ -68,7 +68,7 @@ function employees() {
   }
 
   const handleDelete = async (employee) => {
-    debugger;
+         
     try {
       const res = await employeeRequests.deleteEmployeeApi(employee.id);
       if (res.error === false) {
@@ -79,20 +79,20 @@ function employees() {
     }
   };
   const handleEdit = (employee) => {
-    debugger;
+         
     dispatch(updateNewEmployeeAction(employee));
     dispatch(updateIsEditEmployeeClickedAction(true));
   };
   const handleView =async (employee) => {
-    debugger;
+         
     try {
       const res = await employeeRequests.getEmployeeWorkHistory(employee.id);
 			if (res.error === false) {
-				debugger;
+				     
 				var tempObj = { employee: employee, workHistory: res.data }
 				dispatch(updateNewEmployeeAction(tempObj));
 				dispatch(updateIsViewEmpClickedAction(true));
-				debugger;
+				     
       }
     } catch (err) {
       console.log(err);
@@ -101,7 +101,7 @@ function employees() {
   const handleGetEmployeeApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-      debugger;
+           
       if (res.error === false) {
         dispatch(updateEmployeesAction(res.data));
         var tempArr = [];
@@ -137,7 +137,7 @@ function employees() {
             clickEvent: setSelectedRow,
           });
         });
-        debugger;
+             
         console.log("eventarr", tempArr);
         var tempObj = { ...state.employeesDataTable, rows: tempArr };
         dispatch(updateEmployeesDataTableAction(tempObj));
@@ -149,7 +149,7 @@ function employees() {
 
 	function handleAddEmployee() {
 		// console.log('true ho gya...!')
-		debugger;
+		     
 		dispatch(updateNewEmployeeAction({employee_No:"emp-"+(state.employees.length+1)}))
 		dispatch(updateIsAddEmployeeClickedAction(true));
   }

@@ -26,7 +26,7 @@ const addclients = ({}) => {
   const clientsState = useSelector((state) => state.clients);
 
   function handleChange(evt) {
-    debugger;
+        
     const value = evt.target.value;
     dispatch(
       updateNewClientAction({
@@ -44,13 +44,13 @@ const addclients = ({}) => {
     if (!doValidation()) {
       if (clientsState.isEditClientClicked === true) {
         try {
-          debugger;
+              
           const res = await clientRequests.updateClientApi(clientsState.newClient);
           console.log("updateClient Response", res);
 
-          debugger;
+              
           if (res.error === false) {
-            debugger;
+                
             toast.success("Client Updated");
             let temp = clientsState.clients.filter(
               (item) => item.id != res.data.id
@@ -62,17 +62,17 @@ const addclients = ({}) => {
         } catch (e) {
           toast.error("error");
 
-          debugger;
+              
         }
       } else {
         try {
-          debugger;
+              
           const res = await clientRequests.addClientApi(clientsState.newClient);
           console.log("addClientApi Response", res);
 
-          debugger;
+              
           if (res.error === false) {
-            debugger;
+                
             toast.success("Client Added");
 
             dispatch(updateClientsAction([...clientsState.clients, res.data]));
@@ -81,23 +81,23 @@ const addclients = ({}) => {
         } catch (e) {
           toast.error("error");
 
-          debugger;
+              
         }
       }
     } else {
-      console.log("validation failed");
+      //console.log("validation failed");
       toast.error("validation failed");
-      debugger;
+          
     }
   };
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-    debugger;
+        
 
     Object.entries(fieldsWithError).forEach((x) => {
-      debugger;
+          
       if (clientsState.newClient[x[0]] !== undefined) {
         if (clientsState.newClient[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "contactNumber") {
@@ -118,7 +118,7 @@ const addclients = ({}) => {
         isError = true;
       }
     });
-    debugger;
+        
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -126,7 +126,7 @@ const addclients = ({}) => {
         isError = true;
       }
     });
-    console.log("isError", isError);
+   // console.log("isError", isError);
     return isError;
   };
 
@@ -173,7 +173,7 @@ const addclients = ({}) => {
     }
   }
   console.log("fieldsWithError", fieldsWithError);
-  console.log("errorInfo", errorInfo);
+ // console.log("errorInfo", errorInfo);
 
   return (
     <>

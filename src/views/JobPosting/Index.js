@@ -16,7 +16,7 @@ import { MDBDataTable } from "mdbreact";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 
 function JobPosting() {
-  debugger;
+       
   var action = "";
 
   const hrState = useSelector((state) => state.jobPosting);
@@ -24,7 +24,7 @@ function JobPosting() {
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
-    debugger;
+         
     handleGetjobPostingApi();
   }, []);
   useEffect(() => {
@@ -37,18 +37,18 @@ function JobPosting() {
   }, [hrState.isAddPostingClicked, hrState.isEditPostingClicked]);
 
   useEffect(() => {
-    debugger;
+         
     setColumnsAndRows(hrState.postingsDataTable);
   }, [hrState.postingsDataTable]);
 
   function setSelectedRow(rowData) {
-    debugger;
+         
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+               
           handleDelete(rowData);
           break;
         case "view":
@@ -62,28 +62,28 @@ function JobPosting() {
           break;
       }
     }
-    console.log("rowData", rowData);
-    console.log("action", action);
+    /* console.log("rowData", rowData);
+    console.log("action", action); */
   }
 
   const handleDelete = async (positions) => {
-    debugger;
+         
     try {
       const res = await jobPostingRequests.deletejobPostingApi(positions.id);
       if (res.error === false) {
         handleGetjobPostingApi();
       }
     } catch (err) {
-      console.log(err);
+     // console.log(err);
     }
   };
   const handleEdit = (positions) => {
-    debugger;
+         
     dispatch(updateNewPostingAction(positions));
     dispatch(updateIsEditPostingClickedAction(true));
   };
   const handleView = async(positions) => {
-    debugger;
+         
     
         dispatch(updateIsViewPostingClickedAction(true));
         dispatch(updateNewPostingAction(positions));
@@ -92,7 +92,7 @@ function JobPosting() {
   const handleGetjobPostingApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
-      debugger;
+           
       if (res.error === false) {
         dispatch(updatePostingsAction(res.data));
         var tempArr = [];
@@ -126,20 +126,20 @@ function JobPosting() {
             clickEvent: setSelectedRow,
           });
         });
-        debugger;
-        console.log("eventarr", tempArr);
+             
+        //console.log("eventarr", tempArr);
         var tempObj = { ...hrState.postingsDataTable, rows: tempArr };
         dispatch(updatePostingsDataTableAction(tempObj));
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   function handleAddPositions() {
     dispatch(updateIsAddPostingClickedAction(true));
   }
-  console.log("hrState", hrState);
+ // console.log("hrState", hrState);
 
   return (
     <>

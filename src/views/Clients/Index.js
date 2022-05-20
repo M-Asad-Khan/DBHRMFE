@@ -16,7 +16,7 @@ import { MDBDataTable } from "mdbreact";
 import { clientRequests } from "src/API/ClientApi";
 
 function Clients() {
-  debugger;
+       
   var action = "";
 
   const clientsState = useSelector((state) => state.clients);
@@ -24,7 +24,7 @@ function Clients() {
   const [columnsAndRows, setColumnsAndRows] = useState({});
 
   useEffect(() => {
-    debugger;
+         
     handleGetClientsApi();
   }, []);
   useEffect(() => {
@@ -37,18 +37,18 @@ function Clients() {
   }, [clientsState.isAddClientClicked, clientsState.isEditClientClicked]);
 
   useEffect(() => {
-    debugger;
+         
     setColumnsAndRows(clientsState.clientsDataTable);
   }, [clientsState.clientsDataTable]);
 
   function setSelectedRow(rowData) {
-    debugger;
+         
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-          debugger;
+               
           handleDelete(rowData);
           break;
         case "view":
@@ -62,28 +62,28 @@ function Clients() {
           break;
       }
     }
-    console.log("rowData", rowData);
-    console.log("action", action);
+   // console.log("rowData", rowData);
+    //console.log("action", action);
   }
 
   const handleDelete = async (client) => {
-    debugger;
+         
     try {
       const res = await clientRequests.deleteClientApi(client.id);
       if (res.error === false) {
         handleGetClientsApi();
       }
     } catch (err) {
-      console.log(err);
+     // console.log(err);
     }
   };
   const handleEdit = (client) => {
-    debugger;
+         
     dispatch(updateNewClientAction(client));
     dispatch(updateIsEditClientClickedAction(true));
   };
   const handleView = async(client) => {
-    debugger;
+         
     try {
       const res = await clientRequests.GetClientProjectsApi(client.id);
       if (res.error === false) {
@@ -97,7 +97,7 @@ function Clients() {
   const handleGetClientsApi = async () => {
     try {
       const res = await clientRequests.getClientsApi();
-      debugger;
+           
       if (res.error === false) {
         dispatch(updateClientsAction(res.data));
         var tempArr = [];
@@ -131,7 +131,7 @@ function Clients() {
             clickEvent: setSelectedRow,
           });
         });
-        debugger;
+             
         console.log("eventarr", tempArr);
         var tempObj = { ...clientsState.clientsDataTable, rows: tempArr };
         dispatch(updateClientsDataTableAction(tempObj));
