@@ -1,7 +1,7 @@
 import axios from "axios";
 class TeamApi {
   addTeamApi = async (team) => {
-    debugger;
+          
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams`,
@@ -21,14 +21,14 @@ class TeamApi {
       },
     })
       .then((result) => {
-        debugger;
+              
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+              
         return {
           error: true,
           data: err,
@@ -37,7 +37,7 @@ class TeamApi {
   };
 
   deleteTeamsApi = async (id) => {
-    debugger;
+          
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams/${id}`,
@@ -48,14 +48,14 @@ class TeamApi {
       },
     })
       .then((result) => {
-        debugger;
+              
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+              
         return {
           error: true,
           data: err,
@@ -64,7 +64,7 @@ class TeamApi {
   };
 
   updateTeamApi = async (team) => {
-    debugger;
+          
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams/${team.id}`,
@@ -82,14 +82,14 @@ class TeamApi {
       },
     })
       .then((result) => {
-        debugger;
+              
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+              
         return {
           error: true,
           data: err,

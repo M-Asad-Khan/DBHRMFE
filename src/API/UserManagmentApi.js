@@ -87,7 +87,7 @@ class UserManagment {
 	}
 	
 	updateRole(role) {
-		debugger;
+		       
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/role/${role.id}`,
@@ -141,7 +141,7 @@ class UserManagment {
   }
 
   getRoles() {
-    debugger;
+           
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/role`,

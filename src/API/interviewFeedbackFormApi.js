@@ -3,7 +3,7 @@ import axios from "axios";
 class interviewFeedbackFormApi {
   addinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse) => {
     console.log(newFeedback);
-    debugger;
+         
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interViewFeedBackResponse`,
@@ -24,14 +24,14 @@ class interviewFeedbackFormApi {
       },
     })
       .then((result) => {
-        debugger;
+             
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+             
         const error = JSON.stringify(err);
         console.log("interviewFeedback Error", error);
         return {
@@ -89,7 +89,7 @@ class interviewFeedbackFormApi {
 
 
   updateinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse) => {
-    debugger;
+         
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interViewFeedBackResponse/${newFeedback.id}`,
@@ -108,14 +108,14 @@ class interviewFeedbackFormApi {
       },
     })
       .then((result) => {
-        debugger;
+             
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+             
         return {
           error: true,
           data: err,

@@ -22,14 +22,14 @@ class clientApi {
                 },
             })
             .then((result) => {
-                debugger;
+                   
                 return {
                     error: false,
                     data: result.data,
                 };
             })
             .catch((err) => {
-                debugger;
+                   
                 return {
                     error: true,
                     data: err,
@@ -38,7 +38,7 @@ class clientApi {
     };
 
     deleteClientApi = async(id) => {
-        debugger;
+           
         return axios({
                 method: "delete",
                 url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/${id}`,
@@ -49,14 +49,14 @@ class clientApi {
                 },
             })
             .then((result) => {
-                debugger;
+                   
                 return {
                     error: false,
                     data: result.data,
                 };
             })
             .catch((err) => {
-                debugger;
+                   
                 return {
                     error: true,
                     data: err,
@@ -82,7 +82,7 @@ class clientApi {
                 };
             })
             .catch((err) => {
-                debugger;
+                   
                 return {
                     error: true,
                     data: err,
@@ -91,7 +91,7 @@ class clientApi {
     };
 
     updateClientApi = async(client) => {
-        debugger;
+           
         return axios({
                 method: "patch",
                 url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/${client.id}`,
@@ -110,14 +110,14 @@ class clientApi {
                 },
             })
             .then((result) => {
-                debugger;
+                   
                 return {
                     error: false,
                     data: result.data,
                 };
             })
             .catch((err) => {
-                debugger;
+                   
                 return {
                     error: true,
                     data: err,

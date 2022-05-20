@@ -3,7 +3,7 @@ import axios from "axios";
 class jobPostingApi {
   addjobPostingApi = async (newPosting) => {
     console.log(newPosting);
-    debugger;
+         
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition`,
@@ -25,14 +25,14 @@ class jobPostingApi {
       },
     })
       .then((result) => {
-        debugger;
+             
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+             
         const error = JSON.stringify(err);
         console.log("jobPosition Error", error);
         return {
@@ -66,7 +66,7 @@ class jobPostingApi {
   };
 
   updatejobPostingApi = async (newPosting) => {
-    debugger;
+         
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${newPosting.id}`,
@@ -87,14 +87,14 @@ class jobPostingApi {
       },
     })
       .then((result) => {
-        debugger;
+             
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+             
         return {
           error: true,
           data: err,
@@ -102,7 +102,7 @@ class jobPostingApi {
       });
   };
   deletejobPostingApi = async (id) => {
-    debugger;
+         
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${id}`,
@@ -113,14 +113,14 @@ class jobPostingApi {
       },
     })
       .then((result) => {
-        debugger;
+             
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+             
         return {
           error: true,
           data: err,

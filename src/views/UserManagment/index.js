@@ -138,7 +138,7 @@ function UserManagment() {
   const handleGetPermissions = async () => {
     try {
       const res = await userManagmentRequests.getPermission();
-      debugger;
+        
       if (res.error === false) {
         dispatch(updatePermissionsAction(res.data));
         var tempArr = [];
@@ -191,7 +191,7 @@ function UserManagment() {
               });
           }
         });
-        debugger;
+          
         console.log("tempArr 111222", tempArr);
         var tempObj = {
           ...userManagmentState.permissionsDataTable,
@@ -204,18 +204,18 @@ function UserManagment() {
     }
   };
   const handleEditUser = (employee) => {
-    debugger;
+      
     dispatch(updateNewUserAction(employee));
     dispatch(updateIsEditUserClickedAction(true));
   };
   const handleEditRole = (role) => {
-    debugger;
+      
     dispatch(updateNewRoleAction(role));
     dispatch(updateIsEditRoleClickedAction(true));
   };
 
   const handleEditPermission = (permission) => {
-    debugger;
+      
     console.log("permission", permission);
     dispatch(updateNewPermissionAction(permission));
     dispatch(updateIsEditPermissionClickedAction(true));

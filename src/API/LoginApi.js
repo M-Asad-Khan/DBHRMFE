@@ -1,7 +1,7 @@
 import axios from "axios";
 class LoginApi{
 	loginApi(loginInfo) {
-		debugger;
+		  
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/login`,
@@ -16,14 +16,14 @@ class LoginApi{
       },
     })
       .then((result) => {
-        debugger;
+          
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+          
         return {
           error: true,
           data: err,

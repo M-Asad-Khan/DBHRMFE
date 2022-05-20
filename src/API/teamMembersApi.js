@@ -26,7 +26,7 @@ class TeamMembersApi {
   };
 
   deleteTeamMemberApi = async (teamId, memberId) => {
-    debugger;
+           
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams-member`,
@@ -41,14 +41,14 @@ class TeamMembersApi {
       },
     })
       .then((result) => {
-        debugger;
+               
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+               
         return {
           error: true,
           data: err,
@@ -57,7 +57,7 @@ class TeamMembersApi {
   };
 
   addTeamMembersApi = async (team) => {
-    debugger;
+           
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams-member/`,
@@ -73,14 +73,14 @@ class TeamMembersApi {
       },
     })
       .then((result) => {
-        debugger;
+               
         return {
           error: false,
           data: result.data,
         };
       })
       .catch((err) => {
-        debugger;
+               
         return {
           error: true,
           data: err,

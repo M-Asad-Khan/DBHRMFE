@@ -35,7 +35,7 @@ const Login = () => {
   };
   const handleLogin = async () => {
     try {
-      debugger;
+             
       const res = await loginRequest.loginApi(tempLogin);
       if (res.error === false) {
 					toast.success("Wellcome !");
@@ -44,13 +44,13 @@ const Login = () => {
 
 				history.push("/dashboard");
 
-        debugger;
+               
         // dispatch(updateRolesAction([ res.data]));
         // dispatch(updateIsAddRoleClickedAction(false));
         // dispatch(updateIsEditRoleClickedAction(false));
       }
       if (res.error === true) {
-        debugger;
+               
         if (res?.data?.response.status === 401) {
           toast.error("Unauthorized !");
         }
@@ -60,7 +60,7 @@ const Login = () => {
       }
     } catch (e) {
       toast.error("error !");
-      debugger;
+             
     }
   };
   console.log(currentUser);

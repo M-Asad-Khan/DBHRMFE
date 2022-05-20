@@ -79,11 +79,11 @@ function Feedbacks() {
     }
   };
   const handleView = async (feedback) => {
-    debugger;
+     
     try{
       const res =await interviewFeedbackFormRequests.getOneByIdApi(feedback.candidateId);
       if(res.error === false){
-        debugger;
+         
         dispatch(updateNewFeedbackAction(res.data));
         
         dispatch(updateIsViewFeedbackClickedAction(true));
@@ -92,7 +92,7 @@ function Feedbacks() {
      // console.log(err);
     }
  
-    debugger;
+     
   };
   const handleEdit = (feedback) => {
     debugger
