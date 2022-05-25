@@ -6,7 +6,7 @@ import {
   cilNotes,
   cilPuzzle,
   cilSpeedometer,
-  cilLockLocked
+  cilLockLocked,
 } from "@coreui/icons";
 import { CNavGroup, CNavItem } from "@coreui/react";
 const _nav = [
@@ -51,27 +51,41 @@ const _nav = [
     items: [
       {
         component: CNavGroup,
-        name:"Recruitment",
-        to:"/buttons",
-        items:[
+        name: "Employee Details",
+        to: "/buttons",
+        items: [
           {
             component: CNavItem,
-            name:"Job Posting",
-            to:"/jobPosting",
+            name: "Employee Evaluation",
+            to: "/employeeEvaluation",
+          },
+        ],
+      },
+      {
+        component: CNavGroup,
+        name: "Recruitment",
+        to: "/buttons",
+        items: [
+          {
+            component: CNavItem,
+            name: "Job Posting",
+            to: "/jobPosting",
           },
           {
-            component:CNavItem,
-            name:"Interview Feedback",
-            to:"/interviewFeedback"
+            component: CNavItem,
+            name: "Interview Feedback",
+            to: "/interviewFeedback",
           },
           {
-            component:CNavItem,
-            name:"Candidates",
-            to:"/candidates",
+            component: CNavItem,
+            name: "Candidates",
+            to: "/candidates",
           },
-        ]
-      }
+        
+        ],
+      },
     ],
+    
   },
   {
     component: CNavGroup,

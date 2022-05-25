@@ -172,7 +172,7 @@ const addclients = ({}) => {
       });
     }
   }
-  console.log("fieldsWithError", fieldsWithError);
+  console.log("clientsState", clientsState);
  // console.log("errorInfo", errorInfo);
 
   return (

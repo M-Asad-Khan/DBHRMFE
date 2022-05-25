@@ -10,14 +10,34 @@ import { FaUsers } from "react-icons/fa";
 import { GrUserManager, GrUserNew } from "react-icons/gr";
 import { RiTeamLine } from "react-icons/ri";
 import { BsCalendar2Date } from "react-icons/bs";
+
+import { employeeEvaluationRequests } from "src/API/employeeEvaluationApi";
+
 const ViewTeam = () => {
   const teamsState = useSelector((state) => state.teams);
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   const dispatch = useDispatch();
 
   const handleCancel = () => {
     dispatch(updateIsViewTeamClickedAction(false));
     dispatch(updateNewTeamAction({}));
+  };
+  const handleEvaluationClick = async (evaluationId) => {
+    try {
+      const res = await employeeEvaluationRequests.getEmployeesEvaluationApi(
+        evaluationId
+      );
+      if (res.error === false) {
+        debugger;
+        // handleGetTeamsApi()
+        dispatch(updateIsViewEmpEvaluationClickedAction(true));
+        dispatch(updateNewEmployeeEvaluationAction(res.data));
+        history.push("/employeeEvaluation");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   console.log(teamsState);
   return (
@@ -63,13 +83,23 @@ const ViewTeam = () => {
                 </h6>
               </div>
               <ul>
-
                 {teamsState?.newTeam.length > 0 &&
-                  teamsState?.newTeam?.map((element,i) => {
+                  teamsState?.newTeam?.map((element, i) => {
                     return <li key={i}>{element.employee.name}</li>;
                   })}
               </ul>
-
+              {currentUser?.profile?.id ===
+              teamsState?.newTeam[0]?.team?.teamLeadName?.id ? (
+                <span
+                  onClick={() => handleEvaluationClick(teamsState?.newTeam)}
+                  className="anchor font weight-bold"
+                  title="Performance Evaluation Form"
+                >
+                  Employe Evaluation Form
+                </span>
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
@@ -87,7 +117,6 @@ const ViewTeam = () => {
                   </div>
                   <div>{teamsState?.newTeam[0]?.client?.name}</div>
                 </div>
-
 
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">

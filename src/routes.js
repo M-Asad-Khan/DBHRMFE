@@ -8,6 +8,7 @@ const jobPosting = React.lazy(() => import("./views/JobPosting/Index"));
 const UserManagment = React.lazy(() => import("./views/UserManagment/index"));
 const interviewFeedback = React.lazy(() =>import("./views/interviewFeedback/Index"));
 const candidates = React.lazy(() => import("./views/Candidates/Index"));
+const employeeEvaluation = React.lazy(() => import("./views/employeeEvaluation/Index"));
 export const adminRoutes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },
   { path: "/", exact: true, name: "Home" },
@@ -18,5 +19,6 @@ export const adminRoutes = [
   { path: "/jobPosting",exact: true,name: "Job Posting",component: jobPosting},
   { path: "/userManagment",exact: true,name: "User Managment",component: UserManagment},
   { path: "/interviewFeedback", exact: true, name: "Interview Feedback", component: interviewFeedback },
-  { path: "/candidates",exact: true,name: "Candidates",component: candidates}
+  { path: "/candidates",exact: true,name: "Candidates",component: candidates},
+  { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
 ];

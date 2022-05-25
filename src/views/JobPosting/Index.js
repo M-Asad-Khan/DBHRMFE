@@ -127,7 +127,7 @@ function JobPosting() {
           });
         });
              
-        //console.log("eventarr", tempArr);
+        console.log("eventarr", tempArr);
         var tempObj = { ...hrState.postingsDataTable, rows: tempArr };
         dispatch(updatePostingsDataTableAction(tempObj));
       }
