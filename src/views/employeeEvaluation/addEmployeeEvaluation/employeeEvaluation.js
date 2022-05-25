@@ -15,10 +15,10 @@ import Select from "react-select";
 import { CButton } from "@coreui/react";
 import { toast } from "react-toastify";
 
-// import backIcon from '/src/assets/back-icon.png'
+
 
 const employeeEvaluation = ({}) => {
-  const empDisciplineOptions = [
+  const Options = [
     { value: "Excellent", label: "Excellent", field: "employeeDiscipline" },
     { value: "Good", label: "Good", field: "employeeDiscipline" },
     { value: "Fair", label: "Fair", field: "employeeDiscipline" },
@@ -37,79 +37,74 @@ const employeeEvaluation = ({}) => {
     { value: "Above Average", label: "Above Average", field: "workQuality" },
     { value: "Below Average", label: "Below Average", field: "workQuality" },
   ];
-  const empWorkConsistencyOptions = [
-    { value: "Excellent", label: "Excellent", field: "workConsistency" },
-    { value: "Good", label: "Good", field: "workConsistency" },
-    { value: "Fair", label: "Fair", field: "workConsistency" },
-    { value: "Poor", label: "Poor", field: "workConsistency" },
-  ];
-  const empDecisionAbilityOptions = [
-    { value: "Excellent", label: "Excellent", field: "decisionAbility" },
-    { value: "Good", label: "Good", field: "decisionAbility" },
-    { value: "Fair", label: "Fair", field: "decisionAbility" },
-    { value: "Poor", label: "Poor", field: "decisonAbility" },
-  ];
-  const empKnowledgeOptions = [
-    { value: "Excellent", label: "Excellent", field: "knowledge" },
-    { value: "Good", label: "Good", field: "knowledge" },
-    { value: "Fair", label: "Fair", field: "knowledge" },
-    { value: "Poor", label: "Poor", field: "knowledge" },
-  ];
+
 
   const dispatch = useDispatch();
-  const hrState = useSelector((state) => state.employeesEvaluation);
-  const employee = hrState?.newEvaluation?.employeeName;
+  const evaluationState = useSelector((state) => state.employeeEvaluation);
+  const employee = evaluationState?.newEvaluation?.employeeName;
   const [tempEmployee, setTempEmployee] = useState({value:employee?.name,label:employee?.name});
   const [employees, setEmployees] = useState([]);
-  const team = hrState?.newEvaluation?.teamName;
+  const team = evaluationState?.newEvaluation?.teamName;
   const [tempTeam, setTempTeam] = useState({value:team?.name,label:team?.name});
   const [teams, setTeams] = useState([]);
 
-  useEffect(() => {
-    handleGetEmployeesApi();
-    handleGetTeamsApi();
-  }, []);
-  const handleGetEmployeesApi = async () => {
-    try {
-      const res = await employeeRequests.getEmployeesApi();
+   useEffect(() => {
+     handleGetEmployeesApi();
+     handleGetTeamsApi();
+   }, []);
+   const handleGetEmployeesApi = async () => {
+     try {
+       const res = await employeeRequests.getEmployeesApi();
            
-      if (res.error === false) {
-        var tempArr = [];
-        var tempArr = res.data.map((x) => {
+       if (res.error === false) {
+         var tempArr = [];
+         var tempArr = res.data.map((x) => {
          
-          return { ...x, value: x.name, label: x.name };
-        });
-       // console.log("tempArr", tempArr);
-        setEmployees(tempArr);
-      }
-    } catch (err) {
-      //console.log(err);
-    }
-  };
+           return { ...x, value: x.name, label: x.name };
+         });
+        // console.log("tempArr", tempArr);
+         setEmployees(tempArr);
+       }
+     } catch (err) {
+       //console.log(err);
+     }
+   };
 
-  const handleGetTeamsApi = async () => {
-    try {
-      const res = await teamRequests.getTeamsApi();
+   const handleGetTeamsApi = async () => {
+     try {
+       const res = await teamRequests.getTeamsApi();
            
-      if (res.error === false) {
-        var tempArr = [];
-        var tempArr = res.data.map((x) => {
+       if (res.error === false) {
+         var tempArr = [];
+         var tempArr = res.data.map((x) => {
          
-          return { ...x, value: x.teamName, label: x.teamName };
-        });
-       // console.log("tempArr", tempArr);
-        setTeams(tempArr);
-      }
-    } catch (err) {
-      //console.log(err);
-    }
-  };
-  function handleChange(evt) {
-    const value = evt?.target?.value;
+           return { ...x, value: x.teamName, label: x.teamName };
+         });
+        // console.log("tempArr", tempArr);
+         setTeams(tempArr);
+       }
+     } catch (err) {
+       //console.log(err);
+     }
+   };
+  function handleChange(evt,label) {
+    debugger
+    console.log(evt)
     dispatch(
       updateNewEmployeeEvaluationAction({
-        ...hrState?.newEvaluation,
-        [evt?.target?.name]: value,
+        ...evaluationState?.newEvaluation,
+        [label]: evt.value,
+      })
+    );
+  }
+
+  function handleInputFields(evt) {
+    debugger
+    console.log(evt)
+    dispatch(
+      updateNewEmployeeEvaluationAction({
+        ...evaluationState?.newEvaluation,
+        [evt.target.name]: evt.target.value,
       })
     );
   }
@@ -118,65 +113,70 @@ const employeeEvaluation = ({}) => {
     dispatch(updateIsAddEmployeeEvaluationClickedAction(false));
     dispatch(updateIsEditEmployeeEvaluationClickedAction(false));
   };
-  const addAndUpdateEmployeeEvaluation = async () => {
-    if (hrState.isEditEmployeeEvaluationClicked === true) {
-      try {
-        const res =
-          await employeeEvaluationRequests.updateEmployeeEvaluationApi(
-            hrState.newEvaluation
-          );
-        console.log("updateEmployeeEvaluation Response", res);
-        if (res.error === false) {
-          toast.success("Employee Evaluation Updated !");
-          let temp = hrState.employeesEvaluation.filter(
-            (item) => item.id != res.data.id
-          );
-          dispatch(updateEmployeesEvaluationAction([...temp, res.data]));
-          dispatch(updateIsAddEmployeeEvaluationClickedAction(false));
-          dispatch(updateIsEditEmployeeEvaluationClickedAction(false));
-        }
-      } catch (e) {
-        toast.error("error !");
-      }
-    } else {
-      try {
-        const res = await employeeEvaluationRequests.addEmployeeEvaluationApi(
-          hrState.newEvaluation
-        );
-        console.log("addEmployeeEvaluationApi Response", res);
+   const addAndUpdateEmployeeEvaluation = async () => {
+     if (evaluationState?.isEditEmployeeEvaluationClicked === true) {
+       try {
+         const res =
+           await employeeEvaluationRequests?.updateEmployeeEvaluationApi(
+             evaluationState?.newEvaluation
+           );
+         console.log("updateEmployeeEvaluation Response", res);
+         if (res.error === false) {
+           toast.success("Employee Evaluation Updated !");
+           let temp = evaluationState?.employeesEvaluation?.filter(
+             (item) => item.id != res.data.id
+           );
+           dispatch(updateEmployeesEvaluationAction([...temp, res.data]));
+           dispatch(updateIsAddEmployeeEvaluationClickedAction(false));
+           dispatch(updateIsEditEmployeeEvaluationClickedAction(false));
+         }
+       } catch (e) {
+         toast.error("error !");
+       }
+     } else {
+       try {
+         const res = await employeeEvaluationRequests?.addEmployeeEvaluationApi(
+           evaluationState?.newEvaluation
+         );
+         console.log("addEmployeeEvaluationApi Response", res);
 
-        if (res.error === false) {
-          toast.success("Employee Evaluation Added !");
+         if (res.error === false) {
+           toast.success("Employee Evaluation Added !");
 
-          dispatch(
-            updateEmployeesEvaluationAction([
-              ...hrState.employeesEvaluation,
-              res.data,
-            ])
-          );
-          dispatch(updateIsAddEmployeeEvaluationClickedAction(false));
-          dispatch(updateIsEditEmployeeEvaluationClickedAction(false));
-        }
-      } catch (e) {
-        toast.error("error");
-      }
-    }
-  };
+           dispatch(
+             updateEmployeesEvaluationAction([
+               ...evaluationState?.employeesEvaluation,
+               res?.data,
+             ])
+           );
+           dispatch(updateIsAddEmployeeEvaluationClickedAction(false));
+           dispatch(updateIsEditEmployeeEvaluationClickedAction(false));
+         }
+       } catch (e) {
+         toast.error("error");
+       }
+     }
+   };
 
-  const handleReactSelectChange = (param) => {
-      debugger;
-    dispatch(
-      updateNewEmployeeEvaluationAction({
-        ...hrState?.newEvaluation,
-        [param.field]: param.value,
-      })
-    );
-  };
+   const handleReactSelectChange = (evt) => {
+       debugger;
+       const value = evt.target ? evt.target.value : evt.value;
+       const name = evt.target ? evt.target.name : evt.field;
+       dispatch(
+         updateNewEmployeeEvaluationAction({
+           ...evaluationState?.newEvaluation,
+           [name]: value,
+         })
+       );
+
+
+   };
   const handleEmployeeSelectChange = (param) => {
+    debugger
 
     dispatch(
         updateNewEmployeeEvaluationAction({
-        ...hrState?.newEvaluation,
+        ...evaluationState.newEvaluation,
         employeeId: param.id,
       })
     );
@@ -184,17 +184,18 @@ const employeeEvaluation = ({}) => {
    
   };
   const handleTeamSelectChange = (param) => {
+    debugger
 
     dispatch(
         updateNewEmployeeEvaluationAction({
-        ...hrState?.newEvaluation,
+        ...evaluationState?.newEvaluation,
         teamId: param.id,
       })
     );
     setTempTeam(param)
    
   };
-  console.log("newEvaluation",hrState?.newEvaluation)
+  console.log("newEvaluation: asd",evaluationState.newEvaluation)
 
   return (
     <>
@@ -221,7 +222,7 @@ const employeeEvaluation = ({}) => {
                     
                     
                     options={employees}
-                   onChange={handleEmployeeSelectChange}
+                    onChange={handleEmployeeSelectChange}
                   ></Select>
                 </div>
 
@@ -237,7 +238,7 @@ const employeeEvaluation = ({}) => {
                     
                     
                     options={teams}
-                   onChange={handleTeamSelectChange}
+                    onChange={handleTeamSelectChange}
                   ></Select>
                 </div>
               </div>
@@ -251,8 +252,8 @@ const employeeEvaluation = ({}) => {
                     
                     id="employeeDiscipline"
                     name="employeeDiscipline"
-                    options={empDisciplineOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'employeeDiscipline')}
                   ></Select>
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
@@ -265,7 +266,7 @@ const employeeEvaluation = ({}) => {
                     id="quality"
                     name="quality"
                     options={empWorkQualityOptions}
-                    onChange={handleReactSelectChange}
+                    onChange={(event)=>handleChange(event,'employeeWorkQuality')}
                   ></Select>
                 </div>
               </div>
@@ -279,8 +280,8 @@ const employeeEvaluation = ({}) => {
                    
                     id="workConsistency"
                     name="workConsistency"
-                    options={empWorkConsistencyOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'workConsistency')}
                   ></Select>
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
@@ -292,8 +293,8 @@ const employeeEvaluation = ({}) => {
                    
                     id="descision"
                     name="descision"
-                    options={empDecisionAbilityOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'decisionMakingAbility')}
                   ></Select>
                 </div>
               </div>
@@ -308,8 +309,8 @@ const employeeEvaluation = ({}) => {
                    
                     id="knowledge"
                     name="knowledge"
-                    options={empKnowledgeOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'jobKnowledgeAndProficiency')}
                   ></Select>
                 </div>
 
@@ -322,8 +323,8 @@ const employeeEvaluation = ({}) => {
                      
                     id="productivity"
                     name="productivity"
-                    options={empDecisionAbilityOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'productivity')}
                   ></Select>
                 </div>
               </div>
@@ -334,20 +335,11 @@ const employeeEvaluation = ({}) => {
                     <span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
-                     /* value={{
-                      label: hrState?.newEvaluation
-                        ?.involvementOfWorkerInTeamEffort
-                        ? hrState?.newEvaluation?.involvementOfWorkerInTeamEffort
-                            ?.charAt(0)
-                            ?.toUpperCase() +
-                            hrState?.newEvaluation?.involvementOfWorkerInTeamEffort?.slice(1)
-                        : null,
-                      value: hrState?.newEvaluation?.involvementOfWorkerInTeamEffort,
-                    }}  */
-                    id="worker"
-                    name="worker"
-                    options={empDecisionAbilityOptions}
-                    onChange={handleReactSelectChange}
+                     
+                    id="involvementOfWorkerInTeamEffort"
+                    name="involvementOfWorkerInTeamEffort"
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'involvementOfWorkerInTeamEffort')}
                   ></Select>
                 </div>
 
@@ -360,8 +352,8 @@ const employeeEvaluation = ({}) => {
                     
                     id="deadline"
                     name="deadline"
-                    options={empDecisionAbilityOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'accomplishmentsOfJobDeadlines')}
                   ></Select>
                 </div>
               </div>
@@ -375,8 +367,8 @@ const employeeEvaluation = ({}) => {
                     
                     id="punctuality"
                     name="punctuality"
-                    options={empDecisionAbilityOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'punctuality')}
                   ></Select>
                 </div>
 
@@ -389,8 +381,8 @@ const employeeEvaluation = ({}) => {
                     
                     id="work"
                     name="work"
-                    options={empDecisionAbilityOptions}
-                    onChange={handleReactSelectChange}
+                    options={Options}
+                    onChange={(event)=>handleChange(event,'receptivenessToChangingWorkEnvironment')}
                   ></Select>
                 </div>
               </div>
@@ -401,11 +393,11 @@ const employeeEvaluation = ({}) => {
                     Employee Observation<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
-                    value={hrState?.newEvaluation?.employeeObservation}
-                    onChange={handleChange}
+                    value={evaluationState?.newEvaluation?.employeeObservation}
+                    onChange={handleInputFields}
                     type="text"
                     id="observation"
-                    name="observation"
+                    name="employeeObservation"
                     placeholder="Enter short answer"
                   />{" "}
                 </div>
@@ -414,11 +406,11 @@ const employeeEvaluation = ({}) => {
                     Employee's Strength<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
-                    value={hrState?.newEvaluation?.employeeStrength}
-                    onChange={handleChange}
+                    value={evaluationState?.newEvaluation?.employeeStrength}
+                    onChange={handleInputFields}
                     type="text"
                     id="strength"
-                    name="strength"
+                    name="employeeStrength"
                     placeholder="Enter answer"
                   />
                 </div>
@@ -429,8 +421,8 @@ const employeeEvaluation = ({}) => {
                     Areas that need improvement<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
-                    value={hrState?.newEvaluation?.areasThatNeedsImprovement}
-                    onChange={handleChange}
+                    value={evaluationState?.newEvaluation?.areasThatNeedsImprovement}
+                    onChange={handleInputFields}
                     type="text"
                     id="areasThatNeedsImprovement"
                     name="areasThatNeedsImprovement"
@@ -446,7 +438,7 @@ const employeeEvaluation = ({}) => {
                     id="supervisorRecommendations"
                     name="supervisorRecommendations"
                     options={supervisorRecOptions}
-                    onChange={handleReactSelectChange}
+                    onChange={(event)=>handleChange(event,'supervisorRecommendations')}
                   ></Select>
                   
                 </div>
@@ -457,8 +449,8 @@ const employeeEvaluation = ({}) => {
                     Based on the above text, Your suggestions please <span className="text-danger"> *</span>
                   </label>{" "}
                   <input
-                    value={hrState?.newEvaluation?.suggestions}
-                    onChange={handleChange}
+                    value={evaluationState?.newEvaluation?.suggestions}
+                    onChange={handleInputFields}
                     type="text"
                     id="suggestions"
                     name="suggestions"
@@ -479,9 +471,12 @@ const employeeEvaluation = ({}) => {
                 <div className="form-group col-sm-6 ">
                   <CButton
                     className="btn-block btn-primary"
-                    onClick={() => addAndUpdateEmployeeEvaluation()}
+                    onClick={() => addAndUpdateEmployeeEvaluation() 
+                     }
+                    
+                    
                   >
-                    {hrState?.isEditEmployeeEvaluationClicked
+                    {evaluationState?.isEditEmployeeEvaluationClicked
                       ? "Update Employee Evaluation"
                       : "Add Employee Evaluation"}
                   </CButton>
