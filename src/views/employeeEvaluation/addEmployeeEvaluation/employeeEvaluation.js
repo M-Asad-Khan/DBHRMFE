@@ -43,50 +43,42 @@ const employeeEvaluation = ({}) => {
   const evaluationState = useSelector((state) => state.employeeEvaluation);
   const employee = evaluationState?.newEvaluation?.employeeName;
   const [tempEmployee, setTempEmployee] = useState({value:employee?.name,label:employee?.name});
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState();
   const team = evaluationState?.newEvaluation?.teamName;
   const [tempTeam, setTempTeam] = useState({value:team?.name,label:team?.name});
-  const [teams, setTeams] = useState([]);
+  const memberdata=evaluationState?.isAddMemberDetails;
+  const teamdata=evaluationState?.isAddTeamDetails;
 
-   useEffect(() => {
-     handleGetEmployeesApi();
-     handleGetTeamsApi();
-   }, []);
-   const handleGetEmployeesApi = async () => {
-     try {
-       const res = await employeeRequests.getEmployeesApi();
-           
-       if (res.error === false) {
-         var tempArr = [];
-         var tempArr = res.data.map((x) => {
-         
-           return { ...x, value: x.name, label: x.name };
-         });
-        // console.log("tempArr", tempArr);
-         setEmployees(tempArr);
-       }
-     } catch (err) {
-       //console.log(err);
-     }
-   };
+  const [teams, setTeams] = useState();
+  console.log("rhr", evaluationState)
+  console.log("value", memberdata);
 
-   const handleGetTeamsApi = async () => {
-     try {
-       const res = await teamRequests.getTeamsApi();
-           
-       if (res.error === false) {
-         var tempArr = [];
-         var tempArr = res.data.map((x) => {
+     useEffect(() => {
+      handleGetEmployeesApi();
+    }, [teamdata,memberdata]);
+
+    const handleGetEmployeesApi = async () => {
+     
+      
+      debugger
+       
+         var tempArr1 = memberdata && memberdata?.map((x) => {
          
-           return { ...x, value: x.teamName, label: x.teamName };
-         });
-        // console.log("tempArr", tempArr);
-         setTeams(tempArr);
-       }
-     } catch (err) {
-       //console.log(err);
-     }
-   };
+            return { ...x, value: x.name, label: x.name };
+          });
+         // console.log("tempArr", tempArr);
+          setEmployees(tempArr1);
+          var tempArr = teamdata && teamdata?.map((x) => {
+         
+            return { ...x, value: x.teamName, label: x.teamName };
+          });
+          // console.log("tempArr", tempArr);
+           setTeams(tempArr);
+       
+    
+    };
+
+
   function handleChange(evt,label) {
     debugger
     console.log(evt)

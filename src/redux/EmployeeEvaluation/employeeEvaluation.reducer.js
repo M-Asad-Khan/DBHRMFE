@@ -5,6 +5,8 @@ import {
     updateIsEditEmployeeEvaluationClicked,
     updateEmployeesEvaluationDataTable,
     updateIsViewEmpEvaluationClicked,
+    updateIsAddMemberDetailsClicked,
+    updateIsAddTeamDetailsClicked,
   } from "./employeeEvaluation.types";
   
   const INITIAL_STATE = {
@@ -12,6 +14,8 @@ import {
     newEvaluation: {},
     isAddEmployeeEvaluationClicked: null,
     isEditEmployeeEvaluationClicked: null,
+    isAddMemberDetails:{},
+    isAddTeamDetails:{},
     employeesEvaluationDataTable: {
       columns: [
         {
@@ -72,6 +76,18 @@ import {
                       ...state,
                       isViewEmpEvaluationClicked: action.payload,
                   };
+      case updateIsAddMemberDetailsClicked:
+                    debugger;
+              return {
+                ...state,
+                isAddMemberDetails: action.payload,
+              };
+        
+     case updateIsAddTeamDetailsClicked:
+              return {
+                ...state,
+                isAddTeamDetails: action.payload,
+              };
   
       default:
         return state;

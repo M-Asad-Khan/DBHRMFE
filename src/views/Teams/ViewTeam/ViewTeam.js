@@ -10,12 +10,13 @@ import { FaUsers } from "react-icons/fa";
 import { GrUserManager, GrUserNew } from "react-icons/gr";
 import { RiTeamLine } from "react-icons/ri";
 import { BsCalendar2Date } from "react-icons/bs";
-
-import { employeeEvaluationRequests } from "src/API/employeeEvaluationApi";
+import { updateIsAddMemberDetailsClickedAction, updateIsAddTeamDetailsClickedAction,updateIsAddEmployeeEvaluationClickedAction } from "src/redux/EmployeeEvaluation/employeeEvaluation.action";
+import { useHistory } from "react-router-dom";
 
 const ViewTeam = () => {
   const teamsState = useSelector((state) => state.teams);
   const currentUser = useSelector((state) => state.login.currentUser);
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -23,21 +24,16 @@ const ViewTeam = () => {
     dispatch(updateIsViewTeamClickedAction(false));
     dispatch(updateNewTeamAction({}));
   };
-  const handleEvaluationClick = async (evaluationId) => {
-    try {
-      const res = await employeeEvaluationRequests.getEmployeesEvaluationApi(
-        evaluationId
-      );
-      if (res.error === false) {
+  const handleEvaluationClick = async (temaMember) => {
+    
         debugger;
         // handleGetTeamsApi()
-        dispatch(updateIsViewEmpEvaluationClickedAction(true));
-        dispatch(updateNewEmployeeEvaluationAction(res.data));
+        dispatch(updateIsAddEmployeeEvaluationClickedAction(true));
+        dispatch(updateIsAddMemberDetailsClickedAction(temaMember));
+        dispatch(updateIsAddTeamDetailsClickedAction(temaMember[0].team));
+
         history.push("/employeeEvaluation");
-      }
-    } catch (err) {
-      console.log(err);
-    }
+     
   };
   console.log(teamsState);
   return (
@@ -88,7 +84,7 @@ const ViewTeam = () => {
                     return <li key={i}>{element.employee.name}</li>;
                   })}
               </ul>
-              {currentUser?.profile?.id ===
+              {currentUser?.Profile?.id ===
               teamsState?.newTeam[0]?.team?.teamLeadName?.id ? (
                 <span
                   onClick={() => handleEvaluationClick(teamsState?.newTeam)}

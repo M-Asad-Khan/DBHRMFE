@@ -53,15 +53,14 @@ function employeesEvaluation() {
                
           handleDelete(rowData);
           break;
-        case "view":
-          handleView(rowData);
-          break;
+       
+         /*  break;
         case "edit":
           handleEdit(rowData);
           break;
 
         default:
-          break;
+          break; */
       }
     }
     console.log("rowData", rowData);
@@ -105,18 +104,18 @@ function employeesEvaluation() {
 
             action: (
               <>
-                <FiEye
+                {/* <FiEye
                   onClick={() => (action = "view")}
                   style={{ color: "blue", cursor: "pointer" }}
-                />
-                <FiEdit
+                /> */}
+                {/* <FiEdit
                   onClick={() => (action = "edit")}
                   style={{
                     color: "orange",
                     marginLeft: "20px",
                     cursor: "pointer",
                   }}
-                />
+                /> */}
                 <FiTrash
                   // onClick={() => (action = "delete")}
                   style={{

@@ -5,6 +5,8 @@ import {
     updateIsEditEmployeeEvaluationClicked,
       updateEmployeesEvaluationDataTable,
       updateIsViewEmpEvaluationClicked,
+      updateIsAddMemberDetailsClicked,updateIsAddTeamDetailsClicked,
+      
   } from "./employeeEvaluation.types";
   
   export const updateNewEmployeeEvaluationAction = (params) => {
@@ -45,5 +47,19 @@ import {
       payload: params,
     };
   };
+  export const updateIsAddMemberDetailsClickedAction = (params) => {
+    debugger;
+  return {
+    type:updateIsAddMemberDetailsClicked,
+    payload: params,
+  };
+};
+ export const updateIsAddTeamDetailsClickedAction = (params) => {
+  debugger;
+return {
+  type:updateIsAddTeamDetailsClicked,
+  payload: params,
+};
+};
  
   
