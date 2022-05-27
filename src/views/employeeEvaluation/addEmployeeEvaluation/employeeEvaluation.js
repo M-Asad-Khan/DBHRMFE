@@ -47,41 +47,21 @@ const employeeEvaluation = ({}) => {
   const team = evaluationState?.newEvaluation?.teamName;
   const [tempTeam, setTempTeam] = useState({value:team?.name,label:team?.name});
   const memberdata=evaluationState?.isAddMemberDetails;
-  const teamdata=evaluationState?.isAddTeamDetails;
+  const [teams, setTeams] = useState([{value:evaluationState?.isAddTeamDetails?.teamName,label:evaluationState?.isAddTeamDetails?.teamName
+    ,id:evaluationState?.isAddTeamDetails?.id}]);
 
-  const [teams, setTeams] = useState();
-  console.log("rhr", evaluationState)
-  console.log("value", memberdata);
+var tempArray = []
+  for (let i =0 ; i < memberdata.length ; i++){
 
-     useEffect(() => {
-      handleGetEmployeesApi();
-    }, [teamdata,memberdata]);
-
-    const handleGetEmployeesApi = async () => {
-     
-      
-      debugger
-       
-         var tempArr1 = memberdata && memberdata?.map((x) => {
          
-            return { ...x, value: x.name, label: x.name };
-          });
-         // console.log("tempArr", tempArr);
-          setEmployees(tempArr1);
-          var tempArr = teamdata && teamdata?.map((x) => {
-         
-            return { ...x, value: x.teamName, label: x.teamName };
-          });
-          // console.log("tempArr", tempArr);
-           setTeams(tempArr);
-       
-    
-    };
+            tempArray.push( { value: memberdata[i].employee.name, label: memberdata[i].employee.name, id:memberdata[i].employee.id });
+  }
+
+    console.log("tempArray",tempArray)
 
 
   function handleChange(evt,label) {
     debugger
-    console.log(evt)
     dispatch(
       updateNewEmployeeEvaluationAction({
         ...evaluationState?.newEvaluation,
@@ -92,7 +72,6 @@ const employeeEvaluation = ({}) => {
 
   function handleInputFields(evt) {
     debugger
-    console.log(evt)
     dispatch(
       updateNewEmployeeEvaluationAction({
         ...evaluationState?.newEvaluation,
@@ -112,7 +91,6 @@ const employeeEvaluation = ({}) => {
            await employeeEvaluationRequests?.updateEmployeeEvaluationApi(
              evaluationState?.newEvaluation
            );
-         console.log("updateEmployeeEvaluation Response", res);
          if (res.error === false) {
            toast.success("Employee Evaluation Updated !");
            let temp = evaluationState?.employeesEvaluation?.filter(
@@ -130,7 +108,6 @@ const employeeEvaluation = ({}) => {
          const res = await employeeEvaluationRequests?.addEmployeeEvaluationApi(
            evaluationState?.newEvaluation
          );
-         console.log("addEmployeeEvaluationApi Response", res);
 
          if (res.error === false) {
            toast.success("Employee Evaluation Added !");
@@ -187,8 +164,6 @@ const employeeEvaluation = ({}) => {
     setTempTeam(param)
    
   };
-  console.log("newEvaluation: asd",evaluationState.newEvaluation)
-
   return (
     <>
       <div className="container-fluid px-1 mx-auto">
@@ -213,7 +188,7 @@ const employeeEvaluation = ({}) => {
                     value={tempEmployee}
                     
                     
-                    options={employees}
+                    options={tempArray}
                     onChange={handleEmployeeSelectChange}
                   ></Select>
                 </div>

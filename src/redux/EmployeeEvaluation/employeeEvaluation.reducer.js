@@ -14,8 +14,8 @@ import {
     newEvaluation: {},
     isAddEmployeeEvaluationClicked: null,
     isEditEmployeeEvaluationClicked: null,
-    isAddMemberDetails:{},
-    isAddTeamDetails:{},
+    isAddMemberDetails:[],
+    isAddTeamDetails:[],
     employeesEvaluationDataTable: {
       columns: [
         {
