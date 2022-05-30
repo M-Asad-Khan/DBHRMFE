@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class interviewFeedbackApi {
-  addinterviewFeedbackApi = async (newFeedback) => {
+  addinterviewFeedbackApi = async (newFeedback,token) => {
     console.log(newFeedback);
         
     return axios({
@@ -11,6 +11,7 @@ class interviewFeedbackApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         question: newFeedback.question,
@@ -50,7 +51,7 @@ class interviewFeedbackApi {
         };
       });
   };
-  getinterviewFeedbackApi = async () => {
+  getinterviewFeedbackApi = async (token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interviewfeedback`,
@@ -58,6 +59,7 @@ class interviewFeedbackApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
     })
       .then((result) => {
@@ -75,8 +77,13 @@ class interviewFeedbackApi {
   };
 
 
+<<<<<<< Updated upstream
   updateinterviewFeedbackApi = async (newFeedback) => {
         
+=======
+  updateinterviewFeedbackApi = async (newFeedback,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interviewfeedback/${newFeedback.id}`,
@@ -84,6 +91,7 @@ class interviewFeedbackApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         question: newFeedback.question,

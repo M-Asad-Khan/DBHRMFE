@@ -28,6 +28,7 @@ const jobPosting = () => {
   const [employees, setEmployees] = useState([]);
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.jobPosting);
+  const currentUser = useSelector((state) => state.login.currentUser);
   const manager = hrState.newPosting.managerName;
   const [tempManager, setTempManager] = useState({value:manager?.name,label:manager?.name});
   useEffect(() => {
@@ -35,7 +36,7 @@ const jobPosting = () => {
   }, []);
   const handleGetEmployeesApi = async () => {
     try {
-      const res = await employeeRequests.getEmployeesApi();
+      const res = await employeeRequests.getEmployeesApi(currentUser.access_token);
            
       if (res.error === false) {
         var tempArr = [];
@@ -75,9 +76,7 @@ const jobPosting = () => {
       if (hrState.isEditPostingClicked === true) {
         try {
                
-          const res = await jobPostingRequests.updatejobPostingApi(
-            hrState.newPosting
-          );
+          const res = await jobPostingRequests.updatejobPostingApi(hrState.newPosting,currentUser.access_token);
           console.log("updatePosting Response", res);
           if (res.error === false) {
                  
@@ -96,9 +95,7 @@ const jobPosting = () => {
       } else {
         try {
                
-          const res = await jobPostingRequests.addjobPostingApi(
-            hrState.newPosting
-          );
+          const res = await jobPostingRequests.addjobPostingApi(hrState.newPosting,currentUser.access_token);
           console.log("addjobPostingApi Response", res);
                
           if (res.error === false) {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 class clientApi {
     constructor() {}
-    addClientApi = async(client) => {
+    addClientApi = async(client,token) => {
     
         return axios({
                 method: "post",
@@ -11,6 +11,7 @@ class clientApi {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
                     mode: "no-cors",
+                    "Authorization" : 'Bearer ' + token
                 },
                 data: {
                     name: client.name,
@@ -37,8 +38,13 @@ class clientApi {
             });
     };
 
+<<<<<<< Updated upstream
     deleteClientApi = async(id) => {
            
+=======
+    deleteClientApi = async(id,token) => {
+        debugger;
+>>>>>>> Stashed changes
         return axios({
                 method: "delete",
                 url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/${id}`,
@@ -46,6 +52,7 @@ class clientApi {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
                     mode: "no-cors",
+                    "Authorization" : 'Bearer ' + token
                 },
             })
             .then((result) => {
@@ -64,8 +71,7 @@ class clientApi {
             });
     };
 
-    getClientsApi = async() => {
-    
+    getClientsApi = async(token) => {    
         return axios({
                 method: "get",
                 url: `${process.env.REACT_APP_API_LOCAL_PATH}/client`,
@@ -73,6 +79,7 @@ class clientApi {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
                     mode: "no-cors",
+                    "Authorization" : 'Bearer ' + token
                 },
             })
             .then((result) => {
@@ -90,8 +97,13 @@ class clientApi {
             });
     };
 
+<<<<<<< Updated upstream
     updateClientApi = async(client) => {
            
+=======
+    updateClientApi = async(client,token) => {
+        debugger;
+>>>>>>> Stashed changes
         return axios({
                 method: "patch",
                 url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/${client.id}`,
@@ -99,6 +111,7 @@ class clientApi {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
                     mode: "no-cors",
+                    "Authorization" : 'Bearer ' + token
                 },
                 data: {
                     name: client.name,
@@ -125,7 +138,7 @@ class clientApi {
             });
     };
 
-    GetClientProjectsApi = async(clientId) => {
+    GetClientProjectsApi = async(clientId,token) => {
         return axios({
                 method: "get",
                 url: `${process.env.REACT_APP_API_LOCAL_PATH}/client/projects/${clientId}`,
@@ -133,6 +146,7 @@ class clientApi {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
                     mode: "no-cors",
+                    "Authorization" : 'Bearer ' + token
                 },
             })
             .then((result) => {

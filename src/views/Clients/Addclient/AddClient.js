@@ -24,9 +24,10 @@ const addclients = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   function handleChange(evt) {
-        
+
     const value = evt.target.value;
     dispatch(
       updateNewClientAction({
@@ -45,7 +46,7 @@ const addclients = ({}) => {
       if (clientsState.isEditClientClicked === true) {
         try {
               
-          const res = await clientRequests.updateClientApi(clientsState.newClient);
+          const res = await clientRequests.updateClientApi(clientsState.newClient,currentUser.access_token);
           console.log("updateClient Response", res);
 
               
@@ -67,7 +68,7 @@ const addclients = ({}) => {
       } else {
         try {
               
-          const res = await clientRequests.addClientApi(clientsState.newClient);
+          const res = await clientRequests.addClientApi(clientsState.newClient,currentUser.access_token);
           console.log("addClientApi Response", res);
 
               

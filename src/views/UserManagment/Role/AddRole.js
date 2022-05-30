@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userManagmentRequests } from "src/API/UserManagmentApi";
+import { userManagementRequests } from "src/API/UserManagmentApi";
 import {
   updateIsAddRoleClickedAction,
   updateIsEditRoleClickedAction,
@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 export default function AddRole() {
   const dispatch = useDispatch();
   const userManagmentState = useSelector((state) => state.userManagment);
-
+  const currentUser = useSelector((state) => state.login.currentUser);
   const [tempRole, setTempRole] = useState({});
   const [roles, setRoles] = useState([]);
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -81,7 +81,7 @@ export default function AddRole() {
       if (userManagmentState.isEditRoleClicked === true) {
         try {
                
-          const res = await userManagmentRequests.updateRole(tempRole);
+          const res = await userManagementRequests.updateRole(tempRole,currentUser.access_token);
           if (res.error === false) {
                  
             toast.success("Role Updated !");
@@ -96,7 +96,7 @@ export default function AddRole() {
       } else {
         try {
                
-          const res = await userManagmentRequests.addRole(tempRole);
+          const res = await userManagementRequests.addRole(tempRole,currentUser.access_token);
           if (res.error === false) {
                  
             toast.success("Role added !");

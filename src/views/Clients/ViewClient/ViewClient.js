@@ -22,6 +22,8 @@ const ViewClient = () => {
   let history = useHistory();
 
   const clientsState = useSelector((state) => state.clients);
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   const dispatch = useDispatch();
   const handleCancel = () => {
@@ -30,7 +32,7 @@ const ViewClient = () => {
   };
   const handleProjectClick = async (teamId) => {
     try {
-      const res = await teamMembersRequests.getTeamMembersApi(teamId);
+      const res = await teamMembersRequests.getTeamMembersApi(teamId,currentUser.access_token);
       if (res.error === false) {
         debugger;
         // handleGetTeamsApi()

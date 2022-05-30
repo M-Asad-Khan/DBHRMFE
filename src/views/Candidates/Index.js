@@ -21,6 +21,7 @@ function Candidates() {
   const hrState = useSelector((state) => state.candidate);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   useEffect(() => {
        
@@ -68,7 +69,7 @@ function Candidates() {
   const handleDelete = async (candidate) => {
        
     try {
-      const res = await candidateRequests.deleteCandidateApi(candidate.id);
+      const res = await candidateRequests.deleteCandidateApi(candidate.id,currentUser.access_token);
       if (res.error === false) {
         handleGetCandidatesApi();
       }
@@ -87,7 +88,7 @@ function Candidates() {
   }; 
   const handleGetCandidatesApi = async () => {
     try {
-      const res = await candidateRequests.getCandidatesApi();
+      const res = await candidateRequests.getCandidatesApi(currentUser.access_token);
          
       if (res.error === false) {
         dispatch(updateCandidatesAction(res.data));

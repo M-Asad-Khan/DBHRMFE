@@ -22,6 +22,7 @@ const Addteams = () => {
   const [tempTeam, setTempTeam] = useState({});
   const dispatch = useDispatch();
   const teamsState = useSelector((state) => state.teams);
+  const currentUser = useSelector((state) => state.login.currentUser);
   const [employees, setEmployees] = useState([]);
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
   const [selectedClient, setSelectedClient] = useState({});
@@ -47,7 +48,7 @@ const Addteams = () => {
 
   const handleGetTeamMembers = async (teamId) => {
     try {
-      const res = await teamMembersRequests.getTeamMembersApi(teamId);
+      const res = await teamMembersRequests.getTeamMembersApi(teamId,currentUser.access_token);
            
       var arr = [];
       var tempClient;
@@ -84,7 +85,7 @@ const Addteams = () => {
   };
   const handleGetClientsApi = async () => {
     try {
-      const res = await clientRequests.getClientsApi();
+      const res = await clientRequests.getClientsApi(currentUser.access_token);
            
       if (res.error === false) {
         var tempArr = [];
@@ -101,7 +102,7 @@ const Addteams = () => {
 
   const handleGetEmployeesApi = async () => {
     try {
-      const res = await employeeRequests.getEmployeesApi();
+      const res = await employeeRequests.getEmployeesApi(currentUser.access_token);
            
       if (res.error === false) {
         var tempArr = [];
@@ -136,7 +137,7 @@ const Addteams = () => {
       if (teamsState.isEditTeamClicked === true) {
         try {
                
-          const res = await teamRequests.updateTeamApi(tempTeam);
+          const res = await teamRequests.updateTeamApi(tempTeam,currentUser.access_token);
          // console.log("updateTeam Response", res);
 
                
@@ -165,7 +166,7 @@ const Addteams = () => {
         // for team member and client
         try {
                
-          const res = await teamMembersRequests.addTeamMembersApi(tempTeam);
+          const res = await teamMembersRequests.addTeamMembersApi(tempTeam,currentUser.access_token);
          //console.log("updateTeam Response", res);
 
                
@@ -189,7 +190,7 @@ const Addteams = () => {
       } else {
         try {
                
-          const res = await teamRequests.addTeamApi(tempTeam);
+          const res = await teamRequests.addTeamApi(tempTeam,currentUser.access_token);
         //  console.log("addTeamApi Response", res);
 
                
@@ -288,7 +289,7 @@ const Addteams = () => {
 
   const handleDeleteTeamMember = async (teamId, member) => {
          
-    var res = await teamMembersRequests.deleteTeamMemberApi(teamId, member);
+    var res = await teamMembersRequests.deleteTeamMemberApi(teamId, member,currentUser.access_token);
     if (res.error === false) {
      // console.log("team member removed", res.data);
     }

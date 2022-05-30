@@ -27,6 +27,7 @@ const Candidates = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.candidate);
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   function handleChange(evt) {
     
@@ -51,7 +52,7 @@ const Candidates = ({}) => {
       if (hrState.isEditCandidateClicked === true) {
         try {
           
-          const res = await candidateRequests.updateCandidateApi(hrState.newCandidate );
+          const res = await candidateRequests.updateCandidateApi(hrState.newCandidate,currentUser.access_token);
           console.log("updateCandidate Response", res);
           if (res.error === false) {
             
@@ -70,8 +71,7 @@ const Candidates = ({}) => {
       } else {
         try {
           
-          const res = await candidateRequests.addCandidateApi(
-            hrState.newCandidate);
+          const res = await candidateRequests.addCandidateApi(hrState.newCandidate,currentUser.access_token);
           console.log("addCandidateApi Response", res);
           
           if (res.error === false) {

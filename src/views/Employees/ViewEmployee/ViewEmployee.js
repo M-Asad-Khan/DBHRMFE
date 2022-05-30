@@ -172,7 +172,7 @@ const ViewEmployee = () => {
                       Address:
                     </h6>
                   </div>
-                  <div className="w-50">{state?.newEmployee?.employee?.address}</div>
+                  <div className="w-50 text-right">{state?.newEmployee?.employee?.address}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -207,7 +207,7 @@ const ViewEmployee = () => {
                       Technology:
                     </h6>
                   </div>
-                  <div>{state?.newEmployee?.employee?.technology}</div>
+                  <div className="w-50 text-right">{state?.newEmployee?.employee?.technology}</div>
                 </div>
                 <div>
                   <div className="d-flex">

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class employeeApi {
-  addEmployeeApi = async (newEmployee) => {
+  addEmployeeApi = async (newEmployee,token) => {
     console.log(newEmployee);
        
     return axios({
@@ -11,6 +11,8 @@ class employeeApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
       data: {
         name: newEmployee.name,
@@ -53,8 +55,13 @@ class employeeApi {
       });
   };
 
+<<<<<<< Updated upstream
   deleteEmployeeApi = async (id) => {
        
+=======
+  deleteEmployeeApi = async (id,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/${id}`,
@@ -62,6 +69,8 @@ class employeeApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {
@@ -80,7 +89,7 @@ class employeeApi {
       });
   };
 
-  getEmployeesApi = async () => {
+  getEmployeesApi = async (token) => {
     debugger
     return axios({
       method: "get",
@@ -89,6 +98,8 @@ class employeeApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {
@@ -105,8 +116,13 @@ class employeeApi {
       });
   };
 
+<<<<<<< Updated upstream
   updateEmployeeApi = async (newEmployee) => {
        
+=======
+  updateEmployeeApi = async (newEmployee,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/${newEmployee.id}`,
@@ -114,6 +130,8 @@ class employeeApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
       data: {
         name: newEmployee.name,
@@ -152,7 +170,7 @@ class employeeApi {
       });
   };
 
-  getEmployeeWorkHistory = async (empId) => {
+  getEmployeeWorkHistory = async (empId,token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/work_history/${empId}`,
@@ -160,6 +178,8 @@ class employeeApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {

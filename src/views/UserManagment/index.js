@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
 import AddUser from "./User/AddUser";
-import { userManagmentRequests } from "src/API/UserManagmentApi";
+import { userManagementRequests } from "src/API/UserManagmentApi";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateIsAddPermissionClickedAction,
@@ -30,6 +30,7 @@ function UserManagment() {
   const dispatch = useDispatch();
   const [activeKey, setActiveKey] = useState("user");
   const userManagmentState = useSelector((state) => state.userManagment);
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   useEffect(() => {
     handleGetUsers();
@@ -43,7 +44,7 @@ function UserManagment() {
 
   const handleGetUsers = async () => {
     try {
-      const res = await userManagmentRequests.getUsers();
+      const res = await userManagementRequests.getUsers(currentUser.access_token);
 
       if (res.error === false) {
         dispatch(updateUsersAction(res.data));
@@ -90,7 +91,7 @@ function UserManagment() {
 
   const handleGetRoles = async () => {
     try {
-      const res = await userManagmentRequests.getRoles();
+      const res = await userManagementRequests.getRoles(currentUser.access_token);
 
       if (res.error === false) {
         dispatch(updateRolesAction(res.data));
@@ -137,8 +138,13 @@ function UserManagment() {
 
   const handleGetPermissions = async () => {
     try {
+<<<<<<< Updated upstream
       const res = await userManagmentRequests.getPermission();
         
+=======
+      const res = await userManagementRequests.getPermission(currentUser.access_token);
+      debugger;
+>>>>>>> Stashed changes
       if (res.error === false) {
         dispatch(updatePermissionsAction(res.data));
         var tempArr = [];

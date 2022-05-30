@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class interviewFeedbackFormApi {
-  addinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse) => {
+  addinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse,token) => {
     console.log(newFeedback);
          
     return axios({
@@ -11,6 +11,7 @@ class interviewFeedbackFormApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
        
@@ -40,7 +41,7 @@ class interviewFeedbackFormApi {
         };
       });
   };
-  getinterviewFeedbackFormApi = async () => {
+  getinterviewFeedbackFormApi = async (token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interViewFeedBackResponse`,
@@ -48,6 +49,7 @@ class interviewFeedbackFormApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
     })
       .then((result) => {
@@ -63,7 +65,7 @@ class interviewFeedbackFormApi {
         };
       });
   };
-  getOneByIdApi = async (id) => {
+  getOneByIdApi = async (id,token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interViewFeedBackResponse/${id}`,
@@ -71,6 +73,7 @@ class interviewFeedbackFormApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
     })
       .then((result) => {
@@ -88,8 +91,13 @@ class interviewFeedbackFormApi {
   };
 
 
+<<<<<<< Updated upstream
   updateinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse) => {
          
+=======
+  updateinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/interViewFeedBackResponse/${newFeedback.id}`,
@@ -97,6 +105,7 @@ class interviewFeedbackFormApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         

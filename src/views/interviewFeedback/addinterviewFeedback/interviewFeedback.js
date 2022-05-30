@@ -34,7 +34,8 @@ const interviewFeedback = () => {
   const [candidates, setCandidates] = useState([]);
   const [feedBackQuestion, setFeedBackQuestions] = useState();
   const hrState = useSelector((state) => state.interviewFeedback);
-  
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   useEffect(() => {
     handleGetEmployeesApi();
@@ -44,7 +45,7 @@ const interviewFeedback = () => {
   }, []);
   const handleGetEmployeesApi = async () => {
     try {
-      const res = await employeeRequests.getEmployeesApi();
+      const res = await employeeRequests.getEmployeesApi(currentUser.access_token);
            
       if (res.error === false) {
         var tempArr = [];
@@ -60,7 +61,7 @@ const interviewFeedback = () => {
   };
   const handleGetJobPostingsApi = async () => {
     try {
-      const res = await jobPostingRequests.getjobPostingsApi();
+      const res = await jobPostingRequests.getjobPostingsApi(currentUser.access_token);
            
       if (res.error === false) {
         var tempArr = [];
@@ -77,7 +78,7 @@ const interviewFeedback = () => {
   };
   const handleGetCandidatesApi = async () => {
     try {
-      const res = await candidateRequests.getCandidatesApi();
+      const res = await candidateRequests.getCandidatesApi(currentUser.access_token);
            
       if (res.error === false) {
         var tempArr = [];
@@ -93,7 +94,7 @@ const interviewFeedback = () => {
   };
   const handleGetInterviewFeedbackApi = async () => {
     try {
-      const res = await interviewFeedbackRequests.getinterviewFeedbackApi();
+      const res = await interviewFeedbackRequests.getinterviewFeedbackApi(currentUser.access_token);
            
       if (res.error === false) {
            
@@ -126,7 +127,7 @@ const interviewFeedback = () => {
       if (hrState.isEditFeedbackClicked === true) {
         try {
                
-          const res = await interviewFeedbackFormRequests.updateinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
+          const res = await interviewFeedbackFormRequests.updateinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse,currentUser.access_token);
           console.log("updateFeedback Response", res);
                
           if (res.error === false) {
@@ -147,7 +148,7 @@ const interviewFeedback = () => {
       } else {
         try {
                
-          const res = await interviewFeedbackFormRequests.addinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
+          const res = await interviewFeedbackFormRequests.addinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse,currentUser.access_token);
           console.log("addFeedbackApi Response", res);
                
           if (res.error === false) {

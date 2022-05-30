@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class CandidateApi {
-  addCandidateApi = async (newCandidate) => {
+  addCandidateApi = async (newCandidate,token) => {
     console.log(newCandidate);
       
     return axios({
@@ -11,6 +11,7 @@ class CandidateApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         FirstName: newCandidate.FirstName,
@@ -41,7 +42,8 @@ class CandidateApi {
         };
       });
   };
-  getCandidatesApi = async () => {
+  getCandidatesApi = async (token) => {
+   
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/candidate`,
@@ -49,6 +51,7 @@ class CandidateApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
     })
       .then((result) => {
@@ -65,8 +68,13 @@ class CandidateApi {
       });
   };
 
+<<<<<<< Updated upstream
   updateCandidateApi = async (newCandidate) => {
       
+=======
+  updateCandidateApi = async (newCandidate,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/candidate/${newCandidate.id}`,
@@ -74,6 +82,7 @@ class CandidateApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         FirstName: newCandidate.FirstName,
@@ -102,8 +111,13 @@ class CandidateApi {
         };
       });
   };
+<<<<<<< Updated upstream
   deleteCandidateApi = async (id) => {
       
+=======
+  deleteCandidateApi = async (id,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/candidate/${id}`,
@@ -111,6 +125,7 @@ class CandidateApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
     })
       .then((result) => {

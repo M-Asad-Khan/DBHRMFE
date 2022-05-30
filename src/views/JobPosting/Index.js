@@ -22,6 +22,8 @@ function JobPosting() {
   const hrState = useSelector((state) => state.jobPosting);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   useEffect(() => {
          
@@ -69,7 +71,7 @@ function JobPosting() {
   const handleDelete = async (positions) => {
          
     try {
-      const res = await jobPostingRequests.deletejobPostingApi(positions.id);
+      const res = await jobPostingRequests.deletejobPostingApi(positions.id,currentUser.access_token);
       if (res.error === false) {
         handleGetjobPostingApi();
       }
@@ -91,7 +93,7 @@ function JobPosting() {
   }; 
   const handleGetjobPostingApi = async () => {
     try {
-      const res = await jobPostingRequests.getjobPostingsApi();
+      const res = await jobPostingRequests.getjobPostingsApi(currentUser.access_token);
            
       if (res.error === false) {
         dispatch(updatePostingsAction(res.data));

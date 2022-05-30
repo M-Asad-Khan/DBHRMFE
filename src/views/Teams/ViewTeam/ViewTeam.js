@@ -10,13 +10,21 @@ import { FaUsers } from "react-icons/fa";
 import { GrUserManager, GrUserNew } from "react-icons/gr";
 import { RiTeamLine } from "react-icons/ri";
 import { BsCalendar2Date } from "react-icons/bs";
+<<<<<<< Updated upstream
 import { updateIsAddMemberDetailsClickedAction, updateIsAddTeamDetailsClickedAction,updateIsAddEmployeeEvaluationClickedAction } from "src/redux/EmployeeEvaluation/employeeEvaluation.action";
+=======
+>>>>>>> Stashed changes
 import { useHistory } from "react-router-dom";
 
 const ViewTeam = () => {
   const teamsState = useSelector((state) => state.teams);
   const currentUser = useSelector((state) => state.login.currentUser);
+<<<<<<< Updated upstream
   const history = useHistory();
+=======
+
+  let history = useHistory();
+>>>>>>> Stashed changes
 
   const dispatch = useDispatch();
 
@@ -24,6 +32,7 @@ const ViewTeam = () => {
     dispatch(updateIsViewTeamClickedAction(false));
     dispatch(updateNewTeamAction({}));
   };
+<<<<<<< Updated upstream
   const handleEvaluationClick = async (temaMember) => {
     
         debugger;
@@ -36,6 +45,17 @@ const ViewTeam = () => {
      
   };
   console.log(teamsState);
+=======
+
+  const handleAddEmployeePerformance =  (teamDetails) => {
+      // Open Employee performance evaluation Add form  set addEmployeePerformanceAction = true
+      //Redirect to '/Employee-Evaluation'
+      // dispatch(updateIsAddEmployeePerformanceClickedAction(true));
+      // dispatch(addTeamDetails(teamDetails,));
+      // history.push("/teams");
+      console.log(teamDetails)
+  };
+>>>>>>> Stashed changes
   return (
     <>
       <div className="container-fluid px-1 mx-auto">
@@ -84,6 +104,7 @@ const ViewTeam = () => {
                     return <li key={i}>{element.employee.name}</li>;
                   })}
               </ul>
+<<<<<<< Updated upstream
               {currentUser?.Profile?.id ===
               teamsState?.newTeam[0]?.team?.teamLeadName?.id ? (
                 <span
@@ -96,6 +117,13 @@ const ViewTeam = () => {
               ) : (
                 ""
               )}
+=======
+              {currentUser.Profile.id === teamsState?.newTeam[0]?.team?.teamLeadName?.id ?
+              <span	onClick={() => handleAddEmployeePerformance(teamsState.newTeam)} className='anchor font-weight-bold' title="General Employee Performance Evaluation">
+                  Employee Performance Form
+              </span> :""}
+
+>>>>>>> Stashed changes
             </div>
           </div>
 

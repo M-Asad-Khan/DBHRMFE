@@ -1,7 +1,12 @@
 import axios from "axios";
 class TeamApi {
+<<<<<<< Updated upstream
   addTeamApi = async (team) => {
           
+=======
+  addTeamApi = async (team,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams`,
@@ -9,6 +14,8 @@ class TeamApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
       data: {
         teamName: team.teamName,
@@ -36,8 +43,13 @@ class TeamApi {
       });
   };
 
+<<<<<<< Updated upstream
   deleteTeamsApi = async (id) => {
           
+=======
+  deleteTeamsApi = async (id,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams/${id}`,
@@ -45,6 +57,8 @@ class TeamApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {
@@ -63,8 +77,13 @@ class TeamApi {
       });
   };
 
+<<<<<<< Updated upstream
   updateTeamApi = async (team) => {
           
+=======
+  updateTeamApi = async (team,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams/${team.id}`,
@@ -72,6 +91,8 @@ class TeamApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
       data: {
         teamName: team.teamName,
@@ -97,7 +118,7 @@ class TeamApi {
       });
   };
 
-  getTeamsApi = async () => {
+  getTeamsApi = async (token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams`,
@@ -105,6 +126,8 @@ class TeamApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {

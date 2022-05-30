@@ -22,9 +22,9 @@ function Clients() {
   const clientsState = useSelector((state) => state.clients);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   useEffect(() => {
-         
     handleGetClientsApi();
   }, []);
   useEffect(() => {
@@ -69,7 +69,7 @@ function Clients() {
   const handleDelete = async (client) => {
          
     try {
-      const res = await clientRequests.deleteClientApi(client.id);
+      const res = await clientRequests.deleteClientApi(client.id,currentUser.access_token);
       if (res.error === false) {
         handleGetClientsApi();
       }
@@ -85,7 +85,7 @@ function Clients() {
   const handleView = async(client) => {
          
     try {
-      const res = await clientRequests.GetClientProjectsApi(client.id);
+      const res = await clientRequests.GetClientProjectsApi(client.id,currentUser.access_token);
       if (res.error === false) {
         dispatch(updateIsViewClientClickedAction(true));
         dispatch(updateNewClientAction({client:client,projects:res.data}));
@@ -96,7 +96,7 @@ function Clients() {
   };
   const handleGetClientsApi = async () => {
     try {
-      const res = await clientRequests.getClientsApi();
+      const res = await clientRequests.getClientsApi(currentUser.access_token);
            
       if (res.error === false) {
         dispatch(updateClientsAction(res.data));

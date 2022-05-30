@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-class UserManagment {
-  addUser(user) {
+class UserManagement {
+  async addUser(user,token) {
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/user`,
@@ -10,6 +10,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
 			data: {
 				name:user.name,
@@ -33,7 +34,7 @@ class UserManagment {
       });
   }
 
-  getUsers() {
+  async getUsers(token) {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/user`,
@@ -41,6 +42,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {},
     })
@@ -58,7 +60,7 @@ class UserManagment {
       });
   }
 
-  addRole(role) {
+ async addRole(role) {
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/role`,
@@ -66,6 +68,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         name: role.name,
@@ -86,8 +89,13 @@ class UserManagment {
       });
 	}
 	
+<<<<<<< Updated upstream
 	updateRole(role) {
 		       
+=======
+async updateRole(role) {
+		debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/role/${role.id}`,
@@ -95,6 +103,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         name: role.name,
@@ -115,7 +124,7 @@ class UserManagment {
       });
   }
 
-	deleteRole(role) {
+async deleteRole(role) {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/role/${role.id}`,
@@ -123,6 +132,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {},
     })
@@ -140,8 +150,13 @@ class UserManagment {
       });
   }
 
+<<<<<<< Updated upstream
   getRoles() {
            
+=======
+async getRoles() {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/role`,
@@ -149,6 +164,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {},
     })
@@ -166,7 +182,7 @@ class UserManagment {
       });
   }
 
-  addPermission(permission) {
+async  addPermission(permission) {
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/permission`,
@@ -174,6 +190,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         roleIds: permission.roles,
@@ -194,7 +211,7 @@ class UserManagment {
       });
 	}
 	
-	updatePermission(permission) {
+async updatePermission(permission) {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/permission`,
@@ -202,6 +219,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
 			data: {
         roleIds: permission.roles,
@@ -222,7 +240,7 @@ class UserManagment {
       });
   }
 
-  getPermission() {
+async getPermission() {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/permission`,
@@ -230,6 +248,7 @@ class UserManagment {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {},
     })
@@ -248,4 +267,4 @@ class UserManagment {
   }
 }
 
-export let userManagmentRequests = new UserManagment();
+export let userManagementRequests = new UserManagement();

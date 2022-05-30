@@ -24,6 +24,7 @@ function employees() {
   const state = useSelector((state) => state.employees);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   useEffect(() => {
     handleGetEmployeeApi();
@@ -70,7 +71,7 @@ function employees() {
   const handleDelete = async (employee) => {
          
     try {
-      const res = await employeeRequests.deleteEmployeeApi(employee.id);
+      const res = await employeeRequests.deleteEmployeeApi(employee.id,currentUser.access_token);
       if (res.error === false) {
         handleGetEmployeeApi();
       }
@@ -86,7 +87,7 @@ function employees() {
   const handleView =async (employee) => {
          
     try {
-      const res = await employeeRequests.getEmployeeWorkHistory(employee.id);
+      const res = await employeeRequests.getEmployeeWorkHistory(employee.id,currentUser.access_token);
 			if (res.error === false) {
 				     
 				var tempObj = { employee: employee, workHistory: res.data }
@@ -100,7 +101,7 @@ function employees() {
   };
   const handleGetEmployeeApi = async () => {
     try {
-      const res = await employeeRequests.getEmployeesApi();
+      const res = await employeeRequests.getEmployeesApi(currentUser.access_token);
            
       if (res.error === false) {
         dispatch(updateEmployeesAction(res.data));

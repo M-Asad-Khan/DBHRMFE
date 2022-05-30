@@ -10,12 +10,14 @@ import {
   updateUsersAction,
 } from "src/redux/UserManagment/userManagment.actions";
 import { toast } from "react-toastify";
-import { userManagmentRequests } from "src/API/UserManagmentApi";
+import { userManagementRequests } from "src/API/UserManagmentApi";
 
 export default function AddUser() {
   const dispatch = useDispatch();
 
   const userManagmentState = useSelector((state) => state.userManagment);
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   const [tempUser, setTempUser] = useState({});
   const [employees, setEmployees] = useState([]);
@@ -97,7 +99,7 @@ export default function AddUser() {
         if (userManagmentState.isEditEmployeeClicked === true) {
           try {
                  
-            const res = await userManagmentRequests.addUser(tempUser);
+            const res = await userManagementRequests.addUser(tempUser,currentUser.access_token);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
                    
@@ -116,7 +118,7 @@ export default function AddUser() {
         } else {
           try {
                  
-            const res = await userManagmentRequests.addUser(tempUser);
+            const res = await userManagementRequests.addUser(tempUser,currentUser.access_token);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
                    

@@ -22,6 +22,8 @@ function Teams() {
   const teamsState = useSelector((state) => state.teams);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   useEffect(() => {
          
@@ -69,7 +71,7 @@ function Teams() {
   const handleDelete = async (team) => {
          
     try {
-      const res = await teamRequests.deleteTeamsApi(team.id);
+      const res = await teamRequests.deleteTeamsApi(team.id,currentUser.access_token);
       if (res.error === false) {
         handleGetTeamsApi();
       }
@@ -85,7 +87,7 @@ function Teams() {
   const handleView = async (team) => {
          
     try{
-      const res =await teamMembersRequests.getTeamMembersApi(team.id);
+      const res =await teamMembersRequests.getTeamMembersApi(team.id,currentUser.access_token);
       if(res.error === false){
              
         // handleGetTeamsApi()
@@ -100,7 +102,7 @@ function Teams() {
   };
   const handleGetTeamsApi = async () => {
     try {
-      const res = await teamRequests.getTeamsApi();
+      const res = await teamRequests.getTeamsApi(currentUser.access_token);
            
       if (res.error === false) {
         dispatch(updateTeamsAction(res.data));

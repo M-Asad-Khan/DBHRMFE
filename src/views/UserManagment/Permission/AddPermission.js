@@ -8,7 +8,7 @@ import {
   updateIsEditPermissionClickedAction,
   updatePermissionsAction,
 } from "src/redux/UserManagment/userManagment.actions";
-import { userManagmentRequests } from "src/API/UserManagmentApi";
+import { userManagementRequests } from "src/API/UserManagmentApi";
 
 export default function AddPermission() {
   const [tempPermission, setTempPermission] = useState({});
@@ -17,6 +17,8 @@ export default function AddPermission() {
 
   const dispatch = useDispatch();
   const userManagmentState = useSelector((state) => state.userManagment);
+  const currentUser = useSelector((state) => state.login.currentUser);
+
   const [fieldsWithError, setFieldsWithError] = useState({
     user: null,
     roles: null,
@@ -116,9 +118,7 @@ export default function AddPermission() {
       if (userManagmentState.isEditPermissionClicked === true) {
         try {
                
-          const res = await userManagmentRequests.updatePermission(
-            tempPermission
-          );
+          const res = await userManagementRequests.updatePermission(tempPermission,currentUser.access_token);
           if (res.error === false) {
                  
             toast.success("Permission Updated !");
@@ -134,7 +134,7 @@ export default function AddPermission() {
       } else {
         try {
                
-          const res = await userManagmentRequests.addPermission(tempPermission);
+          const res = await userManagementRequests.addPermission(tempPermission,currentUser.access_token);
           if (res.error === false) {
                  
             toast.success("Permission added !");

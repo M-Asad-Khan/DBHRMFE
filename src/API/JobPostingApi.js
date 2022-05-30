@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class jobPostingApi {
-  addjobPostingApi = async (newPosting) => {
+  addjobPostingApi = async (newPosting,token) => {
     console.log(newPosting);
          
     return axios({
@@ -11,6 +11,8 @@ class jobPostingApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
       data: {
         jobTitle: newPosting.jobTitle,
@@ -41,7 +43,7 @@ class jobPostingApi {
         };
       });
   };
-  getjobPostingsApi = async () => {
+  getjobPostingsApi = async (token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition`,
@@ -49,6 +51,8 @@ class jobPostingApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {
@@ -65,8 +69,13 @@ class jobPostingApi {
       });
   };
 
+<<<<<<< Updated upstream
   updatejobPostingApi = async (newPosting) => {
          
+=======
+  updatejobPostingApi = async (newPosting,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${newPosting.id}`,
@@ -74,6 +83,8 @@ class jobPostingApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
       data: {
         jobTitle: newPosting.jobTitle,
@@ -101,8 +112,13 @@ class jobPostingApi {
         };
       });
   };
+<<<<<<< Updated upstream
   deletejobPostingApi = async (id) => {
          
+=======
+  deletejobPostingApi = async (id,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/jobPosition/${id}`,
@@ -110,6 +126,8 @@ class jobPostingApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
+
       },
     })
       .then((result) => {

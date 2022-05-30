@@ -82,6 +82,7 @@ const AddEmployee = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const state = useSelector((state) => state.employees);
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   function handleChange(evt) {
          
@@ -104,7 +105,7 @@ const AddEmployee = ({}) => {
       if (state.isEditEmployeeClicked === true) {
         try {
                
-          const res = await employeeRequests.updateEmployeeApi(state.newEmployee);
+          const res = await employeeRequests.updateEmployeeApi(state.newEmployee,currentUser.access_token);
           console.log("updateEmployee Response", res);
           if (res.error === false) {
                  
@@ -121,7 +122,7 @@ const AddEmployee = ({}) => {
       } else {
         try {
                
-          const res = await employeeRequests.addEmployeeApi(state.newEmployee);
+          const res = await employeeRequests.addEmployeeApi(state.newEmployee,currentUser.access_token);
           console.log("addEmployeeApi Response", res);
                
           if (res.error === false) {

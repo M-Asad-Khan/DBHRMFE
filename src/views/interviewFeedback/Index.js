@@ -21,6 +21,8 @@ function Feedbacks() {
   const hrState = useSelector((state) => state.interviewFeedback);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   useEffect(() => {
     
@@ -70,7 +72,7 @@ function Feedbacks() {
   const handleDelete = async (feedback) => {
     
     try {
-      const res = await interviewFeedbackFormRequests.deleteinterviewFeedbackFormApi(feedback.candidateId);
+      const res = await interviewFeedbackFormRequests.deleteinterviewFeedbackFormApi(feedback.candidateId,currentUser.access_token);
       if (res.error === false) {
         handleGetFeedbackFormApi();
       }
@@ -81,7 +83,7 @@ function Feedbacks() {
   const handleView = async (feedback) => {
      
     try{
-      const res =await interviewFeedbackFormRequests.getOneByIdApi(feedback.candidateId);
+      const res =await interviewFeedbackFormRequests.getOneByIdApi(feedback.candidateId,currentUser.access_token);
       if(res.error === false){
          
         dispatch(updateNewFeedbackAction(res.data));
@@ -104,7 +106,7 @@ function Feedbacks() {
    
   const handleGetFeedbackFormApi = async () => {
         try {
-      const res = await interviewFeedbackFormRequests.getinterviewFeedbackFormApi();
+      const res = await interviewFeedbackFormRequests.getinterviewFeedbackFormApi(currentUser.access_token);
       
       if (res.error === false) {
         dispatch(updateFeedbacksAction(res.data));

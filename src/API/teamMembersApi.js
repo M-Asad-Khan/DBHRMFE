@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class TeamMembersApi {
-  getTeamMembersApi = async (teamId) => {
+  getTeamMembersApi = async (teamId,token) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams-member/${teamId}`,
@@ -9,6 +9,7 @@ class TeamMembersApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
     })
       .then((result) => {
@@ -25,8 +26,13 @@ class TeamMembersApi {
       });
   };
 
+<<<<<<< Updated upstream
   deleteTeamMemberApi = async (teamId, memberId) => {
            
+=======
+  deleteTeamMemberApi = async (teamId, memberId,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams-member`,
@@ -34,6 +40,7 @@ class TeamMembersApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         teamId: teamId,
@@ -56,8 +63,13 @@ class TeamMembersApi {
       });
   };
 
+<<<<<<< Updated upstream
   addTeamMembersApi = async (team) => {
            
+=======
+  addTeamMembersApi = async (team,token) => {
+    debugger;
+>>>>>>> Stashed changes
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_LOCAL_PATH}/teams-member/`,
@@ -65,6 +77,7 @@ class TeamMembersApi {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
         mode: "no-cors",
+        "Authorization" : 'Bearer ' + token
       },
       data: {
         teamId: team.id,
