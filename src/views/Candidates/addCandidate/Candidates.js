@@ -43,6 +43,18 @@ const Candidates = ({}) => {
       })
     );
   }
+  function handleSelectChange(evt,field) {
+    //console.log("user id",evt)
+            
+       // const value = evt.target ? evt.target.value : evt.value;
+       // const name = evt.target ? evt.target.name : evt.field;
+       dispatch(
+        updateNewCandidateAction({
+           ...hrState.newCandidate,
+           [field]: evt.id,
+         })
+       );
+     }
   const handleGetJobPostingsApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
@@ -385,7 +397,7 @@ const Candidates = ({}) => {
                     id="postAppliedFor"
                     name="postAppliedFor"
                     options={postings}
-                    onChange={(event)=>handleChange(event,'postAppliedFor')}
+                    onChange={(event)=>handleSelectChange(event,'postAppliedFor')}
                   ></Select>{" "}
                  
                   {fieldsWithError.postAppliedFor === true ? (
