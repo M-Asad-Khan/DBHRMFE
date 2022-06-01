@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import {
   updateNewCandidateAction,
@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
+import { jobPostingRequests } from "src/API/JobPostingApi";
 
 const Candidates = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -27,7 +28,10 @@ const Candidates = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.candidate);
-
+  const [postings, setPostings] = useState([]);
+  useEffect(()=>{
+    handleGetJobPostingsApi();
+  },[])
   function handleChange(evt) {
     
     const value = evt.target ? evt.target.value : evt.value;
@@ -39,11 +43,29 @@ const Candidates = ({}) => {
       })
     );
   }
+  const handleGetJobPostingsApi = async () => {
+    try {
+      const res = await jobPostingRequests.getjobPostingsApi();
+           
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, 
+            value: x.jobTitle, label: x.jobTitle };
+        });
+        //console.log("tempArr", tempArr);
+        setPostings(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleCancel = () => {
     dispatch(updateNewCandidateAction({}));
     dispatch(updateIsAddCandidateClickedAction(false));
     dispatch(updateIsEditCandidateClickedAction(false));
   };
+
 
   const addAndUpdateCandidate = async () => {
   
@@ -355,17 +377,17 @@ const Candidates = ({}) => {
                     Post Applied for?
                     <span className="text-danger"> *</span>
                   </label>
-                  <input
-                    className={
-                      fieldsWithError.postAppliedFor === true ? "redBorder" : ""
-                    }
+                  <Select
+                  className={
+                    fieldsWithError.postAppliedFor === true ? "redBorder" : ""
+                  }
                     type="text"
-                    value={hrState.newCandidate.postAppliedFor}
-                    onChange={handleChange}
                     id="postAppliedFor"
                     name="postAppliedFor"
-                    placeholder=""
-                  />{" "}
+                    options={postings}
+                    onChange={(event)=>handleChange(event,'postAppliedFor')}
+                  ></Select>{" "}
+                 
                   {fieldsWithError.postAppliedFor === true ? (
                     <>
                       <label className="error form-control-label px-3">

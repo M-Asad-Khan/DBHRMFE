@@ -53,6 +53,9 @@ function employeesEvaluation() {
                
           handleDelete(rowData);
           break;
+          case "view":
+          handleView(rowData);
+          break;
        
          /*  break;
         case "edit":
@@ -104,10 +107,10 @@ function employeesEvaluation() {
 
             action: (
               <>
-                {/* <FiEye
+                <FiEye
                   onClick={() => (action = "view")}
                   style={{ color: "blue", cursor: "pointer" }}
-                /> */}
+                />
                 {/* <FiEdit
                   onClick={() => (action = "edit")}
                   style={{
@@ -163,7 +166,7 @@ function employeesEvaluation() {
               className="btn btn-outline-primary col-sm-2"
               onClick={()=>handleAddEmployeeEvaluation()}
             >
-              Add Employee Evaluation
+              Add Evaluation
             </button>
             <MDBDataTable
               className="mdbDataTableDesign"
