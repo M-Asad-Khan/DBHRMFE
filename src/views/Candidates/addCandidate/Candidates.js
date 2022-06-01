@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import {
   updateNewCandidateAction,
@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-import { jobPostingRequests } from "src/API/JobPostingApi";
 
 const Candidates = ({}) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -28,10 +27,7 @@ const Candidates = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.candidate);
-  const [postings, setPostings] = useState([]);
-  useEffect(()=>{
-    handleGetJobPostingsApi();
-  },[])
+
   function handleChange(evt) {
     
     const value = evt.target ? evt.target.value : evt.value;
@@ -43,41 +39,11 @@ const Candidates = ({}) => {
       })
     );
   }
-  function handleSelectChange(evt,field) {
-    //console.log("user id",evt)
-            
-       // const value = evt.target ? evt.target.value : evt.value;
-       // const name = evt.target ? evt.target.name : evt.field;
-       dispatch(
-        updateNewCandidateAction({
-           ...hrState.newCandidate,
-           [field]: evt.id,
-         })
-       );
-     }
-  const handleGetJobPostingsApi = async () => {
-    try {
-      const res = await jobPostingRequests.getjobPostingsApi();
-           
-      if (res.error === false) {
-        var tempArr = [];
-        var tempArr = res.data.map((x) => {
-          return { ...x, 
-            value: x.jobTitle, label: x.jobTitle };
-        });
-        //console.log("tempArr", tempArr);
-        setPostings(tempArr);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
   const handleCancel = () => {
     dispatch(updateNewCandidateAction({}));
     dispatch(updateIsAddCandidateClickedAction(false));
     dispatch(updateIsEditCandidateClickedAction(false));
   };
-
 
   const addAndUpdateCandidate = async () => {
   
@@ -389,17 +355,17 @@ const Candidates = ({}) => {
                     Post Applied for?
                     <span className="text-danger"> *</span>
                   </label>
-                  <Select
-                  className={
-                    fieldsWithError.postAppliedFor === true ? "redBorder" : ""
-                  }
+                  <input
+                    className={
+                      fieldsWithError.postAppliedFor === true ? "redBorder" : ""
+                    }
                     type="text"
+                    value={hrState.newCandidate.postAppliedFor}
+                    onChange={handleChange}
                     id="postAppliedFor"
                     name="postAppliedFor"
-                    options={postings}
-                    onChange={(event)=>handleSelectChange(event,'postAppliedFor')}
-                  ></Select>{" "}
-                 
+                    placeholder=""
+                  />{" "}
                   {fieldsWithError.postAppliedFor === true ? (
                     <>
                       <label className="error form-control-label px-3">
