@@ -16,6 +16,7 @@ class employeeEvaluationApi {
       data: {
         employeeId:newEvaluation.employeeId,
         teamId:newEvaluation.teamId,
+        dateOfEvaluation:newEvaluation.dateOfEvaluation,
         employeeDiscipline: newEvaluation.employeeDiscipline,
         employeeWorkQuality: newEvaluation.employeeWorkQuality,
         workConsistency: newEvaluation.workConsistency,
@@ -97,6 +98,30 @@ class employeeEvaluationApi {
         };
       });
   };
+  getEmployeesRecordApi = async (id) => {
+    debugger;
+    return axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/employeeEvaluation/${id}`,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+      },
+    })
+      .then((result) => {
+        return {
+          error: false,
+          data: result.data,
+        };
+      })
+      .catch((err) => {
+        return {
+          error: true,
+          data: err,
+        };
+      });
+  };
 
   updateEmployeeEvaluationApi = async (newEvaluation) => {
     return axios({
@@ -110,6 +135,7 @@ class employeeEvaluationApi {
       data: {
         employeeId:newEvaluation.employeeId,
         teamId:newEvaluation.teamId,
+        dateOfEvaluation:newEvaluation.dateOfEvaluation,
         employeeDiscipline: newEvaluation.employeeDiscipline,
         employeeWorkQuality: newEvaluation.employeeWorkQuality,
         workConsistency: newEvaluation.workConsistency,

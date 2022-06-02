@@ -209,10 +209,22 @@ var tempArray = []
                   ></Select>
                 </div>
               </div>
-
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
+                    Evaluation Date<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                     value={evaluationState?.newEvaluation?.dateOfEvaluation}
+                     type="date"
+                    id="dateOfEvaluation"
+                    name="dateOfEvaluation"
+                    onChange={handleInputFields}
+                    
+                  />{" "}
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label px-3">
                     Employee Discipline<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -223,9 +235,12 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'employeeDiscipline')}
                   ></Select>
                 </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Employee's work Quality{" "}
+                <label className="form-control-label px-3">
+                    Employee's work Quality
                     <span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -236,11 +251,8 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'employeeWorkQuality')}
                   ></Select>
                 </div>
-              </div>
-
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Work Consistency<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -251,8 +263,11 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'workConsistency')}
                   ></Select>
                 </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Decision Making Ability
                     <span className="text-danger"> *</span>
                   </label>{" "}
@@ -264,11 +279,8 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'decisionMakingAbility')}
                   ></Select>
                 </div>
-              </div>
-
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Job Knowledge and Proficiency
                     <span className="text-danger"> *</span>
                   </label>{" "}
@@ -280,10 +292,11 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'jobKnowledgeAndProficiency')}
                   ></Select>
                 </div>
+              </div>
 
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Productivity<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -294,9 +307,9 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'productivity')}
                   ></Select>
                 </div>
-              </div>
-              <div className="row justify-content-between text-left">
+
                 <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
                   <label className="form-control-label px-3">
                     Involvement of Worker in Team Effort
                     <span className="text-danger"> *</span>
@@ -309,9 +322,10 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'involvementOfWorkerInTeamEffort')}
                   ></Select>
                 </div>
-
+              </div>
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Accomplishment of job deadline
                     <span className="text-danger"> *</span>
                   </label>{" "}
@@ -323,11 +337,9 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'accomplishmentsOfJobDeadlines')}
                   ></Select>
                 </div>
-              </div>
 
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Punctuality<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
@@ -338,9 +350,11 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'punctuality')}
                   ></Select>
                 </div>
+              </div>
 
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Receptiveness to changing work environment
                     <span className="text-danger"> *</span>
                   </label>{" "}
@@ -352,11 +366,9 @@ var tempArray = []
                     onChange={(event)=>handleChange(event,'receptivenessToChangingWorkEnvironment')}
                   ></Select>
                 </div>
-              </div>
 
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Employee Observation<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -368,8 +380,11 @@ var tempArray = []
                     placeholder="Enter short answer"
                   />{" "}
                 </div>
+              </div>
+
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Employee's Strength<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -381,10 +396,8 @@ var tempArray = []
                     placeholder="Enter answer"
                   />
                 </div>
-              </div>
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
+                <label className="form-control-label px-3">
                     Areas that need improvement<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
@@ -393,6 +406,21 @@ var tempArray = []
                     type="text"
                     id="areasThatNeedsImprovement"
                     name="areasThatNeedsImprovement"
+                    placeholder="Enter answer"
+                  />{" "}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label px-3">
+                    Based on the above text, Your suggestions please <span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    value={evaluationState?.newEvaluation?.suggestions}
+                    onChange={handleInputFields}
+                    type="text"
+                    id="suggestions"
+                    name="suggestions"
                     placeholder="Enter answer"
                   />{" "}
                 </div>
@@ -410,21 +438,7 @@ var tempArray = []
                   
                 </div>
               </div>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Based on the above text, Your suggestions please <span className="text-danger"> *</span>
-                  </label>{" "}
-                  <input
-                    value={evaluationState?.newEvaluation?.suggestions}
-                    onChange={handleInputFields}
-                    type="text"
-                    id="suggestions"
-                    name="suggestions"
-                    placeholder="Enter answer"
-                  />{" "}
-                </div>
-                </div>
+              
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 ">

@@ -5,6 +5,7 @@ import {
   updateIsViewEmpEvaluationClickedAction,
   updateNewEmployeeEvaluationAction,
 } from "src/redux/EmployeeEvaluation/employeeEvaluation.action";
+import { employeeEvaluationRequests } from "src/API/employeeEvaluationApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { GrUserSettings } from "react-icons/gr";
 import { BsHandThumbsUp } from "react-icons/bs";
@@ -17,11 +18,14 @@ const viewEmployeeEvaluation = () => {
     const evaluationState = useSelector((state) => state.employeeEvaluation);
   
   const dispatch = useDispatch();
+  
+  
   const handleCancel = () => {
     dispatch(updateIsViewEmpEvaluationClickedAction(false));
     dispatch(updateNewEmployeeEvaluationAction({}));
     
   };
+
   
   return (
     <>
@@ -76,7 +80,7 @@ const viewEmployeeEvaluation = () => {
                   <div className="d-flex">
                     <GrUserSettings className="icon-design" />
                     <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                      Employee Work Quality:
+                       Work Quality:
                     </h6>
                   </div>
                   <div>{evaluationState?.newEvaluation?.employeeWorkQuality}</div>

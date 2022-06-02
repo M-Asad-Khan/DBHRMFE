@@ -29,6 +29,11 @@ import {
           width: 200,
         },
         {
+          label: "Date of Evaluation",
+          field: "dateOfEvaluation",
+          width: 200,
+        },
+        {
           label: "Action",
           field: "action",
           width: 100,

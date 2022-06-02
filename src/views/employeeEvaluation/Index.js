@@ -132,6 +132,8 @@ function employeesEvaluation() {
             clickEvent: setSelectedRow,
             employeeName:x?.employee.name,
             teamLeadName: x?.team.teamLeadName.name,
+            dateOfEvaluation: x?.dateOfEvaluation?.slice(0, 10),
+            
           });
         });
              
@@ -161,13 +163,7 @@ function employeesEvaluation() {
       ) : (
         <>
           <div className="card mt-0">
-            <button
-              type="button"
-              className="btn btn-outline-primary col-sm-2"
-              onClick={()=>handleAddEmployeeEvaluation()}
-            >
-              Add Evaluation
-            </button>
+            
             <MDBDataTable
               className="mdbDataTableDesign"
               infoLabel={["Showing", "to", "of", "evaluations"]}
