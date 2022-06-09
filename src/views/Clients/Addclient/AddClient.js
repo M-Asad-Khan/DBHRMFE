@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useMemo} from "react";
 import {
   updateNewClientAction,
   updateClientsAction,
@@ -8,10 +8,12 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { clientRequests } from "src/API/ClientApi";
+import Select from 'react-select'
+import countryList from 'react-select-country-list'
 
-const addclients = ({}) => {
+const addclients = ({ }) => {
   const [fieldsWithError, setFieldsWithError] = useState({
     country: false,
     gender: false,
@@ -24,9 +26,11 @@ const addclients = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
+  const [value, setValue] = useState('')
+  const options = useMemo(() => countryList().getData(), [])
 
   function handleChange(evt) {
-        
+
     const value = evt.target.value;
     dispatch(
       updateNewClientAction({
@@ -44,13 +48,13 @@ const addclients = ({}) => {
     if (!doValidation()) {
       if (clientsState.isEditClientClicked === true) {
         try {
-              
+
           const res = await clientRequests.updateClientApi(clientsState.newClient);
           console.log("updateClient Response", res);
 
-              
+
           if (res.error === false) {
-                
+
             toast.success("Client Updated");
             let temp = clientsState.clients.filter(
               (item) => item.id != res.data.id
@@ -62,17 +66,17 @@ const addclients = ({}) => {
         } catch (e) {
           toast.error("error");
 
-              
+
         }
       } else {
         try {
-              
+
           const res = await clientRequests.addClientApi(clientsState.newClient);
           console.log("addClientApi Response", res);
 
-              
+
           if (res.error === false) {
-                
+
             toast.success("Client Added");
 
             dispatch(updateClientsAction([...clientsState.clients, res.data]));
@@ -81,23 +85,23 @@ const addclients = ({}) => {
         } catch (e) {
           toast.error("error");
 
-              
+
         }
       }
     } else {
       //console.log("validation failed");
       toast.error("validation failed");
-          
+
     }
   };
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-        
+
 
     Object.entries(fieldsWithError).forEach((x) => {
-          
+
       if (clientsState.newClient[x[0]] !== undefined) {
         if (clientsState.newClient[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "contactNumber") {
@@ -118,7 +122,7 @@ const addclients = ({}) => {
         isError = true;
       }
     });
-        
+
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -126,7 +130,7 @@ const addclients = ({}) => {
         isError = true;
       }
     });
-   // console.log("isError", isError);
+    // console.log("isError", isError);
     return isError;
   };
 
@@ -173,7 +177,7 @@ const addclients = ({}) => {
     }
   }
   console.log("clientsState", clientsState);
- // console.log("errorInfo", errorInfo);
+  // console.log("errorInfo", errorInfo);
 
   return (
     <>
@@ -188,33 +192,7 @@ const addclients = ({}) => {
                 <IoArrowBackSharp />
               </button>
               <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <label className="form-control-label ">
-                    Country<span className="text-danger"> *</span>
-                  </label>{" "}
-                  <input
-                    className={
-                      fieldsWithError.country === true ? "redBorder" : ""
-                    }
-                    value={clientsState.newClient.country}
-                    onChange={handleChange}
-                    type="text"
-                    id="country"
-                    name="country"
-                    placeholder="Enter country"
-                    // onBlur={}
-                  />{" "}
-                  {fieldsWithError.country === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.country}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label">
@@ -239,8 +217,6 @@ const addclients = ({}) => {
                     ""
                   )}
                 </div>
-              </div>
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label ">
@@ -268,7 +244,9 @@ const addclients = ({}) => {
                     ""
                   )}
                 </div>
-                <div className="form-group col-sm-6 flex-column d-flex">
+              </div>
+              <div className="row justify-content-between text-left">
+              <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label">
                     Phone number<span className="text-danger"> *</span>
@@ -295,8 +273,6 @@ const addclients = ({}) => {
                     ""
                   )}
                 </div>
-              </div>
-              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label">
@@ -323,32 +299,45 @@ const addclients = ({}) => {
                     ""
                   )}
                 </div>
-                {/* <div className="form-group col-sm-6 flex-column d-flex">
-                {" "}
-                <label className="form-control-label px-3">
-                  Project<span className="text-danger"> *</span>
-                </label>{" "}
-                <input
-                  className={
-                    fieldsWithError.project === true ? "redBorder" : ""
-                  }
-                  value={clientsState.newClient.project}
-                  onChange={handleChange}
-                  type="text"
-                  id="project"
-                  name="project"
-                  placeholder="Enter project name"
-                />{" "}
-                {fieldsWithError.project === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.project}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div> */}
+              </div>
+              <div className="row justify-content-between text-left">
+                
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label ">
+                    Country<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <Select
+                    className={
+                      fieldsWithError.country === true ? "redBorder" : ""
+                    }
+                    options={options} 
+                    value={value}
+                    onChange={(e)=> {
+                      debugger
+                      setValue(e)
+                       dispatch(
+                        updateNewClientAction({
+                          ...clientsState.newClient,
+                          ["country"]: e.label,
+                        })
+                      );
+                     }}
+                    id="country"
+                    name="country"
+                    placeholder="Enter country" 
+                   ></Select>{" "}
+                  {fieldsWithError.country === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.country}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+           
               </div>
 
               <div className="row justify-content-between text-left">

@@ -68,7 +68,7 @@ const ViewTeam = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col-sm-4">
             <div className="card" style={{ height: "338px" }}>
               <h2 className="border-bottom">Team Members</h2>

@@ -45,8 +45,9 @@
         "react-redux": "^7.2.6",
         "react-router-dom": "^5.3.0",
         "react-select": "^5.2.2",
-        "react-toastify": "^8.2.0",
+        "react-select-country-list": "^2.2.3",
         "react-simple-star-rating": "^4.0.5",
+        "react-toastify": "^8.2.0",
         "redux": "4.1.2",
         "simplebar-react": "^2.3.6"
     },

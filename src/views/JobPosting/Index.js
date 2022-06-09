@@ -157,12 +157,12 @@ function JobPosting() {
             className="btn btn-outline-primary col-sm-2"
             onClick={()=>handleAddPositions()}
           >
-            Add Job Positions
+            Post Job 
           </button>
 
           <MDBDataTable
             className="mdbDataTableDesign"
-            infoLabel={["Showing", "to", "of", "jobPosting"]}
+            infoLabel={["Showing", "to", "of", "Positions"]}
             bordered
             displayEntries={false}
             hover

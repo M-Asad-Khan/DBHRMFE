@@ -63,7 +63,7 @@ const viewEmployeeEvaluation = () => {
           </div>
   
           <div className="row">
-            <div className="col-sm-4">
+            <div className="col-lg-6 col-md-6 col-sm-12">
               <div className="card" style={{ height: "338px" }}>
                 <h2 className="border-bottom">Employee Details</h2>
                 <div className="d-flex justify-content-between">
@@ -117,7 +117,7 @@ const viewEmployeeEvaluation = () => {
               </div>
             </div>
   
-            <div className="col-sm-4">
+            <div className="col-lg-6 col-md-6 col-sm-12">
               <div className="card" style={{ height: "338px" }}>
                 <div className="row d-flex justify-content-center">
                   <h2 className="border-bottom">Work Details</h2>
@@ -180,7 +180,7 @@ const viewEmployeeEvaluation = () => {
               </div>
             </div>
   
-            <div className="col-sm-4">
+            <div className="col-lg-6 col-md-6 col-sm-12 ">
               <div className="card" style={{ height: "338px" }}>
                 <div className="row d-flex justify-content-center">
                   <h2 className="border-bottom">Suggestions</h2>
@@ -201,9 +201,9 @@ const viewEmployeeEvaluation = () => {
                         Supervisor Recommendations:
                       </h6>
                     </div>
-                    <div>{evaluationState?.newEvaluation?.supervisorRecommendations}</div>
+                    <div className="w-50 text-right">{evaluationState?.newEvaluation?.supervisorRecommendations}</div>
                   </div>
-                  <div></div>
+               
                 </div>
               </div>
             </div>

@@ -269,7 +269,7 @@ export default function AddUser() {
           <label className="form-control-label">
             Email<span className="text-danger"> *</span>
           </label>
-          <input value={tempUser.email} disabled={true}></input>
+          <input value={tempUser.email} disabled={true} className="inputField"></input>
 
           {fieldsWithError.email === true ? (
             <>
