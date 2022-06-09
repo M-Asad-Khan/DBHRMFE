@@ -274,8 +274,8 @@ const jobPosting = () => {
                   </label>
                   <input
                   className={
-                    fieldsWithError.effectiveDate === true ? "redBorder" : ""
-                  }
+                    `inputField ${fieldsWithError.effectiveDate === true ? "redBorder" : ""}
+                  `}
                   value={hrState?.newPosting?.effectiveDate?.slice(0,10)}
                     onChange={handleChange}
                     type="date"

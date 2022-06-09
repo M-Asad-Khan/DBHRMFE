@@ -237,7 +237,7 @@ const interviewFeedback = () => {
                   id="date"
                   name="dateOfInterview"
                   placeholder=""
-                  // onblur="validate(4)"
+                  className="inputField"
                 />
               </div>
             </div>
