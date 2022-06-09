@@ -18,38 +18,41 @@ import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 
 function employees() {
-       
+
   var action = "";
 
   const state = useSelector((state) => state.employees);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
+
 
   useEffect(() => {
     handleGetEmployeeApi();
+
   }, []);
   useEffect(() => {
     if (
       state.isAddEmployeeClicked === false ||
       state.isEditEmployeeClicked === false
     ) {
-           
+
       handleGetEmployeeApi();
     }
   }, [state.isAddEmployeeClicked, state.isEditEmployeeClicked]);
 
   useEffect(() => {
-         
+
     setColumnsAndRows(state.employeesDataTable);
   }, [state.employeesDataTable]);
   function setSelectedRow(rowData) {
-         
+
     if (action == "") {
       return;
     } else {
-      switch (action) {
+      switch (action) { 
         case "delete":
-               
+
           handleDelete(rowData);
           break;
         case "view":
@@ -68,7 +71,7 @@ function employees() {
   }
 
   const handleDelete = async (employee) => {
-         
+
     try {
       const res = await employeeRequests.deleteEmployeeApi(employee.id);
       if (res.error === false) {
@@ -79,20 +82,20 @@ function employees() {
     }
   };
   const handleEdit = (employee) => {
-         
+
     dispatch(updateNewEmployeeAction(employee));
     dispatch(updateIsEditEmployeeClickedAction(true));
   };
-  const handleView =async (employee) => {
-         
+  const handleView = async (employee) => {
+
     try {
       const res = await employeeRequests.getEmployeeWorkHistory(employee.id);
-			if (res.error === false) {
-				     
-				var tempObj = { employee: employee, workHistory: res.data }
-				dispatch(updateNewEmployeeAction(tempObj));
-				dispatch(updateIsViewEmpClickedAction(true));
-				     
+      if (res.error === false) {
+
+        var tempObj = { employee: employee, workHistory: res.data }
+        dispatch(updateNewEmployeeAction(tempObj));
+        dispatch(updateIsViewEmpClickedAction(true));
+
       }
     } catch (err) {
       console.log(err);
@@ -100,58 +103,109 @@ function employees() {
   };
   const handleGetEmployeeApi = async () => {
     try {
-      const res = await employeeRequests.getEmployeesApi();
-           
-      if (res.error === false) {
-        dispatch(updateEmployeesAction(res.data));
-        var tempArr = [];
-        res.data.map((x) => {
-          tempArr.push({
-						...x,
-						appointmentLetterStatus: x.appointmentLetterStatus ? "true" : "false",
-						agreementSignStatus:x.agreementSignStatus?"true":"false",
-            action: (
-              <>
-                <FiEye
-                  onClick={() => (action = "view")}
-                  style={{ color: "blue", cursor: "pointer" }}
-                />
-                <FiEdit
-                  onClick={() => (action = "edit")}
-                  style={{
-                    color: "orange",
-                    marginLeft: "20px",
-                    cursor: "pointer",
-                  }}
-                />
-                <FiTrash
-                  // onClick={() => (action = "delete")}
-                  style={{
-                    color: "red",
-                    marginLeft: "20px",
-                    cursor: "not-allowed",
-                  }}
-                />
-              </>
-            ),
-            clickEvent: setSelectedRow,
-          });
-        });
-             
-        console.log("eventarr", tempArr);
-        var tempObj = { ...state.employeesDataTable, rows: tempArr };
-        dispatch(updateEmployeesDataTableAction(tempObj));
-      }
+
+      const temp = currentUser.userPermission.filter((x) => x.role.name != "Admin" && x.role.name != "HR" && x.role.name == "Employee")
+      let res;
+     if(temp.length > 0)
+        { res = await employeeRequests.getEmployeeApi(currentUser?.Profile?.id);
+
+
+          if (res.error === false) {
+            dispatch(updateEmployeesAction(res.data));
+            var tempArr = [];
+            //res.data.map((x) => {
+              tempArr.push({
+                ...res.data,
+                appointmentLetterStatus: res.data.appointmentLetterStatus ? "true" : "false",
+                agreementSignStatus: res.data.agreementSignStatus ? "true" : "false",
+                action: (
+                  <>
+                    <FiEye
+                      onClick={() => (action = "view")}
+                      style={{ color: "blue", cursor: "pointer" }}
+                    />
+                  {/*   <FiEdit
+                      onClick={() => (action = "edit")}
+                      style={{
+                        color: "orange",
+                        marginLeft: "20px",
+                        cursor: "pointer",
+                      }}
+                    /> */}
+                    {/* <FiTrash
+                      // onClick={() => (action = "delete")}
+                      style={{
+                        color: "red",
+                        marginLeft: "20px",
+                        cursor: "not-allowed",
+                      }}
+                    /> */}
+                  </>
+                ),
+                clickEvent: setSelectedRow,
+              });
+           // });
+
+            console.log("eventarr", tempArr);
+            var tempObj = { ...state.employeesDataTable, rows: tempArr };
+            dispatch(updateEmployeesDataTableAction(tempObj));
+          }
+        }
+        else{
+        
+            res = await employeeRequests.getEmployeesApi();
+            console.log("current user", res.data)
+          if (res.error === false) {
+            dispatch(updateEmployeesAction(res.data));
+            var tempArr = [];
+            res.data.map((x) => {
+              tempArr.push({
+                ...x,
+                appointmentLetterStatus: x.appointmentLetterStatus ? "true" : "false",
+                agreementSignStatus: x.agreementSignStatus ? "true" : "false",
+                action: (
+                  <>
+                    <FiEye
+                      onClick={() => (action = "view")}
+                      style={{ color: "blue", cursor: "pointer" }}
+                    />
+                    <FiEdit
+                      onClick={() => (action = "edit")}
+                      style={{
+                        color: "orange",
+                        marginLeft: "20px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <FiTrash
+                      // onClick={() => (action = "delete")}
+                      style={{
+                        color: "red",
+                        marginLeft: "20px",
+                        cursor: "not-allowed",
+                      }}
+                    />
+                  </>
+                ),
+                clickEvent: setSelectedRow,
+              });
+            });
+
+            console.log("eventarr", tempArr);
+            var tempObj = { ...state.employeesDataTable, rows: tempArr };
+            dispatch(updateEmployeesDataTableAction(tempObj));
+          }
+    }
     } catch (err) {
       console.log(err);
     }
   };
 
-	function handleAddEmployee() {
-		// console.log('true ho gya...!')
-		     
-		dispatch(updateNewEmployeeAction({employee_No:"emp-"+(state.employees.length+1)}))
-		dispatch(updateIsAddEmployeeClickedAction(true));
+  function handleAddEmployee() {
+    // console.log('true ho gya...!')
+
+    dispatch(updateNewEmployeeAction({ employee_No: "emp-" + (state.employees.length + 1) }))
+    dispatch(updateIsAddEmployeeClickedAction(true));
   }
   console.log("state:", state);
   return (
@@ -163,11 +217,13 @@ function employees() {
         <AddEmployee />
       ) : (
         <>
+        
           <div className="card mt-0">
+         
             <button
               type="button"
               className="btn btn-outline-primary col-sm-2"
-              onClick={()=>handleAddEmployee()}
+              onClick={() => handleAddEmployee()}
             >
               Add Employee
             </button>
@@ -183,6 +239,7 @@ function employees() {
               data={columnsAndRows}
             />
           </div>
+      
         </>
       )}
     </>

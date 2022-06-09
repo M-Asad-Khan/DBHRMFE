@@ -14,6 +14,7 @@ import {
 import { teamRequests } from "src/API/TeamApi";
 import ViewTeam from "./ViewTeam/ViewTeam";
 import { teamMembersRequests } from "src/API/teamMembersApi";
+import { employeeRequests } from "src/API/EmployeeApi";
 
 function Teams() {
        
@@ -22,6 +23,7 @@ function Teams() {
   const teamsState = useSelector((state) => state.teams);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
+  const currentUser = useSelector((state) => state.login.currentUser);
 
   useEffect(() => {
          
@@ -100,8 +102,11 @@ function Teams() {
   };
   const handleGetTeamsApi = async () => {
     try {
-      const res = await teamRequests.getTeamsApi();
-           
+      const temp = currentUser.userPermission.filter((x) => x.role.name != "Admin" && x.role.name !="HR" && x.role.name ==="Employee")
+      let res;
+      if(temp.length > 0)
+      {res = await employeeRequests. getEmployeeWorkHistory(currentUser?.Profile?.id);
+      
       if (res.error === false) {
         dispatch(updateTeamsAction(res.data));
         var tempArr = [];
@@ -132,15 +137,65 @@ function Teams() {
                 />
               </>
             ),
+
             clickEvent: setSelectedRow,
             managerName: x?.managerName?.name,
             teamLeadName: x?.teamLeadName?.name,
+            
           });
+          console.log("res.data", res.data)
         });
              
         var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
         dispatch(updateTeamsDataTableAction(tempObj));
+        }
       }
+      else{
+
+        res = await teamRequests.getTeamsApi();
+       
+        console.log("current user", res.data);
+        if (res.error === false) {
+          dispatch(updateTeamsAction(res.data));
+          var tempArr = [];
+          res.data.map((x) => {
+            tempArr.push({
+              ...x,
+              action: (
+                <>
+                  <FiEye
+                    onClick={() => (action = "view")}
+                    style={{ color: "blue", cursor: "pointer" }}
+                  />
+                  <FiEdit
+                    onClick={() => (action = "edit")}
+                    style={{
+                      color: "orange",
+                      marginLeft: "20px",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <FiTrash
+                    // onClick={() => (action = "delete")}
+                    style={{
+                      color: "red",
+                      marginLeft: "20px",
+                      cursor: "not-allowed",
+                    }}
+                  />
+                </>
+              ),
+              clickEvent: setSelectedRow,
+              managerName: x?.managerName?.name,
+              teamLeadName: x?.teamLeadName?.name,
+            });
+          });
+               
+          var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
+          dispatch(updateTeamsDataTableAction(tempObj));
+        }
+      }
+      
     } catch (err) {
       //console.log(err);
     }
@@ -149,7 +204,9 @@ function Teams() {
   function handleAddClient() {
     dispatch(updateIsAddTeamClickedAction(true));
   }
- // console.log("teamsState", teamsState);
+  console.log("teamsState", teamsState);
+  
+  
 
   return (
     <>

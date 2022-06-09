@@ -104,6 +104,31 @@ class employeeApi {
         };
       });
   };
+  getEmployeeApi = async (id) => {
+    debugger;
+    return axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/${id}`,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+      },
+    })
+      .then((result) => {
+        return {
+          error: false,
+          data: result.data,
+        };
+      })
+      .catch((err) => {
+        return {
+          error: true,
+          data: err,
+        };
+      });
+  };
+
 
   updateEmployeeApi = async (newEmployee) => {
        

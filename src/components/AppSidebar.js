@@ -76,9 +76,22 @@ const AppSidebar = () => {
         navigation.filter((y) => {
           if (
             y.name !== "User Managment" &&
-            y.name !=="Accounts")
-            return true;
+            y.name !=="Accounts"&&
+            y.name !=="HR" ){
+             
+             /*  let temp = sidebarOfEmployee.filter(item => {
+                if( item.name == "Resource Plaining") {
+       
+                item.items.filter((x)=>{return  x.name != "Client"} )
+                    
+                 }
+                  }) */
+                  return true
+            }
+            
         });
+        
+        
         sidebarContent.length <= 0 ? sidebarContent = [...sidebarOfEmployee] : ActiveRoutes(sidebarOfEmployee);
     }
   });
