@@ -215,6 +215,7 @@ var tempArray = []
                     Evaluation Date<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                    className="inputField"
                      value={evaluationState?.newEvaluation?.dateOfEvaluation}
                      type="date"
                     id="dateOfEvaluation"
@@ -372,6 +373,7 @@ var tempArray = []
                     Employee Observation<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                   className="inputField"
                     value={evaluationState?.newEvaluation?.employeeObservation}
                     onChange={handleInputFields}
                     type="text"
@@ -401,6 +403,7 @@ var tempArray = []
                     Areas that need improvement<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                  
                     value={evaluationState?.newEvaluation?.areasThatNeedsImprovement}
                     onChange={handleInputFields}
                     type="text"
@@ -416,6 +419,7 @@ var tempArray = []
                     Based on the above text, Your suggestions please <span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                   className="inputField"
                     value={evaluationState?.newEvaluation?.suggestions}
                     onChange={handleInputFields}
                     type="text"
