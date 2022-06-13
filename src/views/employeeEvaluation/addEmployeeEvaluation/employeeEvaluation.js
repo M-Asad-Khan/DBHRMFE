@@ -387,13 +387,14 @@ const employeeEvaluation = ({}) => {
                     Employee Observation<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                    className="inputField"
                     value={evaluationState?.newEvaluation?.employeeObservation}
                     onChange={handleInputFields}
                     type="text"
                     id="observation"
                     name="employeeObservation"
                     placeholder="Enter short answer"
-                    className="inputField"
+                    
                   />{" "}
                 </div>
               </div>
@@ -436,13 +437,14 @@ const employeeEvaluation = ({}) => {
                     <span className="text-danger"> *</span>
                   </label>{" "}
                   <input
+                    className="inputField"
                     value={evaluationState?.newEvaluation?.suggestions}
                     onChange={handleInputFields}
                     type="text"
                     id="suggestions"
                     name="suggestions"
                     placeholder="Enter answer"
-                    className="inputField"
+                    
                   />{" "}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
