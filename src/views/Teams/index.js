@@ -9,7 +9,7 @@ import {
   updateTeamsAction,
   updateIsEditTeamClickedAction,
   updateTeamsDataTableAction,
-  updateIsViewTeamClickedAction,
+  updateIsViewTeamClickedAction
 } from "../../redux/Teams/teams.actions";
 import { teamRequests } from "src/API/TeamApi";
 import ViewTeam from "./ViewTeam/ViewTeam";
@@ -17,16 +17,15 @@ import { teamMembersRequests } from "src/API/teamMembersApi";
 import { employeeRequests } from "src/API/EmployeeApi";
 
 function Teams() {
-       
   var action = "";
 
   const teamsState = useSelector((state) => state.teams);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
   const currentUser = useSelector((state) => state.login.currentUser);
+  const [isAdmin, setIsAdmin] = useState();
 
   useEffect(() => {
-         
     handleGetTeamsApi();
   }, []);
   useEffect(() => {
@@ -39,18 +38,15 @@ function Teams() {
   }, [teamsState.isAddTeamClicked, teamsState.isEditTeamClicked]);
 
   useEffect(() => {
-         
     setColumnsAndRows(teamsState.teamsDataTable);
   }, [teamsState.teamsDataTable]);
 
   function setSelectedRow(rowData) {
-         
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-               
           handleDelete(rowData);
           break;
         case "view":
@@ -69,7 +65,6 @@ function Teams() {
   }
 
   const handleDelete = async (team) => {
-         
     try {
       const res = await teamRequests.deleteTeamsApi(team.id);
       if (res.error === false) {
@@ -80,33 +75,44 @@ function Teams() {
     }
   };
   const handleEdit = (team) => {
-         
     dispatch(updateNewTeamAction(team));
     dispatch(updateIsEditTeamClickedAction(true));
   };
   const handleView = async (team) => {
-         
-    try{
-      const res =await teamMembersRequests.getTeamMembersApi(team.id);
-      if(res.error === false){
-             
+    try {
+      const res = await teamMembersRequests.getTeamMembersApi(team.id);
+      if (res.error === false) {
         // handleGetTeamsApi()
         dispatch(updateIsViewTeamClickedAction(true));
         dispatch(updateNewTeamAction(res.data));
       }
-    } catch(err){
+    } catch (err) {
       console.log(err);
     }
- 
-         
   };
   const handleGetTeamsApi = async () => {
     try {
-      const temp = currentUser.userPermission.filter((x) => x.role.name != "Admin" && x.role.name !="HR" && x.role.name ==="Employee")
+      var temp;
       let res;
-      if(temp.length > 0)
-      {res = await employeeRequests.getEmployeeWorkHistory(currentUser?.Profile?.id);
-      
+      if (
+        currentUser.userPermission.some(
+          (x) => x.role.name === "Admin" || x.role.name === "HR"
+        )
+      ) {
+        temp = false;
+        setIsAdmin(true);
+      } else {
+        temp = true;
+        setIsAdmin(false);
+      }
+      debugger;
+      if (temp) {
+        res = await employeeRequests.getEmployeeWorkHistory(
+          currentUser?.Profile?.id
+        );
+
+        console.log("Employee Teams Response ", res.data);
+
         if (res.error === false) {
           dispatch(updateTeamsAction(res.data));
           var tempArr = [];
@@ -119,39 +125,39 @@ function Teams() {
                     onClick={() => (action = "view")}
                     style={{ color: "blue", cursor: "pointer" }}
                   />
-                  {currentUser?.Profile?.id == x.team.managerName.id &&
-                  <FiEdit
-                    onClick={() => (action = "edit")}
-                    style={{
-                      color: "orange",
-                      marginLeft: "20px",
-                      cursor: "pointer",
-                    }}
-                  /> }
+                  {currentUser?.Profile?.id == x.team.managerName.id && (
+                    <FiEdit
+                      onClick={() => (action = "edit")}
+                      style={{
+                        color: "orange",
+                        marginLeft: "20px",
+                        cursor: "pointer"
+                      }}
+                    />
+                  )}
                   <FiTrash
                     // onClick={() => (action = "delete")}
                     style={{
                       color: "red",
                       marginLeft: "20px",
-                      cursor: "not-allowed",
+                      cursor: "not-allowed"
                     }}
                   />
                 </>
               ),
+
               clickEvent: setSelectedRow,
               managerName: x.team?.managerName?.name,
-              teamLeadName: x.team?.teamLeadName?.name,
+              teamLeadName: x.team?.teamLeadName?.name
             });
-          });
-               
-          var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
-          dispatch(updateTeamsDataTableAction(tempObj));
-        }
-      }
-      else{
 
+            var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
+            dispatch(updateTeamsDataTableAction(tempObj));
+          });
+        }
+      } else {
         res = await teamRequests.getTeamsApi();
-       
+
         console.log("current user", res.data);
         if (res.error === false) {
           dispatch(updateTeamsAction(res.data));
@@ -170,7 +176,7 @@ function Teams() {
                     style={{
                       color: "orange",
                       marginLeft: "20px",
-                      cursor: "pointer",
+                      cursor: "pointer"
                     }}
                   />
                   <FiTrash
@@ -178,22 +184,21 @@ function Teams() {
                     style={{
                       color: "red",
                       marginLeft: "20px",
-                      cursor: "not-allowed",
+                      cursor: "not-allowed"
                     }}
                   />
                 </>
               ),
               clickEvent: setSelectedRow,
               managerName: x?.managerName?.name,
-              teamLeadName: x?.teamLeadName?.name,
+              teamLeadName: x?.teamLeadName?.name
             });
           });
-               
+
           var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
           dispatch(updateTeamsDataTableAction(tempObj));
         }
       }
-      
     } catch (err) {
       //console.log(err);
     }
@@ -203,8 +208,6 @@ function Teams() {
     dispatch(updateIsAddTeamClickedAction(true));
   }
   console.log("teamsState", teamsState);
-  
-  
 
   return (
     <>
@@ -217,14 +220,16 @@ function Teams() {
         </>
       ) : (
         <div className="card mt-0">
-          <button
-            type="button"
-            className="btn btn-outline-primary col-sm-2"
-            onClick={handleAddClient}
-          >
-            Add Team
-          </button>
-          
+          {isAdmin && (
+            <button
+              type="button"
+              className="btn btn-outline-primary col-sm-2"
+              onClick={handleAddClient}
+            >
+              Add Team
+            </button>
+          )}
+
           <MDBDataTable
             className="mdbDataTableDesign"
             infoLabel={["Showing", "to", "of", "teams"]}

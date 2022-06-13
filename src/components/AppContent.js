@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import {  CSpinner } from "@coreui/react";
-import ProtectedRoute from "../layout/ProtectedRoute";
-import { adminRoutes } from "../routes";
+import ProtectedRoute  from "../layout/ProtectedRoute";
+import { adminRoutes,HRRoutes,EmployeRoutes,ClientRoutes } from "../routes";
 import { useSelector } from "react-redux";
 const AppContent = () => {
   let routes = [];
@@ -25,32 +25,15 @@ const AppContent = () => {
                 routes = adminRoutes;
             } else if (x === "HR") {
                 let routesOfHR = [];
-                routesOfHR = adminRoutes.filter((route) => {
-                    return route.name !== "User Managment";
-                });
+                routesOfHR = HRRoutes;
                 routes.length <= 0 ? routes = [...routesOfHR] : ActiveRoutes(routesOfHR);
             } else if (x == "Client") {
-                let routesOfClient = [];
-                routesOfClient = adminRoutes.filter((route) => {
-                    if (
-                        route.name !== "User Managment" &&
-                        route.name !== "Candidates" &&
-                        route.name != "Interview Feedback" &&
-                        route.name != "Job Posting" &&
-                        route.name != "Employee"
-                    )
-                        return true;
-                });
+                let routesOfClient = ClientRoutes;
+                
                 routes.length <= 0 ? routes = [...routesOfClient] : ActiveRoutes(routesOfClient);
             } else if (x == "Employee") {
-                let routesOfEmployee = [];
-                routesOfEmployee =
-                 adminRoutes.filter((route) => {
-                    if (
-                        route.name !== "User Managment"
-                    )
-                        return true;
-                });
+                let routesOfEmployee = EmployeRoutes;
+                
                 routes.length <= 0 ? routes = [...routesOfEmployee] : ActiveRoutes(routesOfEmployee);
             }
          });

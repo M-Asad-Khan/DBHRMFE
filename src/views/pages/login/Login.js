@@ -97,6 +97,12 @@ const Login = () => {
                         name="password"
                         type="password"
                         placeholder="Password"
+                        onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          debugger
+                          handleLogin()
+                        }
+                    }}
                       />
                     </CInputGroup>
                     <CRow>

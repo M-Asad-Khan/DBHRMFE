@@ -12,8 +12,8 @@ const employeeEvaluation = React.lazy(() => import("./views/employeeEvaluation/I
 export const adminRoutes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },
   { path: "/", exact: true, name: "Home" },
-  { path: "/dashboard", name: "Dashboard", component: Dashboard },
-  { path: "/login", name: "Login", component: Login },
+  { path: "/dashboard",exact: true, name: "Dashboard", component: Dashboard },
+  { path: "/login",exact: true, name: "Login", component: Login },
   { path: "/clients", exact: true, name: "Clients", component: Clients },
   { path: "/teams", exact: true, name: "Teams", component: Teams },
   { path: "/jobPosting",exact: true,name: "Job Posting",component: jobPosting},
@@ -21,4 +21,34 @@ export const adminRoutes = [
   { path: "/interviewFeedback", exact: true, name: "Interview Feedback", component: interviewFeedback },
   { path: "/candidates",exact: true,name: "Candidates",component: candidates},
   { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
+];
+export const HRRoutes = [
+  { path: "/Employee", exact: true, name: "Employee", component: Employee },
+  { path: "/", exact: true, name: "Home" },
+  { path: "/dashboard",exact: true, name: "Dashboard", component: Dashboard },
+  { path: "/login",exact: true, name: "Login", component: Login },
+  { path: "/clients", exact: true, name: "Clients", component: Clients },
+  { path: "/teams", exact: true, name: "Teams", component: Teams },
+  { path: "/jobPosting",exact: true,name: "Job Posting",component: jobPosting},
+  { path: "/interviewFeedback", exact: true, name: "Interview Feedback", component: interviewFeedback },
+  { path: "/candidates",exact: true,name: "Candidates",component: candidates},
+  { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
+];
+export const EmployeRoutes = [
+  { path: "/Employee", exact: true, name: "Employee", component: Employee },
+  { path: "/", exact: true, name: "Home" },
+  { path: "/dashboard",exact: true, name: "Dashboard", component: Dashboard },
+  { path: "/login",exact: true, name: "Login", component: Login },
+  { path: "/teams", exact: true, name: "Teams", component: Teams },
+  { path: "/jobPosting",exact: true, name: "Job Posting",component: jobPosting},
+  { path: "/interviewFeedback", exact: true, name: "Interview Feedback", component: interviewFeedback },
+  { path: "/candidates",exact: true,name: "Candidates",component: candidates},
+  { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
+];
+export const ClientRoutes = [
+  { path: "/", exact: true, name: "Home" },
+  { path: "/dashboard",exact: true, name: "Dashboard", component: Dashboard },
+  { path: "/login",exact: true, name: "Login", component: Login },
+  { path: "/clients", exact: true, name: "Clients", component: Clients },
+  { path: "/teams", exact: true, name: "Teams", component: Teams },
 ];
