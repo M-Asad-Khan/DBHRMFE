@@ -23,11 +23,16 @@ import { FaRegAddressBook, FaUserTie,FaUsers, FaHandRock,FaUserClock, FaUsersCog
 import { RiSettings2Line,RiUserSearchLine, RiUserFollowLine,RiTimeLine } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
 import { GrProjects } from "react-icons/gr";
+import { useHistory } from "react-router-dom";
+import {updateIsAddPostingClickedAction} from "../../../redux/jobPosting/jobPosting.actions"
 
 
 const ViewEmployee = () => {
   const state = useSelector((state) => state.employees);
+  const currentUser = useSelector((state) => state.login.currentUser);
   const [employeesRecord, setEmployeesRecord] = useState();
+  const history = useHistory();
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -72,7 +77,6 @@ const ViewEmployee = () => {
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12">
             <div className="card">
-              <div className="">
                 <div className="">
                   <button
                     className="btn btn-outline-primary"
@@ -81,7 +85,6 @@ const ViewEmployee = () => {
                     <IoArrowBackSharp />
                   </button>
                 </div>
-              </div>
               <div className="form-card">
                 <div className="d-flex">
                   <img
@@ -208,6 +211,19 @@ const ViewEmployee = () => {
                   </div>
                   <div>{state?.newEmployee?.employee?.designation}</div>
                 </div>
+                {currentUser?.Profile?.id ===
+                  state?.newEmployee?.employee?.id ? (
+                  <span
+                    onClick={() =>{ 
+                      dispatch(updateIsAddPostingClickedAction(true)); history.push('/jobPosting')}}
+                    className="anchor font weight-bold"
+                    title="Performance Evaluation Form"
+                  >
+                    Post Job Positinon 
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>

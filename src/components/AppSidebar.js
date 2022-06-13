@@ -14,7 +14,7 @@ import image2vector from "src/assets/images/image2vector.svg";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 // sidebar nav config
-import navigation from "../_nav";
+import {Admin_nav,HumanResource_nav,Employee_nav,Client_nav} from "../_nav";
 import { updateShowSidebarAction } from "src/redux/AppSidebar/appSidebar.actions";
 import {
   updateIsAddClientClickedAction,
@@ -31,67 +31,40 @@ import {
   updateIsEditTeamClickedAction,
   updateIsViewTeamClickedAction,
 } from "src/redux/Teams/teams.actions";
+
+
 const AppSidebar = () => {
+
   let sidebarContent = [];
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.login.currentUser);
   let currentUserPermissions = [];
-  console.log("currentUser", currentUser);
+
   if (currentUser && currentUser !== null) {
     currentUserPermissions = currentUser.userPermission.map((x) => {
       return x.role.name;
     });
-    console.log("permissions", currentUserPermissions);
+
   }
-  debugger;
-    //checks to set sidebarContent based on permission
+
   const ActiveRoutes = (x)=>{
     const tempSidebar = x.filter(
       ({ name: id1 }) => !sidebarContent.some(({ name: id2 }) => id2 === id1));
       sidebarContent = [...sidebarContent, ...tempSidebar];
     }
+
   currentUserPermissions &&
     currentUserPermissions?.map((x) => {
       if (x == "Admin") {
-        sidebarContent = navigation;
+        sidebarContent = Admin_nav;
       } else if (x === "HR") {
-       let  sidebarOfHR = navigation.filter((y) => {
-          return y.name !== "User Managment";
-        });
+       let  sidebarOfHR = HumanResource_nav;
         sidebarContent.length <= 0 ? sidebarContent = [...sidebarOfHR] : ActiveRoutes(sidebarOfHR);
       } else if (x == "Client") {
-        let sidebarOfClient =
-        navigation.filter((x) => {
-          if (
-            x.name !== "User Managment" &&
-            x.name !== "HR"&&
-            x.name !=="Accounts"&&
-            x.name !=="Attendence"
-          )
-            return true;
-        });
+        let sidebarOfClient =Client_nav;
         sidebarContent.length <= 0 ? sidebarContent = [...sidebarOfClient] : ActiveRoutes(sidebarOfClient);
     } else if (x == "Employee") {
-      let sidebarOfEmployee =
-        navigation.filter((y) => {
-          if (
-            y.name !== "User Managment" &&
-            y.name !=="Accounts"&&
-            y.name !=="HR" ){
-             
-             /*  let temp = sidebarOfEmployee.filter(item => {
-                if( item.name == "Resource Plaining") {
-       
-                item.items.filter((x)=>{return  x.name != "Client"} )
-                    
-                 }
-                  }) */
-                  return true
-            }
-            
-        });
-        
-        
+      let sidebarOfEmployee = Employee_nav;
         sidebarContent.length <= 0 ? sidebarContent = [...sidebarOfEmployee] : ActiveRoutes(sidebarOfEmployee);
     }
   });

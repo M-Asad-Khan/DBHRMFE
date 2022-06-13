@@ -1,19 +1,21 @@
 import React from 'react'
 import { CFooter } from '@coreui/react'
+import { useHistory } from 'react-router-dom'
 
 const AppFooter = () => {
+  const history = useHistory();
   return (
     <CFooter>
       <div>
-        <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
+        <a onClick={()=> history.push('/dashboard')} rel="noopener noreferrer">
           HRM
         </a>
-        <span className="ms-1">&copy; 2021 devBox Team.</span>
+        <span className="ms-1">&copy; 2022 DevBox</span>
       </div>
       <div className="ms-auto">
         <span className="me-1">Powered by</span>
-        <a href="https://coreui.io/react" target="_blank" rel="noopener noreferrer">
-          DevBox
+        <a onClick={()=> history.push('/dashboard')} rel="noopener noreferrer">
+          DevBox Team
         </a>
       </div>
     </CFooter>

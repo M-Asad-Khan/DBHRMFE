@@ -6,7 +6,7 @@ import {
   updateEmployeesEvaluationAction,
   updateIsEditEmployeeEvaluationClickedAction,
   updateEmployeesEvaluationDataTableAction,
-  updateIsViewEmpEvaluationClickedAction,
+  updateIsViewEmpEvaluationClickedAction
 } from "../../redux/EmployeeEvaluation/employeeEvaluation.action";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -18,7 +18,6 @@ import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 
 function employeesEvaluation() {
-       
   var action = "";
 
   const evaluationState = useSelector((state) => state.employeeEvaluation);
@@ -29,35 +28,33 @@ function employeesEvaluation() {
     handleGetEmployeeEvaluationApi();
   }, []);
   useEffect(() => {
-      
     if (
       evaluationState?.isAddEmployeeEvaluationClicked === false ||
       evaluationState?.isEditEmployeeEvaluationClicked === false
     ) {
-          
       handleGetEmployeeEvaluationApi();
     }
-  }, [evaluationState.isAddEmployeeEvaluationClicked, evaluationState.isEditEmployeeEvaluationClicked]);
+  }, [
+    evaluationState.isAddEmployeeEvaluationClicked,
+    evaluationState.isEditEmployeeEvaluationClicked
+  ]);
 
   useEffect(() => {
-         
     setColumnsAndRows(evaluationState.employeesEvaluationDataTable);
   }, [evaluationState.employeesEvaluationDataTable]);
   function setSelectedRow(rowData) {
-         
     if (action == "") {
       return;
     } else {
       switch (action) {
         case "delete":
-               
           handleDelete(rowData);
           break;
-          case "view":
+        case "view":
           handleView(rowData);
           break;
-       
-         /*  break;
+
+        /*  break;
         case "edit":
           handleEdit(rowData);
           break;
@@ -71,9 +68,10 @@ function employeesEvaluation() {
   }
 
   const handleDelete = async (employeeEvaluation) => {
-         
     try {
-      const res = await employeeEvaluationRequests.deleteEmployeeEvaluationApi(employeeEvaluation.id);
+      const res = await employeeEvaluationRequests.deleteEmployeeEvaluationApi(
+        employeeEvaluation.id
+      );
       if (res.error === false) {
         handleGetEmployeeEvaluationApi();
       }
@@ -82,28 +80,23 @@ function employeesEvaluation() {
     }
   };
   const handleEdit = (employeeEvaluation) => {
-         
     dispatch(updateNewEmployeeEvaluationAction(employeeEvaluation));
     dispatch(updateIsEditEmployeeEvaluationClickedAction(true));
   };
-  const handleView =async (employeeEvaluation) => {
-         
-    
-				dispatch(updateNewEmployeeEvaluationAction(employeeEvaluation));
-				dispatch(updateIsViewEmpEvaluationClickedAction(true));
-				     
-      
+  const handleView = async (employeeEvaluation) => {
+    dispatch(updateNewEmployeeEvaluationAction(employeeEvaluation));
+    dispatch(updateIsViewEmpEvaluationClickedAction(true));
   };
   const handleGetEmployeeEvaluationApi = async () => {
     try {
       const res = await employeeEvaluationRequests.getEmployeesEvaluationApi();
-           
+
       if (res.error === false) {
         dispatch(updateEmployeesEvaluationAction(res.data));
         var tempArr = [];
         res.data.map((x) => {
           tempArr.push({
-						...x,
+            ...x,
 
             action: (
               <>
@@ -124,35 +117,29 @@ function employeesEvaluation() {
                   style={{
                     color: "red",
                     marginLeft: "20px",
-                    cursor: "not-allowed",
+                    cursor: "not-allowed"
                   }}
                 />
               </>
             ),
             clickEvent: setSelectedRow,
-            employeeName:x?.employee.name,
+            employeeName: x?.employee.name,
             teamLeadName: x?.team.teamLeadName.name,
-            dateOfEvaluation: x?.dateOfEvaluation?.slice(0, 10),
-            
+            dateOfEvaluation: x?.dateOfEvaluation?.slice(0, 10)
           });
         });
-             
+
         console.log("eventarr", tempArr);
-        var tempObj = { ...evaluationState.employeesEvaluationDataTable, rows: tempArr };
+        var tempObj = {
+          ...evaluationState.employeesEvaluationDataTable,
+          rows: tempArr
+        };
         dispatch(updateEmployeesEvaluationDataTableAction(tempObj));
       }
     } catch (err) {
       console.log(err);
     }
   };
-
-	function handleAddEmployeeEvaluation() {
-		// console.log('true ho gya...!')
-		     
-		
-		dispatch(updateIsAddEmployeeEvaluationClickedAction(true));
-  }
-  console.log("evaluationState: index.js", evaluationState);
   return (
     <>
       {evaluationState.isViewEmpEvaluationClicked ? (
@@ -163,7 +150,6 @@ function employeesEvaluation() {
       ) : (
         <>
           <div className="card mt-0">
-            
             <MDBDataTable
               className="mdbDataTableDesign"
               infoLabel={["Showing", "to", "of", "evaluations"]}
