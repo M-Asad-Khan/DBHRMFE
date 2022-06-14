@@ -116,7 +116,7 @@ const ViewEmployee = () => {
                     Age:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.employee?.dateOfBirth &&getAge(state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10))}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.dateOfBirth &&getAge(state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10))}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -126,7 +126,7 @@ const ViewEmployee = () => {
                     Gender:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.employee?.gender}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.gender}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -136,7 +136,7 @@ const ViewEmployee = () => {
                     Salary:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.employee?.salary}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.salary}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -146,7 +146,7 @@ const ViewEmployee = () => {
                     Education:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.employee?.education}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.education}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -156,7 +156,7 @@ const ViewEmployee = () => {
                   </h6>
                 </div>
 
-                <div>{state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10)}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10)}</div>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -165,7 +165,7 @@ const ViewEmployee = () => {
                     joiningDate:
                   </h6>
                 </div>
-                <div>{state?.newEmployee?.employee?.joiningDate?.slice(0, 10)}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.joiningDate?.slice(0, 10)}</div>
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ const ViewEmployee = () => {
                       Phone Number:
                     </h6>
                   </div>
-                  <div>{state?.newEmployee?.employee?.phoneNumber}</div>
+                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.phoneNumber}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -190,7 +190,7 @@ const ViewEmployee = () => {
                       Email:
                     </h6>
                   </div>
-                  <div>{state?.newEmployee?.employee?.email}</div>
+                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.email}</div>
                 </div>
 
                 <div className="d-flex justify-content-between">
@@ -200,7 +200,7 @@ const ViewEmployee = () => {
                       Address:
                     </h6>
                   </div>
-                  <div className="w-50">{state?.newEmployee?.employee?.address}</div>
+                  <div className="w-50 text-right">{state?.newEmployee?.employee?.address}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -239,7 +239,7 @@ const ViewEmployee = () => {
                       Work Experience:
                     </h6>
                   </div>
-                  <div>{state?.newEmployee?.employee?.workExperience}</div>
+                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.workExperience}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -248,7 +248,7 @@ const ViewEmployee = () => {
                       Technology:
                     </h6>
                   </div>
-                  <div>{state?.newEmployee?.employee?.technology}</div>
+                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.technology}</div>
                 </div>
                 <div>
                   <div className="d-flex">

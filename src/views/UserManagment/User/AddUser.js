@@ -47,6 +47,7 @@ export default function AddUser() {
       user: param.id,
       email: tempEmail,
     });
+    console.log("tempEmail",tempEmail);
   };
   const handlePasswordChange = (evt) => {
     setTempUser({

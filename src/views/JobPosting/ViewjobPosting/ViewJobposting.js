@@ -67,7 +67,7 @@ const ViewJobposting = () => {
                       Department:
                     </h6>
                   </div>
-                  <div>{hrState?.newPosting?.department}</div>
+                  <div className='w-50 text-right'>{hrState?.newPosting?.department}</div>
                 </div>
                 
                 <div className="d-flex justify-content-between">
@@ -77,7 +77,7 @@ const ViewJobposting = () => {
                       Reports To:
                     </h6>
                   </div>
-                  <div>{hrState?.newPosting.managerName.name}</div>
+                  <div className='w-50 text-right'>{hrState?.newPosting.managerName.name}</div>
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@ const ViewJobposting = () => {
                         Vacant Positions:
                       </h6>
                     </div>
-                    <div>{hrState?.newPosting?.vacantPositions}</div>
+                    <div className='w-50 text-right'>{hrState?.newPosting?.vacantPositions}</div>
                   </div>
 
                 <div className="d-flex justify-content-between">
@@ -103,7 +103,7 @@ const ViewJobposting = () => {
                       Effective Date:
                     </h6>
                   </div>
-                  <div>{hrState?.newPosting?.effectiveDate?.slice(0, 10)}</div>
+                  <div className='w-50 text-right'>{hrState?.newPosting?.effectiveDate?.slice(0, 10)}</div>
                 </div>
                 </div>
               </div>
@@ -120,7 +120,7 @@ const ViewJobposting = () => {
                         Work Experience:
                       </h6>
                     </div>
-                    <div>{hrState?.newPosting?.workExperience}</div>
+                    <div className='w-50 text-right'>{hrState?.newPosting?.workExperience}</div>
                   </div>
   
                   <div className="d-flex justify-content-between">
@@ -130,7 +130,7 @@ const ViewJobposting = () => {
                         Qualification:
                       </h6>
                     </div>
-                    <div>{hrState?.newPosting?.qualification}</div>
+                    <div className='w-50 text-right'>{hrState?.newPosting?.qualification}</div>
                   </div>
                   <div></div>
                 </div>

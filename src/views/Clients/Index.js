@@ -22,7 +22,8 @@ function Clients() {
   const clientsState = useSelector((state) => state.clients);
   const dispatch = useDispatch();
   const [columnsAndRows, setColumnsAndRows] = useState({});
-
+  const currentUser = useSelector((state) => state.login.currentUser);
+  const [isAdmin,setIsAdmin] = useState()
   useEffect(() => {
          
     handleGetClientsApi();
@@ -95,8 +96,65 @@ function Clients() {
     }
   };
   const handleGetClientsApi = async () => {
+
     try {
-      const res = await clientRequests.getClientsApi();
+      var temp;
+      let res;
+      if (
+        currentUser.userPermission.some(
+          (x) => x.role.name === "Admin" || x.role.name === "HR"
+        )
+      ) {
+        temp = false;
+        setIsAdmin(true)
+      } else {
+        temp = true;
+        setIsAdmin(false)
+      }
+      if (temp) {
+         res = await clientRequests.getClientApi(currentUser?.Profile?.id);
+           
+        if (res.error === false) {
+          dispatch(updateClientsAction(res.data));
+          var tempArr = [];
+          //res.data.map((x) => {
+            tempArr.push({
+              ...res.data,
+              action: (
+                <>
+                  <FiEye
+                    onClick={() => (action = "view")}
+                    style={{ color: "blue", cursor: "pointer" }}
+                  />
+                  <FiEdit
+                    onClick={() => (action = "edit")}
+                    style={{
+                      color: "orange",
+                      marginLeft: "20px",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <FiTrash
+                    // onClick={() => (action = "delete")}
+                    style={{
+                      color: "red",
+                      marginLeft: "20px",
+                      cursor: "not-allowed",
+                    }}
+                  />
+                </>
+              ),
+              clickEvent: setSelectedRow,
+            });
+          //});
+               
+          console.log("eventarr", tempArr);
+          var tempObj = { ...clientsState.clientsDataTable, rows: tempArr };
+          dispatch(updateClientsDataTableAction(tempObj));
+        }
+
+      }else{
+       res = await clientRequests.getClientsApi();
            
       if (res.error === false) {
         dispatch(updateClientsAction(res.data));
@@ -136,7 +194,7 @@ function Clients() {
         var tempObj = { ...clientsState.clientsDataTable, rows: tempArr };
         dispatch(updateClientsDataTableAction(tempObj));
       }
-    } catch (err) {
+    }} catch (err) {
       console.log(err);
     }
   };
@@ -157,13 +215,13 @@ function Clients() {
         </>
       ) : (
         <div className="card mt-0">
-          <button
+          {isAdmin &&<button
             type="button"
             className="btn btn-outline-primary col-sm-2"
             onClick={()=>handleAddClient()}
           >
             Add Client
-          </button>
+          </button>}
 
           <MDBDataTable
             className="mdbDataTableDesign"

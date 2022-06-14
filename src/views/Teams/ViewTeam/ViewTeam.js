@@ -111,7 +111,7 @@ const ViewTeam = () => {
                       Client Name:
                     </h6>
                   </div>
-                  <div>{teamsState?.newTeam[0]?.client?.name}</div>
+                  <div className='w-50 text-right'>{teamsState?.newTeam[0]?.client?.name}</div>
                 </div>
 
                 <div className="d-flex justify-content-between">
@@ -121,7 +121,7 @@ const ViewTeam = () => {
                       Project Manager:
                     </h6>
                   </div>
-                  <div>{teamsState?.newTeam[0]?.team?.managerName?.name}</div>
+                  <div className='w-50 text-right'>{teamsState?.newTeam[0]?.team?.managerName?.name}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -130,7 +130,7 @@ const ViewTeam = () => {
                       Team Lead:
                     </h6>
                   </div>
-                  <div>{teamsState?.newTeam[0]?.team?.teamLeadName?.name}</div>
+                  <div className='w-50 text-right'>{teamsState?.newTeam[0]?.team?.teamLeadName?.name}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -139,7 +139,7 @@ const ViewTeam = () => {
                       Start Date:
                     </h6>
                   </div>
-                  <div>
+                  <div className='w-50 text-right'>
                     {teamsState?.newTeam[0]?.team?.startDate?.slice(0, 10)}
                   </div>
                 </div>

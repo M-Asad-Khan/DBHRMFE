@@ -91,7 +91,7 @@ const ViewClient = () => {
                     Gender:
                   </h6>
                 </div>
-                <div>{clientsState?.newClient?.client?.gender}</div>
+                <div className='w-50 text-right'>{clientsState?.newClient?.client?.gender}</div>
               </div>
               {/* <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -109,7 +109,7 @@ const ViewClient = () => {
                     Technology:
                   </h6>
                 </div>
-                <div>{clientsState?.newClient?.client?.technology}</div>
+                <div className='w-50 text-right'>{clientsState?.newClient?.client?.technology}</div>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const ViewClient = () => {
                     </h6>
                   </div>
 
-                  <div>{clientsState?.newClient?.client?.country}</div>
+                  <div className='w-50 text-right'>{clientsState?.newClient?.client?.country}</div>
                 </div>
 
                 <div className="d-flex justify-content-between">
@@ -145,7 +145,7 @@ const ViewClient = () => {
                       Email:
                     </h6>
                   </div>
-                  <div>{clientsState?.newClient?.client?.email}</div>
+                  <div className='w-50 text-right'>{clientsState?.newClient?.client?.email}</div>
                 </div>
               </div>
             </div>

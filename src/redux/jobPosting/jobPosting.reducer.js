@@ -25,6 +25,11 @@ import {
           width: 200,
         },
         {
+          label: "Vacant Positions",
+          field: "vacantPositions",
+          width: 200,
+        },
+        {
           label: "Action",
           field: "action",
           width: 100,

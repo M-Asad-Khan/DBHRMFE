@@ -22,7 +22,12 @@ import {
         },
         {
           label: "Post Applied For",
-          field: "postAppliedFor",
+          field: "positionName",
+          width: 200,
+        },
+        {
+          label: "Status",
+          field: "status",
           width: 200,
         },
         {

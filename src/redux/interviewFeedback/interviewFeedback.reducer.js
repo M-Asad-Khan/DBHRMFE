@@ -25,6 +25,11 @@ import {
           width: 200,
         },
         {
+          label: "Interview Phase",
+          field: 'interViewPhase',
+          width: 200,
+        },
+        {
           label: "Action",
           field: "action",
           width: 100,

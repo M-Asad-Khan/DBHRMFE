@@ -3,6 +3,7 @@ import axios from "axios";
 class interviewFeedbackFormApi {
   addinterviewFeedbackFormApi = async (newFeedback,feedBackQuestionResponse) => {
     console.log(newFeedback);
+    debugger
          
     return axios({
       method: "post",
@@ -18,6 +19,7 @@ class interviewFeedbackFormApi {
         candidateId: newFeedback.candidates,
         dateOfInterview: newFeedback.dateOfInterview,
         positionId: newFeedback.position,
+        interViewPhase: newFeedback.interViewPhase,
         questionArray:feedBackQuestionResponse
        
        
@@ -104,6 +106,7 @@ class interviewFeedbackFormApi {
         candidateId: newFeedback.candidateId,
         dateOfInterview: newFeedback.dateOfInterview,
         positionId: newFeedback.positionId,
+        interViewPhase: newFeedback.interViewPhase,
         questionArray:feedBackQuestionResponse
       },
     })

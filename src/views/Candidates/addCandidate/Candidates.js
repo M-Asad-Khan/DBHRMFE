@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import {
   updateNewCandidateAction,
@@ -10,6 +10,7 @@ import { CButton } from "@coreui/react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
+import { jobPostingRequests } from "src/API/JobPostingApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 const Candidates = ({}) => {
@@ -20,14 +21,17 @@ const Candidates = ({}) => {
     phoneNumber: false,
     gender: false,
     status: false,
-    postAppliedFor: false,
+    positionId: false,
     AppliedDate: false,
     skills: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.candidate);
-
+  const [postings, setPostings] = useState([]);
+  useEffect(() =>{
+    handleGetJobPostingsApi();
+  },[]);
   function handleChange(evt) {
     
     const value = evt.target ? evt.target.value : evt.value;
@@ -39,6 +43,18 @@ const Candidates = ({}) => {
       })
     );
   }
+  function handleReactChange(evt,field) {
+    
+    
+    dispatch(
+      updateNewCandidateAction({
+        ...hrState.newCandidate,
+        [field]: evt.id,
+      })
+    );
+  }
+ 
+     
   const handleCancel = () => {
     dispatch(updateNewCandidateAction({}));
     dispatch(updateIsAddCandidateClickedAction(false));
@@ -90,6 +106,23 @@ const Candidates = ({}) => {
       toast.error("validation failed");
       //console.log("validation failed");
       
+    }
+  };
+  const handleGetJobPostingsApi = async () => {
+    try {
+      const res = await jobPostingRequests.getjobPostingsApi();
+           
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, 
+            value: x.jobTitle, label: x.jobTitle };
+        });
+        //console.log("tempArr", tempArr);
+        setPostings(tempArr);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
   const doValidation = () => {
@@ -355,21 +388,21 @@ const Candidates = ({}) => {
                     Post Applied for?
                     <span className="text-danger"> *</span>
                   </label>
-                  <input
+                  <Select
                     className={
-                      fieldsWithError.postAppliedFor === true ? "redBorder" : ""
+                      fieldsWithError.positionId === true ? "redBorder" : ""
                     }
                     type="text"
-                    value={hrState.newCandidate.postAppliedFor}
-                    onChange={handleChange}
-                    id="postAppliedFor"
-                    name="postAppliedFor"
-                    placeholder=""
-                  />{" "}
-                  {fieldsWithError.postAppliedFor === true ? (
+                    id="positionId"
+                    name="positionId"
+                    onChange={(event)=>handleReactChange(event,'positionId')}
+                    options={postings}
+                    
+                  ></Select>{" "}
+                  {fieldsWithError.positionId === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.postAppliedFor}
+                        {errorInfo.positionId}
                       </label>{" "}
                     </>
                   ) : (

@@ -15,6 +15,7 @@ import { teamRequests } from "src/API/TeamApi";
 import ViewTeam from "./ViewTeam/ViewTeam";
 import { teamMembersRequests } from "src/API/teamMembersApi";
 import { employeeRequests } from "src/API/EmployeeApi";
+import {clientRequests} from "src/API/ClientApi";
 
 function Teams() {
   var action = "";
@@ -91,9 +92,11 @@ function Teams() {
     }
   };
   const handleGetTeamsApi = async () => {
+    debugger
     try {
       var temp;
       let res;
+      var client;
       if (
         currentUser.userPermission.some(
           (x) => x.role.name === "Admin" || x.role.name === "HR"
@@ -102,10 +105,17 @@ function Teams() {
         temp = false;
         setIsAdmin(true);
       } else {
-        temp = true;
-        setIsAdmin(false);
+        if( currentUser.userPermission.some(
+          (x) => x.role.name === "Client"
+        )) {
+         client=true;
+        }
+        else{
+
+          temp = true;
+          setIsAdmin(false);
+        }
       }
-      debugger;
       if (temp) {
         res = await employeeRequests.getEmployeeWorkHistory(
           currentUser?.Profile?.id
@@ -155,7 +165,50 @@ function Teams() {
             dispatch(updateTeamsDataTableAction(tempObj));
           });
         }
-      } else {
+      } else if (client) {
+        res = await clientRequests.GetClientProjectsApi(currentUser?.Profile?.id);
+        if (res.error === false) {
+          dispatch(updateTeamsAction(res.data));
+          var tempArr = [];
+          res.data.map((x) => {
+            tempArr.push({
+              ...x.team,
+              action: (
+                <>
+                  <FiEye
+                    onClick={() => (action = "view")}
+                    style={{ color: "blue", cursor: "pointer" }}
+                  />
+                  <FiEdit
+                    onClick={() => (action = "edit")}
+                    style={{
+                      color: "orange",
+                      marginLeft: "20px",
+                      cursor: "pointer"
+                    }}
+                  />
+                  <FiTrash
+                    // onClick={() => (action = "delete")}
+                    style={{
+                      color: "red",
+                      marginLeft: "20px",
+                      cursor: "not-allowed"
+                    }}
+                  />
+                </>
+              ),
+              clickEvent: setSelectedRow,
+              managerName: x.team?.managerName?.name,
+              teamLeadName: x.team?.teamLeadName?.name
+            });
+          });
+
+          var tempObj = { ...teamsState.teamsDataTable, rows: tempArr };
+          dispatch(updateTeamsDataTableAction(tempObj));
+        }
+
+      } else
+      {
         res = await teamRequests.getTeamsApi();
 
         console.log("current user", res.data);

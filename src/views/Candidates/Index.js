@@ -120,10 +120,11 @@ function Candidates() {
               </>
             ),
             clickEvent: setSelectedRow,
+            positionName : x?.postAppliedFor?.jobTitle,
           });
         });
            
-       // console.log("eventarr", tempArr);
+        console.log("eventarr", tempArr);
         var tempObj = { ...hrState.candidatesDataTable, rows: tempArr };
         dispatch(updateCandidatesDataTableAction(tempObj));
       }

@@ -74,7 +74,7 @@ const ViewCandidate = () => {
                     Gender:
                   </h6>
                 </div>
-                <div>{hrState?.newCandidate?.gender}</div>
+                <div className='w-50 text-right'>{hrState?.newCandidate?.gender}</div>
               </div>
             
               <div className="d-flex justify-content-between">
@@ -84,7 +84,7 @@ const ViewCandidate = () => {
                     Status:
                   </h6>
                 </div>
-                <div>{hrState?.newCandidate?.status}</div>
+                <div className='w-50 text-right'>{hrState?.newCandidate?.status}</div>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ const ViewCandidate = () => {
                       Phone Number:
                     </h6>
                   </div>
-                  <div>{hrState?.newCandidate?.phoneNumber}</div>
+                  <div className='w-50 text-right'>{hrState?.newCandidate?.phoneNumber}</div>
                 </div>
 
                 
@@ -111,7 +111,7 @@ const ViewCandidate = () => {
                       Email:
                     </h6>
                   </div>
-                  <div>{hrState?.newCandidate?.email}</div>
+                  <div className='w-50 text-right'>{hrState?.newCandidate?.email}</div>
                 </div>
                 
               <div className="d-flex justify-content-between">
@@ -121,7 +121,7 @@ const ViewCandidate = () => {
                     Applied Date:
                   </h6>
                 </div>
-                <div>{hrState?.newCandidate?.AppliedDate?.slice(0, 10)}</div>
+                <div className='w-50 text-right'>{hrState?.newCandidate?.AppliedDate?.slice(0, 10)}</div>
               </div>
               </div>
             </div>
@@ -141,7 +141,16 @@ const ViewCandidate = () => {
                       Skills:
                     </h6>
                   </div>
-                  <div>{hrState?.newCandidate?.skills}</div>
+                  <div className='w-50 text-right'>{hrState?.newCandidate?.skills}</div>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex">
+                    <AiOutlineMail className="icon-design" />
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Position:
+                    </h6>
+                  </div>
+                  <div className='w-50 text-right'>{hrState?.newCandidate?.postAppliedFor?.jobTitle}</div>
                 </div>
                 <div></div>
               </div>

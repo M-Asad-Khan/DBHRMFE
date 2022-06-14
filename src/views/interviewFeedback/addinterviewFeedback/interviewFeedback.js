@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import {
   updateNewFeedbackAction,
   updateFeedbacksAction,
@@ -10,23 +10,23 @@ import { employeeRequests } from "../../../API/EmployeeApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { CButton } from "@coreui/react";
 import Select from "react-select";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { candidateRequests } from "src/API/CandidateApi";
 import { interviewFeedbackFormRequests } from "src/API/interviewFeedbackFormApi";
 import RatingAtom from "./rating";
 const feedBackQuestionResponse = [
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""},
-  {id:"",rating:"",comment:""}];
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" },
+  { id: "", rating: "", comment: "" }];
 const interviewFeedback = () => {
   const dispatch = useDispatch();
   const [employees, setEmployees] = useState([]);
@@ -34,7 +34,13 @@ const interviewFeedback = () => {
   const [candidates, setCandidates] = useState([]);
   const [feedBackQuestion, setFeedBackQuestions] = useState();
   const hrState = useSelector((state) => state.interviewFeedback);
-  
+  const [tempUser, setTempUser] = useState();
+  const interviewOptions = [
+    { value: "Phase1", label: "phase1", field: "phase" },
+    { value: "phase2", label: "phase2", field: "phase" },
+    { value: "phase3", label: "phase3", field: "phase" },
+  ];
+
 
   useEffect(() => {
     handleGetEmployeesApi();
@@ -42,10 +48,22 @@ const interviewFeedback = () => {
     handleGetCandidatesApi();
     handleGetInterviewFeedbackApi();
   }, []);
+
+  useEffect(() => {
+    debugger
+    tempUser ? dispatch(
+      updateNewFeedbackAction({
+        ...hrState.newFeedback,
+        ["position"]: tempUser?.id,
+      })
+    ) : ""
+  }, [tempUser]);
+
+
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-           
+
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
@@ -61,12 +79,14 @@ const interviewFeedback = () => {
   const handleGetJobPostingsApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
-           
+
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
-          return { ...x, 
-            value: x.jobTitle, label: x.jobTitle };
+          return {
+            ...x,
+            value: x.jobTitle, label: x.jobTitle
+          };
         });
         //console.log("tempArr", tempArr);
         setPostings(tempArr);
@@ -78,35 +98,36 @@ const interviewFeedback = () => {
   const handleGetCandidatesApi = async () => {
     try {
       const res = await candidateRequests.getCandidatesApi();
-           
+
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
-          return { ...x, value: x.FirstName + " " +x.lastName, label: x.FirstName + " " +x.lastName };
+          return { ...x, value: x.FirstName + " " + x.lastName, label: x.FirstName + " " + x.lastName };
         });
-       // console.log("candidates", tempArr);
+        // console.log("candidates", tempArr);
         setCandidates(tempArr);
       }
     } catch (err) {
-     // console.log(err);
+      // console.log(err);
     }
   };
   const handleGetInterviewFeedbackApi = async () => {
     try {
       const res = await interviewFeedbackRequests.getinterviewFeedbackApi();
-           
+
       if (res.error === false) {
-           
+
         //.log("res.data", res.data);
-        setFeedBackQuestions( res.data);
+        setFeedBackQuestions(res.data);
       }
     } catch (err) {
-     // console.log(err);
+      // console.log(err);
     }
   };
-  function handleChange(evt,field) {
- //console.log("user id",evt)
-         
+  function handleChange(evt, field) {
+    debugger
+    //console.log("user id",evt)
+
     // const value = evt.target ? evt.target.value : evt.value;
     // const name = evt.target ? evt.target.name : evt.field;
     dispatch(
@@ -122,50 +143,50 @@ const interviewFeedback = () => {
     dispatch(updateIsEditFeedbackClickedAction(false));
   };
   const addAndUpdateFeedback = async () => {
-    
-      if (hrState.isEditFeedbackClicked === true) {
-        try {
-               
-          const res = await interviewFeedbackFormRequests.updateinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
-          console.log("updateFeedback Response", res);
-               
-          if (res.error === false) {
-                 
-            toast.success("Feedback Updated");
-            let temp = hrState.feedbacks.filter(
-              (item) => item.id != res.data.id
-            );
-            dispatch(updateFeedbacksAction([...temp, res.data]));
-            dispatch(updateIsAddFeedbackClickedAction(false));
-            dispatch(updateIsEditFeedbackClickedAction(false));
-          }
-          
-        } catch (e) {
-          toast.error("error");
-               
+
+    if (hrState.isEditFeedbackClicked === true) {
+      try {
+
+        const res = await interviewFeedbackFormRequests.updateinterviewFeedbackFormApi(hrState.newFeedback, feedBackQuestionResponse);
+        console.log("updateFeedback Response", res);
+
+        if (res.error === false) {
+
+          toast.success("Feedback Updated");
+          let temp = hrState.feedbacks.filter(
+            (item) => item.id != res.data.id
+          );
+          dispatch(updateFeedbacksAction([...temp, res.data]));
+          dispatch(updateIsAddFeedbackClickedAction(false));
+          dispatch(updateIsEditFeedbackClickedAction(false));
         }
-      } else {
-        try {
-               
-          const res = await interviewFeedbackFormRequests.addinterviewFeedbackFormApi(hrState.newFeedback,feedBackQuestionResponse);
-          console.log("addFeedbackApi Response", res);
-               
-          if (res.error === false) {
-                 
-            toast.success("Feedback Added");
-            dispatch(updateFeedbacksAction([...hrState.feedbacks, res.data]));
-            dispatch(updateIsAddFeedbackClickedAction(false));
-          }
-        } catch (e) {
-          toast.error("error");
-               
-        }
+
+      } catch (e) {
+        toast.error("error");
+
       }
-    
+    } else {
+      try {
+
+        const res = await interviewFeedbackFormRequests.addinterviewFeedbackFormApi(hrState.newFeedback, feedBackQuestionResponse);
+        console.log("addFeedbackApi Response", res);
+
+        if (res.error === false) {
+
+          toast.success("Feedback Added");
+          dispatch(updateFeedbacksAction([...hrState.feedbacks, res.data]));
+          dispatch(updateIsAddFeedbackClickedAction(false));
+        }
+      } catch (e) {
+        toast.error("error");
+
+      }
+    }
+
   };
-/*   const initState = [
-    { jobInterviewCriteria: questions, Ranking: rate, Comments: 50 },
-  ]; */
+  /*   const initState = [
+      { jobInterviewCriteria: questions, Ranking: rate, Comments: 50 },
+    ]; */
   const [rating, setRating] = useState({
     1: 0,
     2: 0,
@@ -178,137 +199,169 @@ const interviewFeedback = () => {
     10: 0,
   }); // initial rating value
   // Catch Rating value
-  const handleRating = (rate, id,i) => {
+  const handleRating = (rate, id, i) => {
     setRating((prevState) => ({
       ...prevState,
       [i]: rate,
     }));
     // Some logic
   };
-  const handleComment = (value,i)=>{
+  const handleComment = (value, i) => {
     feedBackQuestionResponse[i].comment = value;
   }
- // console.log('asdasdasd',hrState)
+  console.log('asdasdasd', hrState?.newFeedback)
   return (
     <div>
       <div className="container-fluid px-1 py-5 mx-auto">
         <div className="row d-flex justify-content-center">
           <div className="card">
-          <div className="form-card">
+            <div className="form-card">
               <button
                 className="btn btn-outline-primary mb-3"
                 onClick={handleCancel}
               >
                 <IoArrowBackSharp />
               </button>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label">
-                  Interviewer <span className="text-danger"> *</span>
-                </label>
-                <Select
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Interviewer <span className="text-danger"> *</span>
+                  </label>
+                  <Select
                     type="text"
                     id="interviewer"
                     name="interviewer"
                     options={employees}
-                    onChange={(event)=>{
+                    onChange={(event) => {
 
-                     // console.log(event)
-                      handleChange(event,'intervier');
+                      // console.log(event)
+                      handleChange(event, 'intervier');
                     }}
                   ></Select>{" "}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label">
-                  Date of Interview<span className="text-danger"> *</span>
-                </label>
-                <input
-                value={hrState?.newFeedback?.dateOfInterview?.slice(0, 10)}
-                  onChange={(event)=>{
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Date of Interview<span className="text-danger"> *</span>
+                  </label>
+                  <input
+                    value={hrState?.newFeedback?.dateOfInterview?.slice(0, 10)}
+                    onChange={(event) => {
 
-                    dispatch(
-                      updateNewFeedbackAction({
-                        ...hrState.newFeedback,
-                        [event.target.name]: event.target.value,
-                      })
-                    );
-                  }}
-                  type="date"
-                  id="date"
-                  name="dateOfInterview"
-                  placeholder=""
-                  className="inputField"
-                />
+                      dispatch(
+                        updateNewFeedbackAction({
+                          ...hrState.newFeedback,
+                          [event.target.name]: event.target.value,
+                        })
+                      );
+                    }}
+                    type="date"
+                    id="date"
+                    name="dateOfInterview"
+                    placeholder=""
+                    className="inputField"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label">
-                  Candidate Name<span className="text-danger"> *</span>
-                </label>
-                <Select
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Candidate Name<span className="text-danger"> *</span>
+                  </label>
+                  <Select
                     type="text"
                     id="candidates"
                     name="candidates"
                     options={candidates}
-                    onChange={(event)=>handleChange(event,'candidates')}
+                    onChange={(event) => {
+                      debugger
+                      handleChange(event, 'candidates');
+
+                      setTempUser(event.postAppliedFor)
+
+                    }}
                   />
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">
-                  Position<span className="text-danger"> *</span>
-                </label>
-                <Select
-                    type="text"
+                </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Position<span className="text-danger"> *</span>
+                  </label>
+                  <input
+                    disabled={true}
+                    value={tempUser?.jobTitle}
+                    type="position"
                     id="position"
                     name="position"
-                    options={postings}
-                    onChange={(event)=>handleChange(event,'position')}
-                  ></Select>{" "}
+                    placeholder=""
+                    className="inputField"
+                  />
+                </div>
               </div>
-            </div>
-            <p>
-              <strong>
-                Overall how would you rate this individual's performance based
-                on your expectations for the role?
-              </strong>
-            </p>
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Job Interview Criteria</th>
-                  <th scope="col">Ranking</th>
-                  <th scope="col">Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-              {feedBackQuestion &&feedBackQuestion.map((x,i)=>{
-                return (
-                  <tr key={i}>
-                      <td scope="row">{x.question}</td>
-                      <td>
-                        <RatingAtom
-                          onChange={(rate) =>{ handleRating(rate, x.id,i);
-                            feedBackQuestionResponse[i].id = x.id;
-                            feedBackQuestionResponse[i].rating = rate/20;
-                          }}
-                          rating={rating[`${i}`]}
-                        />
-                      </td>
-                      <td>
-                        <div>
-                          <input type="text" onChange={(event)=>{
-                             handleComment(event.target.value,i)
-                          }}/>
-                        </div>
-                      </td>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Interview Phase<span className="text-danger"> *</span>
+                  </label>
+                  <Select
+                    type="text"
+                    id="interViewPhase"
+                    name="interViewPhase"
+                    options={interviewOptions}
+                    onChange={(event) => {
+                      debugger
+                      dispatch(
+                        updateNewFeedbackAction({
+                          ...hrState.newFeedback,
+                          ["interViewPhase"]: event.value,
+                        })
+                      );
+                    }}
+                  />
+                </div>
+              </div>
+
+              <p>
+                <strong>
+                  Overall how would you rate this individual's performance based
+                  on your expectations for the role?
+                </strong>
+              </p>
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Job Interview Criteria</th>
+                    <th scope="col">Ranking</th>
+                    <th scope="col">Comments</th>
                   </tr>
-                )
-                })}
-              </tbody>
-            </table>
-            <div className="row justify-content-end">
-            <div className="form-group col-sm-6 ">
+                </thead>
+                <tbody>
+                  {feedBackQuestion && feedBackQuestion.map((x, i) => {
+                    return (
+                      <tr key={i}>
+                        <td scope="row">{x.question}</td>
+                        <td>
+                          <RatingAtom
+                            onChange={(rate) => {
+                              handleRating(rate, x.id, i);
+                              feedBackQuestionResponse[i].id = x.id;
+                              feedBackQuestionResponse[i].rating = rate / 20;
+                            }}
+                            rating={rating[`${i}`]}
+                          />
+                        </td>
+                        <td>
+                          <div>
+                            <input type="text" onChange={(event) => {
+                              handleComment(event.target.value, i)
+                            }} />
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+              <div className="row justify-content-end">
+                <div className="form-group col-sm-6 ">
                   <button
                     className="btn-block btn-primary"
                     onClick={handleCancel}
@@ -316,20 +369,20 @@ const interviewFeedback = () => {
                     Cancel
                   </button>
                 </div>
-              <div className="form-group col-sm-6">
-              <CButton
-                  type="submit"
-                  className="btn-block btn-primary"
-                  onClick={() => {
-                    addAndUpdateFeedback()
-                   // alert(JSON.stringify(feedBackQuestionResponse));
-                  }}
-                >
-                  {hrState.isEditFeedbackClicked
+                <div className="form-group col-sm-6">
+                  <CButton
+                    type="submit"
+                    className="btn-block btn-primary"
+                    onClick={() => {
+                      addAndUpdateFeedback()
+                      // alert(JSON.stringify(feedBackQuestionResponse));
+                    }}
+                  >
+                    {hrState.isEditFeedbackClicked
                       ? "Update Feedback"
                       : "Add Feedback"}
-                </CButton>
-              </div>
+                  </CButton>
+                </div>
               </div>
             </div>
           </div>

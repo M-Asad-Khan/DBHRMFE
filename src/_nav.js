@@ -19,7 +19,7 @@ const Admin_nav = [
   },
   {
     component: CNavGroup,
-    name: "Resource Plaining",
+    name: "Resource Planning",
     to: "/dashboard",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
@@ -119,7 +119,7 @@ const HumanResource_nav = [
   },
   {
     component: CNavGroup,
-    name: "Resource Plaining",
+    name: "Resource Planning",
     to: "/dashboard",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
@@ -214,7 +214,7 @@ const Employee_nav = [
   },
   {
     component: CNavGroup,
-    name: "Resource Plaining",
+    name: "Resource Planning",
     to: "/dashboard",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
@@ -260,7 +260,7 @@ const Client_nav = [
   },
   {
     component: CNavGroup,
-    name: "Resource Plaining",
+    name: "Resource Planning",
     to: "/dashboard",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
