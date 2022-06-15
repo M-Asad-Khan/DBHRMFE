@@ -64,6 +64,30 @@ class CandidateApi {
         };
       });
   };
+  getHiredCandidatesApi = async () => {
+    return axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_LOCAL_PATH}/candidate/hired`,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+      },
+    })
+      .then((result) => {
+        return {
+          error: false,
+          data: result.data,
+        };
+      })
+      .catch((err) => {
+        return {
+          error: true,
+          data: err,
+        };
+      });
+  };
+
 
   updateCandidateApi = async (newCandidate) => {
       

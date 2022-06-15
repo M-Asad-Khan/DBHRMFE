@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   updateNewEmployeeAction,
@@ -8,6 +8,7 @@ import {
 } from "../../../redux/Employees/employees.actions";
 import { useSelector, useDispatch } from "react-redux";
 import { employeeRequests } from "src/API/EmployeeApi";
+import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
 import { CButton } from "@coreui/react";
@@ -81,8 +82,11 @@ const AddEmployee = ({}) => {
   });
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
+  const [candidates, setCandidates] = useState([]);
   const state = useSelector((state) => state.employees);
-
+ useEffect(()=>{
+   handleGetCandidatesApi();
+ }, []);
   function handleChange(evt) {
          
     const value = evt.target.value;
@@ -97,6 +101,22 @@ const AddEmployee = ({}) => {
     dispatch(updateNewEmployeeAction({}));
     dispatch(updateIsAddEmployeeClickedAction(false));
     dispatch(updateIsEditEmployeeClickedAction(false));
+  };
+  const handleGetCandidatesApi = async () => {
+    try {
+      const res = await candidateRequests.getHiredCandidatesApi();
+
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.FirstName + " " + x.lastName, label: x.FirstName + " " + x.lastName };
+        });
+        // console.log("candidates", tempArr);
+        setCandidates(tempArr);
+      }
+    } catch (err) {
+      // console.log(err);
+    }
   };
   const addAndUpdateEmployee = async () => {
          
@@ -235,6 +255,14 @@ const AddEmployee = ({}) => {
       })
     );
   };
+  const handleReactChange = (param) => {
+    dispatch(
+      updateNewEmployeeAction({
+        ...state.newEmployee,
+        name: param.value,
+      })
+    );
+  };
 
 /*   console.log("fieldsWithError", fieldsWithError);
   console.log("errorInfo", errorInfo);
@@ -257,7 +285,14 @@ const AddEmployee = ({}) => {
                   <label className="form-control-label">
                     Name<span className="text-danger"> *</span>
                   </label>{" "}
-                  <input
+                  <Select
+                  type="text"
+                  id="name"
+                  name="name"
+                  options={candidates}
+                  onChange={handleReactChange}
+                  ></Select>
+                  {/* <input
                     className={fieldsWithError.name === true ? "redBorder" : ""}
                     value={state.newEmployee.name}
                     onChange={handleChange}
@@ -265,7 +300,7 @@ const AddEmployee = ({}) => {
                     id="name"
                     name="name"
                     placeholder="Enter your name"
-                  />{" "}
+                  /> */}{" "}
                   {fieldsWithError.name === true ? (
                     <>
                       <label className="error form-control-label px-3">
