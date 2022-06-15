@@ -79,14 +79,7 @@ const ViewJobposting = () => {
                   </div>
                   <div className='w-50 text-right'>{hrState?.newPosting.managerName.name}</div>
                 </div>
-              </div>
-            </div>
-  
-            <div className="col-sm-4">
-              <div className="card" style={{ height: "338px" }}>
-                <div className="row d-flex justify-content-center">
-                  <h2 className="border-bottom">Positions Details</h2>
-                  <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between">
                     <div className="d-flex">
                     <VscPersonAdd className="icon-design" />
                       <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
@@ -105,6 +98,22 @@ const ViewJobposting = () => {
                   </div>
                   <div className='w-50 text-right'>{hrState?.newPosting?.effectiveDate?.slice(0, 10)}</div>
                 </div>
+              </div>
+            </div>
+  
+            <div className="col-sm-4">
+              <div className="card" style={{ height: "338px" }}>
+                <div className="row d-flex justify-content-center">
+                  <h2 className="border-bottom">Positions Details</h2>
+                  {/* <div className="d-flex justify-content-between"> */}
+                   {/*  <div className="d-flex"> */}
+                      {/* <RiSettings2Line className="icon-design" /> */}
+                      <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                        Description:
+                      </h6>
+                    {/* </div> */}
+                    <div >{hrState?.newPosting?.description}</div>
+                  {/* </div> */}
                 </div>
               </div>
             </div>

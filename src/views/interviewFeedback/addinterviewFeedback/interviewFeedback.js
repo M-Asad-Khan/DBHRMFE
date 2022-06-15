@@ -37,8 +37,8 @@ const interviewFeedback = () => {
   const [tempUser, setTempUser] = useState();
   const interviewOptions = [
     { value: "Phase1", label: "phase1", field: "phase" },
-    { value: "phase2", label: "phase2", field: "phase" },
-    { value: "phase3", label: "phase3", field: "phase" },
+    { value: "NonTechnical", label: "nonTechnical", field: "phase" },
+    { value: "Technical", label: "Technical", field: "phase" },
   ];
 
 
