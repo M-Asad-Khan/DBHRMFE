@@ -98,9 +98,15 @@ const Admin_nav = [
   },
   {
     component: CNavItem,
+    name: "Leaves",
+    to: "/leaves",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: "Logout",
     to: "/login",
-    icon: <CIcon icon={cilLockLocked} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilLockLocked} customClassName="nav-icon" />, 
   },
   {
     component: CNavItem,
