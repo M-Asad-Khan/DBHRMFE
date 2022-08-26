@@ -13,7 +13,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
 import { CButton } from "@coreui/react";
 import { toast } from "react-toastify";
-
+import axios from "axios"
 
 // import backIcon from '/src/assets/back-icon.png'
 
@@ -83,10 +83,14 @@ const AddEmployee = ({}) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const [candidates, setCandidates] = useState([]);
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
   const state = useSelector((state) => state.employees);
  useEffect(()=>{
    handleGetCandidatesApi();
  }, []);
+
   function handleChange(evt) {
          
     const value = evt.target.value;
@@ -102,6 +106,35 @@ const AddEmployee = ({}) => {
     dispatch(updateIsAddEmployeeClickedAction(false));
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
+
+  const changeHandler = (event) => {
+
+    setSelectedFile(event.target.files[0])
+
+    setIsFilePicked(true);
+
+
+  };
+
+  const handleSubmission = async () => {
+    let body = new FormData()
+    body.set('key', '11017bd402e05bad935969f001eeeebf')
+    body.append('image', selectedFile)
+
+   const response= await axios({
+      method: 'post',
+      url: 'https://api.imgbb.com/1/upload',
+      data: body
+    })
+    const url=response.data?.data?.display_url;
+return url;
+
+
+
+  };
+
+
+
   const handleGetCandidatesApi = async () => {
     try {
       const res = await candidateRequests.getHiredCandidatesApi();
@@ -123,7 +156,9 @@ const AddEmployee = ({}) => {
     if (!doValidation()) {
       if (state.isEditEmployeeClicked === true) {
         try {
-               
+              const profile_url= await handleSubmission();
+            
+              state.newEmployee.profile_url=profile_url;
           const res = await employeeRequests.updateEmployeeApi(state.newEmployee);
           console.log("updateEmployee Response", res);
           if (res.error === false) {
@@ -140,7 +175,9 @@ const AddEmployee = ({}) => {
         }
       } else {
         try {
-               
+          const profile_url= await handleSubmission();
+            
+          state.newEmployee.profile_url=profile_url;
           const res = await employeeRequests.addEmployeeApi(state.newEmployee);
           console.log("addEmployeeApi Response", res);
                
@@ -434,6 +471,7 @@ const AddEmployee = ({}) => {
                     id="personalEmail"
                     name="personalEmail"
                     placeholder=""
+                    onBlur={(e) => validateEmail(e.target.value)}
                   />{" "}
                   {fieldsWithError.personalEmail === true ? (
                     <>
@@ -779,6 +817,17 @@ const AddEmployee = ({}) => {
                   ) : (
                     ""
                   )}
+                </div>
+              </div>
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-6 flex-column d-flex">
+                  <div>
+                    <input type="file" name="file" onChange={changeHandler} />
+
+                    {/* <div>
+                      <button onClick={handleSubmission}>Submit</button>
+                    </div> */}
+                  </div>
                 </div>
               </div>
               <div className="row justify-content-between text-left">

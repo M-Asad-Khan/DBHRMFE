@@ -86,11 +86,12 @@ const ViewEmployee = () => {
                   </button>
                 </div>
               <div className="form-card">
-                <div className="d-flex">
+                <div className="d-flex" >
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
+                    style={{"width":"200px","height":"200px"}}
+                    src={state.newEmployee?.employee.profile_url}
                     data-holder-rendered="true"
                   />
                 </div>

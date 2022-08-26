@@ -58,7 +58,7 @@ const ViewJobposting = () => {
   
           <div className="row">
             <div className="col-sm-4">
-              <div className="card" style={{ height: "338px" }}>
+              <div className="card" >
                 <h2 className="border-bottom">Job Details</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -102,7 +102,7 @@ const ViewJobposting = () => {
             </div>
   
             <div className="col-sm-4">
-              <div className="card" style={{ height: "338px" }}>
+              <div className="card" >
                 <div className="row d-flex justify-content-center">
                   <h2 className="border-bottom">Positions Details</h2>
                   {/* <div className="d-flex justify-content-between"> */}
@@ -119,7 +119,7 @@ const ViewJobposting = () => {
             </div>
   
             <div className="col-sm-4">
-              <div className="card" style={{ height: "338px" }}>
+              <div className="card">
                 <div className="row d-flex justify-content-center">
                   <h2 className="border-bottom">Work Details</h2>
                   <div className="d-flex justify-content-between">

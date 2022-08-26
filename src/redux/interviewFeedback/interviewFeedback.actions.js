@@ -3,45 +3,45 @@ import {
     updateIsAddFeedbackClicked,
     updateFeedbacks,
     updateIsEditFeedbackClicked,
-      updateFeedbacksDataTable,
-      updateIsViewFeedbackClicked
-  } from "./interviewFeedback.types";
-  
-  export const updateNewFeedbackAction = (params) => {
+    updateFeedbacksDataTable,
+    updateIsViewFeedbackClicked
+} from "./interviewFeedback.types";
+
+export const updateNewFeedbackAction = (params) => {
     return {
-      type: updateNewFeedback,
-      payload: params,
+        type: updateNewFeedback,
+        payload: params,
     };
-  };
-  export const updateIsAddFeedbackClickedAction = (params) => {
-      debugger;
+};
+export const updateIsAddFeedbackClickedAction = (params) => {
+
     return {
-      type: updateIsAddFeedbackClicked,
-      payload: params,
+        type: updateIsAddFeedbackClicked,
+        payload: params,
     };
-  };
-  
-  export const updateFeedbacksAction = (params) => {
+};
+
+export const updateFeedbacksAction = (params) => {
     return {
-      type: updateFeedbacks,
-      payload: params,
+        type: updateFeedbacks,
+        payload: params,
     };
-  };
-  export const updateIsEditFeedbackClickedAction = (params) => {
+};
+export const updateIsEditFeedbackClickedAction = (params) => {
     return {
-      type: updateIsEditFeedbackClicked,
-      payload: params,
+        type: updateIsEditFeedbackClicked,
+        payload: params,
     };
-  };
-  export const updateFeedbacksDataTableAction = (params) => {
+};
+export const updateFeedbacksDataTableAction = (params) => {
     return {
-      type: updateFeedbacksDataTable,
-      payload: params,
+        type: updateFeedbacksDataTable,
+        payload: params,
     };
-  };
-  export const updateIsViewFeedbackClickedAction = (params) => {
+};
+export const updateIsViewFeedbackClickedAction = (params) => {
     return {
-      type: updateIsViewFeedbackClicked,
-      payload: params,
+        type: updateIsViewFeedbackClicked,
+        payload: params,
     };
-  };
+};

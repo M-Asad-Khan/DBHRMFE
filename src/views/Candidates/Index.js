@@ -121,6 +121,7 @@ function Candidates() {
             ),
             clickEvent: setSelectedRow,
             positionName : x?.postAppliedFor?.jobTitle,
+            candidateName:x?.FirstName + " " + x?.lastName,
           });
         });
            

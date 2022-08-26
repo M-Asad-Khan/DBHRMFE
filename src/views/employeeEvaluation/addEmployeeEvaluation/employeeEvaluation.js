@@ -77,7 +77,7 @@ const employeeEvaluation = ({}) => {
   console.log("tempArray", tempArray);
 
   function handleChange(evt, label) {
-    debugger;
+    
     dispatch(
       updateNewEmployeeEvaluationAction({
         ...evaluationState?.newEvaluation,
@@ -87,7 +87,7 @@ const employeeEvaluation = ({}) => {
   }
 
   function handleInputFields(evt) {
-    debugger;
+    
     dispatch(
       updateNewEmployeeEvaluationAction({
         ...evaluationState?.newEvaluation,
@@ -144,7 +144,7 @@ const employeeEvaluation = ({}) => {
   };
 
   const handleReactSelectChange = (evt) => {
-    debugger;
+    
     const value = evt.target ? evt.target.value : evt.value;
     const name = evt.target ? evt.target.name : evt.field;
     dispatch(
@@ -155,7 +155,7 @@ const employeeEvaluation = ({}) => {
     );
   };
   const handleEmployeeSelectChange = (param) => {
-    debugger;
+    
 
     dispatch(
       updateNewEmployeeEvaluationAction({
@@ -166,7 +166,7 @@ const employeeEvaluation = ({}) => {
     setTempEmployee(param);
   };
   const handleTeamSelectChange = (param) => {
-    debugger;
+    
 
     dispatch(
       updateNewEmployeeEvaluationAction({

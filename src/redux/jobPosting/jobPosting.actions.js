@@ -3,47 +3,46 @@ import {
     updateIsAddPostingClicked,
     updatePostings,
     updateIsEditPostingClicked,
-      updatePostingsDataTable,
-      updateIsViewPostingClicked
-  } from "./jobPosting.types";
-  
-  export const updateNewPostingAction = (params) => {
+    updatePostingsDataTable,
+    updateIsViewPostingClicked
+} from "./jobPosting.types";
+
+export const updateNewPostingAction = (params) => {
     return {
-      type: updateNewPosting,
-      payload: params,
+        type: updateNewPosting,
+        payload: params,
     };
-  };
-  export const updateIsAddPostingClickedAction = (params) => {
-      debugger;
+};
+export const updateIsAddPostingClickedAction = (params) => {
+
     return {
-      type: updateIsAddPostingClicked,
-      payload: params,
+        type: updateIsAddPostingClicked,
+        payload: params,
     };
-  };
-  
-  export const updatePostingsAction = (params) => {
+};
+
+export const updatePostingsAction = (params) => {
     return {
-      type: updatePostings,
-      payload: params,
+        type: updatePostings,
+        payload: params,
     };
-  };
-  
-  export const updateIsEditPostingClickedAction = (params) => {
+};
+
+export const updateIsEditPostingClickedAction = (params) => {
     return {
-      type: updateIsEditPostingClicked,
-      payload: params,
+        type: updateIsEditPostingClicked,
+        payload: params,
     };
-  };
-  export const updatePostingsDataTableAction = (params) => {
+};
+export const updatePostingsDataTableAction = (params) => {
     return {
-      type: updatePostingsDataTable,
-      payload: params,
+        type: updatePostingsDataTable,
+        payload: params,
     };
-  };
-  export const updateIsViewPostingClickedAction = (params) => {
-        return {
-          type: updateIsViewPostingClicked,
-          payload: params,
-        };
-      };
-  
+};
+export const updateIsViewPostingClickedAction = (params) => {
+    return {
+        type: updateIsViewPostingClicked,
+        payload: params,
+    };
+};

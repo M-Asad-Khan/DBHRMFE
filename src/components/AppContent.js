@@ -19,8 +19,7 @@ const AppContent = () => {
         ({ name: id1 }) => !routes.some(({ name: id2 }) => id2 === id1));
     routes = [...routes, ...tempRoutes];
   }
-  currentUserPermissions &&
-        currentUserPermissions?.map((x) => {
+  currentUserPermissions && currentUserPermissions.map((x) => {
             if (x == "Admin") {
                 routes = adminRoutes;
             } else if (x === "HR") {

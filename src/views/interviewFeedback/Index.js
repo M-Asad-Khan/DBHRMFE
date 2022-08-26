@@ -110,6 +110,7 @@ function Feedbacks() {
         dispatch(updateFeedbacksAction(res.data));
         var tempArr = [];
         res.data.map((x) => {
+          console.log(x)
           tempArr.push({
             ...x,
             
@@ -139,13 +140,15 @@ function Feedbacks() {
               </>
             ),
             clickEvent: setSelectedRow,
-            interviwer: x?.interViewer.name,
+            // interviwer: x?.interViewer.name,
+            candidatePhone:x?.candidate.phoneNumber,
             candidateName:x?.candidate.FirstName + " " + x?.candidate.lastName,
             candidateId:x?.candidate.id,
+            candidateEmail:x?.candidate.email
           });
         });
-        debugger
-       // console.log("test value", tempArr);
+      
+       console.log("test value", tempArr);
         var tempObj = { ...hrState.feedbacksDataTable, rows: tempArr };
         dispatch(updateFeedbacksDataTableAction(tempObj));
       }

@@ -84,18 +84,18 @@ const Admin_nav = [
     ],
     
   },
-  {
-    component: CNavGroup,
-    name: "Accounts",
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    items: [],
-  },
-  {
-    component: CNavItem,
-    name: "Attendence",
-    to: "/charts",
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: "Accounts",
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  //   items: [],
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: "Attendence",
+  //   to: "/charts",
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: "Logout",
@@ -184,18 +184,18 @@ const HumanResource_nav = [
     ],
     
   },
-  {
-    component: CNavGroup,
-    name: "Accounts",
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    items: [],
-  },
-  {
-    component: CNavItem,
-    name: "Attendence",
-    to: "/charts",
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: "Accounts",
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  //   items: [],
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: "Attendence",
+  //   to: "/charts",
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: "Logout",
@@ -231,18 +231,18 @@ const Employee_nav = [
       },
     ],
   },
-  {
-    component: CNavGroup,
-    name: "Accounts",
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    items: [],
-  },
-  {
-    component: CNavItem,
-    name: "Attendence",
-    to: "/charts",
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: "Accounts",
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  //   items: [],
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: "Attendence",
+  //   to: "/charts",
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: "Logout",

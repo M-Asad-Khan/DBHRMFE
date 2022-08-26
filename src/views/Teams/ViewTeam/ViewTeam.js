@@ -26,7 +26,7 @@ const ViewTeam = () => {
   };
   const handleEvaluationClick = async (temaMember) => {
     
-        debugger;
+        
         // handleGetTeamsApi()
         dispatch(updateIsAddEmployeeEvaluationClickedAction(true));
         dispatch(updateIsAddMemberDetailsClickedAction(temaMember));

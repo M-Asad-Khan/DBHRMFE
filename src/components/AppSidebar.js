@@ -70,7 +70,7 @@ const AppSidebar = () => {
   });
   const appSidebarState = useSelector((state) => state.appSidebar);
   const handleSidebarClick = () => {
-    debugger;
+    
     console.log("flags resets");
     //client flags
     dispatch(updateIsAddClientClickedAction(null));
@@ -107,9 +107,9 @@ const AppSidebar = () => {
       <CSidebarToggler
         className="d-none d-lg-flex"
         onClick={() => {
-          debugger;
+          
           dispatch(updateShowSidebarAction(!appSidebarState.showSidebar));
-          debugger;
+          
         }}
       />
     </CSidebar>

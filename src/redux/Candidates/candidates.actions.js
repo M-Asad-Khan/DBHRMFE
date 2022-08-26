@@ -5,43 +5,43 @@ import {
     updateIsEditCandidateClicked,
     updateCandidatesDataTable,
     updateIsViewCandidateClicked
-    
-  } from "./candidates.types";
-  export const updateNewCandidateAction = (params) => {
+
+} from "./candidates.types";
+export const updateNewCandidateAction = (params) => {
     return {
-      type: updateNewCandidate,
-      payload: params,
+        type: updateNewCandidate,
+        payload: params,
     };
-  };
-  export const updateIsAddCandidateClickedAction = (params) => {
-      debugger;
+};
+export const updateIsAddCandidateClickedAction = (params) => {
+
     return {
-      type: updateIsAddCandidateClicked,
-      payload: params,
+        type: updateIsAddCandidateClicked,
+        payload: params,
     };
-  };
-  
-  export const updateCandidatesAction = (params) => {
+};
+
+export const updateCandidatesAction = (params) => {
     return {
-      type: updateCandidates,
-      payload: params,
+        type: updateCandidates,
+        payload: params,
     };
-  };
-  export const updateIsEditCandidateClickedAction = (params) => {
+};
+export const updateIsEditCandidateClickedAction = (params) => {
     return {
-      type: updateIsEditCandidateClicked,
-      payload: params,
+        type: updateIsEditCandidateClicked,
+        payload: params,
     };
-  };
-  export const updateCandidatesDataTableAction = (params) => {
+};
+export const updateCandidatesDataTableAction = (params) => {
     return {
-      type: updateCandidatesDataTable,
-      payload: params,
+        type: updateCandidatesDataTable,
+        payload: params,
     };
-  };
-  export const updateIsViewCandidateClickedAction = (params) => {
-      return {
+};
+export const updateIsViewCandidateClickedAction = (params) => {
+    return {
         type: updateIsViewCandidateClicked,
         payload: params,
-      };
     };
+};

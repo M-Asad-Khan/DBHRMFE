@@ -113,12 +113,12 @@ const addclients = ({ }) => {
           }
         } else {
           tempFieldsWithError[x[0]] = true;
-          tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+          tempErrorInfo[x[0]] = "Please enter required fields";
           isError = true;
         }
       } else {
         tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+        tempErrorInfo[x[0]] = "Please enter required fields";
         isError = true;
       }
     });

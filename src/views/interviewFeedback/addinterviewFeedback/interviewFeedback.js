@@ -22,23 +22,26 @@ const feedBackQuestionResponse = [
   { id: "", rating: "", comment: "" },
   { id: "", rating: "", comment: "" },
   { id: "", rating: "", comment: "" },
-  { id: "", rating: "", comment: "" },
-  { id: "", rating: "", comment: "" },
-  { id: "", rating: "", comment: "" },
-  { id: "", rating: "", comment: "" },
-  { id: "", rating: "", comment: "" }];
+];
 const interviewFeedback = () => {
   const dispatch = useDispatch();
   const [employees, setEmployees] = useState([]);
   const [postings, setPostings] = useState([]);
   const [candidates, setCandidates] = useState([]);
-  const [feedBackQuestion, setFeedBackQuestions] = useState();
+  const [feedBackQuestion, setFeedBackQuestions] = useState([]);
+  const [filteredFeedBackQuestion, setFilteredFeedBackQuestion] = useState([]);
   const hrState = useSelector((state) => state.interviewFeedback);
   const [tempUser, setTempUser] = useState();
   const interviewOptions = [
-    { value: "Phase1", label: "phase1", field: "phase" },
-    { value: "NonTechnical", label: "nonTechnical", field: "phase" },
+    { value: "Initial", label: "Initial", field: "phase" },
     { value: "Technical", label: "Technical", field: "phase" },
+    { value: "Final", label: "Final", field: "phase" },
+  ];
+
+  const candidateType = [
+    { value: "Fresh", label: "Fresh", field: "phase" },
+    { value: "Experience", label: "Experience", field: "phase" },
+    { value: "Expert", label: "Expert", field: "phase" },
   ];
 
 
@@ -69,13 +72,26 @@ const interviewFeedback = () => {
         var tempArr = res.data.map((x) => {
           return { ...x, value: x.name, label: x.name };
         });
-        //console.log("employee", tempArr);
+      
         setEmployees(tempArr);
       }
     } catch (err) {
-      //console.log(err);
+   
     }
   };
+
+const filterQuestions=(event)=>{
+  let filteredQuestionsData=[];
+ feedBackQuestion.map(obj => {  
+    if (obj.type === event.value) {
+      filteredQuestionsData.push(obj);
+    }
+
+  });
+
+  setFilteredFeedBackQuestion(filteredQuestionsData);
+}
+
   const handleGetJobPostingsApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
@@ -101,10 +117,13 @@ const interviewFeedback = () => {
 
       if (res.error === false) {
         var tempArr = [];
-        var tempArr = res.data.map((x) => {
-          return { ...x, value: x.FirstName + " " + x.lastName, label: x.FirstName + " " + x.lastName };
+         res.data.map((x) => {
+       if(x.status=="Applied"){
+        tempArr.push({ ...x, value: x.FirstName + " " + x.lastName, label: x.FirstName + " " + x.lastName });
+       }
+          
         });
-        // console.log("candidates", tempArr);
+        console.log("candidates", tempArr);
         setCandidates(tempArr);
       }
     } catch (err) {
@@ -193,10 +212,7 @@ const interviewFeedback = () => {
     3: 0,
     4: 0,
     5: 0,
-    6: 0,
-    8: 0,
-    9: 0,
-    10: 0,
+ 
   }); // initial rating value
   // Catch Rating value
   const handleRating = (rate, id, i) => {
@@ -273,7 +289,7 @@ const interviewFeedback = () => {
                     name="candidates"
                     options={candidates}
                     onChange={(event) => {
-                      debugger
+            
                       handleChange(event, 'candidates');
 
                       setTempUser(event.postAppliedFor)
@@ -317,6 +333,23 @@ const interviewFeedback = () => {
                     }}
                   />
                 </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Candidate Type<span className="text-danger"> *</span>
+                  </label>
+                  <Select
+                    type="text"
+                    id="candidates"
+                    name="candidates"
+                    options={candidateType}
+                    onChange={(event) => {
+            
+                   filterQuestions(event)
+
+                    }}
+                  />
+                </div>
+
               </div>
 
               <p>
@@ -334,7 +367,7 @@ const interviewFeedback = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {feedBackQuestion && feedBackQuestion.map((x, i) => {
+                  {filteredFeedBackQuestion && filteredFeedBackQuestion.map((x, i) => {
                     return (
                       <tr key={i}>
                         <td scope="row">{x.question}</td>

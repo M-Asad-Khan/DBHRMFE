@@ -32,7 +32,7 @@ const ViewClient = () => {
     try {
       const res = await teamMembersRequests.getTeamMembersApi(teamId);
       if (res.error === false) {
-        debugger;
+        
         // handleGetTeamsApi()
         dispatch(updateIsViewTeamClickedAction(true));
         dispatch(updateNewTeamAction(res.data));

@@ -5,85 +5,83 @@ import {
     updateIsEditCandidateClicked,
     updateCandidatesDataTable,
     updateIsViewCandidateClicked,
-    
-  } from "./candidates.types";
-  
-  const INITIAL_STATE = {
+
+} from "./candidates.types";
+
+const INITIAL_STATE = {
     candidates: [],
     newCandidate: {},
     isAddCandidateClicked: null,
     isEditCandidateClicked: null,
-    candidatesDataTable:{
-      columns: [
-        {
-          label: "Candidate Name",
-          field: "FirstName",
-          width: 270,
-        },
-        {
-          label: "Post Applied For",
-          field: "positionName",
-          width: 200,
-        },
-        {
-          label: "Status",
-          field: "status",
-          width: 200,
-        },
-        {
-          label: "Action",
-          field: "action",
-          width: 100,
-        },
-      ],
-      rows: [],
+    candidatesDataTable: {
+        columns: [{
+                label: "Candidate Name",
+                field: "candidateName",
+                width: 270,
+            },
+            {
+                label: "Post Applied For",
+                field: "positionName",
+                width: 200,
+            },
+            {
+                label: "Status",
+                field: "status",
+                width: 200,
+            },
+            {
+                label: "Action",
+                field: "action",
+                width: 100,
+            },
+        ],
+        rows: [],
     },
-    isViewCandidateClicked:null
-    
-  };
-  
-  const reducer = (state = INITIAL_STATE, action) => {
+    isViewCandidateClicked: null
+
+};
+
+const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-      case updateNewCandidate:
-        return {
-          ...state,
-          newCandidate: action.payload,
-        };
-  
-      case updateCandidates:
-        return {
-          ...state,
-          candidates: action.payload,
-        };
-  
-          case updateIsAddCandidateClicked:
-              debugger;
-        return {
-          ...state,
-          isAddCandidateClicked: action.payload,
-        };
-  
-      case updateIsEditCandidateClicked:
-        return {
-          ...state,
-          isEditCandidateClicked: action.payload,
-        };
-        case updateCandidatesDataTable:
-          return {
-            ...state,
-            candidatesDataTable: action.payload,
-          };
-          case updateIsViewCandidateClicked:
+        case updateNewCandidate:
             return {
-              ...state,
-              isViewCandidateClicked: action.payload,
+                ...state,
+                newCandidate: action.payload,
             };
-     
-  
-      default:
-        return state;
+
+        case updateCandidates:
+            return {
+                ...state,
+                candidates: action.payload,
+            };
+
+        case updateIsAddCandidateClicked:
+
+            return {
+                ...state,
+                isAddCandidateClicked: action.payload,
+            };
+
+        case updateIsEditCandidateClicked:
+            return {
+                ...state,
+                isEditCandidateClicked: action.payload,
+            };
+        case updateCandidatesDataTable:
+            return {
+                ...state,
+                candidatesDataTable: action.payload,
+            };
+        case updateIsViewCandidateClicked:
+            return {
+                ...state,
+                isViewCandidateClicked: action.payload,
+            };
+
+
+        default:
+            return state;
     }
-  };
-  
-  export default reducer;
-  
+};
+
+export default reducer;

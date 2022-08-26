@@ -6,14 +6,15 @@ import {
   updateIsAddCandidateClickedAction,
   updateIsEditCandidateClickedAction,
 } from "../../../redux/Candidates/candidates.actions";
+
 import { CButton } from "@coreui/react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-
-const Candidates = ({}) => {
+import axios from "axios"
+const Candidates = ({ }) => {
   const [fieldsWithError, setFieldsWithError] = useState({
     FirstName: false,
     lastName: false,
@@ -24,16 +25,23 @@ const Candidates = ({}) => {
     positionId: false,
     AppliedDate: false,
     skills: false,
+
   });
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.candidate);
   const [postings, setPostings] = useState([]);
-  useEffect(() =>{
+
+
+
+
+
+
+  useEffect(() => {
     handleGetJobPostingsApi();
-  },[]);
+  }, []);
   function handleChange(evt) {
-    
+
     const value = evt.target ? evt.target.value : evt.value;
     const name = evt.target ? evt.target.name : evt.field;
     dispatch(
@@ -43,9 +51,9 @@ const Candidates = ({}) => {
       })
     );
   }
-  function handleReactChange(evt,field) {
-    
-    
+  function handleReactChange(evt, field) {
+
+
     dispatch(
       updateNewCandidateAction({
         ...hrState.newCandidate,
@@ -53,8 +61,8 @@ const Candidates = ({}) => {
       })
     );
   }
- 
-     
+
+
   const handleCancel = () => {
     dispatch(updateNewCandidateAction({}));
     dispatch(updateIsAddCandidateClickedAction(false));
@@ -62,15 +70,15 @@ const Candidates = ({}) => {
   };
 
   const addAndUpdateCandidate = async () => {
-  
+
     if (!doValidation()) {
       if (hrState.isEditCandidateClicked === true) {
         try {
-          
-          const res = await candidateRequests.updateCandidateApi(hrState.newCandidate );
+
+          const res = await candidateRequests.updateCandidateApi(hrState.newCandidate);
           console.log("updateCandidate Response", res);
           if (res.error === false) {
-            
+
             toast.success("Candidate Updated !");
             let temp = hrState.candidates.filter(
               (item) => item.id != res.data.id
@@ -81,42 +89,44 @@ const Candidates = ({}) => {
           }
         } catch (e) {
           toast.error("error !");
-          
+
         }
       } else {
         try {
-          
+
           const res = await candidateRequests.addCandidateApi(
             hrState.newCandidate);
           console.log("addCandidateApi Response", res);
-          
+
           if (res.error === false) {
             toast.success("Candidate Added !");
-            
+
             dispatch(updateCandidatesAction([...hrState.candidates, res.data]));
             dispatch(updateIsAddCandidateClickedAction(false));
             dispatch(updateIsEditCandidateClickedAction(false));
           }
         } catch (e) {
-         
+
           toast.error("error");
         }
       }
     } else {
       toast.error("validation failed");
       //console.log("validation failed");
-      
+
     }
   };
   const handleGetJobPostingsApi = async () => {
     try {
       const res = await jobPostingRequests.getjobPostingsApi();
-           
+
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
-          return { ...x, 
-            value: x.jobTitle, label: x.jobTitle };
+          return {
+            ...x,
+            value: x.jobTitle, label: x.jobTitle
+          };
         });
         //console.log("tempArr", tempArr);
         setPostings(tempArr);
@@ -129,10 +139,10 @@ const Candidates = ({}) => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-     
+
 
     Object.entries(fieldsWithError).forEach((x) => {
-       
+
       if (hrState.newCandidate[x[0]] !== undefined) {
         if (hrState.newCandidate[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -144,16 +154,16 @@ const Candidates = ({}) => {
           }
         } else {
           tempFieldsWithError[x[0]] = true;
-          tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+          tempErrorInfo[x[0]] = "Please enter required fields";
           isError = true;
         }
       } else {
         tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
+        tempErrorInfo[x[0]] = "Please enter required fields";
         isError = true;
       }
     });
-     
+
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -161,7 +171,7 @@ const Candidates = ({}) => {
         isError = true;
       }
     });
-   // console.log("isError", isError);
+    // console.log("isError", isError);
     return isError;
   };
 
@@ -207,8 +217,8 @@ const Candidates = ({}) => {
       });
     }
   }
- // console.log("fieldsWithError", fieldsWithError);
- // console.log("errorInfo", errorInfo);
+  // console.log("fieldsWithError", fieldsWithError);
+  // console.log("errorInfo", errorInfo);
 
   const candStatusOptions = [
     { value: "Applied", label: "Applied", field: "status" },
@@ -349,13 +359,13 @@ const Candidates = ({}) => {
                     value={{
                       label: hrState.newCandidate.gender
                         ? hrState.newCandidate.gender.charAt(0).toUpperCase() +
-                          hrState.newCandidate.gender.slice(1)
+                        hrState.newCandidate.gender.slice(1)
                         : null,
                       value: hrState.newCandidate.gender,
                     }}
                     options={[
-                      { label: "Male", value: "male", field: "gender" },
-                      { label: "Female", value: "female", field: "gender" },
+                      { label: "Male", value: "Male", field: "gender" },
+                      { label: "Female", value: "Female", field: "gender" },
                     ]}
                     onChange={handleChange}
                   ></Select>
@@ -373,7 +383,7 @@ const Candidates = ({}) => {
                     value={{
                       label: hrState.newCandidate.status
                         ? hrState.newCandidate.status.charAt(0).toUpperCase() +
-                          hrState.newCandidate.status.slice(1)
+                        hrState.newCandidate.status.slice(1)
                         : null,
                       value: hrState.newCandidate.status,
                     }}
@@ -395,9 +405,9 @@ const Candidates = ({}) => {
                     type="text"
                     id="positionId"
                     name="positionId"
-                    onChange={(event)=>handleReactChange(event,'positionId')}
+                    onChange={(event) => handleReactChange(event, 'positionId')}
                     options={postings}
-                    
+
                   ></Select>{" "}
                   {fieldsWithError.positionId === true ? (
                     <>
@@ -417,7 +427,7 @@ const Candidates = ({}) => {
                     className={
                       fieldsWithError.AppliedDate === true ? "redBorder" : ""
                     }
-                    value={hrState?.newCandidate?.AppliedDate?.slice(0,10)}
+                    value={hrState?.newCandidate?.AppliedDate?.slice(0, 10)}
                     onChange={handleChange}
                     type="date"
                     id="AppliedDate"
@@ -435,6 +445,7 @@ const Candidates = ({}) => {
                   )}
                 </div>
               </div>
+            
               <div className="row justify-content-between text-left">
                 <div className="form-group col-12 flex-column d-flex">
                   <label className="form-control-label">
