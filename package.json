@@ -12,7 +12,7 @@
         "eject": "react-scripts eject",
         "lint": "eslint \"src/**/*.js\"",
         "start:linux": "export SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-        "start": "react-scripts --openssl-legacy-provider start",
+        "start": "react-scripts start",
         "start:dev": "env-cmd -f .env.local react-scripts start",
         "start:n17": "react-scripts --openssl-legacy-provider start",
         "test": "react-scripts test",
@@ -36,11 +36,11 @@
         "classnames": "^2.3.1",
         "core-js": "^3.19.1",
         "enzyme": "^3.11.0",
-        "mdbreact": "^4.27.0",
+        "mdbreact": "^5.2.0",
         "prop-types": "^15.7.2",
-       
+        "react": "^17.0.2",
         "react-app-polyfill": "^2.0.0",
-       
+        "react-dom": "^17.0.2",
         "react-icons": "^4.3.1",
         "react-redux": "^7.2.6",
         "react-router-dom": "^5.3.0",
@@ -51,16 +51,11 @@
         "redux": "4.1.2",
         "simplebar-react": "^2.3.6"
     },
-    "peerDependencies": {
-        "react": "17.0.0",
-        "react-dom": "17.0.0"
-      },
     "devDependencies": {
         "auto-changelog": "~2.3.0",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
-        "netlify-cli": "^11.5.0",
         "prettier": "2.5.0",
         "react-scripts": "^4.0.3",
         "sass": "^1.43.5"
