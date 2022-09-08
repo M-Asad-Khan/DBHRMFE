@@ -37,6 +37,7 @@
         "core-js": "^3.19.1",
         "enzyme": "^3.11.0",
         "mdbreact": "^5.2.0",
+        "postcss-custom-properties": "10.0.0",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
         "react-app-polyfill": "^2.0.0",
@@ -75,5 +76,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "resolutions": {
+        "react-scripts/postcss-preset-env/postcss-custom-properties": "^10.0.0"
     }
 }
