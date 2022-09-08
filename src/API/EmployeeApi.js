@@ -6,7 +6,7 @@ class employeeApi {
 
         return axios({
                 method: "post",
-                url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees`,
+                url: `https://dbhrmbee.herokuapp.com/employees`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -33,7 +33,7 @@ class employeeApi {
                     employee_No: newEmployee.employee_No,
                     workExperience: newEmployee.workExperience,
                     technology: newEmployee.technology,
-                    profile_url:newEmployee.profile_url
+                    profile_url: newEmployee.profile_url
                 },
             })
             .then((result) => {
@@ -58,7 +58,7 @@ class employeeApi {
 
         return axios({
                 method: "delete",
-                url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/employees/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -85,7 +85,7 @@ class employeeApi {
         debugger
         return axios({
                 method: "get",
-                url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees`,
+                url: `https://dbhrmbee.herokuapp.com/employees`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -109,7 +109,7 @@ class employeeApi {
 
         return axios({
                 method: "get",
-                url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/employees/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -135,7 +135,7 @@ class employeeApi {
 
         return axios({
                 method: "patch",
-                url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/${newEmployee.id}`,
+                url: `https://dbhrmbee.herokuapp.com/employees/${newEmployee.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -160,7 +160,7 @@ class employeeApi {
                     personalEmail: newEmployee.personalEmail,
                     cnic: newEmployee.cnic,
                     employee_No: newEmployee.employee_No,
-                    profile_url:newEmployee.profile_url
+                    profile_url: newEmployee.profile_url
                 },
             })
             .then((result) => {
@@ -182,7 +182,7 @@ class employeeApi {
     getEmployeeWorkHistory = async(empId) => {
         return axios({
                 method: "get",
-                url: `${process.env.REACT_APP_API_LOCAL_PATH}/employees/work_history/${empId}`,
+                url: `https://dbhrmbee.herokuapp.com/employees/work_history/${empId}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
