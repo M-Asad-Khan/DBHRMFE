@@ -6,7 +6,7 @@ class jobPostingApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/jobPosition`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/jobPosition`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -44,7 +44,7 @@ class jobPostingApi {
     getjobPostingsApi = async() => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/jobPosition`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/jobPosition`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -69,7 +69,7 @@ class jobPostingApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/jobPosition/${newPosting.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/jobPosition/${newPosting.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -105,7 +105,7 @@ class jobPostingApi {
 
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/jobPosition/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/jobPosition/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

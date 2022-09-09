@@ -6,7 +6,7 @@ class clientApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/client`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/client`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -41,7 +41,7 @@ class clientApi {
 
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/client/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/client/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -68,7 +68,7 @@ class clientApi {
 
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/client`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/client`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -93,7 +93,7 @@ class clientApi {
 
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/client/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/client/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -119,7 +119,7 @@ class clientApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/client/${client.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/client/${client.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -153,7 +153,7 @@ class clientApi {
     GetClientProjectsApi = async(clientId) => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/client/projects/${clientId}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/client/projects/${clientId}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

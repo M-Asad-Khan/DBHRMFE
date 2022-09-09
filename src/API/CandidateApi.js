@@ -6,7 +6,7 @@ class CandidateApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/candidate`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/candidate`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -44,7 +44,7 @@ class CandidateApi {
     getCandidatesApi = async() => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/candidate`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/candidate`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -67,7 +67,7 @@ class CandidateApi {
     getHiredCandidatesApi = async() => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/candidate/hired`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/candidate/hired`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -93,7 +93,7 @@ class CandidateApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/candidate/${newCandidate.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/candidate/${newCandidate.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -130,7 +130,7 @@ class CandidateApi {
 
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/candidate/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/candidate/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

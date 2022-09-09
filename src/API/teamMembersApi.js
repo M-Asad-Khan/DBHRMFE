@@ -4,7 +4,7 @@ class TeamMembersApi {
     getTeamMembersApi = async(teamId) => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/teams-member/${teamId}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams-member/${teamId}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -29,7 +29,7 @@ class TeamMembersApi {
 
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/teams-member`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams-member`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -60,7 +60,7 @@ class TeamMembersApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/teams-member/`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams-member/`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

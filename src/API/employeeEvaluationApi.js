@@ -7,7 +7,7 @@ class employeeEvaluationApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/employeeEvaluation`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeEvaluation`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -53,7 +53,7 @@ class employeeEvaluationApi {
     deleteEmployeeEvaluationApi = async(id) => {
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/employeeEvaluation/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeEvaluation/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -78,7 +78,7 @@ class employeeEvaluationApi {
 
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/employeeEvaluation`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeEvaluation`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -102,7 +102,7 @@ class employeeEvaluationApi {
 
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/employeeEvaluation/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeEvaluation/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -126,7 +126,7 @@ class employeeEvaluationApi {
     updateEmployeeEvaluationApi = async(newEvaluation) => {
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/employeeEvaluation/${newEvaluation.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeEvaluation/${newEvaluation.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

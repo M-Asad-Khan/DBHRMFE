@@ -4,7 +4,7 @@ class TeamApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/teams`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -40,7 +40,7 @@ class TeamApi {
 
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/teams/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -67,7 +67,7 @@ class TeamApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/teams/${team.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams/${team.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -100,7 +100,7 @@ class TeamApi {
     getTeamsApi = async() => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/teams`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/teams`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

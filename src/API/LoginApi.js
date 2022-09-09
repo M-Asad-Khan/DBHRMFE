@@ -4,7 +4,7 @@ class LoginApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/login`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/login`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

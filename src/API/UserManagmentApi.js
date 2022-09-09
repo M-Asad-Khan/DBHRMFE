@@ -5,7 +5,7 @@ class UserManagment {
     addUser(user) {
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/user`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/user`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -36,7 +36,7 @@ class UserManagment {
     getUsers() {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/user`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/user`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -61,7 +61,7 @@ class UserManagment {
     addRole(role) {
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/role`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/role`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -90,7 +90,7 @@ class UserManagment {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/role/${role.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/role/${role.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -118,7 +118,7 @@ class UserManagment {
     deleteRole(role) {
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/role/${role.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/role/${role.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -144,7 +144,7 @@ class UserManagment {
 
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/role`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/role`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -169,7 +169,7 @@ class UserManagment {
     addPermission(permission) {
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/permission`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/permission`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -197,7 +197,7 @@ class UserManagment {
     updatePermission(permission) {
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/permission`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/permission`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -225,7 +225,7 @@ class UserManagment {
     getPermission() {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/permission`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/permission`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

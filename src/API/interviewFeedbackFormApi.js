@@ -7,7 +7,7 @@ class interviewFeedbackFormApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/interViewFeedBackResponse`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interViewFeedBackResponse`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -45,7 +45,7 @@ class interviewFeedbackFormApi {
     getinterviewFeedbackFormApi = async() => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/interViewFeedBackResponse`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interViewFeedBackResponse`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -68,7 +68,7 @@ class interviewFeedbackFormApi {
     getOneByIdApi = async(id) => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/interViewFeedBackResponse/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interViewFeedBackResponse/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -94,7 +94,7 @@ class interviewFeedbackFormApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/interViewFeedBackResponse/${newFeedback.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interViewFeedBackResponse/${newFeedback.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

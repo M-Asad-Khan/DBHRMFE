@@ -6,7 +6,7 @@ class interviewFeedbackApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/interviewfeedback`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interviewfeedback`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -53,7 +53,7 @@ class interviewFeedbackApi {
     getinterviewFeedbackApi = async() => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/interviewfeedback`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interviewfeedback`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -79,7 +79,7 @@ class interviewFeedbackApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/interviewfeedback/${newFeedback.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/interviewfeedback/${newFeedback.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",

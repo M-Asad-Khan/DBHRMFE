@@ -6,7 +6,7 @@ class employeeApi {
 
         return axios({
                 method: "post",
-                url: `https://dbhrmbee.herokuapp.com/employees`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -58,7 +58,7 @@ class employeeApi {
 
         return axios({
                 method: "delete",
-                url: `https://dbhrmbee.herokuapp.com/employees/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -85,7 +85,7 @@ class employeeApi {
         debugger
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/employees`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -109,7 +109,7 @@ class employeeApi {
 
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/employees/${id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees/${id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -135,7 +135,7 @@ class employeeApi {
 
         return axios({
                 method: "patch",
-                url: `https://dbhrmbee.herokuapp.com/employees/${newEmployee.id}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees/${newEmployee.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
@@ -182,7 +182,7 @@ class employeeApi {
     getEmployeeWorkHistory = async(empId) => {
         return axios({
                 method: "get",
-                url: `https://dbhrmbee.herokuapp.com/employees/work_history/${empId}`,
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees/work_history/${empId}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Access-Control-Allow-Origin": "*",
