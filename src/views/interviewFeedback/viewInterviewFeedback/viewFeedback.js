@@ -61,7 +61,7 @@ const ViewFeedback = () => {
           {
             i == 0 &&
             <tr>
-              <td style={{ "fontSize": "20px", "fontWeight": "bold" }}>{ke}</td>
+              <td style={{ "fontSize": "16px", "fontWeight": "bold",color:"gray" }}>{"Interview Type & Date : "+ke}</td>
             </tr>
 
           }
@@ -74,10 +74,7 @@ const ViewFeedback = () => {
             <td>
               {x.comment}
             </td>
-
           </tr>
-
-
         </tbody>
       ))
     )
@@ -115,7 +112,7 @@ const ViewFeedback = () => {
                     <label className=" d-flex font-weight-bold" style={{ color: "dimgrey" }}>
                       Candidate Name:
                     </label>&nbsp;&nbsp;
-                    <span >{feedback[key][0]?.candidate?.FirstName}</span>
+                    <span >{feedback[key][0]?.candidate?.FirstName+" " +feedback[key][0]?.candidate?.lastName}</span>
                   </div>
                   <div className="d-flex w-100 justify-content-end">
                     <label className=" d-flex font-weight-bold" style={{ color: "dimgrey" }}>
@@ -127,9 +124,9 @@ const ViewFeedback = () => {
                 <div className="d-flex">
                   <div className="d-flex w-100">
                     <label className=" d-flex font-weight-bold" style={{ color: "dimgrey" }}>
-                      Date of Interview:
+                      Applied Date:
                     </label>&nbsp;&nbsp;
-                    <span >{feedback[key][0]?.dateOfInterview?.slice(0, 10)}</span>
+                    <span >{feedback[key][0]?.candidate?.AppliedDate?.slice(0, 10)}</span>
                   </div>
                   <div className="d-flex w-100 justify-content-end">
                     <label className=" d-flex font-weight-bold" style={{ color: "dimgrey" }}>

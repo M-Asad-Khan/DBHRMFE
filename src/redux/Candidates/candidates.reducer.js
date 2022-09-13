@@ -30,6 +30,11 @@ const INITIAL_STATE = {
                 width: 200,
             },
             {
+                label: "Resume",
+                field: "resume",
+                width: 200,
+            },
+            {
                 label: "Action",
                 field: "action",
                 width: 100,

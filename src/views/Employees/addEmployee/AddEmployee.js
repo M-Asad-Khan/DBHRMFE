@@ -11,13 +11,14 @@ import { employeeRequests } from "src/API/EmployeeApi";
 import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
-import { CButton } from "@coreui/react";
+import { CButton,CLink } from "@coreui/react";
 import { toast } from "react-toastify";
-import axios from "axios"
+import { PickerDropPane } from 'filestack-react';
+import CIcon from '@coreui/icons-react';
 
-// import backIcon from '/src/assets/back-icon.png'
+import { cibAddthis } from '@coreui/icons'
 
-const AddEmployee = ({}) => {
+const AddEmployee = ({ }) => {
   const empStatusOptions = [
     { value: "Active", label: "Active", field: "status" },
     { value: "Pending", label: "Pending", field: "status" },
@@ -75,24 +76,23 @@ const AddEmployee = ({}) => {
     gender: false,
     status: false,
     permanentDate: false,
-    workExperience:false,
-    technology:false,
+    workExperience: false,
+    technology: false,
     appointmentLetterStatus: false,
     agreementSignStatus: false,
   });
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const [candidates, setCandidates] = useState([]);
-  const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
 
   const state = useSelector((state) => state.employees);
- useEffect(()=>{
-   handleGetCandidatesApi();
- }, []);
+  useEffect(() => {
+    handleGetCandidatesApi();
+  }, []);
 
   function handleChange(evt) {
-         
+
     const value = evt.target.value;
     dispatch(
       updateNewEmployeeAction({
@@ -107,34 +107,25 @@ const AddEmployee = ({}) => {
     dispatch(updateIsEditEmployeeClickedAction(false));
   };
 
-  const changeHandler = (event) => {
-
-    setSelectedFile(event.target.files[0])
-
-    setIsFilePicked(true);
 
 
-  };
+  // const handleSubmission = async () => {
+  //   let body = new FormData()
+  //   body.set('key', '11017bd402e05bad935969f001eeeebf')
+  //   body.append('image', selectedFile)
 
-  const handleSubmission = async () => {
-    let body = new FormData()
-    body.set('key', '11017bd402e05bad935969f001eeeebf')
-    body.append('image', selectedFile)
-
-   const response= await axios({
-      method: 'post',
-      url: 'https://api.imgbb.com/1/upload',
-      data: body
-    })
-    const url=response.data?.data?.display_url;
-return url;
-
-
-
-  };
-
-
-
+  //   const response = await axios({
+  //     method: 'post',
+  //     url: 'https://api.imgbb.com/1/upload',
+  //     data: body
+  //   })
+  //   const url = response.data?.data?.display_url;
+  //   return url;
+  // };
+  const uploadDone = (res) => {
+    state.newEmployee.profile_url = res.filesUploaded[0].url;
+    setIsFilePicked(false);
+  }
   const handleGetCandidatesApi = async () => {
     try {
       const res = await candidateRequests.getHiredCandidatesApi();
@@ -152,17 +143,17 @@ return url;
     }
   };
   const addAndUpdateEmployee = async () => {
-         
+
     if (!doValidation()) {
       if (state.isEditEmployeeClicked === true) {
         try {
-              const profile_url= await handleSubmission();
-            
-              state.newEmployee.profile_url=profile_url;
+          // const profile_url = await handleSubmission();
+
+          // state.newEmployee.profile_url = profile_url;
           const res = await employeeRequests.updateEmployeeApi(state.newEmployee);
           console.log("updateEmployee Response", res);
           if (res.error === false) {
-                 
+
             toast.success("Employee Updated !");
             let temp = state.employees.filter((item) => item.id != res.data.id);
             dispatch(updateEmployeesAction([...temp, res.data]));
@@ -171,42 +162,42 @@ return url;
           }
         } catch (e) {
           toast.error("error !");
-               
+
         }
       } else {
         try {
-          const profile_url= await handleSubmission();
-            
-          state.newEmployee.profile_url=profile_url;
+          // const profile_url = await handleSubmission();
+
+          // state.newEmployee.profile_url = profile_url;
           const res = await employeeRequests.addEmployeeApi(state.newEmployee);
           console.log("addEmployeeApi Response", res);
-               
+
           if (res.error === false) {
             toast.success("Employee Added !");
-                 
+
             dispatch(updateEmployeesAction([...state.employees, res.data]));
             dispatch(updateIsAddEmployeeClickedAction(false));
             dispatch(updateIsEditEmployeeClickedAction(false));
           }
         } catch (e) {
-               
+
           toast.error("error");
         }
       }
     } else {
       toast.error("validation failed");
       console.log("validation failed");
-           
+
     }
   };
   const doValidation = () => {
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-         
+
 
     Object.entries(fieldsWithError).forEach((x) => {
-           
+
       if (state.newEmployee[x[0]] !== undefined) {
         if (state.newEmployee[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -217,28 +208,28 @@ return url;
             isError = false;
           }
         } else {
-               
+
           tempFieldsWithError[x[0]] = true;
           tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
           isError = true;
         }
       } else {
-             
+
         tempFieldsWithError[x[0]] = true;
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
         isError = true;
       }
     });
-         
+
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
       if (x[1] === true) {
-             
+
         isError = true;
       }
     });
-    
+
     return isError;
   };
 
@@ -301,9 +292,9 @@ return url;
     );
   };
 
-/*   console.log("fieldsWithError", fieldsWithError);
-  console.log("errorInfo", errorInfo);
-  console.log("state", state); */
+  /*   console.log("fieldsWithError", fieldsWithError);
+    console.log("errorInfo", errorInfo);
+    console.log("state", state); */
 
   return (
     <>
@@ -323,11 +314,11 @@ return url;
                     Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <Select
-                  type="text"
-                  id="name"
-                  name="name"
-                  options={candidates}
-                  onChange={handleReactChange}
+                    type="text"
+                    id="name"
+                    name="name"
+                    options={candidates}
+                    onChange={handleReactChange}
                   ></Select>
                   {/* <input
                     className={fieldsWithError.name === true ? "redBorder" : ""}
@@ -348,7 +339,7 @@ return url;
                     ""
                   )}
                 </div>
-                
+
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
                     Employee No.<span className="text-danger"> *</span>
@@ -363,9 +354,9 @@ return url;
                     type="text"
                     id="employee_No"
                     name="employee_No"
-											placeholder="Enter Employee No."
-											disabled
-                    // onBlur={(e) => validateNumberOnly(e.target.value)}
+                    placeholder="Enter Employee No."
+                    disabled
+                  // onBlur={(e) => validateNumberOnly(e.target.value)}
                   />{" "}
                   {fieldsWithError.employee_No === true ? (
                     <>
@@ -550,7 +541,7 @@ return url;
                     value={{
                       label: state.newEmployee.gender
                         ? state.newEmployee.gender.charAt(0).toUpperCase() +
-                          state.newEmployee.gender.slice(1)
+                        state.newEmployee.gender.slice(1)
                         : null,
                       value: state.newEmployee.gender,
                     }}
@@ -580,7 +571,7 @@ return url;
                     value={{
                       label: state.newEmployee.status
                         ? state.newEmployee.status.charAt(0).toUpperCase() +
-                          state.newEmployee.status.slice(1)
+                        state.newEmployee.status.slice(1)
                         : null,
                       value: state.newEmployee.status,
                     }}
@@ -665,9 +656,9 @@ return url;
                     value={{
                       label: state.newEmployee.designation
                         ? state.newEmployee.designation
-                            .charAt(0)
-                            .toUpperCase() +
-                          state.newEmployee.designation.slice(1)
+                          .charAt(0)
+                          .toUpperCase() +
+                        state.newEmployee.designation.slice(1)
                         : null,
                       value: state.newEmployee.designation,
                     }}
@@ -819,17 +810,7 @@ return url;
                   )}
                 </div>
               </div>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-6 flex-column d-flex">
-                  <div>
-                    <input type="file" name="file" onChange={changeHandler} />
-
-                    {/* <div>
-                      <button onClick={handleSubmission}>Submit</button>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
+           
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <div className="maxl">
@@ -922,6 +903,44 @@ return url;
               </div>
 
               <div className="row justify-content-between text-left">
+              
+
+
+<label className="form-control-label">
+                    Upload image
+                  </label>
+                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
+                  {state.newEmployee.profile_url ?
+                    <CLink
+                      href={state.newEmployee.profile_url}
+                      target="_blank"
+                    >
+                    {state.newEmployee.profile_url}
+                    </CLink>
+
+
+
+                    : <></>}
+
+
+                  {isFilePicked ?
+                    <PickerDropPane
+                    pickerOptions={{
+                      accept:"image/*"
+                    }}
+                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                      onSuccess={(res) => console.log(res)}
+                      onUploadDone={(res) => uploadDone(res)}
+                    />
+                    : <></>}
+              </div>
+
+
+      
+
+
+
+              <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 ">
                   <button
                     className="btn-block btn-primary"
@@ -932,6 +951,7 @@ return url;
                 </div>
                 <div className="form-group col-sm-6 ">
                   <CButton
+                
                     className="btn-block btn-primary"
                     onClick={() => addAndUpdateEmployee()}
                   >

@@ -22,6 +22,8 @@ class CandidateApi {
                     positionId: newCandidate.positionId,
                     AppliedDate: newCandidate.AppliedDate,
                     skills: newCandidate.skills,
+                    picture: newCandidate.picture,
+                    resumelink: newCandidate.resumelink,
                 },
             })
             .then((result) => {
@@ -109,6 +111,8 @@ class CandidateApi {
                     positionId: newCandidate.positionId,
                     AppliedDate: newCandidate.AppliedDate,
                     skills: newCandidate.skills,
+                    picture: newCandidate.picture,
+                    resumelink: newCandidate.resumelink
                 },
             })
             .then((result) => {

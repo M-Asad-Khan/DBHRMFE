@@ -10,6 +10,9 @@
 .border-bottom{
 	border-bottom:2px solid dimgray;
 	margin-bottom: 20px;
+	font-size: 20px;
+	color: dimgray;
+	font-weight: bold;
 }	
 .w-full{
 	width: 100%;

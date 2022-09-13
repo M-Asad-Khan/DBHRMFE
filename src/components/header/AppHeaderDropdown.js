@@ -1,7 +1,7 @@
 import React from 'react'
 import {
     CAvatar,
-    CBadge,
+
     CDropdown,
     CDropdownDivider,
     CDropdownHeader,
@@ -10,19 +10,14 @@ import {
     CDropdownToggle,
 } from '@coreui/react'
 import {
-    cilBell,
-    cilCreditCard,
-    cilCommentSquare,
-    cilEnvelopeOpen,
-    cilFile,
+ 
     cilLockLocked,
-    cilSettings,
-    cilTask,
+ 
     cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { Redirect } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
 import avatar8 from './../../assets/images/avatars/8.jpg'
 
 const AppHeaderDropdown = () => {
@@ -32,43 +27,40 @@ const AppHeaderDropdown = () => {
         window.location.reload();
     }
 
-
-    return ( <
-        CDropdown variant = "nav-item" >
-        <
-        CDropdownToggle placement = "bottom-end"
+    const userManagmentState = useSelector((state) => state?.login?.currentUser?.user);
+    return ( 
+        <CDropdown variant = "nav-item" >
+        <CDropdownToggle placement = "bottom-end"
         className = "py-0"
         caret = { false } >
-        <
-        CAvatar src = { avatar8 }
-        size = "md" / >
-        <
-        /CDropdownToggle> <
-        CDropdownMenu className = "pt-0"
+        <CAvatar src = { userManagmentState?.picture }
+        size = "md" />
+          {/* <img
+                    className="rounded-circle mx-auto"
+                    alt="100x100"
+                    style={{"width":"100px","height":"100px"}}
+                    src={userManagmentState?.users[0]?.picture }
+                    data-holder-rendered="true"
+                  /> */}
+        </CDropdownToggle> 
+        <CDropdownMenu className = "pt-0"
         placement = "bottom-end" >
-        <
-        CDropdownHeader className = "bg-light fw-semibold py-2" > Account < /CDropdownHeader>
+        <CDropdownHeader className = "bg-light fw-semibold py-2" > Account 
+        </CDropdownHeader>
 
-        <
-        CDropdownItem href = "#" >
-        <
-        CIcon icon = { cilUser }
-        className = "me-2" / >
-        Profile <
-        /CDropdownItem>
+        <CDropdownItem href = "#" >
+        <CIcon icon = { cilUser }
+        className = "me-2" />
+        Profile </CDropdownItem>
 
-        <
-        CDropdownDivider / >
-        <
-        CDropdownItem onClick = {
+        <CDropdownDivider />
+        <CDropdownItem onClick = {
             () => handleLogout() } >
-        <
-        CIcon icon = { cilLockLocked }
-        className = "me-2" / >
-        Logout <
-        /CDropdownItem> <
-        /CDropdownMenu> <
-        /CDropdown>
+        <CIcon icon = { cilLockLocked }
+        className = "me-2" />
+        Logout </CDropdownItem>
+         </CDropdownMenu> 
+         </CDropdown>
     )
 }
 

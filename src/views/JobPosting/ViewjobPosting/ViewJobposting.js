@@ -43,7 +43,7 @@ const ViewJobposting = () => {
                     <img
                       className="rounded-circle mx-auto"
                       alt="100x100"
-                      src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                      src="http://devbox.co/wp-content/uploads/2016/09/logo2-1.png"
                       data-holder-rendered="true"
                     />
                   </div>
@@ -57,7 +57,7 @@ const ViewJobposting = () => {
           </div>
   
           <div className="row">
-            <div className="col-sm-4">
+            <div className="col-sm-12">
               <div className="card" >
                 <h2 className="border-bottom">Job Details</h2>
                 <div className="d-flex justify-content-between">
@@ -98,22 +98,56 @@ const ViewJobposting = () => {
                   </div>
                   <div className='w-50 text-right'>{hrState?.newPosting?.effectiveDate?.slice(0, 10)}</div>
                 </div>
-              </div>
-            </div>
-  
-            <div className="col-sm-4">
-              <div className="card" >
+          
+                <h2 className="border-bottom">Positions Details</h2>
                 <div className="row d-flex justify-content-center">
-                  <h2 className="border-bottom">Positions Details</h2>
-                  {/* <div className="d-flex justify-content-between"> */}
-                   {/*  <div className="d-flex"> */}
-                      {/* <RiSettings2Line className="icon-design" /> */}
+                 
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex">
+                      <RiSettings2Line className="icon-design" />
                       <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
                         Description:
                       </h6>
-                    {/* </div> */}
+                    </div>
+                    <div className='w-50 text-right'>{hrState?.newPosting?.description}</div>
+                  </div>
+                </div>
+          
+                <h2 className="border-bottom">Work Details</h2>
+                <div className="d-flex justify-content-between">
+                    <div className="d-flex">
+                    <BsBagPlus className="icon-design" />
+                      <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                        Work Experience:
+                      </h6>
+                    </div>
+                    <div className='w-50 text-right'>{hrState?.newPosting?.workExperience}</div>
+                  </div>
+  
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex">
+                      <RiSettings2Line className="icon-design" />
+                      <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                        Qualification:
+                      </h6>
+                    </div>
+                    <div className='w-50 text-right'>{hrState?.newPosting?.qualification}</div>
+                  </div>
+          
+              </div>
+            </div>
+  
+            {/* <div className="col-sm-4">
+              <div className="card" >
+                <div className="row d-flex justify-content-center">
+                  <h2 className="border-bottom">Positions Details</h2>
+                
+                      <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                        Description:
+                      </h6>
+                   
                     <div >{hrState?.newPosting?.description}</div>
-                  {/* </div> */}
+                
                 </div>
               </div>
             </div>
@@ -121,7 +155,7 @@ const ViewJobposting = () => {
             <div className="col-sm-4">
               <div className="card">
                 <div className="row d-flex justify-content-center">
-                  <h2 className="border-bottom">Work Details</h2>
+                
                   <div className="d-flex justify-content-between">
                     <div className="d-flex">
                     <BsBagPlus className="icon-design" />
@@ -144,7 +178,7 @@ const ViewJobposting = () => {
                   <div></div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </>

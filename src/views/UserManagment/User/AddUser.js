@@ -11,12 +11,16 @@ import {
 } from "src/redux/UserManagment/userManagment.actions";
 import { toast } from "react-toastify";
 import { userManagmentRequests } from "src/API/UserManagmentApi";
+import { CLink } from "@coreui/react";
+import CIcon from '@coreui/icons-react';
+import {PickerDropPane} from 'filestack-react';
+import { cibAddthis } from '@coreui/icons'
 
 export default function AddUser() {
   const dispatch = useDispatch();
 
   const userManagmentState = useSelector((state) => state.userManagment);
-
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const [tempUser, setTempUser] = useState({});
   const [employees, setEmployees] = useState([]);
   const [clients, setClients] = useState([]);
@@ -95,23 +99,23 @@ export default function AddUser() {
   const handleAddAndUpdateUser = async () => {
     if (!doValidation()) {
       if (tempUser.password === tempUser.confirmPassword) {
-        if (userManagmentState.isEditEmployeeClicked === true) {
+        if (userManagmentState.isEditUserClicked === true) {
           try {
                  
-            const res = await userManagmentRequests.addUser(tempUser);
+            const res = await userManagmentRequests.updateUser(tempUser);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
                    
               toast.success("User Updated !");
-              let temp = state.employees.filter(
+              let temp = userManagmentState.users.filter(
                 (item) => item.id != res.data.id
               );
               dispatch(updateUsersAction([...temp, res.data]));
-              dispatch(updateIsAddUserClickedAction(false));
               dispatch(updateIsEditUserClickedAction(false));
             }
           } catch (e) {
-            toast.error("error !");
+            console.log(e)
+            toast.error("error !",e);
                  
           }
         } else {
@@ -124,10 +128,10 @@ export default function AddUser() {
               toast.success("User added !");
               dispatch(updateUsersAction([res.data]));
               dispatch(updateIsAddUserClickedAction(false));
-              dispatch(updateIsEditUserClickedAction(false));
             }
           } catch (e) {
-            toast.error("error !");
+            console.log(e)
+            toast.error("error !",e);
                  
           }
         }
@@ -175,6 +179,15 @@ export default function AddUser() {
    // console.log("isError", isError);
     return isError;
   };
+
+
+  const uploadDone = (res) => {
+
+    tempUser.picture = res.filesUploaded[0].url;
+      setIsFilePicked(false);
+    
+
+  }
 
   const handleTypeChange = (e) => {
          
@@ -322,6 +335,34 @@ export default function AddUser() {
           )}
         </div>
       </div>
+
+      <div className="form-group col-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Upload resume
+                  </label>
+                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
+                  {tempUser.picture ?
+                    <CLink
+                      href={tempUser.picture}
+                      target="_blank"
+                    >
+                      {tempUser.picture} 
+                    </CLink>
+                    : <></>}
+
+
+                  {isFilePicked ?
+                    <PickerDropPane
+                    pickerOptions={{
+                      accept:"image/*"
+                    }}
+                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                      onSuccess={(res) => console.log(res)}
+                      onUploadDone={(res) => uploadDone(res)}
+                    />
+                    : <></>}
+
+                </div>
 
       <div className="row justify-content-between text-left">
         <div className="form-group col-sm-6 ">

@@ -65,7 +65,7 @@ const ViewClient = () => {
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                    src="http://devbox.co/wp-content/uploads/2016/09/logo2-1.png"
                     data-holder-rendered="true"
                   />
                 </div>

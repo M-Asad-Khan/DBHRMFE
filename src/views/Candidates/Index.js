@@ -13,7 +13,7 @@ import Addcandidates from "./addCandidate/Candidates";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
 import { candidateRequests } from "src/API/CandidateApi";
-
+import { CLink } from "@coreui/react";
 function Candidates() {
      
   var action = "";
@@ -122,6 +122,12 @@ function Candidates() {
             clickEvent: setSelectedRow,
             positionName : x?.postAppliedFor?.jobTitle,
             candidateName:x?.FirstName + " " + x?.lastName,
+            resume: <CLink
+            href={x.resumelink}
+            target="_blank"
+          >
+            resume link
+          </CLink>
           });
         });
            

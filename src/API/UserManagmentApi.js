@@ -17,6 +17,39 @@ class UserManagment {
                     password: user.password,
                     email: user.email,
                     type: user.type,
+                    picture: user.picture
+                },
+            })
+            .then((result) => {
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    }
+
+    updateUser(user) {
+        return axios({
+                method: "patch",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/user`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: {
+                    name: user.name,
+                    id: user.user,
+                    password: user.password,
+                    email: user.email,
+                    type: user.type,
+                    picture: user.picture
                 },
             })
             .then((result) => {

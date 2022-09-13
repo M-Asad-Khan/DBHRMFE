@@ -7,13 +7,19 @@ import {
   updateIsEditCandidateClickedAction,
 } from "../../../redux/Candidates/candidates.actions";
 
-import { CButton } from "@coreui/react";
+import { CButton, CLink } from "@coreui/react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-import axios from "axios"
+
+import CIcon from '@coreui/icons-react';
+
+import { cibAddthis } from '@coreui/icons'
+
+import { PickerOverlay ,PickerDropPane} from 'filestack-react';
+
 const Candidates = ({ }) => {
   const [fieldsWithError, setFieldsWithError] = useState({
     FirstName: false,
@@ -31,15 +37,18 @@ const Candidates = ({ }) => {
   const dispatch = useDispatch();
   const hrState = useSelector((state) => state.candidate);
   const [postings, setPostings] = useState([]);
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
-
-
-
-
+  const [isImagePicked, setIsImagePicked] = useState(false);
 
   useEffect(() => {
     handleGetJobPostingsApi();
   }, []);
+
+
+
+
+
   function handleChange(evt) {
 
     const value = evt.target ? evt.target.value : evt.value;
@@ -74,7 +83,6 @@ const Candidates = ({ }) => {
     if (!doValidation()) {
       if (hrState.isEditCandidateClicked === true) {
         try {
-
           const res = await candidateRequests.updateCandidateApi(hrState.newCandidate);
           console.log("updateCandidate Response", res);
           if (res.error === false) {
@@ -93,7 +101,6 @@ const Candidates = ({ }) => {
         }
       } else {
         try {
-
           const res = await candidateRequests.addCandidateApi(
             hrState.newCandidate);
           console.log("addCandidateApi Response", res);
@@ -174,6 +181,18 @@ const Candidates = ({ }) => {
     // console.log("isError", isError);
     return isError;
   };
+
+  const uploadDone = (res, type) => {
+    if (type == 'pic') {
+      hrState.newCandidate.picture = res.filesUploaded[0].url;
+      setIsImagePicked(false);
+    }
+    else {
+      hrState.newCandidate.resumelink = res.filesUploaded[0].url;
+      setIsFilePicked(false);
+    }
+
+  }
 
   function validateEmail(email) {
     {
@@ -445,7 +464,7 @@ const Candidates = ({ }) => {
                   )}
                 </div>
               </div>
-            
+
               <div className="row justify-content-between text-left">
                 <div className="form-group col-12 flex-column d-flex">
                   <label className="form-control-label">
@@ -475,6 +494,65 @@ const Candidates = ({ }) => {
                   )}
                 </div>
               </div>
+
+
+              <div className="row justify-content-between text-left">
+                <div className="form-group col-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Upload image
+                  </label>
+                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsImagePicked(true)} />
+
+                  {hrState.newCandidate.picture ?
+                    <CLink
+                      href={hrState.newCandidate.picture}
+                      target="_blank"
+                    >
+                      {hrState.newCandidate.picture}  Picture
+                    </CLink>
+                    : <></>}
+
+                  {isImagePicked ?
+                    <PickerDropPane
+                    pickerOptions={{
+                      accept:"image/*"
+                    }}
+                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                      onSuccess={(res) => console.log(res)}
+                      onUploadDone={(res) => uploadDone(res, 'pic')}
+                    />
+                    : <></>}
+                </div>
+                <div className="form-group col-6 flex-column d-flex">
+                  <label className="form-control-label">
+                    Upload resume
+                  </label>
+                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
+                  {hrState.newCandidate.resumelink ?
+                    <CLink
+                      href={hrState.newCandidate.resumelink}
+                      target="_blank"
+                    >
+                      {hrState.newCandidate.resumelink} 
+                    </CLink>
+                    : <></>}
+
+
+                  {isFilePicked ?
+                    <PickerDropPane
+                    pickerOptions={{
+                      accept:["text/*",".pdf"]
+                    }}
+                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                      onSuccess={(res) => console.log(res)}
+                      onUploadDone={(res) => uploadDone(res, 'resume')}
+                    />
+                    : <></>}
+
+                </div>
+
+              </div>
+
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 ">
                   <button
