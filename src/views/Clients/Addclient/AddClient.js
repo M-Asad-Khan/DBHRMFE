@@ -26,7 +26,6 @@ const addclients = ({ }) => {
   const [errorInfo, setErrorInfo] = useState({});
   const dispatch = useDispatch();
   const clientsState = useSelector((state) => state.clients);
-  const [value, setValue] = useState('')
   const options = useMemo(() => countryList().getData(), [])
 
   function handleChange(evt) {
@@ -301,7 +300,6 @@ const addclients = ({ }) => {
                 </div>
               </div>
               <div className="row justify-content-between text-left">
-                
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label ">
@@ -312,10 +310,9 @@ const addclients = ({ }) => {
                       fieldsWithError.country === true ? "redBorder" : ""
                     }
                     options={options} 
-                    value={value}
+                    value={{label:clientsState.newClient.country}}
                     onChange={(e)=> {
                       debugger
-                      setValue(e)
                        dispatch(
                         updateNewClientAction({
                           ...clientsState.newClient,

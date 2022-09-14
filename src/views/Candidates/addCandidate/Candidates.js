@@ -7,18 +7,18 @@ import {
   updateIsEditCandidateClickedAction,
 } from "../../../redux/Candidates/candidates.actions";
 
-import { CButton, CLink } from "@coreui/react";
+import { CButton, CLink, CSpinner } from "@coreui/react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-
+import LoadingOverlay from 'react-loading-overlay';
 import CIcon from '@coreui/icons-react';
 
 import { cibAddthis } from '@coreui/icons'
 
-import { PickerOverlay ,PickerDropPane} from 'filestack-react';
+import { PickerOverlay, PickerDropPane } from 'filestack-react';
 
 const Candidates = ({ }) => {
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -38,8 +38,8 @@ const Candidates = ({ }) => {
   const hrState = useSelector((state) => state.candidate);
   const [postings, setPostings] = useState([]);
   const [isFilePicked, setIsFilePicked] = useState(false);
-
   const [isImagePicked, setIsImagePicked] = useState(false);
+  const [reload,setIsRealod]=useState(false)
 
   useEffect(() => {
     handleGetJobPostingsApi();
@@ -185,13 +185,15 @@ const Candidates = ({ }) => {
   const uploadDone = (res, type) => {
     if (type == 'pic') {
       hrState.newCandidate.picture = res.filesUploaded[0].url;
-      setIsImagePicked(false);
+     
+    
     }
     else {
       hrState.newCandidate.resumelink = res.filesUploaded[0].url;
-      setIsFilePicked(false);
+      
+    
     }
-
+    setIsRealod(!reload);
   }
 
   function validateEmail(email) {
@@ -249,334 +251,353 @@ const Candidates = ({ }) => {
   ];
   return (
     <>
-      <div className="container-fluid px-1 py-5 mx-auto">
-        <div className="row d-flex justify-content-center">
-          <div className="card">
-            <form className="form-card">
-              <button
-                className="btn btn-outline-primary mb-3"
-                onClick={handleCancel}
-              >
-                <IoArrowBackSharp />
-              </button>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    First name<span className="text-danger"> *</span>
-                  </label>
-                  <input
-                    className={
-                      fieldsWithError.FirstName === true ? "redBorder" : ""
-                    }
-                    value={hrState.newCandidate.FirstName}
-                    onChange={handleChange}
-                    type="text"
-                    id="FirstName"
-                    name="FirstName"
-                    placeholder="Enter your first name"
-                  />{" "}
-                  {fieldsWithError.FirstName === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.FirstName}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Last name<span className="text-danger"> *</span>
-                  </label>
-                  <input
-                    className={
-                      fieldsWithError.lastName === true ? "redBorder" : ""
-                    }
-                    value={hrState.newCandidate.lastName}
-                    onChange={handleChange}
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Enter your last name"
-                  />{" "}
-                  {fieldsWithError.lastName === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.lastName}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Email<span className="text-danger"> *</span>
-                  </label>
-                  <input
-                    className={
-                      fieldsWithError.email === true ? "redBorder" : ""
-                    }
-                    value={hrState.newCandidate.email}
-                    onChange={handleChange}
-                    type="text"
-                    id="email"
-                    name="email"
-                    placeholder=""
-                    onBlur={(e) => validateEmail(e.target.value)}
-                  />
-                  {fieldsWithError.email === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.email}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Phone number<span className="text-danger"> *</span>
-                  </label>
-                  <input
-                    className={
-                      fieldsWithError.phoneNumber === true ? "redBorder" : ""
-                    }
-                    value={hrState.newCandidate.phoneNumber}
-                    onChange={handleChange}
-                    type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    placeholder=""
-                    onBlur={(e) => validateNumberOnly(e.target.value)}
-                  />
-                  {fieldsWithError.phoneNumber === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.phoneNumber}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Gender<span className="text-danger"> *</span>
-                  </label>
-                  {""}
+      {/* <LoadingOverlay
+        active={isFileUploading}
+        spinner
+        text='Loading your content...'
+      > */}
+        <div className="container-fluid px-1 py-5 mx-auto">
 
-                  <Select
-                    id="gender"
-                    name="gender"
-                    value={{
-                      label: hrState.newCandidate.gender
-                        ? hrState.newCandidate.gender.charAt(0).toUpperCase() +
-                        hrState.newCandidate.gender.slice(1)
-                        : null,
-                      value: hrState.newCandidate.gender,
-                    }}
-                    options={[
-                      { label: "Male", value: "Male", field: "gender" },
-                      { label: "Female", value: "Female", field: "gender" },
-                    ]}
-                    onChange={handleChange}
-                  ></Select>
+          <div className="row d-flex justify-content-center">
+            <div className="card">
+              <form className="form-card">
+                <button
+                  className="btn btn-outline-primary mb-3"
+                  onClick={handleCancel}
+                >
+                  <IoArrowBackSharp />
+                </button>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      First name<span className="text-danger"> *</span>
+                    </label>
+                    <input
+                      className={
+                        fieldsWithError.FirstName === true ? "redBorder" : ""
+                      }
+                      value={hrState.newCandidate.FirstName}
+                      onChange={handleChange}
+                      type="text"
+                      id="FirstName"
+                      name="FirstName"
+                      placeholder="Enter your first name"
+                    />{" "}
+                    {fieldsWithError.FirstName === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.FirstName}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Last name<span className="text-danger"> *</span>
+                    </label>
+                    <input
+                      className={
+                        fieldsWithError.lastName === true ? "redBorder" : ""
+                      }
+                      value={hrState.newCandidate.lastName}
+                      onChange={handleChange}
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      placeholder="Enter your last name"
+                    />{" "}
+                    {fieldsWithError.lastName === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.lastName}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Status<span className="text-danger"> *</span>
-                  </label>
-                  <Select
-                    /* value={} */
-
-                    id="status"
-                    name="status"
-                    value={{
-                      label: hrState.newCandidate.status
-                        ? hrState.newCandidate.status.charAt(0).toUpperCase() +
-                        hrState.newCandidate.status.slice(1)
-                        : null,
-                      value: hrState.newCandidate.status,
-                    }}
-                    options={candStatusOptions}
-                    onChange={handleChange}
-                  ></Select>
-                </div>
-              </div>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Post Applied for?
-                    <span className="text-danger"> *</span>
-                  </label>
-                  <Select
-                    className={
-                      fieldsWithError.positionId === true ? "redBorder" : ""
-                    }
-                    type="text"
-                    id="positionId"
-                    name="positionId"
-                    onChange={(event) => handleReactChange(event, 'positionId')}
-                    options={postings}
-
-                  ></Select>{" "}
-                  {fieldsWithError.positionId === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.positionId}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">
-                    Applied Date<span className="text-danger"> *</span>
-                  </label>
-                  <input
-                    className={
-                      fieldsWithError.AppliedDate === true ? "redBorder" : ""
-                    }
-                    value={hrState?.newCandidate?.AppliedDate?.slice(0, 10)}
-                    onChange={handleChange}
-                    type="date"
-                    id="AppliedDate"
-                    name="AppliedDate"
-                    placeholder=""
-                  />
-                  {fieldsWithError.AppliedDate === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.AppliedDate}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-12 flex-column d-flex">
-                  <label className="form-control-label">
-                    Skills
-                    <span className="text-danger"> *</span>
-                  </label>
-                  <textarea
-                    className={
-                      fieldsWithError.skills === true ? "redBorder" : ""
-                    }
-                    value={hrState.newCandidate.skills}
-                    onChange={handleChange}
-                    id="skills"
-                    name="skills"
-                    placeholder="Write your skills here"
-                    rows="4"
-                    required="required"
-                  ></textarea>
-                  {fieldsWithError.skills === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.skills}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-
-
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-6 flex-column d-flex">
-                  <label className="form-control-label">
-                    Upload image
-                  </label>
-                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsImagePicked(true)} />
-
-                  {hrState.newCandidate.picture ?
-                    <CLink
-                      href={hrState.newCandidate.picture}
-                      target="_blank"
-                    >
-                      {hrState.newCandidate.picture}  Picture
-                    </CLink>
-                    : <></>}
-
-                  {isImagePicked ?
-                    <PickerDropPane
-                    pickerOptions={{
-                      accept:"image/*"
-                    }}
-                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
-                      onSuccess={(res) => console.log(res)}
-                      onUploadDone={(res) => uploadDone(res, 'pic')}
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Email<span className="text-danger"> *</span>
+                    </label>
+                    <input
+                      className={
+                        fieldsWithError.email === true ? "redBorder" : ""
+                      }
+                      value={hrState.newCandidate.email}
+                      onChange={handleChange}
+                      type="text"
+                      id="email"
+                      name="email"
+                      placeholder=""
+                      onBlur={(e) => validateEmail(e.target.value)}
                     />
-                    : <></>}
-                </div>
-                <div className="form-group col-6 flex-column d-flex">
-                  <label className="form-control-label">
-                    Upload resume
-                  </label>
-                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
-                  {hrState.newCandidate.resumelink ?
-                    <CLink
-                      href={hrState.newCandidate.resumelink}
-                      target="_blank"
-                    >
-                      {hrState.newCandidate.resumelink} 
-                    </CLink>
-                    : <></>}
-
-
-                  {isFilePicked ?
-                    <PickerDropPane
-                    pickerOptions={{
-                      accept:["text/*",".pdf"]
-                    }}
-                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
-                      onSuccess={(res) => console.log(res)}
-                      onUploadDone={(res) => uploadDone(res, 'resume')}
+                    {fieldsWithError.email === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.email}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Phone number<span className="text-danger"> *</span>
+                    </label>
+                    <input
+                      className={
+                        fieldsWithError.phoneNumber === true ? "redBorder" : ""
+                      }
+                      value={hrState.newCandidate.phoneNumber}
+                      onChange={handleChange}
+                      type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      placeholder=""
+                      onBlur={(e) => validateNumberOnly(e.target.value)}
                     />
-                    : <></>}
+                    {fieldsWithError.phoneNumber === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.phoneNumber}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Gender<span className="text-danger"> *</span>
+                    </label>
+                    {""}
+
+                    <Select
+                      id="gender"
+                      name="gender"
+                      value={{
+                        label: hrState.newCandidate.gender
+                          ? hrState.newCandidate.gender.charAt(0).toUpperCase() +
+                          hrState.newCandidate.gender.slice(1)
+                          : null,
+                        value: hrState.newCandidate.gender,
+                      }}
+                      options={[
+                        { label: "Male", value: "Male", field: "gender" },
+                        { label: "Female", value: "Female", field: "gender" },
+                      ]}
+                      onChange={handleChange}
+                    ></Select>
+                  </div>
+
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Status<span className="text-danger"> *</span>
+                    </label>
+                    <Select
+                      /* value={} */
+
+                      id="status"
+                      name="status"
+                      value={{
+                        label: hrState.newCandidate.status
+                          ? hrState.newCandidate.status.charAt(0).toUpperCase() +
+                          hrState.newCandidate.status.slice(1)
+                          : null,
+                        value: hrState.newCandidate.status,
+                      }}
+                      options={candStatusOptions}
+                      onChange={handleChange}
+                    ></Select>
+                  </div>
+                </div>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Post Applied for?
+                      <span className="text-danger"> *</span>
+                    </label>
+                    <Select
+                      className={
+                        fieldsWithError.positionId === true ? "redBorder" : ""
+                      }
+                      type="text"
+                      id="positionId"
+                      name="positionId"
+                      onChange={(event) => handleReactChange(event, 'positionId')}
+                      options={postings}
+
+                    ></Select>{" "}
+                    {fieldsWithError.positionId === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.positionId}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="form-group col-sm-6 flex-column d-flex">
+                    <label className="form-control-label px-3">
+                      Applied Date<span className="text-danger"> *</span>
+                    </label>
+                    <input
+                      className={
+                        fieldsWithError.AppliedDate === true ? "redBorder" : ""
+                      }
+                      value={hrState?.newCandidate?.AppliedDate?.slice(0, 10)}
+                      onChange={handleChange}
+                      type="date"
+                      id="AppliedDate"
+                      name="AppliedDate"
+                      placeholder=""
+                    />
+                    {fieldsWithError.AppliedDate === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.AppliedDate}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-12 flex-column d-flex">
+                    <label className="form-control-label">
+                      Skills
+                      <span className="text-danger"> *</span>
+                    </label>
+                    <textarea
+                      className={
+                        fieldsWithError.skills === true ? "redBorder" : ""
+                      }
+                      value={hrState.newCandidate.skills}
+                      onChange={handleChange}
+                      id="skills"
+                      name="skills"
+                      placeholder="Write your skills here"
+                      rows="4"
+                      required="required"
+                    ></textarea>
+                    {fieldsWithError.skills === true ? (
+                      <>
+                        <label className="error form-control-label px-3">
+                          {errorInfo.skills}
+                        </label>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+
+
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-6 flex-column d-flex">
+                    <label className="form-control-label">
+                      Upload image
+                    </label>
+                    <CIcon size={'3xl'} icon={cibAddthis} onClick={() => {
+                      setIsImagePicked(true)
+                    
+                     
+                    }} />
+
+                    {hrState.newCandidate.picture ?
+                      <CLink
+                        href={hrState.newCandidate.picture}
+                        target="_blank"
+                      >
+                        {hrState.newCandidate.picture}  Picture
+                      </CLink>
+                      : <></>}
+
+                    {isImagePicked ?
+                      <PickerOverlay
+                        pickerOptions={{
+                          accept: "image/*",
+                          onClose: (res) => {
+                            setIsImagePicked(false);
+                          }
+                        }}
+                        apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                        // onSuccess={(res) => console.log(res)}
+
+                        onSuccess={(res) => uploadDone(res, 'pic')}
+                      />
+                      : <></>}
+                  </div>
+                  <div className="form-group col-6 flex-column d-flex">
+                    <label className="form-control-label">
+                      Upload resume
+                    </label>
+                    <CIcon size={'3xl'} icon={cibAddthis} onClick={() => { setIsFilePicked(true) }} />
+                    {hrState.newCandidate.resumelink ?
+                      <CLink
+                        href={hrState.newCandidate.resumelink}
+                        target="_blank"
+                      >
+                        {hrState.newCandidate.resumelink}
+                      </CLink>
+                      : <></>}
+
+
+                    {isFilePicked ?
+                      <PickerOverlay
+                        pickerOptions={{
+                          accept: ["text/*", ".pdf"],
+                          onClose: () => {
+                            setIsFilePicked(false)
+                          }
+                        }}
+                        apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                        onSuccess={(res) => console.log(res)}
+                        onUploadDone={(res) => uploadDone(res, 'resume')}
+
+                      />
+                      : <></>}
+
+                  </div>
 
                 </div>
 
-              </div>
-
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 ">
-                  <button
-                    className="btn-block btn-primary"
-                    onClick={handleCancel}
-                  >
-                    Cancel
-                  </button>
+                <div className="row justify-content-between text-left">
+                  <div className="form-group col-sm-6 ">
+                    <button
+                      className="btn-block btn-primary"
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="form-group col-sm-6 ">
+                    <CButton
+                      className="btn-block btn-primary"
+                      onClick={() => addAndUpdateCandidate()}
+                    >
+                      {hrState.isEditCandidateClicked
+                        ? "Update Candidate"
+                        : "Add Candidate"}
+                    </CButton>
+                  </div>
                 </div>
-                <div className="form-group col-sm-6 ">
-                  <CButton
-                    className="btn-block btn-primary"
-                    onClick={() => addAndUpdateCandidate()}
-                  >
-                    {hrState.isEditCandidateClicked
-                      ? "Update Candidate"
-                      : "Add Candidate"}
-                  </CButton>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      {/* </LoadingOverlay> */}
     </>
   );
 };

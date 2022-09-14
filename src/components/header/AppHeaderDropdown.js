@@ -35,19 +35,13 @@ const AppHeaderDropdown = () => {
         caret = { false } >
         <CAvatar src = { userManagmentState?.picture }
         size = "md" />
-          {/* <img
-                    className="rounded-circle mx-auto"
-                    alt="100x100"
-                    style={{"width":"100px","height":"100px"}}
-                    src={userManagmentState?.users[0]?.picture }
-                    data-holder-rendered="true"
-                  /> */}
         </CDropdownToggle> 
         <CDropdownMenu className = "pt-0"
         placement = "bottom-end" >
         <CDropdownHeader className = "bg-light fw-semibold py-2" > Account 
         </CDropdownHeader>
-
+        <CDropdownHeader className = "bg-light fw-semibold py-2" > {userManagmentState?.name} 
+        </CDropdownHeader>
         <CDropdownItem href = "#" >
         <CIcon icon = { cilUser }
         className = "me-2" />

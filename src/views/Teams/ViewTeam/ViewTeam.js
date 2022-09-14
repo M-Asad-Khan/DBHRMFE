@@ -12,6 +12,7 @@ import { RiTeamLine } from "react-icons/ri";
 import { BsCalendar2Date } from "react-icons/bs";
 import { updateIsAddMemberDetailsClickedAction, updateIsAddTeamDetailsClickedAction,updateIsAddEmployeeEvaluationClickedAction } from "src/redux/EmployeeEvaluation/employeeEvaluation.action";
 import { useHistory } from "react-router-dom";
+import team from "../../../assets/images/team.jpeg";
 
 const ViewTeam = () => {
   const teamsState = useSelector((state) => state.teams);
@@ -57,7 +58,8 @@ const ViewTeam = () => {
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
+                    style={{"width":"100px","height":"100px"}}
+                    src={team}
                     data-holder-rendered="true"
                   />
                 </div>

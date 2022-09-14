@@ -11,7 +11,7 @@ import { RiSettings2Line } from "react-icons/ri";
 import {  AiOutlineMail } from "react-icons/ai";
 import { BsTelephoneForward, BsGlobe } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
-
+import team from "../../../assets/images/team.jpeg"
 import { teamMembersRequests } from "src/API/teamMembersApi";
 import {
   updateIsViewTeamClickedAction,
@@ -65,7 +65,8 @@ const ViewClient = () => {
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    src="http://devbox.co/wp-content/uploads/2016/09/logo2-1.png"
+                    style={{"width":"100px","height":"100px"}}
+                    src={team}
                     data-holder-rendered="true"
                   />
                 </div>

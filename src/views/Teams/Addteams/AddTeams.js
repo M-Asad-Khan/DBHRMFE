@@ -471,7 +471,7 @@ const Addteams = () => {
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label">
-                    Enter Start Date<span className="text-danger"> *</span>
+                    Team Start Date<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
                     value={
@@ -483,7 +483,7 @@ const Addteams = () => {
                     type="date"
                     id="startDate"
                     name="startDate"
-                    placeholder="Enter start Date"
+                    placeholder="Team start Date"
                   />{" "}
                   {fieldsWithError.startDate === true ? (
                     <>

@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./viewEmployee.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -7,24 +7,24 @@ import {
 } from "src/redux/Employees/employees.actions";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FiUser, FiLayers } from "react-icons/fi";
-import { MdCastForEducation,MdPermDataSetting } from "react-icons/md";
+import { MdCastForEducation, MdPermDataSetting } from "react-icons/md";
 import {
   BsFillCalendarDateFill,
   BsCalendar2Date,
   BsTelephoneForward,
   BsBagPlus,
-} from "react-icons/bs";import { GrUserSettings } from "react-icons/gr";
-import { BsHandThumbsUp } from "react-icons/bs";
+} from "react-icons/bs"; 
+import { GrUserSettings } from "react-icons/gr";
 import { GiPlayerTime } from "react-icons/gi";
-import {  FcIdea} from "react-icons/fc";
+import { FcIdea } from "react-icons/fc";
 import { employeeEvaluationRequests } from "src/API/employeeEvaluationApi";
 import { BiTimeFive } from "react-icons/bi";
-import { FaRegAddressBook, FaUserTie,FaUsers, FaHandRock,FaUserClock, FaUsersCog } from "react-icons/fa";
-import { RiSettings2Line,RiUserSearchLine, RiUserFollowLine,RiTimeLine } from "react-icons/ri";
+import { FaRegAddressBook, FaUserTie, FaUsers, FaHandRock, FaUserClock, FaUsersCog } from "react-icons/fa";
+import { RiSettings2Line, RiUserSearchLine, RiUserFollowLine, RiTimeLine } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
 import { GrProjects } from "react-icons/gr";
 import { useHistory } from "react-router-dom";
-import {updateIsAddPostingClickedAction} from "../../../redux/jobPosting/jobPosting.actions"
+import { updateIsAddPostingClickedAction } from "../../../redux/jobPosting/jobPosting.actions"
 
 
 const ViewEmployee = () => {
@@ -41,14 +41,14 @@ const ViewEmployee = () => {
   const handleGetEmployeesRecordApi = async () => {
     try {
       const res = await employeeEvaluationRequests.getEmployeesRecordApi(state?.newEmployee?.employee?.id);
-           
+
       if (res.error === false) {
-      /*   var tempArr = [];
-        var tempArr = res.data.map((x) => {
-         
-          return { ...x, value: x.name, label: x.name };
-        });
-       // console.log("tempArr", tempArr); */
+        /*   var tempArr = [];
+          var tempArr = res.data.map((x) => {
+           
+            return { ...x, value: x.name, label: x.name };
+          });
+         // console.log("tempArr", tempArr); */
         setEmployeesRecord(res.data);
       }
     } catch (err) {
@@ -67,30 +67,30 @@ const ViewEmployee = () => {
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+      age--;
     }
     return age;
-}
+  }
   return (
     <>
       <div>
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12">
             <div className="card">
-                <div className="">
-                  <button
-                    className="btn btn-outline-primary"
-                    onClick={handleCancel}
-                  >
-                    <IoArrowBackSharp />
-                  </button>
-                </div>
+              <div className="">
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={handleCancel}
+                >
+                  <IoArrowBackSharp />
+                </button>
+              </div>
               <div className="form-card">
                 <div className="d-flex" >
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    style={{"width":"200px","height":"200px"}}
+                    style={{ "width": "200px", "height": "200px" }}
                     src={state.newEmployee?.employee.profile_url}
                     data-holder-rendered="true"
                   />
@@ -100,6 +100,20 @@ const ViewEmployee = () => {
                   <h6 className="" style={{ color: "dimgrey" }}>
                     {state?.newEmployee?.employee?.email}
                   </h6>
+                  {currentUser?.Profile?.id ===
+                state?.newEmployee?.employee?.id ? (
+                <span
+                  onClick={() => {
+                    dispatch(updateIsAddPostingClickedAction(true)); history.push('/jobPosting')
+                  }}
+                  className="anchor font weight-bold"
+                  title="Performance Evaluation Form"
+                >
+                  Post Job Positinon
+                </span>
+              ) : (
+                ""
+              )}
                 </div>
               </div>
             </div>
@@ -107,8 +121,8 @@ const ViewEmployee = () => {
         </div>
 
         <div className="row">
-          <div className="col-sm-4">
-            <div className="card" style={{ height: "338px" }}>
+          <div className="col-sm-12">
+            <div className="card" >
               <h2 className="border-bottom">Personal Details</h2>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -117,7 +131,7 @@ const ViewEmployee = () => {
                     Age:
                   </h6>
                 </div>
-                <div className='w-50 text-right'>{state?.newEmployee?.employee?.dateOfBirth &&getAge(state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10))}</div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.dateOfBirth && getAge(state?.newEmployee?.employee?.dateOfBirth?.slice(0, 10))}</div>
               </div>
 
               <div className="d-flex justify-content-between">
@@ -168,127 +182,116 @@ const ViewEmployee = () => {
                 </div>
                 <div className='w-50 text-right'>{state?.newEmployee?.employee?.joiningDate?.slice(0, 10)}</div>
               </div>
-            </div>
-          </div>
-
-          <div className="col-sm-4">
-            <div className="card" style={{ height: "338px" }}>
-              <div className="row d-flex justify-content-center">
-                <h2 className="border-bottom">Contact Details</h2>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <BsTelephoneForward className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Phone Number:
-                    </h6>
-                  </div>
-                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.phoneNumber}</div>
+              <h2 className="border-bottom">Contact Details</h2>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <BsTelephoneForward className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Phone Number:
+                  </h6>
                 </div>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <AiOutlineMail className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Email:
-                    </h6>
-                  </div>
-                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.email}</div>
-                </div>
-
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <FaRegAddressBook className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Address:
-                    </h6>
-                  </div>
-                  <div className="w-50 text-right">{state?.newEmployee?.employee?.address}</div>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <FaUserTie className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Designation:
-                    </h6>
-                  </div>
-                  <div>{state?.newEmployee?.employee?.designation}</div>
-                </div>
-                {currentUser?.Profile?.id ===
-                  state?.newEmployee?.employee?.id ? (
-                  <span
-                    onClick={() =>{ 
-                      dispatch(updateIsAddPostingClickedAction(true)); history.push('/jobPosting')}}
-                    className="anchor font weight-bold"
-                    title="Performance Evaluation Form"
-                  >
-                    Post Job Positinon 
-                  </span>
-                ) : (
-                  ""
-                )}
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.phoneNumber}</div>
               </div>
-            </div>
-          </div>
-
-          <div className="col-sm-4">
-            <div className="card" style={{ height: "338px" }}>
-              <div className="row d-flex justify-content-center">
-                <h2 className="border-bottom">History</h2>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <BsBagPlus className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Work Experience:
-                    </h6>
-                  </div>
-                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.workExperience}</div>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <AiOutlineMail className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Email:
+                  </h6>
                 </div>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <RiSettings2Line className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Technology:
-                    </h6>
-                  </div>
-                  <div className='w-50 text-right'>{state?.newEmployee?.employee?.technology}</div>
-                </div>
-                <div>
-                  <div className="d-flex">
-                    <GrProjects className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Teams:
-                    </h6>
-                  </div>
-                  <ul>
-                    {state?.newEmployee?.workHistory?.map((item, i) => {
-                      return item.team &&<li key={i}>{item.team.teamName}</li>;
-                    })}
-                  </ul>
-                </div>{" "}
-               
-                
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.email}</div>
               </div>
+
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <FaRegAddressBook className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Address:
+                  </h6>
+                </div>
+                <div className="w-50 text-right">{state?.newEmployee?.employee?.address}</div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <FaUserTie className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Designation:
+                  </h6>
+                </div>
+                <div>{state?.newEmployee?.employee?.designation}</div>
+              </div>
+       
+
+              <h2 className="border-bottom">Work History</h2>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <BsBagPlus className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Work Experience:
+                  </h6>
+                </div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.workExperience}</div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <RiSettings2Line className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Technology:
+                  </h6>
+                </div>
+                <div className='w-50 text-right'>{state?.newEmployee?.employee?.technology}</div>
+              </div>
+              <div>
+                <div className="d-flex">
+                  <GrProjects className="icon-design" />
+                  <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                    Teams:
+                  </h6>
+                </div>
+                <ul>
+                  {state?.newEmployee?.workHistory?.map((item, i) => {
+                    return item.team && <li key={i}>{item.team.teamName}</li>;
+                  })}
+                </ul>
+              </div>{" "}
             </div>
           </div>
         </div>
+{employeesRecord && employeesRecord.length>0?
 
         <div className="row">
-        <h2 className="border-bottom">Evaluation Details</h2>
-        {employeesRecord && employeesRecord.map((x,i)=>{
-                    return(
-              <div className="col-6">
+          <h2 className="border-bottom">Evaluation Details</h2>
+          {console.log(employeesRecord)}
+          {employeesRecord && employeesRecord.map((x, i) => {
+            return (
+              <div className="col-12">
                 <div className="card" >
                   <div className="row d-flex justify-content-center">
-                    <h2 className="border-bottom text-center">{x?.team?.teamName}</h2>
-                      <div className="d-flex justify-content-between">
+                    <h2 className="border-bottom text-center"> {"Date Of Evaluation  : " + x?.dateOfEvaluation?.slice(0, 10)}</h2>
+                
+              
+
+                    <div className="d-flex justify-content-between">
                       <div className="d-flex">
-                      <FaUsers className="icon-design" />
+                        <FaUsers className="icon-design" />
                         <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
                           Employee Name:
                         </h6>
                       </div>
                       <div className="d-flex justify-content-end">{x?.employee?.name}</div>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <RiTimeLine className="icon-design" />
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                         Team Name:
+                        </h6>
                       </div>
-                    
+                      <div>{ x?.team?.teamName}</div>
+                    </div>
+
+
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
                         <GrUserSettings className="icon-design" />
@@ -299,43 +302,43 @@ const ViewEmployee = () => {
                       <div>{x?.employeeWorkQuality}</div>
                     </div>
                     <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div className="d-flex">
                         <RiUserSearchLine className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Employee Observation:
-                          </h6>
-                        </div>
-                        <div>{x?.employeeObservation}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Employee Observation:
+                        </h6>
+                      </div>
+                      <div>{x?.employeeObservation}</div>
                     </div>
 
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
                         <FaHandRock className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Employee Strength:
-                          </h6>
-                        </div>
-                        <div>{x?.employeeStrength}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Employee Strength:
+                        </h6>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div>{x?.employeeStrength}</div>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
                         <GiPlayerTime className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Employee Discipline:
-                          </h6>
-                        </div>
-                        <div>{x?.employeeDiscipline}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Employee Discipline:
+                        </h6>
                       </div>
-                      
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div>{x?.employeeDiscipline}</div>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
                         <RiUserFollowLine className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Decision Ability:
-                          </h6>
-                        </div>
-                        <div>{x?.decisionMakingAbility}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Decision Ability:
+                        </h6>
                       </div>
+                      <div>{x?.decisionMakingAbility}</div>
+                    </div>
 
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
@@ -347,64 +350,56 @@ const ViewEmployee = () => {
                       <div>{x?.productivity}</div>
                     </div>
                     <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div className="d-flex">
                         <FaUserClock className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Punctuality:
-                          </h6>
-                        </div>
-                        <div>{x?.punctuality}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Punctuality:
+                        </h6>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div>{x?.punctuality}</div>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
                         <FaUsersCog className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Job Knowledge:
-                          </h6>
-                        </div>
-                        <div>{x?.jobKnowledgeAndProficiency}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Job Knowledge:
+                        </h6>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div>{x?.jobKnowledgeAndProficiency}</div>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
                         <FaUsersCog className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Involvement in Team:
-                          </h6>
-                        </div>
-                        <div>{x?.involvementOfWorkerInTeamEffort}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Involvement in Team:
+                        </h6>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
+                      <div>{x?.involvementOfWorkerInTeamEffort}</div>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
                         <RiTimeLine className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Work Consistency:
-                          </h6>
-                        </div>
-                        <div>{x?.workConsistency}</div>
+                        <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                          Work Consistency:
+                        </h6>
                       </div>
+                      <div>{x?.workConsistency}</div>
+                    </div>
 
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
-                        <RiTimeLine className="icon-design" />
-                          <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                            Date Of Evaluation:
-                          </h6>
-                        </div>
-                        <div>{x?.dateOfEvaluation?.slice(0,10)}</div>
-                      </div>
+                
 
 
 
-                    
-          
+
+
                   </div>
                 </div>
               </div>
-               )
-              })}
-          </div>
-
-        
+            )
+          })}
+        </div>
+:<></>
+        }
       </div>
     </>
   );

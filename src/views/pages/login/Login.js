@@ -12,6 +12,7 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CAvatar
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
@@ -20,9 +21,10 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUserAction } from "src/redux/Login/login.actions";
 import { useHistory } from "react-router-dom";
+import logo from "../../../assets/images/team.jpeg"
 
 const Login = () => {
-	let history = useHistory();
+  let history = useHistory();
 
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.login.currentUser);
@@ -35,48 +37,53 @@ const Login = () => {
   };
   const handleLogin = async () => {
     try {
-             
+
       const res = await loginRequest.loginApi(tempLogin);
       if (res.error === false) {
-					toast.success("Wellcome !");
-				dispatch(updateCurrentUserAction(res.data))
-				localStorage.setItem("currentUser", JSON.stringify(res.data));
+        toast.success("Wellcome !");
+        dispatch(updateCurrentUserAction(res.data))
+        localStorage.setItem("currentUser", JSON.stringify(res.data));
 
-				history.push("/dashboard");
+        history.push("/dashboard");
 
-               
-        // dispatch(updateRolesAction([ res.data]));
-        // dispatch(updateIsAddRoleClickedAction(false));
-        // dispatch(updateIsEditRoleClickedAction(false));
+
       }
       if (res.error === true) {
-               
+
         if (res?.data?.response.status === 401) {
           toast.error("Unauthorized !");
         }
-        // dispatch(updateRolesAction([ res.data]));
-        // dispatch(updateIsAddRoleClickedAction(false));
-        // dispatch(updateIsEditRoleClickedAction(false));
+
       }
     } catch (e) {
       toast.error("error !");
-             
+
     }
   };
- 
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
+
             <CCardGroup>
               <CCard className="p-4">
+
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
-                    <p className="text-medium-emphasis">
-                      Sign In to your account
-                    </p>
+                    <div style={{
+                      textAlign: "center"
+                    }}>
+                      <img
+                        className="rounded-circle mx-auto"
+                        alt="100x100"
+                        style={{ "width": "100px", "height": "100px" }}
+                        src={logo}
+                        data-holder-rendered="true"
+                      />
+                    </div>
+
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
@@ -97,11 +104,10 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          debugger
-                          handleLogin()
-                        }
-                    }}
+                          if (e.key === "Enter") {
+                            handleLogin()
+                          }
+                        }}
                       />
                     </CInputGroup>
                     <CRow>
@@ -114,30 +120,16 @@ const Login = () => {
                           Login
                         </CButton>
                       </CCol>
-                      <CCol xs={6} className="text-right">
+                      {/* <CCol xs={6} className="text-right">
                         <CButton color="link" className="px-0">
                           Forgot password?
                         </CButton>
-                      </CCol>
+                      </CCol> */}
                     </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
-              {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      If you do not have account please register here..
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard> */}
+             
             </CCardGroup>
           </CCol>
         </CRow>

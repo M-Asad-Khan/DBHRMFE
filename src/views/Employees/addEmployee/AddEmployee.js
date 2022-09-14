@@ -13,7 +13,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
 import { CButton,CLink } from "@coreui/react";
 import { toast } from "react-toastify";
-import { PickerDropPane } from 'filestack-react';
+import { PickerDropPane, PickerOverlay } from 'filestack-react';
 import CIcon from '@coreui/icons-react';
 
 import { cibAddthis } from '@coreui/icons'
@@ -85,7 +85,7 @@ const AddEmployee = ({ }) => {
   const dispatch = useDispatch();
   const [candidates, setCandidates] = useState([]);
   const [isFilePicked, setIsFilePicked] = useState(false);
-
+  const [reload,setReload]=useState(false);
   const state = useSelector((state) => state.employees);
   useEffect(() => {
     handleGetCandidatesApi();
@@ -124,7 +124,7 @@ const AddEmployee = ({ }) => {
   // };
   const uploadDone = (res) => {
     state.newEmployee.profile_url = res.filesUploaded[0].url;
-    setIsFilePicked(false);
+    setReload(!reload);
   }
   const handleGetCandidatesApi = async () => {
     try {
@@ -924,9 +924,12 @@ const AddEmployee = ({ }) => {
 
 
                   {isFilePicked ?
-                    <PickerDropPane
+                    <PickerOverlay
                     pickerOptions={{
-                      accept:"image/*"
+                      accept:"image/*",
+                      onClose: (res) => {
+                        setIsFilePicked(false);
+                      }
                     }}
                       apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
                       onSuccess={(res) => console.log(res)}

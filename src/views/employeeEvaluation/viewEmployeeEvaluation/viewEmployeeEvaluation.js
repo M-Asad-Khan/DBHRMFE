@@ -46,33 +46,56 @@ const viewEmployeeEvaluation = () => {
                   <img
                     className="rounded-circle mx-auto"
                     alt="100x100"
-                    src="http://devbox.co/wp-content/uploads/2016/09/logo2-1.png"
+                    style={{ "width": "200px", "height": "200px" }}
+                    src={evaluationState?.newEvaluation?.employee?.profile_url}
                     data-holder-rendered="true"
                   />
                 </div>
                 <div className="text-center">
-                  <h2>{evaluationState?.newEvaluation?.team?.teamName}</h2>
+                  <h2>{evaluationState?.newEvaluation?.employee?.name}</h2>
                 </div>
+                {console.log(evaluationState.newEvaluation)}
               </div>
             </div>
           </div>
         </div>
 
         <div className="row">
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <div className="card" style={{ height: "338px" }}>
-              <h2 className="border-bottom">Employee Details</h2>
+          <div className="col-lg-12 col-md-6 col-sm-12">
+            <div className="card" >
+              <h2 className="border-bottom">Team Details</h2>
               <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <FaUsers className="icon-design" />
                   <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
-                    Employee Name:
+                    Team Name:
                   </h6>
                 </div>
-                <div>{evaluationState?.newEvaluation?.employee?.name}</div>
+                <div>{evaluationState?.newEvaluation?.team?.teamName}</div>
               </div>
-
               <div className="d-flex justify-content-between">
+                <div className="d-flex">
+                  <FaUsers className="icon-design" />
+                  <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
+                    Team Lead Name:
+                  </h6>
+                </div>
+                <div>{evaluationState?.newEvaluation?.team?.teamLeadName?.name}</div>
+              </div>
+           
+              <h2 className="border-bottom">Evaluation Details</h2>
+              <div className="d-flex justify-content-between">
+                  <div className="d-flex">
+                    <RiUserFollowLine className="icon-design" />
+                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
+                      Decision Ability:
+                    </h6>
+                  </div>
+                  <div>
+                    {evaluationState?.newEvaluation?.decisionMakingAbility}
+                  </div>
+                </div>
+                <div className="d-flex justify-content-between">
                 <div className="d-flex">
                   <GrUserSettings className="icon-design" />
                   <h6 className=" d-flex w-full" style={{ color: "dimgrey" }}>
@@ -109,25 +132,6 @@ const viewEmployeeEvaluation = () => {
                 </div>
                 <div>{evaluationState?.newEvaluation?.employeeDiscipline}</div>
               </div>
-            </div>
-          </div>
-
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <div className="card" style={{ height: "338px" }}>
-              <div className="row d-flex justify-content-center">
-                <h2 className="border-bottom">Work Details</h2>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <RiUserFollowLine className="icon-design" />
-                    <h6 className="d-flex w-full" style={{ color: "dimgrey" }}>
-                      Decision Ability:
-                    </h6>
-                  </div>
-                  <div>
-                    {evaluationState?.newEvaluation?.decisionMakingAbility}
-                  </div>
-                </div>
-
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <MdPermDataSetting className="icon-design" />
@@ -180,13 +184,7 @@ const viewEmployeeEvaluation = () => {
                   </div>
                   <div>{evaluationState?.newEvaluation?.workConsistency}</div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="col-lg-6 col-md-6 col-sm-12 ">
-            <div className="card" style={{ height: "338px" }}>
-              <div className="row d-flex justify-content-center">
                 <h2 className="border-bottom">Suggestions</h2>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
@@ -209,9 +207,13 @@ const viewEmployeeEvaluation = () => {
                     {evaluationState?.newEvaluation?.supervisorRecommendations}
                   </div>
                 </div>
-              </div>
+
             </div>
           </div>
+
+        
+
+      
         </div>
       </div>
     </>

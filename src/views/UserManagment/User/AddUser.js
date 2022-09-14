@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { userManagmentRequests } from "src/API/UserManagmentApi";
 import { CLink } from "@coreui/react";
 import CIcon from '@coreui/icons-react';
-import {PickerDropPane} from 'filestack-react';
+import {PickerDropPane, PickerOverlay} from 'filestack-react';
 import { cibAddthis } from '@coreui/icons'
 
 export default function AddUser() {
@@ -24,6 +24,7 @@ export default function AddUser() {
   const [tempUser, setTempUser] = useState({});
   const [employees, setEmployees] = useState([]);
   const [clients, setClients] = useState([]);
+  const [reload,setReload]=useState(false);
   const [fieldsWithError, setFieldsWithError] = useState({
     user: null,
     email: null,
@@ -184,7 +185,7 @@ export default function AddUser() {
   const uploadDone = (res) => {
 
     tempUser.picture = res.filesUploaded[0].url;
-      setIsFilePicked(false);
+    setReload(!reload);
     
 
   }
@@ -250,6 +251,10 @@ export default function AddUser() {
           )}
         </div>
       </div>
+     
+{tempUser.type?
+<div>
+
       <div className="row justify-content-between text-left">
         <div className="form-group col-sm-6 flex-column d-flex">
           <label className="form-control-label ">
@@ -257,10 +262,13 @@ export default function AddUser() {
           </label>
           <Select
             isDisabled={userManagmentState.isEditUserClicked}
-            // defaultValue={{
-            //   label: tempUser?.name,
-            //   value: tempUser?.name,
-						// }}
+            defaultValue={{
+              label: tempUser?.name,
+              value: tempUser?.name,
+						}}
+            id='userclients'
+            name="userclients"
+            autocomplete="off"
 						value={{
               label: tempUser?.name,
               value: tempUser?.name,
@@ -338,7 +346,7 @@ export default function AddUser() {
 
       <div className="form-group col-6 flex-column d-flex">
                   <label className="form-control-label">
-                    Upload resume
+                    Upload profile picture
                   </label>
                   <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
                   {tempUser.picture ?
@@ -352,9 +360,12 @@ export default function AddUser() {
 
 
                   {isFilePicked ?
-                    <PickerDropPane
+                    <PickerOverlay
                     pickerOptions={{
-                      accept:"image/*"
+                      accept:"image/*",
+                      onClose: (res) => {
+                        setIsFilePicked(false);
+                      }
                     }}
                       apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
                       onSuccess={(res) => console.log(res)}
@@ -379,6 +390,10 @@ export default function AddUser() {
           </button>
         </div>
       </div>
+      </div>
+:<></>}
+      
+
     </>
   );
 }
