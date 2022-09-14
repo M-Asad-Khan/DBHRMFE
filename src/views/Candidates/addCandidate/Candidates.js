@@ -7,13 +7,12 @@ import {
   updateIsEditCandidateClickedAction,
 } from "../../../redux/Candidates/candidates.actions";
 
-import { CButton, CLink, CSpinner } from "@coreui/react";
+import { CButton, CLink } from "@coreui/react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { candidateRequests } from "src/API/CandidateApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { IoArrowBackSharp } from "react-icons/io5";
-import LoadingOverlay from 'react-loading-overlay';
 import CIcon from '@coreui/icons-react';
 
 import { cibAddthis } from '@coreui/icons'
