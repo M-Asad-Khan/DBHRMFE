@@ -24,6 +24,7 @@ import { MDBDataTable } from "mdbreact";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import AddRole from "./Role/AddRole";
 import AddPermission from "./Permission/AddPermission";
+import { toast } from "react-toastify";
 
 function UserManagment() {
   var action = "";
@@ -66,11 +67,11 @@ function UserManagment() {
                   }}
                 />
                 <FiTrash
-                  // onClick={() => (action = "deleteUser")}
+                  onClick={() => (action = "deleteUser")}
                   style={{
                     color: "red",
                     marginLeft: "20px",
-                    cursor: "not-allowed",
+                    cursor: "pointer",
                   }}
                 />
               </>
@@ -113,11 +114,11 @@ function UserManagment() {
                   }}
                 />
                 <FiTrash
-                  // onClick={() => (action = "deleteRole")}
+                  onClick={() => (action = "deleteRole")}
                   style={{
                     color: "red",
                     marginLeft: "20px",
-                    cursor: "not-allowed",
+                    cursor: "pointer",
                   }}
                 />
               </>
@@ -138,7 +139,7 @@ function UserManagment() {
   const handleGetPermissions = async () => {
     try {
       const res = await userManagmentRequests.getPermission();
-        
+
       if (res.error === false) {
         dispatch(updatePermissionsAction(res.data));
         var tempArr = [];
@@ -191,7 +192,7 @@ function UserManagment() {
               });
           }
         });
-          
+
         console.log("tempArr 111222", tempArr);
         var tempObj = {
           ...userManagmentState.permissionsDataTable,
@@ -204,18 +205,39 @@ function UserManagment() {
     }
   };
   const handleEditUser = (employee) => {
-      
+
     dispatch(updateNewUserAction(employee));
     dispatch(updateIsEditUserClickedAction(true));
   };
   const handleEditRole = (role) => {
-      
+
     dispatch(updateNewRoleAction(role));
     dispatch(updateIsEditRoleClickedAction(true));
   };
 
+  const handleDeleteRole = async (role) => {
+    const result = await userManagmentRequests.deleteRole(role);
+    console.log(result)
+    if (result.error) {
+      toast.error(result.data);
+    } else {
+      handleGetRoles()
+      toast.success("Role Deleted");
+    }
+  }
+
+  const handleDeleteUser = async (user) => {
+    const result = await userManagmentRequests.deleteUser(user);
+    if (result.error) {
+      toast.error(result.data);
+    } else {
+      handleGetUsers()
+      toast.success("User Deleted");
+    }
+  }
+
   const handleEditPermission = (permission) => {
-      
+
     console.log("permission", permission);
     dispatch(updateNewPermissionAction(permission));
     dispatch(updateIsEditPermissionClickedAction(true));
@@ -300,7 +322,7 @@ function UserManagment() {
             visible={activeKey === "user"}
           >
             {userManagmentState.isAddUserClicked ||
-            userManagmentState.isEditUserClicked ? (
+              userManagmentState.isEditUserClicked ? (
               <AddUser />
             ) : (
               <div className="mt-4">
@@ -331,7 +353,7 @@ function UserManagment() {
             visible={activeKey === "role"}
           >
             {userManagmentState.isAddRoleClicked ||
-            userManagmentState.isEditRoleClicked ? (
+              userManagmentState.isEditRoleClicked ? (
               <AddRole />
             ) : (
               <div className="mt-4">
@@ -362,7 +384,7 @@ function UserManagment() {
             visible={activeKey === "permission"}
           >
             {userManagmentState.isAddPermissionClicked ||
-            userManagmentState.isEditPermissionClicked ? (
+              userManagmentState.isEditPermissionClicked ? (
               <AddPermission />
             ) : (
               <div className="mt-4">

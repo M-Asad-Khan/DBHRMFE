@@ -11,7 +11,7 @@ import { employeeRequests } from "src/API/EmployeeApi";
 import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
-import { CButton,CLink } from "@coreui/react";
+import { CButton, CLink } from "@coreui/react";
 import { toast } from "react-toastify";
 import { PickerDropPane, PickerOverlay } from 'filestack-react';
 import CIcon from '@coreui/icons-react';
@@ -85,7 +85,7 @@ const AddEmployee = ({ }) => {
   const dispatch = useDispatch();
   const [candidates, setCandidates] = useState([]);
   const [isFilePicked, setIsFilePicked] = useState(false);
-  const [reload,setReload]=useState(false);
+  const [reload, setReload] = useState(false);
   const state = useSelector((state) => state.employees);
   useEffect(() => {
     handleGetCandidatesApi();
@@ -320,15 +320,7 @@ const AddEmployee = ({ }) => {
                     options={candidates}
                     onChange={handleReactChange}
                   ></Select>
-                  {/* <input
-                    className={fieldsWithError.name === true ? "redBorder" : ""}
-                    value={state.newEmployee.name}
-                    onChange={handleChange}
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter your name"
-                  /> */}{" "}
+
                   {fieldsWithError.name === true ? (
                     <>
                       <label className="error form-control-label px-3">
@@ -348,7 +340,6 @@ const AddEmployee = ({ }) => {
                     className={
                       fieldsWithError.employee_No === true ? "redBorder" : ""
                     }
-                    // value={state.newEmployee.employee_No?state.newEmployee.employee_No:"emp-"+(state.employees.length+1)}
                     value={state.newEmployee.employee_No}
                     onChange={handleChange}
                     type="text"
@@ -356,7 +347,6 @@ const AddEmployee = ({ }) => {
                     name="employee_No"
                     placeholder="Enter Employee No."
                     disabled
-                  // onBlur={(e) => validateNumberOnly(e.target.value)}
                   />{" "}
                   {fieldsWithError.employee_No === true ? (
                     <>
@@ -810,7 +800,7 @@ const AddEmployee = ({ }) => {
                   )}
                 </div>
               </div>
-           
+
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <div className="maxl">
@@ -903,45 +893,34 @@ const AddEmployee = ({ }) => {
               </div>
 
               <div className="row justify-content-between text-left">
-              
 
-
-<label className="form-control-label">
-                    Upload image
-                  </label>
-                  <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
-                  {state.newEmployee.profile_url ?
-                    <CLink
-                      href={state.newEmployee.profile_url}
-                      target="_blank"
-                    >
+                <label className="form-control-label">
+                  Upload image
+                </label>
+                <CIcon size={'3xl'} icon={cibAddthis} onClick={() => setIsFilePicked(true)} />
+                {state.newEmployee.profile_url ?
+                  <CLink
+                    href={state.newEmployee.profile_url}
+                    target="_blank"
+                  >
                     {state.newEmployee.profile_url}
-                    </CLink>
+                  </CLink>
+                  : <></>}
 
-
-
-                    : <></>}
-
-
-                  {isFilePicked ?
-                    <PickerOverlay
+                {isFilePicked ?
+                  <PickerOverlay
                     pickerOptions={{
-                      accept:"image/*",
+                      accept: "image/*",
                       onClose: (res) => {
                         setIsFilePicked(false);
                       }
                     }}
-                      apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
-                      onSuccess={(res) => console.log(res)}
-                      onUploadDone={(res) => uploadDone(res)}
-                    />
-                    : <></>}
+                    apikey={'AUs6NdV3RbWNpyzRd3VH1z'}
+                    onSuccess={(res) => console.log(res)}
+                    onUploadDone={(res) => uploadDone(res)}
+                  />
+                  : <></>}
               </div>
-
-
-      
-
-
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 ">
@@ -954,7 +933,7 @@ const AddEmployee = ({ }) => {
                 </div>
                 <div className="form-group col-sm-6 ">
                   <CButton
-                
+
                     className="btn-block btn-primary"
                     onClick={() => addAndUpdateEmployee()}
                   >

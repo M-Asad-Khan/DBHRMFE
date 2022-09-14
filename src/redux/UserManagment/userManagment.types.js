@@ -12,6 +12,7 @@ export const updateIsEditRoleClicked = "updateIsEditRoleClicked";
 export const updateRolesDataTable = "updateRolesDataTable";
 export const updateIsViewRoleClicked = "updateIsViewRoleClicked";
 
+
 export const updateNewPermission = 'updateNewPermission';
 export const updateIsAddPermissionClicked = 'updateIsAddPermissionClicked';
 export const updatePermissions = "updatePermissions";

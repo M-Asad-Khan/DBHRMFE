@@ -91,6 +91,33 @@ class UserManagment {
             });
     }
 
+    deleteUser(user) {
+        return axios({
+                method: "delete",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/user/${user.id}`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: {},
+            })
+            .then((result) => {
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    }
+
+
+
     addRole(role) {
         return axios({
                 method: "post",
@@ -148,9 +175,12 @@ class UserManagment {
             });
     }
 
+
+
+
     deleteRole(role) {
         return axios({
-                method: "patch",
+                method: "delete",
                 url: `https://dbhrmbee.herokuapp.com/api/v1/role/${role.id}`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",

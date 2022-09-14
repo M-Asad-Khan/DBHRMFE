@@ -5,7 +5,6 @@ import {
     updateIsEditUserClicked,
     updateUsersDataTable,
     updateIsViewUserClicked,
-
     updateNewRole,
     updateIsAddRoleClicked,
     updateRoles,
@@ -77,6 +76,7 @@ export const updateNewRoleAction = (params) => {
         payload: params,
     };
 };
+
 export const updateIsAddRoleClickedAction = (params) => {
     return {
         type: updateIsAddRoleClicked,

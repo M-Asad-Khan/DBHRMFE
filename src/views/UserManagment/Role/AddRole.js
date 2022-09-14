@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userManagmentRequests } from "src/API/UserManagmentApi";
 import {
@@ -7,28 +7,27 @@ import {
   updateRolesAction,
 } from "src/redux/UserManagment/userManagment.actions";
 import { toast } from "react-toastify";
+import Select from "react-select";
 
+const roles = [
+  { label: "Admin", value: "Admin" },
+  { label: "Employee", value: "Employee" },
+  { label: "HR", value: "HR" },
 
+]
 export default function AddRole() {
   const dispatch = useDispatch();
   const userManagmentState = useSelector((state) => state.userManagment);
 
   const [tempRole, setTempRole] = useState({});
-  const [roles, setRoles] = useState([]);
-  const [fieldsWithError, setFieldsWithError] = useState({
-    name: null,
-    description: null,
-	});
-	useEffect(() => {
-		if (userManagmentState.isEditRoleClicked) {
-			setTempRole(userManagmentState.newRole)
-		}
-	}, [userManagmentState.isEditRoleClicked ])
-	
-  const [errorInfo, setErrorInfo] = useState({});
+  useEffect(() => {
+    if (userManagmentState.isEditRoleClicked) {
+      setTempRole(userManagmentState.newRole)
+    }
+  }, [userManagmentState.isEditRoleClicked])
+
 
   const handleChange = (evt) => {
-         
     const value = evt.target.value;
     setTempRole({
       ...tempRole,
@@ -36,69 +35,42 @@ export default function AddRole() {
     });
   };
 
-  const doValidation = () => {
-    var tempFieldsWithError = { ...fieldsWithError };
-    var isError = false;
-    var tempErrorInfo = { ...errorInfo };
-         
-
-    Object.entries(fieldsWithError).forEach((x) => {
-           
-      if (tempRole[x[0]] !== undefined) {
-        if (tempRole[x[0]] !== "") {
-          if (x[0] === "email" || x[0] === "phoneNumber") {
-          } else {
-            tempFieldsWithError[x[0]] = false;
-            tempErrorInfo[x[0]] = null;
-          }
-        } else {
-          tempFieldsWithError[x[0]] = true;
-          tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
-        }
-      } else {
-        tempFieldsWithError[x[0]] = true;
-        tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
-      }
+  const handleReactChange = (evt) => {
+    const value = evt.value;
+    setTempRole({
+      ...tempRole,
+      name: value,
     });
-         
-    setErrorInfo(tempErrorInfo);
-    setFieldsWithError(tempFieldsWithError);
-    Object.entries(tempFieldsWithError).forEach((x) => {
-      if (x[1] === true) {
-        isError = true;
-      }
-    });
-    console.log("isError", isError);
-    return isError;
   };
+
   const handleCancel = () => {
     dispatch(updateIsAddRoleClickedAction(false));
     dispatch(updateIsEditRoleClickedAction(false));
   };
 
   const handleAddAndUpdateRole = async () => {
-    if (!doValidation()) {
+    if (tempRole.name) {
       if (userManagmentState.isEditRoleClicked === true) {
         try {
-               
+
           const res = await userManagmentRequests.updateRole(tempRole);
           if (res.error === false) {
-                 
+
             toast.success("Role Updated !");
-            dispatch(updateRolesAction([ res.data]));
+            dispatch(updateRolesAction([res.data]));
             dispatch(updateIsAddRoleClickedAction(false));
             dispatch(updateIsEditRoleClickedAction(false));
           }
         } catch (e) {
           toast.error("error !");
-               
+
         }
       } else {
         try {
-               
+
           const res = await userManagmentRequests.addRole(tempRole);
           if (res.error === false) {
-                 
+
             toast.success("Role added !");
             dispatch(updateRolesAction([res.data]));
             dispatch(updateIsAddRoleClickedAction(false));
@@ -106,43 +78,35 @@ export default function AddRole() {
           }
         } catch (e) {
           toast.error("error !");
-               
+
         }
       }
     } else {
-      toast.error("validation failed");
-           
+      toast.error("Role Name required");
+
     }
   };
-
-  console.log("tempRole", tempRole);
 
   return (
     <>
       <div className="row justify-content-between text-left mt-3">
         <div className="form-group col-sm-6 flex-column d-flex">
           <label className="form-control-label ">
-            Enter Role Name <span className="text-danger"> *</span>
+            Select Role Name <span className="text-danger"> *</span>
           </label>
-					<input
-						value={tempRole.name}
+
+          <Select
+            type="text"
             id="name"
             name="name"
-            onChange={handleChange}
-          ></input>
-          {fieldsWithError.name === true ? (
-            <>
-              <label className="text-danger form-control-label px-3">
-                {errorInfo.name}
-              </label>
-            </>
-          ) : (
-            ""
-          )}
+            options={roles}
+            onChange={handleReactChange}
+          ></Select>
+
         </div>
         <div className="form-group col-sm-6 flex-column d-flex">
           <label className="form-control-label">
-            Description<span className="text-danger"> *</span>
+            Description
           </label>
           <input
             value={tempRole.description}
@@ -150,15 +114,7 @@ export default function AddRole() {
             id="description"
             name="description"
           ></input>
-          {fieldsWithError.description === true ? (
-            <>
-              <label className="error form-control-label px-3">
-                {errorInfo.description}
-              </label>
-            </>
-          ) : (
-            ""
-          )}
+
         </div>
       </div>
 

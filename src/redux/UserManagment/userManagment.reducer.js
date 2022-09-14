@@ -11,7 +11,7 @@ import {
   updateIsEditRoleClicked,
   updateRolesDataTable,
 	updateIsViewRoleClicked,
-	
+
 	updateNewPermission,
   updateIsAddPermissionClicked,
   updatePermissions,
@@ -149,6 +149,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         newRole: action.payload,
       };
+
+   
 
     case updateRoles:
       return {
