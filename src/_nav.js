@@ -38,6 +38,11 @@ const Admin_nav = [
         name: "Teams",
         to: "/teams",
       },
+      {
+        component: CNavItem,
+        name: "Leaves Planner",
+        to: "/employeeLeaves",
+      },
     ],
   },
   {
@@ -53,11 +58,13 @@ const Admin_nav = [
         items: [
           {
             component: CNavItem,
-            name: "Employee Evaluation",
+            name: "Evaluation",
             to: "/employeeEvaluation",
           },
+        
         ],
       },
+   
       {
         component: CNavGroup,
         name: "Recruitment",
@@ -135,6 +142,11 @@ const HumanResource_nav = [
       },
       {
         component: CNavItem,
+        name: "Leaves Planner",
+        to: "/employeeLeaves",
+      },
+      {
+        component: CNavItem,
         name: "Teams",
         to: "/teams",
       },
@@ -156,8 +168,10 @@ const HumanResource_nav = [
             name: "Employee Evaluation",
             to: "/employeeEvaluation",
           },
+        
         ],
       },
+   
       {
         component: CNavGroup,
         name: "Recruitment",
@@ -226,6 +240,11 @@ const Employee_nav = [
       },
       {
         component: CNavItem,
+        name: "Leaves Planner",
+        to: "/employeeLeaves",
+      },
+      {
+        component: CNavItem,
         name: "Teams",
         to: "/teams",
       },
@@ -259,22 +278,23 @@ const Client_nav = [
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
-    component: CNavGroup,
-    name: "Resource Planning",
-    to: "/dashboard",
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: "Client",
-        to: "/clients",
-      },
-      {
+    // component: CNavGroup,
+    // name: "Resource Planning",
+    // to: "/dashboard",
+    // icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    // items: [
+     
+      // {
         component: CNavItem,
         name: "Teams",
         to: "/teams",
-      },
-    ],
+      // },
+    // ],
+  },
+  {
+    component: CNavItem,
+    name: "Client",
+    to: "/clients",
   },
   {
     component: CNavItem,

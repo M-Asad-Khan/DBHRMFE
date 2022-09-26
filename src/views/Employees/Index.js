@@ -111,7 +111,6 @@ function employees() {
         if (res.error === false) {
           dispatch(updateEmployeesAction(res.data));
           var tempArr = [];
-          //res.data.map((x) => {
           tempArr.push({
             ...res.data,
             appointmentLetterStatus: res.data.appointmentLetterStatus
@@ -146,15 +145,11 @@ function employees() {
             ),
             clickEvent: setSelectedRow
           });
-          // });
-
-          console.log("eventarr", tempArr);
           var tempObj = { ...state.employeesDataTable, rows: tempArr };
           dispatch(updateEmployeesDataTableAction(tempObj));
         }
       } else {
         res = await employeeRequests.getEmployeesApi();
-        console.log("current user", res.data);
         if (res.error === false) {
           dispatch(updateEmployeesAction(res.data));
           var tempArr = [];

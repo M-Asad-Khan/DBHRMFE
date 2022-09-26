@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 
 class employeeApi {
     addEmployeeApi = async(newEmployee) => {
@@ -47,6 +48,131 @@ class employeeApi {
 
                 const error = JSON.stringify(err);
                 console.log("Employee Error", error);
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    };
+
+
+
+    deleteLeaves(id) {
+        return axios({
+                method: "delete",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves/${id}`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: {},
+            })
+            .then((result) => {
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    }
+
+
+
+    updateEmployeeLeavesApi = async(leaves) => {
+        return axios({
+                method: "post",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: {
+                    id: leaves.id,
+                    EmployeeId: leaves.EmployeeId,
+                    ApplicationDate: moment(),
+                    LeavesDates: leaves.LeavesDates,
+                    LeaveType: leaves.LeaveType,
+                    ApplicationStatus: leaves.ApplicationStatus,
+                    Reason: leaves.Reason,
+                },
+            })
+            .then((result) => {
+
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+                const error = JSON.stringify(err);
+                console.log("Employee Error", error);
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    };
+
+    addEmployeeLeavesApi = async(leaves) => {
+        return axios({
+                method: "post",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: {
+                    EmployeeId: leaves.EmployeeId,
+                    ApplicationDate: moment(),
+                    LeavesDates: leaves.LeavesDates,
+                    LeaveType: leaves.LeaveType,
+                    ApplicationStatus: leaves.ApplicationStatus,
+                    Reason: leaves.Reason,
+                },
+            })
+            .then((result) => {
+
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+                const error = JSON.stringify(err);
+                console.log("Employee Error", error);
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    };
+
+    getEmployeesLeavesApi = async(id) => {
+        debugger
+        return axios({
+                method: "get",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves/${id}`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+            })
+            .then((result) => {
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
                 return {
                     error: true,
                     data: err,

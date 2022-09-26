@@ -4,6 +4,7 @@ import {
     updateEmployees,
     updateIsEditEmployeeClicked,
     updateEmployeesDataTable,
+    updateEmployeesLeavesDataTable,
     updateIsViewEmpClicked
 } from "./employees.types";
 
@@ -27,6 +28,8 @@ export const updateEmployeesAction = (params) => {
         payload: params,
     };
 };
+
+
 export const updateIsEditEmployeeClickedAction = (params) => {
     return {
         type: updateIsEditEmployeeClicked,
@@ -39,7 +42,15 @@ export const updateEmployeesDataTableAction = (params) => {
         payload: params,
     };
 };
-export const updateIsViewEmpClickedAction = (params) => {
+
+
+
+export const updateEmployeesLeavesDataTableAction = (params) => {
+    return {
+        type: updateEmployeesLeavesDataTable,
+        payload: params,
+    };
+};export const updateIsViewEmpClickedAction = (params) => {
     return {
         type: updateIsViewEmpClicked,
         payload: params,
