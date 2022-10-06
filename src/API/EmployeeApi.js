@@ -180,6 +180,31 @@ class employeeApi {
             });
     };
 
+    getAllEmployeesLeavesApi = async() => {
+        debugger
+        return axios({
+                method: "get",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+            })
+            .then((result) => {
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    };
+
     deleteEmployeeApi = async(id) => {
 
         return axios({

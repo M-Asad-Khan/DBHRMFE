@@ -5,3 +5,4 @@ export const updateIsEditEmployeeClicked = "updateIsEditEmployeeClicked";
 export const updateEmployeesDataTable = "updateEmployeesDataTable";
 export const updateEmployeesLeavesDataTable = "updateEmployeesLeavesDataTable";
 export const updateIsViewEmpClicked = "updateIsViewEmpClicked";
+export const updateEmployeeLeaves = "updateEmployeeLeaves";

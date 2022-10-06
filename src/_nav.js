@@ -61,6 +61,11 @@ const Admin_nav = [
             name: "Evaluation",
             to: "/employeeEvaluation",
           },
+          {
+            component: CNavItem,
+            name: "Employee Leaves",
+            to: "/leavesView",
+          },
         
         ],
       },

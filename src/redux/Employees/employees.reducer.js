@@ -2,6 +2,7 @@ import {
     updateNewEmployee,
     updateIsAddEmployeeClicked,
     updateEmployees,
+    updateEmployeeLeaves,
     updateIsEditEmployeeClicked,
     updateEmployeesDataTable,
     updateEmployeesLeavesDataTable,
@@ -76,6 +77,11 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 newEmployee: action.payload,
             };
+            case updateEmployeeLeaves:
+                return{
+                    ...state,
+                    newEmployeeLeaves: action.payload,
+                }
 
         case updateEmployees:
             return {
