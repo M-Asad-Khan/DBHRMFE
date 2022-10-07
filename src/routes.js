@@ -38,6 +38,7 @@ export const HRRoutes = [
   { path: "/jobPosting",exact: true,name: "Job Posting",component: jobPosting},
   { path: "/interviewFeedback", exact: true, name: "Interview Feedback", component: interviewFeedback },
   { path: "/candidates",exact: true,name: "Candidates",component: candidates},
+  { path: "/employeeLeaves",exact: true,name: "Employee Leaves",component: employeeLeaves},
   { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
 
   { path: "/leavesView",exact: true,name: "Employee Leaves",component: leavesView},

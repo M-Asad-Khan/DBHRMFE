@@ -173,6 +173,11 @@ const HumanResource_nav = [
             name: "Employee Evaluation",
             to: "/employeeEvaluation",
           },
+          {
+            component: CNavItem,
+            name: "Employee Leaves",
+            to: "/leavesView",
+          },
         
         ],
       },

@@ -94,10 +94,10 @@ function LeaveCalendar() {
         LeavesDates: x.LeavesDates,
         totalLeaves: x.LeavesDates.length,
         daysLeaves: x.LeavesDates.map(leave => { return moment(leave).format("MMM Do YY") + " , " }),
-        action: (
+       action:  x.ApplicationStatus == "Applied"? (
           <>
 
-            {/* {x.ApplicationStatus == "Applied" && */}
+          
             <>
               <FiEdit
                 onClick={() => (action = "edit")}
@@ -116,11 +116,12 @@ function LeaveCalendar() {
                   cursor: "pointer",
                 }}
               />
+            
             </>
-          
+      
           </>
-        ),
-        clickEvent: setSelectedRow
+        ):null,
+        clickEvent: x.ApplicationStatus == "Applied"?setSelectedRow:null
       });
     })
 
@@ -264,7 +265,7 @@ function LeaveCalendar() {
             >
               Apply Leaves
             </button>
-        <ViewLeaves />
+        {/* <ViewLeaves /> */}
       
 
         {!addClick && !editLeavesClicked ?

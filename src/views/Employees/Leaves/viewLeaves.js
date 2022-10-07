@@ -23,7 +23,9 @@ function ViewLeaves() {
         <div className="row">
           <div className="col-sm-12">
              <div className="card" >
-              <h2 className="border-bottom">Availed Leaves</h2>
+             <h6 className="d-flex w-full" style={{ color: "black",borderBottomColor:"black",borderBottom:"solid 1px" }}>
+                    Availed Leaves
+                  </h6>
              {state.newEmployeeLeaves&&state.newEmployeeLeaves.map(leave=>{
               return (
                 <div className="d-flex justify-content-between">
@@ -37,7 +39,15 @@ function ViewLeaves() {
               </div>
               )
              })}
-         
+           <div className="d-flex justify-content-between" style={{ color: "dimgrey",borderTopColor:"black",borderTop:"solid 1px" }}>
+                <div className="d-flex" >
+                  {/* <BiTimeFive className="icon-design" /> */}
+                  <h6 className="d-flex w-full" style={{ color: "black" }}>
+                    Allowed Leaves
+                  </h6>
+                </div>
+                <div className='w-50 text-right'>15</div>
+              </div>
 
      
           </div>

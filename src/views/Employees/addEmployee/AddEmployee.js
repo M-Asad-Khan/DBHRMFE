@@ -316,6 +316,9 @@ const AddEmployee = ({ }) => {
                   <Select
                     type="text"
                     id="name"
+                    value={{
+                      label:state.newEmployee.name,
+                    }}
                     name="name"
                     options={candidates}
                     onChange={handleReactChange}
