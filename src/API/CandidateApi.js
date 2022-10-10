@@ -43,6 +43,41 @@ class CandidateApi {
                 };
             });
     };
+
+
+    sendInterviewEmail = async(newCandidate) => {
+        console.log(newCandidate);
+
+        return axios({
+                method: "post",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/candidate/html-email`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: newCandidate
+            })
+            .then((result) => {
+
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+
+                const error = JSON.stringify(err);
+                console.log("Candidate Error", error);
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    };
+
+
+
     getCandidatesApi = async() => {
         return axios({
                 method: "get",
