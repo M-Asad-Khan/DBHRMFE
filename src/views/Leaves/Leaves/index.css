@@ -9,6 +9,23 @@
 .react-calendar--doubleView {
   width: 100%;
 }
+.bouncing-text {
+  position: relative;
+  display: flex;
+  font-size: 30px;
+  font-weight: 200;
+  font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; 
+}
+
+.b, .o, .u, .n, .c, .e {
+  position: relative;
+  color: #3B7523;
+
+}
+
+
+
+
 .react-calendar--doubleView .react-calendar__viewContainer {
   display: flex;
   margin: -0.5em;

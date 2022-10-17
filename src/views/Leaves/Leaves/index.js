@@ -1,50 +1,53 @@
 import { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
 import moment from "moment"
 import './index.css'
-import Select from 'react-select'
-import { toast } from "react-toastify";
-import { CButton, CLink } from "@coreui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { employeeRequests } from 'src/API/EmployeeApi'
 import { MDBDataTable } from "mdbreact";
 import {
   updateEmployeesLeavesDataTableAction
 } from "../../../redux/Employees/employees.actions";
-import { FiEye, FiTrash, FiEdit ,FiCheck,FiX} from "react-icons/fi";
+import { FiCheck, FiX } from "react-icons/fi";
+
 
 function EmployeeLeaves() {
   var action = "";
-  const [mark, setMark] = useState([]);
-  const [leaveData, setLeavesData] = useState(
-    {
-      LeaveType: "",
-      ApplicationStatus: "Applied",
-      Reason: "",
-      LeavesDates: []
-    }
-  )
-  const currentUser = useSelector((state) => state.login.currentUser);
+  const [employees, setEmployees] = useState([]);
+
   const [columnsAndRows, setColumnsAndRows] = useState([]);
-  const [addClick, setAddClick] = useState(false);
+  const [columnsAndRowsAll, setColumnsAndRowsAll] = useState([]);
+  const [showall, setShowall] = useState(false);
+
   const dispatch = useDispatch();
 
-  const [editLeavesClicked, seteditLeavesClicked] = useState(false);
+
 
   const state = useSelector((state) => state.employees);
 
   useEffect(() => {
     getEmployeeLeaves();
+    handleGetEmployeesApi()
   }, []);
 
-  const handleChange = (evt) => {
+  const handleGetEmployeesApi = async () => {
+    try {
+      const res = await employeeRequests.getEmployeesApi();
 
-    const value = evt.target.value;
-    setLeavesData({ ...leaveData, Reason: value })
-  }
+      if (res.error === false) {
+        var tempArr = [];
+        var tempArr = res.data.map((x) => {
+          return { ...x, value: x.name, label: x.name };
+        });
+        console.log("tempArr", tempArr);
+        setEmployees(tempArr);
+      }
+    } catch (err) {
+      // console.log(err);
+    }
+  };
 
-  const updateStatus=async (data,status)=>{
-    await employeeRequests.updateEmployeeLeavesApi({...data,ApplicationStatus:status});
+  const updateStatus = async (data, status) => {
+    await employeeRequests.updateEmployeeLeavesApi({ ...data, ApplicationStatus: status });
     await getEmployeeLeaves()
   }
 
@@ -54,24 +57,20 @@ function EmployeeLeaves() {
     } else {
       switch (action) {
         case "reject":
-          updateStatus(rowData,"Rejected") 
+          updateStatus(rowData, "Rejected")
           break;
         case "view":
           // handleView(rowData);
           break;
         case "approved":
-          updateStatus(rowData,"Approved") 
-        break;
+          updateStatus(rowData, "Approved")
+          break;
 
         default:
           break;
       }
     }
   }
-
-  const handleReactSelectChange = (param) => {
-    setLeavesData({ ...leaveData, LeaveType: param.value })
-  };
 
   useEffect(() => {
     setColumnsAndRows(state.employeesLeavesDataTable);
@@ -80,15 +79,17 @@ function EmployeeLeaves() {
   const getEmployeeLeaves = async () => {
     const result = await employeeRequests.getAllEmployeesLeavesApi()
     var tempArr = [];
+    var allLevaes=[];
     result.data.map((x) => {
-      tempArr.push({
-        ...x,
-        name: x.employee.name,
-        LeavesDates: x.LeavesDates,
-        totalLeaves: x.LeavesDates.length,
-        daysLeaves:x.LeavesDates.map(leave=>{return moment(leave).format("MMM Do YY")+" , "}),
-        action: (
-          <>
+      if (x.ApplicationStatus == 'Applied') {
+        tempArr.push({
+          ...x,
+          name: x.employee.name,
+          LeavesDates: x.LeavesDates,
+          totalLeaves: x.LeavesDates.length,
+          daysLeaves: x.LeavesDates.map(leave => { return moment(leave).format("Do MMM YY") + " , " }),
+          action: (
+            <>
 
               <>
                 <FiCheck
@@ -109,299 +110,105 @@ function EmployeeLeaves() {
                   }}
                 />
               </>
-          </>
-        ),
-        clickEvent: setSelectedRow
-      });
+            </>
+          ),
+          clickEvent: setSelectedRow
+        });
+      }
+      else{
+        allLevaes.push({
+          ...x,
+          name: x.employee.name,
+          LeavesDates: x.LeavesDates,
+          totalLeaves: x.LeavesDates.length,
+          daysLeaves: x.LeavesDates.map(leave => { return moment(leave).format("Do MMM YY") + " , " }),
+     
+        });
+      }
     })
 
     var tempObj = { ...state.employeesLeavesDataTable, rows: tempArr };
-    dispatch(updateEmployeesLeavesDataTableAction(tempObj));
+    dispatch(updateEmployeesLeavesDataTableAction(tempObj))
 
-    result.data.map(r => {
-      setMark(mark => [...mark, ...r.LeavesDates])
-    })
-    setLeavesData({
-      LeaveType: "",
-      ApplicationStatus: "Applied",
-      Reason: "",
-      LeavesDates: []
-    
-    })
-  }
-
-  const handleDeletLeaves = async (leaves) => {
-    const result = await employeeRequests.deleteLeaves(leaves.id);
-    if (result.error) {
-      toast.error(result.data);
-    } else {
-      await getEmployeeLeaves()
-      toast.success("Leaves Deleted");
-    }
+    var tempObjAll = { columns: [{
+      label: "Employee Name",
+      field: "name",
+      width: 270,
+  },
+  {
+      label: "Leaves Days (MM DD YY)",
+      field: "daysLeaves",
+      width: 200,
+  },
+ 
+ 
+], rows: allLevaes };
+  
+    setColumnsAndRowsAll(tempObjAll)
   }
 
 
-  const onChangeDate = (date) => {
-    if (editLeavesClicked) {
-      let isAlreadyMarked = mark.find(x => x === date);
-      if (isAlreadyMarked) {
 
-        let markerLeaves = mark.filter(m => m != isAlreadyMarked);
+  const handleClientSelectChange = (param) => {
+    alert(param.id)
+    console.log(state.employeesLeavesDataTable)
+  };
 
-        let leaves = leaveData.LeavesDates.filter(m => m != isAlreadyMarked);
-        setLeavesData({ ...leaveData, LeavesDates: [...leaves] })
-        setMark(markerLeaves);
+  const handleChange = (evt) => {
 
+    const value = evt.target.value;
 
-      }
-      else {
-        setLeavesData({ ...leaveData, LeavesDates: [...leaveData.LeavesDates, date] })
-        // setMark(mark => [...mark, date]);
-      }
-    }
-    else {
-      let isAlreadyMarked = leaveData.LeavesDates.find(x => x === date);
-      if (isAlreadyMarked) {
-
-        let markerLeaves = mark.filter(m => m != isAlreadyMarked);
-
-        let leaves = leaveData.LeavesDates.filter(m => m != isAlreadyMarked);
-        setLeavesData({ ...leaveData, LeavesDates: [...leaves] })
-        setMark(markerLeaves);
-
-      }
-      else {
-        setLeavesData({ ...leaveData, LeavesDates: [...leaveData.LeavesDates, date] })
-        // setMark(mark => [...mark, date]);
-      }
-
-
-
-    }
+  }
+  const filterData = () => {
 
   }
 
-  const applyLeaves = async () => {
-    const leavesData = {
-
-      EmployeeId: currentUser.Profile.id,
-      ...leaveData
-    }
-    setLeavesData({
-      LeaveType: "",
-      ApplicationStatus: "Applied",
-      Reason: "",
-      LeavesDates: []
-    })
-
-    if (editLeavesClicked) {
-      await employeeRequests.updateEmployeeLeavesApi(leavesData);
-      seteditLeavesClicked(false);
-    }
-    else {
-      await employeeRequests.addEmployeeLeavesApi(leavesData);
-      setAddClick(false)
-    }
-    await getEmployeeLeaves()
-  }
-
-  const onCancel = () => {
-
-    setLeavesData({
-      LeaveType: "",
-      ApplicationStatus: "Applied",
-      Reason: "",
-      LeavesDates: []
-    })
-    setAddClick(false)
-    seteditLeavesClicked(false);
-  }
   return (
     <div className='app'>
-      {!addClick && !editLeavesClicked ?
-        <>
-          {/* <button
-            type="button"
-            className="btn btn-outline-primary col-sm-2"
-            onClick={() => setAddClick(true)}
-          >
-            Apply Leaves
-          </button> */}
-          <MDBDataTable
-            className="mdbDataTableDesign"
-            infoLabel={["Showing", "to", "of", "Records"]}
-            bordered
-            displayEntries={false}
-            hover
-            entries={5}
-            pagesAmount={4}
-            data={columnsAndRows}
-          />
-        </>
-        : <></>
-      }
-      {addClick ?
-        <div className='calendar-container'>
-              <div className="row justify-content-between text-left">
-            <div className="form-group col-sm-6 flex-column d-flex">
-              <label className="form-control-label px-3">
-                Leave Type
-              </label>
-              <Select
-                options={[
-                  { label: "Sick Leaves", value: "Sick Leaves" },
-                  { label: "Anual Leaves", value: "Anual Leaves" },
-                  { label: "Casual Leave", value: "Casual Leave" },
-                  { label: "Maternity Leave (ML)s", value: "Maternity Leave (ML)" },
-                  { label: "Marriage Leave", value: "Marriage Leave" },
-                  { label: "Paternity Leave", value: "Paternity Leave" },
-                  { label: "Bereavement Leave", value: "Bereavement Leave" }
-                
-                ]}
-                onChange={handleReactSelectChange}
-                id="LeaveType"
-                name="LeaveType"
-                placeholder="Leave Type"
-              ></Select>{" "}
-            </div>
+      <div class="bouncing-text">
+        <div class="b">A</div>
+        <div class="o">P</div>
+        <div class="u">P</div>
 
-            <div className="form-group col-sm-6 flex-column d-flex">
+        <div class="n">L</div>
+        <div class="c">I</div>
+        <div class="e">E</div>
+        <div class="e">D</div>
 
-              <label className="form-control-label px-3">
-                Reason
-              </label>
-              <input
+        <div class="shadow"></div>
+        <div class="shadow-two"></div>
+      </div>
 
-                value={leaveData.Reason}
-                onChange={handleChange}
-                type="textarea"
-                id="salary"
-                name="salary"
-                placeholder="Leave Reason"
-
-              />
-            </div>
-          </div>
-
-          <Calendar onChange={(date) => onChangeDate(moment(date).format("MM/DD/YYYY"))}
-            tileDisabled={({ date, view }) =>
-              (view === "month" && date.getDay() === 0) || (date.getDay() === 6) || (mark.find(x => x === moment(date).format("MM/DD/YYYY")))
-            }
-            tileClassName={({ date, view }) => {
-              if (leaveData.LeavesDates.find(x => x === moment(date).format("MM/DD/YYYY"))) {
-                return 'highlight'
-              }
-            }}
-          />
-      
-          <div className="row justify-content-between text-left">
-            <div className="form-group col-sm-6 ">
-              <button
-                className="btn-block btn-primary"
-                onClick={() => onCancel()}
-              >
-                Cancel
-              </button>
-            </div>
-            <div className="form-group col-sm-6 ">
-              <CButton
-                className="btn-block btn-primary"
-                onClick={() => applyLeaves(true)}
-              >
-                Submit
-              </CButton>
-            </div>
-          </div>
-        </div>
-        : <></>
-      }
-
-
-      {/* approved case */}
-
-      {editLeavesClicked ?
-        <div className='calendar-container'>
-             <div className="row justify-content-between text-left">
-            <div className="form-group col-sm-6 flex-column d-flex">
-              <label className="form-control-label px-3">
-                Leave Type
-              </label>
-              <Select
-                options={[
-                  { label: "Sick Leaves", value: "Sick Leaves" },
-                  { label: "Anual Leaves", value: "Anual Leaves" },
-                  { label: "Casual Leave", value: "Casual Leave" },
-                  { label: "Maternity Leave (ML)s", value: "Maternity Leave (ML)" },
-
-
-                  { label: "Marriage Leave", value: "Marriage Leave" },
-                  { label: "Paternity Leave", value: "Paternity Leave" },
-                  { label: "Bereavement Leave", value: "Bereavement Leave" }
-                
-                ]}
-                onChange={handleReactSelectChange}
-                id="LeaveType"
-                name="LeaveType"
-                placeholder="Leave Type"
-                value={{ label: leaveData.LeaveType }}
-              ></Select>{" "}
-            </div>
-
-            <div className="form-group col-sm-6 flex-column d-flex">
-
-              <label className="form-control-label px-3">
-                Reason
-              </label>
-              <input
-
-                value={leaveData.Reason}
-                onChange={handleChange}
-                type="text"
-                id="salary"
-                name="salary"
-                placeholder="Leave Reason"
-
-              />
-            </div>
-          </div>
-
-          <Calendar onChange={(date) => onChangeDate(moment(date).format("MM/DD/YYYY"))}
-            tileDisabled={({ date, view }) =>
-              (view === "month" && date.getDay() === 0) || (date.getDay() === 6) || (mark.find(x => !leaveData.LeavesDates.includes(x) && x === moment(date).format("MM/DD/YYYY")))
-            }
-
-            tileClassName={({ date, view }) => {
-              if (leaveData.LeavesDates.find(x => x === moment(date).format("MM/DD/YYYY"))) {
-                return 'highlight'
-              }
-            }}
-            activeStartDate={new Date(leaveData.LeavesDates&&leaveData.LeavesDates.length>0&&leaveData.LeavesDates[0])}
-          />
-          <div className="row justify-content-between text-left">
-            <div className="form-group col-sm-6 ">
-              <button
-                className="btn-block btn-primary"
-                onClick={() => onCancel()}
-              >
-                Cancel
-              </button>
-            </div>
-            <div className="form-group col-sm-6 ">
-              <CButton
-                className="btn-block btn-primary"
-                onClick={() => applyLeaves(true)}
-              >
-                Update
-              </CButton>
-            </div>
-          </div>
-        </div>
-        : <></>
-      }
-
-
-
-
+      <MDBDataTable
+        className="mdbDataTableDesign"
+        infoLabel={["Showing", "to", "of", "Records"]}
+        bordered
+        displayEntries={false}
+        hover
+        entries={5}
+        pagesAmount={4}
+        data={columnsAndRows}
+      />
+ <div className="form-group col-sm-2 ">
+                  <button
+                    className="btn-block btn-primary"
+                    onClick={() => setShowall(!showall)}
+                  >
+          {showall?"Hide All":"Show All"}  
+                  </button>
+                </div>
+{showall?
+      <MDBDataTable
+        className="mdbDataTableDesign"
+        infoLabel={["Showing", "to", "of", "Records"]}
+        bordered
+        displayEntries={false}
+        hover
+        entries={5}
+        pagesAmount={4}
+        data={columnsAndRowsAll}
+      />:<></>
+}
     </div>
   );
 }

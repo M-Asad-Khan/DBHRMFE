@@ -13,17 +13,17 @@ import { BsTelephoneForward, BsCalendar2Date, BsBagPlus } from "react-icons/bs";
 import { candidateRequests } from "src/API/CandidateApi";
 import { CLink, CButton, CModal, CModalHeader, CModalBody, CModalFooter, CModalTitle } from "@coreui/react";
 import { toast } from "react-toastify";
-
+import Select from "react-select";
 
 const ViewCandidate = () => {
 
   const hrState = useSelector((state) => state.candidate);
   const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState({
-    footer:'Arooba Saghir\n'+
-    'HR Executive Devbox Private Ltd.\n'+
-    'mob: +92 (423) 518 9250 address: 253 F1, Wapda Town, Lahore\n'+
-    'web: www.devbox.co\n'
+    footer: 'Arooba Saghir\n' +
+      'HR Executive Devbox Private Ltd.\n' +
+      'mob: +92 (423) 518 9250 address: 253 F1, Wapda Town, Lahore\n' +
+      'web: www.devbox.co\n'
 
   })
   const [fieldsWithError, setFieldsWithError] = useState({
@@ -32,7 +32,7 @@ const ViewCandidate = () => {
     heading: '',
     emailMessage: false,
     to: '',
-    footer:''
+    footer: ''
 
   });
   const [errorInfo, setErrorInfo] = useState({});
@@ -102,11 +102,11 @@ const ViewCandidate = () => {
 
 
   const sendEmail = async () => {
-    email.emailMessage=email.emailMessage.split(/\r?\n/)
-    email.footer=email.footer.split(/\r?\n/)
+    email.emailMessage = email.emailMessage.split(/\r?\n/)
+    email.footer = email.footer.split(/\r?\n/)
 
     const res = await candidateRequests.sendInterviewEmail(email);
-    if(!res.error){
+    if (!res.error) {
       toast.success("Email Sent !");
     }
 
@@ -167,7 +167,7 @@ const ViewCandidate = () => {
 
 
 
-        <CModal size="xl" visible={visible} onClose={() => setVisible(false)}>
+        <CModal size="xl" visible={visible} onClose={() => setVisible(false)} style={{backgroundColor:'#EBEDEF'}}>
           <CModalHeader onClose={() => setVisible(false)}>
             <CModalTitle>Send Interview Invite</CModalTitle>
           </CModalHeader>
@@ -177,110 +177,44 @@ const ViewCandidate = () => {
                 <label className="form-control-label px-3">
                   Email Title<span className="text-danger"> *</span>
                 </label>
-                <input
-                  className={
-                    fieldsWithError.emailTitle === true ? "redBorder" : ""
-                  }
-                  value={email.title}
-                  onChange={handleChange}
+
+                <Select
                   type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Enter your email title"
-                />{" "}
-                {fieldsWithError.title === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.lastName}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
+                  id="managerId"
+                  name="managerId"
+                  value={{ label: email?.title, value: email?.title }}
+                  options={[{
+                    label: 'Initial Interview Email', value: "Initial Interview Email"
+                  },
+                  {
+                    label: 'Technical Interview Email', value: "Technical Interview Email"
+                  },
+                  {
+                    label: 'Final Interview Email', value: "Final Interview Email"
+                  }
+                  ]}
+                  onChange={(e) => { setEmail({ ...email, title: e.value }) }}
+                ></Select>
+
+
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Candidate Email<span className="text-danger"> *</span>
                 </label>
-                <input
-                  disabled
-                  className={
-                    fieldsWithError.to === true ? "redBorder" : ""
-                  }
-                  value={email.to}
-                  onChange={handleChange}
+             
+                   <Select
                   type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Enter your email title"
-                />{" "}
-                {fieldsWithError.to === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.to}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
+                  isDisabled={true}
+                  id="managerId"
+                  name="managerId"
+                  value={{ label: email?.to, value: email?.to }}
+               
+                ></Select>
               </div>
             </div>
 
-            <div className="row justify-content-between text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">
-                  Greating Message<span className="text-danger"> *</span>
-                </label>
-                <input
-                  className={
-                    fieldsWithError.greating === true ? "redBorder" : ""
-                  }
-                  value={email.greating}
-                  onChange={handleChange}
-                  type="text"
-                  id="greating"
-                  name="greating"
-                  placeholder="Enter your email greating"
-                />{" "}
-                {fieldsWithError.greating === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.greating}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">
-                  Heading<span className="text-danger"> *</span>
-                </label>
-                <input
-                 
-                  className={
-                    fieldsWithError.heading === true ? "redBorder" : ""
-                  }
-                  value={email.heading}
-                  onChange={handleChange}
-                  type="text"
-                  id="heading"
-                  name="heading"
-                  placeholder="Enter your email heading"
-                />{" "}
-                {fieldsWithError.heading === true ? (
-                  <>
-                    <label className="error form-control-label px-3">
-                      {errorInfo.heading}
-                    </label>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-
-
+          
 
             <div className="form-group col-sm-12 flex-column d-flex">
               <label className="form-control-label px-3">
@@ -318,7 +252,7 @@ const ViewCandidate = () => {
                 Email Signature<span className="text-danger"> *</span>
               </label>
               <textarea
-              disabled
+                disabled
                 className={
                   fieldsWithError.footer === true ? "redBorder" : ""
                 }
