@@ -340,7 +340,7 @@ function UserManagment() {
                   displayEntries={false}
                   hover
                   entriesOptions={[5, 20, 25]}
-                  entries={5}
+                  entries={100}
                   pagesAmount={4}
                   data={userManagmentState.usersDataTable}
                 />
@@ -371,7 +371,7 @@ function UserManagment() {
                   displayEntries={false}
                   hover
                   entriesOptions={[5, 20, 25]}
-                  entries={5}
+                  entries={100}
                   pagesAmount={4}
                   data={userManagmentState.rolesDataTable}
                 />
@@ -404,7 +404,7 @@ function UserManagment() {
                   displayEntries={false}
                   hover
                   entriesOptions={[5, 20, 25]}
-                  entries={5}
+                  entries={100}
                   pagesAmount={4}
                   data={userManagmentState.permissionsDataTable}
                 />
