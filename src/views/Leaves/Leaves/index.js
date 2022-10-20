@@ -93,6 +93,16 @@ function EmployeeLeaves() {
     var tempArr = [];
     var allLevaes = [];
     result.data.map((x) => {
+      allLevaes.push({
+        ...x,
+        name: x.employee.name,
+        ApplicationStatus: (<div style={{ color: x.ApplicationStatus == "Approved" ? "green" : x.ApplicationStatus == "Rejected" ? "red" : "gray" }}>{x.ApplicationStatus}</div>),
+        LeavesDates: x.LeavesDates,
+        totalLeaves: x.LeavesDates.length,
+        ApplicationDate: moment(x.ApplicationDate).format("DD MMM YYYY"),
+        daysLeaves: x.LeavesDates.map(leave => { return moment(leave).format("Do MMM YY") + " , " }),
+
+      });
       if (x.ApplicationStatus == 'Applied') {
         tempArr.push({
           ...x,
@@ -128,19 +138,7 @@ function EmployeeLeaves() {
           clickEvent: setSelectedRow
         });
       }
-      else {
-        allLevaes.push({
-          ...x,
-          ApplicationStatus:(<div style={{color:x.ApplicationStatus=="Approved"?"green":x.ApplicationStatus=="Rejected"?"red":"gray"}}>{x.ApplicationStatus}</div>),
-      
-          name: x.employee.name,
-          LeavesDates: x.LeavesDates,
-          totalLeaves: x.LeavesDates.length,
-          ApplicationDate: moment(x.ApplicationDate).format("DD MMM YYYY"),
-          daysLeaves: x.LeavesDates.map(leave => { return moment(leave).format("Do MMM YY") + " , " }),
-
-        });
-      }
+    
     })
 
     var tempObj = { ...state.employeesLeavesDataTable, rows: tempArr };
@@ -179,7 +177,7 @@ function EmployeeLeaves() {
 
       ], rows: allLevaes
     };
-
+console.log(tempObjAll)
     setColumnsAndRowsAll(tempObjAll)
   }
 
