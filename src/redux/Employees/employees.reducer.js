@@ -44,11 +44,7 @@ const INITIAL_STATE = {
                 field: "Reason",
                 width: 200,
             },
-            {
-                label: "Status",
-                field: "ApplicationStatus",
-                width: 200,
-            },
+          
             {
                 label: "Leaves Days",
                 field: "daysLeaves",
@@ -57,6 +53,11 @@ const INITIAL_STATE = {
             {
                 label: "Total Leaves",
                 field: "totalLeaves",
+                width: 200,
+            },
+            {
+                label: "Status",
+                field: "ApplicationStatus",
                 width: 200,
             },
             {
