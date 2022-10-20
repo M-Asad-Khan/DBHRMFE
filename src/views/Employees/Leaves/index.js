@@ -273,8 +273,8 @@ function LeaveCalendar () {
           className='btn btn-outline-primary col-sm-2'
           onClick={() => setAddClick(true)}
         >
-          Apply Leaves{' '}
-        </button>{' '}
+          Apply Leaves
+        </button>
         {/* <ViewLeaves /> */}
         {!addClick && !editLeavesClicked ? (
 

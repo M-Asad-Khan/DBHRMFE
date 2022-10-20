@@ -41,7 +41,6 @@ function Feedbacks() {
   }, [hrState.feedbacksDataTable]);
 
   function setSelectedRow(rowData) {
-    debugger
     
     if (action == "") {
       return;
@@ -95,9 +94,6 @@ function Feedbacks() {
      
   };
   const handleEdit = (feedback) => {
-    debugger
-   
-    
     dispatch(updateNewFeedbackAction(feedback));
     dispatch(updateIsEditFeedbackClickedAction(true));
   };

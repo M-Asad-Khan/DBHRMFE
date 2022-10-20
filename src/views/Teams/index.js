@@ -92,7 +92,6 @@ function Teams() {
     }
   };
   const handleGetTeamsApi = async () => {
-    debugger
     try {
       var temp;
       let res;

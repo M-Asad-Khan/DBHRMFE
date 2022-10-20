@@ -96,7 +96,7 @@ function EmployeeLeaves() {
       allLevaes.push({
         ...x,
         name: x.employee.name,
-        ApplicationStatus: (<div style={{ color: x.ApplicationStatus == "Approved" ? "green" : x.ApplicationStatus == "Rejected" ? "red" : "gray" }}>{x.ApplicationStatus}</div>),
+        // ApplicationStatus: (<div style={{ color: x.ApplicationStatus == "Approved" ? "green" : x.ApplicationStatus == "Rejected" ? "red" : "gray" }}>{x.ApplicationStatus}</div>),
         LeavesDates: x.LeavesDates,
         totalLeaves: x.LeavesDates.length,
         ApplicationDate: moment(x.ApplicationDate).format("DD MMM YYYY"),
@@ -110,6 +110,7 @@ function EmployeeLeaves() {
           LeavesDates: x.LeavesDates,
           totalLeaves: x.LeavesDates.length,
           ApplicationDate: moment(x.ApplicationDate).format("DD MMM YYYY"),
+          // ApplicationStatus: (<div style={{ color: x.ApplicationStatus == "Approved" ? "green" : x.ApplicationStatus == "Rejected" ? "red" : "gray" }}>{x.ApplicationStatus}</div>),
           daysLeaves: x.LeavesDates.map(leave => { return moment(leave).format("Do MMM YY") + " , " }),
           action: (
             <>
@@ -185,24 +186,6 @@ console.log(tempObjAll)
     if (dateRange.from && dateRange.to && employee) {
       let employeeLeaves = [];
       let availedLeaves = 0;
-      const applied = JSON.parse(JSON.stringify(columnsAndRows));
-      applied.rows.filter(row => {
-        if (row.EmployeeId == employee) {
-          let leaves = [];
-          row.LeavesDates.filter(r => {
-            if (moment(r) >= moment(dateRange.from) && moment(r) <= moment(dateRange.to)) {
-              leaves.push(r);
-            }
-
-          })
-          row.daysLeaves = leaves.map(leave => { return moment(leave).format("Do MMM YY") + " , " }),
-            row.totalLeaves = leaves.length;
-          availedLeaves = availedLeaves + row.LeavesDates.length;
-          if (leaves.length > 0) {
-            employeeLeaves.push(row)
-          }
-        }
-      })
       const approved = JSON.parse(JSON.stringify(columnsAndRowsAll));
       approved.rows.filter(row => {
         if (row.EmployeeId == employee) {

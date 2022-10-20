@@ -53,7 +53,6 @@ const interviewFeedback = () => {
   }, []);
 
   useEffect(() => {
-    debugger
     tempUser ? dispatch(
       updateNewFeedbackAction({
         ...hrState.newFeedback,
@@ -144,11 +143,6 @@ const filterQuestions=(event)=>{
     }
   };
   function handleChange(evt, field) {
-    debugger
-    //console.log("user id",evt)
-
-    // const value = evt.target ? evt.target.value : evt.value;
-    // const name = evt.target ? evt.target.name : evt.field;
     dispatch(
       updateNewFeedbackAction({
         ...hrState.newFeedback,
@@ -323,7 +317,6 @@ const filterQuestions=(event)=>{
                     name="interViewPhase"
                     options={interviewOptions}
                     onChange={(event) => {
-                      debugger
                       dispatch(
                         updateNewFeedbackAction({
                           ...hrState.newFeedback,

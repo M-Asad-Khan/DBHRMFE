@@ -312,7 +312,6 @@ const addclients = ({ }) => {
                     options={options} 
                     value={{label:clientsState.newClient.country}}
                     onChange={(e)=> {
-                      debugger
                        dispatch(
                         updateNewClientAction({
                           ...clientsState.newClient,

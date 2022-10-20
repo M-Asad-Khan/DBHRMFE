@@ -2,9 +2,6 @@ import axios from "axios";
 
 class interviewFeedbackFormApi {
     addinterviewFeedbackFormApi = async(newFeedback, feedBackQuestionResponse) => {
-        console.log(newFeedback);
-        debugger
-
         return axios({
                 method: "post",
                 url: `https://dbhrmbee.herokuapp.com/api/v1/interViewFeedBackResponse`,

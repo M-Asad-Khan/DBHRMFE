@@ -156,7 +156,6 @@ class employeeApi {
     };
 
     getEmployeesLeavesApi = async(id) => {
-        debugger
         return axios({
                 method: "get",
                 url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves/${id}`,
@@ -181,7 +180,6 @@ class employeeApi {
     };
 
     getAllEmployeesLeavesApi = async() => {
-        debugger
         return axios({
                 method: "get",
                 url: `https://dbhrmbee.herokuapp.com/api/v1/employeeLeaves`,
@@ -233,7 +231,6 @@ class employeeApi {
     };
 
     getEmployeesApi = async() => {
-        debugger
         return axios({
                 method: "get",
                 url: `https://dbhrmbee.herokuapp.com/api/v1/employees`,
