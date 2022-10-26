@@ -13,7 +13,7 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import { interviewFeedbackRequests } from "src/API/interviewFeedbackApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
-import { candidateRequests } from "src/API/CandidateApi";
+import { candidateRequests } from "src/API/candidateApi";
 import { interviewFeedbackFormRequests } from "src/API/interviewFeedbackFormApi";
 import RatingAtom from "./rating";
 const feedBackQuestionResponse = [

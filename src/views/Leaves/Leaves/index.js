@@ -178,7 +178,6 @@ function EmployeeLeaves() {
 
       ], rows: allLevaes
     };
-console.log(tempObjAll)
     setColumnsAndRowsAll(tempObjAll)
   }
 

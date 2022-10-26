@@ -10,6 +10,7 @@ import jobPosting from "./jobPosting/jobPosting.reducer"
 import interviewFeedback from "./interviewFeedback/interviewFeedback.reducer";
 import login from "./Login/login.reducer";
 import employeeEvaluation from "./EmployeeEvaluation/employeeEvaluation.reducer";
+import helpDesk from './HelpDesk/helpDesk.reducer';
 
 const rootReducer = combineReducers({
   employees: employeesReducer,
@@ -21,7 +22,7 @@ const rootReducer = combineReducers({
   jobPosting:jobPosting,
   interviewFeedback:interviewFeedback,
   employeeEvaluation:employeeEvaluation,
-
+  helpDesk:helpDesk,
   login:login,
 });
 

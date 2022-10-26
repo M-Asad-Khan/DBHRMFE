@@ -11,6 +11,11 @@ const candidates = React.lazy(() => import("./views/Candidates/Index"));
 const employeeEvaluation = React.lazy(() => import("./views/employeeEvaluation/Index"));
 const employeeLeaves= React.lazy(() => import("./views/Employees/Leaves/index"));
 const leavesView=React.lazy(()=>import("./views/Leaves/Leaves/index"))
+const attendance=React.lazy(()=>import("./views/attendance/index"))
+const helpDesk=React.lazy(()=>import("./views/helpdesk/index"));
+const helpDeskTickets=React.lazy(()=>import("./views/helpdesk/adminView"))
+
+
 
 export const adminRoutes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },
@@ -26,7 +31,10 @@ export const adminRoutes = [
   { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
   { path: "/employeeLeaves",exact: true,name: "Employee Leaves",component: employeeLeaves},
   { path: "/leavesView",exact: true,name: "Employee Leaves",component: leavesView},
-
+  { path: "/attendance",exact: true,name: "Employee Leaves",component: attendance},
+  { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
+  { path: "/helpdesktickets",exact: true,name: "Employee Leaves",component: helpDeskTickets},
+  
 ];
 export const HRRoutes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },
@@ -40,8 +48,9 @@ export const HRRoutes = [
   { path: "/candidates",exact: true,name: "Candidates",component: candidates},
   { path: "/employeeLeaves",exact: true,name: "Employee Leaves",component: employeeLeaves},
   { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
-
+  { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
   { path: "/leavesView",exact: true,name: "Employee Leaves",component: leavesView},
+  { path: "/helpdesktickets",exact: true,name: "Employee Leaves",component: helpDeskTickets},
 ];
 export const EmployeRoutes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },
@@ -53,7 +62,7 @@ export const EmployeRoutes = [
   { path: "/interviewFeedback", exact: true, name: "Interview Feedback", component: interviewFeedback },
   { path: "/candidates",exact: true,name: "Candidates",component: candidates},
   { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
-
+  { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
   { path: "/employeeLeaves",exact: true,name: "Employee Leaves",component: employeeLeaves},
 ];
 export const ClientRoutes = [
@@ -62,4 +71,5 @@ export const ClientRoutes = [
   { path: "/login",exact: true, name: "Login", component: Login },
   { path: "/clients", exact: true, name: "Clients", component: Clients },
   { path: "/teams", exact: true, name: "Teams", component: Teams },
+  { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
 ];

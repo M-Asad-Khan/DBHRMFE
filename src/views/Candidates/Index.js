@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Addcandidates from "./addCandidate/Candidates";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
-import { candidateRequests } from "src/API/CandidateApi";
+import { candidateRequests } from "src/API/candidateApi";
 import { CLink } from "@coreui/react";
 function Candidates() {
      

@@ -2,7 +2,7 @@ import axios from "axios";
 
 class employeeEvaluationApi {
     addEmployeeEvaluationApi = async(newEvaluation) => {
-    
+
         return axios({
                 method: "post",
                 url: `https://dbhrmbee.herokuapp.com/api/v1/employeeEvaluation`,

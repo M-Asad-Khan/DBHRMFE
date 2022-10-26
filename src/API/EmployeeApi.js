@@ -3,7 +3,7 @@ import moment from "moment";
 
 class employeeApi {
     addEmployeeApi = async(newEmployee) => {
-        console.log(newEmployee);
+
 
         return axios({
                 method: "post",
@@ -17,24 +17,24 @@ class employeeApi {
                     name: newEmployee.name,
                     gender: newEmployee.gender,
                     dateOfBirth: newEmployee.dateOfBirth,
-                    education: newEmployee.education,
+                    education: newEmployee.education ? newEmployee.education : "N/A",
                     email: newEmployee.email,
                     joiningDate: newEmployee.joiningDate,
                     designation: newEmployee.designation,
                     address: newEmployee.address,
                     phoneNumber: newEmployee.phoneNumber,
-                    salary: newEmployee.salary,
-                    permanentDate: newEmployee.permanentDate,
+                    salary: newEmployee.salary ? newEmployee.salary : "0000",
+                    permanentDate: newEmployee.permanentDate == "Same" ? newEmployee.joiningDate : newEmployee.permanentDate,
                     status: newEmployee.status,
                     appointmentLetterStatus: newEmployee.appointmentLetterStatus === "true",
                     agreementSignStatus: newEmployee.agreementSignStatus === "true",
-                    linkedInProfile: newEmployee.linkedInProfile,
+                    linkedInProfile: newEmployee.linkedInProfile ? newEmployee.linkedInProfile : "N/A",
                     personalEmail: newEmployee.personalEmail,
                     cnic: newEmployee.cnic,
                     employee_No: newEmployee.employee_No,
-                    workExperience: newEmployee.workExperience,
-                    technology: newEmployee.technology,
-                    profile_url: newEmployee.profile_url
+                    workExperience: newEmployee.workExperience ? newEmployee.workExperience : "0",
+                    technology: newEmployee.technology ? newEmployee.technology : "N/A",
+                    profile_url: newEmployee.profile_url ? newEmployee.profile_url : ""
                 },
             })
             .then((result) => {
@@ -55,7 +55,58 @@ class employeeApi {
             });
     };
 
+    addBulkEmployeeApi = async(newEmployee) => {
 
+
+        return axios({
+                method: "post",
+                url: `https://dbhrmbee.herokuapp.com/api/v1/employees/bulkCreate`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Access-Control-Allow-Origin": "*",
+                    mode: "no-cors",
+                },
+                data: {
+                    name: newEmployee.name,
+                    gender: newEmployee.gender,
+                    dateOfBirth: newEmployee.dateOfBirth,
+                    education: newEmployee.education ? newEmployee.education : "N/A",
+                    email: newEmployee.email,
+                    joiningDate: newEmployee.joiningDate,
+                    designation: newEmployee.designation,
+                    address: newEmployee.address,
+                    phoneNumber: newEmployee.phoneNumber,
+                    salary: newEmployee.salary ? newEmployee.salary : "0000",
+                    permanentDate: newEmployee.permanentDate == "Same" ? newEmployee.joiningDate : newEmployee.permanentDate,
+                    status: newEmployee.status,
+                    appointmentLetterStatus: newEmployee.appointmentLetterStatus === "true",
+                    agreementSignStatus: newEmployee.agreementSignStatus === "true",
+                    linkedInProfile: newEmployee.linkedInProfile ? newEmployee.linkedInProfile : "N/A",
+                    personalEmail: newEmployee.personalEmail,
+                    cnic: newEmployee.cnic,
+                    employee_No: newEmployee.employee_No,
+                    workExperience: newEmployee.workExperience ? newEmployee.workExperience : "0",
+                    technology: newEmployee.technology ? newEmployee.technology : "N/A",
+                    profile_url: newEmployee.profile_url ? newEmployee.profile_url : ""
+                },
+            })
+            .then((result) => {
+
+                return {
+                    error: false,
+                    data: result.data,
+                };
+            })
+            .catch((err) => {
+
+                const error = JSON.stringify(err);
+                console.log("Employee Error", error);
+                return {
+                    error: true,
+                    data: err,
+                };
+            });
+    };
 
     deleteLeaves(id) {
         return axios({

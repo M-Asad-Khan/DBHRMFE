@@ -51,7 +51,10 @@ tbody + thead {
 	height: 41px;
 	margin-top: 1px;
 }
-
+.read-or-hide{
+	color: blue;
+	cursor: pointer;
+  }
 .card {
 	padding: 30px 40px;
 	margin-bottom: 60px;

@@ -17,7 +17,7 @@ import { employeeRequests } from "src/API/EmployeeApi";
 import { useSelector, useDispatch } from "react-redux";
 
 import { teamRequests } from "src/API/TeamApi";
-import { candidateRequests } from "src/API/CandidateApi";
+import { candidateRequests } from "src/API/candidateApi";
 import { clientRequests } from "src/API/ClientApi";
 
 const WidgetsDropdown = () => {

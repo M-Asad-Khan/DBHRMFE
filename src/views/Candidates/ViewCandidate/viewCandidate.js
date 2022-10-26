@@ -10,7 +10,7 @@ import { FiUser } from "react-icons/fi";
 import { RiSettings2Line } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsTelephoneForward, BsCalendar2Date, BsBagPlus } from "react-icons/bs";
-import { candidateRequests } from "src/API/CandidateApi";
+import { candidateRequests } from "src/API/candidateApi";
 import { CLink, CButton, CModal, CModalHeader, CModalBody, CModalFooter, CModalTitle } from "@coreui/react";
 import { toast } from "react-toastify";
 import Select from "react-select";

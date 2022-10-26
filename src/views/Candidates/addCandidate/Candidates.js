@@ -10,7 +10,7 @@ import {
 import { CButton, CLink } from "@coreui/react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { candidateRequests } from "src/API/CandidateApi";
+import { candidateRequests } from "src/API/candidateApi";
 import { jobPostingRequests } from "src/API/JobPostingApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import CIcon from '@coreui/icons-react';
