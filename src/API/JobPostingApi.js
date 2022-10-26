@@ -15,7 +15,6 @@ class jobPostingApi {
                 data: {
                     jobTitle: newPosting.jobTitle,
                     department: newPosting.department,
-                    managerId: newPosting.managerId,
                     effectiveDate: newPosting.effectiveDate,
                     qualification: newPosting.qualification,
                     workExperience: newPosting.workExperience,
@@ -78,7 +77,6 @@ class jobPostingApi {
                 data: {
                     jobTitle: newPosting.jobTitle,
                     department: newPosting.department,
-                    managerId: newPosting.managerId,
                     effectiveDate: newPosting.effectiveDate,
                     qualification: newPosting.qualification,
                     workExperience: newPosting.workExperience,

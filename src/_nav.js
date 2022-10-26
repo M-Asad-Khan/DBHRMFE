@@ -43,13 +43,14 @@ const Admin_nav = [
         name: "Leaves Planner",
         to: "/employeeLeaves",
       },
-      {
-        component: CNavItem,
-        name: "Help Desk",
-        to: "/helpdesk",
-        icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-      },
+     
     ],
+  },
+  {
+    component: CNavItem,
+    name: "Help Desk",
+    to: "/helpdesk",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
     component: CNavGroup,
@@ -137,6 +138,7 @@ const HumanResource_nav = [
     to: "/dashboard",
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
+ 
   {
     component: CNavGroup,
     name: "Resource Planning",
@@ -163,13 +165,14 @@ const HumanResource_nav = [
         name: "Teams",
         to: "/teams",
       },
-      {
-        component: CNavItem,
-        name: "Help Desk",
-        to: "/helpdesk",
-        icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-      },
+    
     ],
+  },
+  {
+    component: CNavItem,
+    name: "Help Desk",
+    to: "/helpdesk",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
     component: CNavGroup,
@@ -279,13 +282,14 @@ const Employee_nav = [
         name: "Teams",
         to: "/teams",
       },
-      {
-        component: CNavItem,
-        name: "Help Desk",
-        to: "/helpdesk",
-        icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-      },
+     
     ],
+  },
+  {
+    component: CNavItem,
+    name: "Help Desk",
+    to: "/helpdesk",
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
  
   {

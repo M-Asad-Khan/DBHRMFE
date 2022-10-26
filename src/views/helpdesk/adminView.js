@@ -238,7 +238,7 @@ const AdminHelpDesk = () => {
                             pagesAmount={4}
                             sortable={true}
                             striped
-                            scrollX
+                            // scrollX
                             data={columnsAndRows}
                         />
                     </>

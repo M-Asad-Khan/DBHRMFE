@@ -17,7 +17,6 @@ const jobPosting = () => {
   const [fieldsWithError, setFieldsWithError] = useState({
     jobTitle: false,
     department: false,
-    managerId: false,
     effectiveDate: false,
     qualification: false,
     workExperience: false,
@@ -159,22 +158,7 @@ const jobPosting = () => {
    // console.log("isError", isError);
     return isError;
   };
-  const handleProjectManagerSelectChange = (param) => {
 
-    dispatch(
-      updateNewPostingAction({
-        ...hrState.newPosting,
-        managerId: param.id,
-      })
-    );
-    setTempManager(param)
-    /*  setTempManager({
-      ...tempManager,
-       managerId: param.id,
-     }); */
-
-   
-  };
   console.log("tempManager", tempManager);
   return (
     <div>
@@ -244,31 +228,33 @@ const jobPosting = () => {
                 </div>
               </div>
               <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label">
-                    Reports to<span className="text-danger"> *</span>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                  <label className="form-control-label ">
+                    Vacant Positions<span className="text-danger"> *</span>
                   </label>
-                  <Select
+                  <input
+                  className={
+                    fieldsWithError.vacantPositions === true ? "redBorder" : ""
+                  }
+                  value={hrState?.newPosting?.vacantPositions}
+                  onChange={handleChange}
                     type="text"
-                    id="managerId"
-                    name="managerId"
-                    value={tempManager}
+                    id="vacantPositions"
+                    name="vacantPositions"
+                    placeholder=""
                     
-                    
-                    options={employees}
-                    onChange={handleProjectManagerSelectChange}
-                  ></Select>{" "}
-                  {fieldsWithError.managerId === true ? (
-                   <>
-                   <label className="error form-control-label px-3">
-                     {errorInfo.managerId}
-                   </label>{" "}
-                 </>
+                  />{" "}
+                  {fieldsWithError.vacantPositions === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.vacantPositions}
+                      </label>{" "}
+                    </>
                   ) : (
                     ""
                   )}
                 </div>
-                <div className="form-group col-sm-6 flex-column d-flex">
+                <div className="form-group col-sm-6 flex-column d-flex" style={{marginTop:"8px"}}>
                   <label className="form-control-label">
                     Effective Date<span className="text-danger"> *</span>
                   </label>
@@ -350,34 +336,7 @@ const jobPosting = () => {
                   )}
                 </div>
               </div>
-              <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label ">
-                    Vacant Positions<span className="text-danger"> *</span>
-                  </label>
-                  <input
-                  className={
-                    fieldsWithError.vacantPositions === true ? "redBorder" : ""
-                  }
-                  value={hrState?.newPosting?.vacantPositions}
-                  onChange={handleChange}
-                    type="text"
-                    id="vacantPositions"
-                    name="vacantPositions"
-                    placeholder=""
-                    
-                  />{" "}
-                  {fieldsWithError.vacantPositions === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.vacantPositions}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
+             
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-12 flex-column d-flex">

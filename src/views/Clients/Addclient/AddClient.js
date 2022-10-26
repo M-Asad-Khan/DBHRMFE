@@ -16,10 +16,10 @@ import countryList from 'react-select-country-list'
 const addclients = ({ }) => {
   const [fieldsWithError, setFieldsWithError] = useState({
     country: false,
-    gender: false,
     name: false,
     email: false,
     contactNumber: false,
+    contactPerson:false,
     technology: false,
     // project: false,
   });
@@ -195,7 +195,7 @@ const addclients = ({ }) => {
                 <div className="form-group col-sm-6 flex-column d-flex">
                   {" "}
                   <label className="form-control-label">
-                    Name<span className="text-danger"> *</span>
+                   Client Name<span className="text-danger"> *</span>
                   </label>{" "}
                   <input
                     className={fieldsWithError.name === true ? "redBorder" : ""}
@@ -217,32 +217,29 @@ const addclients = ({ }) => {
                   )}
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  {" "}
-                  <label className="form-control-label ">
-                    Business email<span className="text-danger"> *</span>
-                  </label>{" "}
+              <label className="form-control-label">
+                    Contact Person<span className="text-danger"> *</span>
+                  </label>
                   <input
-                    className={
-                      fieldsWithError.email === true ? "redBorder" : ""
-                    }
-                    value={clientsState.newClient.email}
+                  
+                    value={clientsState.newClient.contactPerson}
                     onChange={handleChange}
                     type="text"
-                    id="email"
-                    name="email"
-                    placeholder="Enter email"
-                    onBlur={(e) => validateEmail(e.target.value)}
+                    id="contactPerson"
+                    name="contactPerson"
+                    placeholder="Contact Person"
                   />{" "}
-                  {fieldsWithError.email === true ? (
+                  {fieldsWithError.contactPerson === true ? (
                     <>
                       <label className="error form-control-label px-3">
-                        {errorInfo.email}
+                        {errorInfo.contactPerson}
                       </label>{" "}
                     </>
                   ) : (
                     ""
                   )}
-                </div>
+              </div>
+               
               </div>
               <div className="row justify-content-between text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -300,7 +297,7 @@ const addclients = ({ }) => {
                 </div>
               </div>
               <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex">
+                <div className="form-group col-sm-6 flex-column d-flex" style={{marginTop:"8px"}}>
                   {" "}
                   <label className="form-control-label ">
                     Country<span className="text-danger"> *</span>
@@ -333,48 +330,36 @@ const addclients = ({ }) => {
                     ""
                   )}
                 </div>
-           
-              </div>
-
-              <div className="row justify-content-between text-left">
-                <div className="form-group">
-                  <div className="maxl">
-                    <label className="radio inline">
-                      <input
-                        checked={clientsState.newClient.gender === "male"}
-                        type="radio"
-                        name="gender"
-                        value="male"
-                        onChange={(e) => handleChange(e)}
-                      />
-                      <span> Male </span>
-                    </label>
-                    <label
-                      style={{ marginLeft: "20px" }}
-                      className="radio inline"
-                    >
-                      <input
-                        checked={clientsState.newClient.gender === "female"}
-                        type="radio"
-                        name="gender"
-                        value="female"
-                        onChange={(e) => handleChange(e)}
-                      />
-                      <span className="ml-1">Female </span>
-                    </label>
-
-                    {fieldsWithError.gender === true ? (
-                      <div>
-                        <label style={{ color: "red" }}>
-                          please select one
-                        </label>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                  {" "}
+                  <label className="form-control-label ">
+                    Business email<span className="text-danger"> *</span>
+                  </label>{" "}
+                  <input
+                    className={
+                      fieldsWithError.email === true ? "redBorder" : ""
+                    }
+                    value={clientsState.newClient.email}
+                    onChange={handleChange}
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email"
+                    onBlur={(e) => validateEmail(e.target.value)}
+                  />{" "}
+                  {fieldsWithError.email === true ? (
+                    <>
+                      <label className="error form-control-label px-3">
+                        {errorInfo.email}
+                      </label>{" "}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
+              
               </div>
+
 
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 ">

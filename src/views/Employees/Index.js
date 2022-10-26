@@ -16,6 +16,7 @@ import AddEmployee from "./addEmployee/AddEmployee";
 import { employeeRequests } from "src/API/EmployeeApi";
 import { FiEye, FiTrash, FiEdit } from "react-icons/fi";
 import { MDBDataTable } from "mdbreact";
+import profile from 'src/assets/images/team.jpeg';
 
 function employees() {
   var action = "";
@@ -154,8 +155,18 @@ function employees() {
           dispatch(updateEmployeesAction(res.data));
           var tempArr = [];
           res.data.map((x) => {
+      
             tempArr.push({
               ...x,
+              image:(  <div className="d-flex" >
+              <img
+                className="rounded-circle mx-auto"
+                alt="100x100"
+                style={{ "width": "50px", "height": "50px" }}
+                src={x?.profile_url?x?.profile_url:profile}
+                data-holder-rendered="true"
+              />
+            </div>),
               appointmentLetterStatus: x.appointmentLetterStatus
                 ? "true"
                 : "false",

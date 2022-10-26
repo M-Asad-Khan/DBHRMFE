@@ -14,10 +14,10 @@ class clientApi {
                 },
                 data: {
                     name: client.name,
-                    gender: client.gender,
                     email: client.email,
                     contactNumber: client.contactNumber,
                     technology: client.technology,
+                    contactPerson: client.contactPerson,
                     country: client.country,
                 },
             })
@@ -127,7 +127,7 @@ class clientApi {
                 },
                 data: {
                     name: client.name,
-                    gender: client.gender,
+                    contactPerson: client.contactPerson,
                     email: client.email,
                     contactNumber: client.contactNumber,
                     technology: client.technology,

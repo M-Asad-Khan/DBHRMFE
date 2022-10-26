@@ -16,6 +16,10 @@ const INITIAL_STATE = {
     isEditEmployeeClicked: null,
     employeesDataTable: {
         columns: [{
+            label: "",
+            field: "image",
+            width: 100,
+        },{
                 label: "Employee Name",
                 field: "name",
                 width: 270,

@@ -28,7 +28,7 @@ const AddEmployee = ({ }) => {
   ];
 
   const empDesignationOptions = [
- 
+
     {
       value: "Associate PM",
       label: "Associate PM",
@@ -40,7 +40,7 @@ const AddEmployee = ({ }) => {
       field: "designation",
     },
 
-   
+
     {
       value: "Sr. Software Engineer",
       label: "Sr. Software Engineer",
@@ -108,14 +108,8 @@ const AddEmployee = ({ }) => {
     phoneNumber: false,
     joiningDate: false,
     designation: false,
-    salary: false,
-    education: false,
-    linkedInProfile: false,
     gender: false,
     status: false,
-    permanentDate: false,
-    workExperience: false,
-    technology: false,
     appointmentLetterStatus: false,
     agreementSignStatus: false,
   });
@@ -199,6 +193,111 @@ const AddEmployee = ({ }) => {
 
   const bulkAddEmployee = async () => {
     const empl = [
+      {
+        "employee_No": "EMP111236",
+        "name": "M. Hussain",
+        "designation": "Technical Lead",
+        "cnic": "3210225612678",
+        "personalEmail": "muhammad.hussain@devbox.co",
+        "email": "muhammad.hussain@devbox.co",
+        "phoneNumber": "N/A",
+        "joiningDate": "01-Nov-12",
+        "permanentDate": "Same",
+        "status": "Active",
+        "dateOfBirth": "20-Jun-1990",
+        "education": "BSCS",
+        "address": "Street#7A, Makkah Colony, Gulberg-III, Lahore.",
+        "appointmentLetterStatus": "",
+        "agreementSignStatus": "",
+        "linkedInProfile": "N/A",
+        "gender": "male",
+        "profile_url": ""
+      },
+      {
+        "employee_No": "EMP111237",
+        "name": "M. Tayyab",
+        "designation": "Technical Lead",
+        "cnic": "3210225612678",
+        "personalEmail": "muhammad.tayyab@devbox.co",
+        "email": "muhammad.tayyab@devbox.co",
+        "phoneNumber": "N/A",
+        "joiningDate": "01-Nov-12",
+        "permanentDate": "Same",
+        "status": "Active",
+        "dateOfBirth": "20-Jun-1990",
+        "education": "BSCS",
+        "address": "Street#7A, Makkah Colony, Gulberg-III, Lahore.",
+        "appointmentLetterStatus": "",
+        "agreementSignStatus": "",
+        "linkedInProfile": "N/A",
+        "gender": "male",
+        "profile_url": ""
+      },
+      {
+        "employee_No": "EMP111238",
+        "name": "Nabiha Nisar",
+        "designation": "Technical Lead",
+        "cnic": "3210225612678",
+        "personalEmail": "nabiha.nisar@devbox.co",
+        "email": "nabiha.nisar@devbox.co",
+        "phoneNumber": "N/A",
+        "joiningDate": "01-Nov-12",
+        "permanentDate": "Same",
+        "status": "Active",
+        "dateOfBirth": "20-Jun-1990",
+        "education": "BSCS",
+        "address": "Street#7A, Makkah Colony, Gulberg-III, Lahore.",
+        "appointmentLetterStatus": "",
+        "agreementSignStatus": "",
+        "linkedInProfile": "N/A",
+        "gender": "male",
+        "profile_url": ""
+      },
+      {
+        "employee_No": "EMP111239",
+        "name": "M.Nabeel",
+        "designation": "Technical Lead",
+        "cnic": "3210225612678",
+        "personalEmail": "nabeel.afzal@devbox.co",
+        "email": "nabeel.afzal@devbox.co",
+        "phoneNumber": "N/A",
+        "joiningDate": "01-Nov-12",
+        "permanentDate": "Same",
+        "status": "Active",
+        "dateOfBirth": "20-Jun-1990",
+        "education": "BSCS",
+        "address": "Street#7A, Makkah Colony, Gulberg-III, Lahore.",
+        "appointmentLetterStatus": "",
+        "agreementSignStatus": "",
+        "linkedInProfile": "N/A",
+        "gender": "male",
+        "profile_url": ""
+      },
+      {
+        "employee_No": "EMP111240",
+        "name": "Saddam Shahzad",
+        "designation": "Technical Lead",
+        "cnic": "3210225612678",
+        "personalEmail": "saddam.shahzad@devbox.co",
+        "email": "saddam.shahzad@devbox.co",
+        "phoneNumber": "N/A",
+        "joiningDate": "01-Nov-12",
+        "permanentDate": "Same",
+        "status": "Active",
+        "dateOfBirth": "20-Jun-1990",
+        "education": "BSCS",
+        "address": "Street#7A, Makkah Colony, Gulberg-III, Lahore.",
+        "appointmentLetterStatus": "",
+        "agreementSignStatus": "",
+        "linkedInProfile": "N/A",
+        "gender": "male",
+        "profile_url": ""
+      },
+
+
+
+
+
       {
         "employee_No": "EMP111201",
         "name": "Shehbaz Bashir",
@@ -1852,7 +1951,7 @@ const AddEmployee = ({ }) => {
                 <IoArrowBackSharp />
               </button>
               <div className="row justify-content-between text-left">
-                <div className="form-group col-sm-6 flex-column d-flex" style={{marginTop:"8px"}}>
+                <div className="form-group col-sm-6 flex-column d-flex" style={{ marginTop: "8px" }}>
                   <label className="form-control-label">
                     Name<span className="text-danger"> *</span>
                   </label>{" "}
@@ -2131,28 +2230,18 @@ const AddEmployee = ({ }) => {
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Permanent Date<span className="text-danger"> *</span>
-                  </label>{" "}
+                    Permanent Date
+                  </label>
                   <input
-                    className={
-                      fieldsWithError.permanentDate === true ? "redBorder" : ""
-                    }
+                  
                     value={state?.newEmployee?.permanentDate?.slice(0, 10)}
                     onChange={handleChange}
                     type="date"
                     id="permanentDate"
                     name="permanentDate"
                     placeholder=""
-                  />{" "}
-                  {fieldsWithError.permanentDate === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.permanentDate}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  />
+               
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
@@ -2215,12 +2304,10 @@ const AddEmployee = ({ }) => {
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Salary<span className="text-danger"> *</span>
+                    Salary
                   </label>{" "}
                   <input
-                    className={
-                      fieldsWithError.salary === true ? "redBorder" : ""
-                    }
+                  
                     value={state.newEmployee.salary}
                     onChange={handleChange}
                     type="text"
@@ -2228,122 +2315,74 @@ const AddEmployee = ({ }) => {
                     name="salary"
                     placeholder="Enter salary"
                     onBlur={(e) => validateNumberOnly(e.target.value)}
-                  />{" "}
-                  {fieldsWithError.salary === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.salary}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  />
+                
                 </div>
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Qualification<span className="text-danger"> *</span>
-                  </label>{" "}
+                    Qualification
+                  </label>
                   <input
-                    className={
-                      fieldsWithError.education === true ? "redBorder" : ""
-                    }
+                  
                     value={state.newEmployee.education}
                     onChange={handleChange}
                     type="text"
                     id="education"
                     name="education"
                     placeholder=""
-                  />{" "}
-                  {fieldsWithError.education === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.education}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  />
+              
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
-                    LinkedIn Profile<span className="text-danger"> *</span>
+                    LinkedIn Profile
                   </label>{" "}
                   <input
-                    className={
-                      fieldsWithError.linkedInProfile === true ? "redBrder" : ""
-                    }
+                   
                     value={state.newEmployee.linkedInProfile}
                     onChange={handleChange}
                     type="text"
                     id="linkedInProfile"
                     name="linkedInProfile"
                     placeholder=""
-                  />{" "}
-                  {fieldsWithError.linkedInProfile === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.linkedInProfile}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  />
+               
                 </div>
               </div>
               <div className="row justify-content-between text-left">
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Technology<span className="text-danger"> *</span>
-                  </label>{" "}
+                    Technology
+                  </label>
                   <input
-                    className={
-                      fieldsWithError.technology === true ? "redBorder" : ""
-                    }
+                  
                     value={state.newEmployee.technology}
                     onChange={handleChange}
                     type="text"
                     id="technology"
                     name="technology"
                     placeholder=""
-                  />{" "}
-                  {fieldsWithError.technology === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.technology}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  />
+                
                 </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Work Experience<span className="text-danger"> *</span>
-                  </label>{" "}
+                    Work Experience
+                  </label>
                   <input
-                    className={
-                      fieldsWithError.workExperience === true ? "redBrder" : ""
-                    }
+                   
                     value={state.newEmployee.workExperience}
                     onChange={handleChange}
                     type="text"
                     id="workExperience"
                     name="workExperience"
                     placeholder=""
-                  />{" "}
-                  {fieldsWithError.workExperience === true ? (
-                    <>
-                      <label className="error form-control-label px-3">
-                        {errorInfo.workExperience}
-                      </label>{" "}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  />
+                
                 </div>
               </div>
 
