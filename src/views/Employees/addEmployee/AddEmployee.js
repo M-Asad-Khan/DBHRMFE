@@ -8,7 +8,7 @@ import {
 } from "../../../redux/Employees/employees.actions";
 import { useSelector, useDispatch } from "react-redux";
 import { employeeRequests } from "src/API/EmployeeApi";
-import { candidateRequests } from "src/API/candidateApi";
+import { candidateRequests } from "src/API/CandidateApi";
 import { IoArrowBackSharp } from "react-icons/io5";
 import Select from "react-select";
 import { CButton, CLink } from "@coreui/react";
