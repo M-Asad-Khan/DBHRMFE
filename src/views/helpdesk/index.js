@@ -138,6 +138,7 @@ const HelpDesk = () => {
 
     const addTicketAction = () => {
         dispatch(isAddTicketClickedAction(true));
+        getEmployeeTickets();
     }
 
     return (

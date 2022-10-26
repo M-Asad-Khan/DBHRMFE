@@ -60,9 +60,9 @@ const Admin_nav = [
     items: [
       {
         component: CNavItem,
-        name: "Help Desk Tickets",
+        name: "Tickets",
         to: "/helpdesktickets",
-        icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+        // icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
       },
       {
         component: CNavGroup,
@@ -110,24 +110,25 @@ const Admin_nav = [
     
   },
  
-  {
-    component: CNavItem,
-    name: "Attendence",
-    to: "/attendance",
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: "Attendence",
+  //   to: "/attendance",
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
   
-  {
-    component: CNavItem,
-    name: "Logout",
-    to: "/login",
-    icon: <CIcon icon={cilLockLocked} customClassName="nav-icon" />,
-  },
+ 
   {
     component: CNavItem,
     name: "User Managment",
     to: "/userManagment",
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: "Logout",
+    to: "/login",
+    icon: <CIcon icon={cilLockLocked} customClassName="nav-icon" />,
   },
 ];
 
@@ -237,12 +238,12 @@ const HumanResource_nav = [
   //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   //   items: [],
   // },
-  {
-    component: CNavItem,
-    name: "Attendence",
-    to: "/attendance",
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: "Attendence",
+  //   to: "/attendance",
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: "Logout",
@@ -292,12 +293,12 @@ const Employee_nav = [
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
  
-  {
-    component: CNavItem,
-    name: "Attendence",
-    to: "/attendance",
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: "Attendence",
+  //   to: "/attendance",
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: "Logout",

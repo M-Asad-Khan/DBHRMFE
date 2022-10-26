@@ -15,13 +15,12 @@ import { CLink } from "@coreui/react";
 import CIcon from '@coreui/icons-react';
 import {PickerDropPane, PickerOverlay} from 'filestack-react';
 import { cibAddthis } from '@coreui/icons'
-
-export default function AddUser() {
+export default function AddUser({isprofile = false}) {
   const dispatch = useDispatch();
-
+  const currentUser = useSelector((state) => state.login.currentUser);
   const userManagmentState = useSelector((state) => state.userManagment);
   const [isFilePicked, setIsFilePicked] = useState(false);
-  const [tempUser, setTempUser] = useState({});
+  const [tempUser, setTempUser] = useState(isprofile ? {...currentUser?.user, user : currentUser?.user?.id} : {});
   const [employees, setEmployees] = useState([]);
   const [clients, setClients] = useState([]);
   const [reload,setReload]=useState(false);
@@ -33,11 +32,10 @@ export default function AddUser() {
     confirmPassword: null,
   });
   const [errorInfo, setErrorInfo] = useState({});
-
   useEffect(() => {
-		if (userManagmentState.isEditUserClicked) {
-			var tempObj = { ...userManagmentState.newUser };
-			tempObj.user=userManagmentState.newUser.id
+    if (userManagmentState.isEditUserClicked) {
+      var tempObj = { ...userManagmentState.newUser };
+      tempObj.user=userManagmentState.newUser.id
       setTempUser(tempObj);
     }
   }, [userManagmentState.isEditUserClicked]);
@@ -47,8 +45,8 @@ export default function AddUser() {
       ? (tempEmail = employees.find((x) => x.id === param.id).email)
       : (tempEmail = clients.find((x) => x.id === param.id).email);
     setTempUser({
-			...tempUser,
-			name:param.name,
+      ...tempUser,
+      name:param.name,
       user: param.id,
       email: tempEmail,
     });
@@ -63,7 +61,6 @@ export default function AddUser() {
   const handleGetClientsApi = async () => {
     try {
       const res = await clientRequests.getClientsApi();
-           
       if (res.error === false) {
         var tempArr = [];
         var tempArr = res.data.map((x) => {
@@ -77,11 +74,9 @@ export default function AddUser() {
       console.log(err);
     }
   };
-
   const handleGetEmployeesApi = async () => {
     try {
       const res = await employeeRequests.getEmployeesApi();
-           
       if (res.error === false) {
         var tempArr = [];
         console.log("data of  get emp in addUser", res.data);
@@ -96,17 +91,14 @@ export default function AddUser() {
       console.log(err);
     }
   };
-
   const handleAddAndUpdateUser = async () => {
     if (!doValidation()) {
       if (tempUser.password === tempUser.confirmPassword) {
-        if (userManagmentState.isEditUserClicked === true) {
+        if (userManagmentState.isEditUserClicked || isprofile === true) {
           try {
-                 
             const res = await userManagmentRequests.updateUser(tempUser);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
-                   
               toast.success("User Updated !");
               let temp = userManagmentState.users.filter(
                 (item) => item.id != res.data.id
@@ -117,15 +109,12 @@ export default function AddUser() {
           } catch (e) {
             console.log(e)
             toast.error("error !",e);
-                 
           }
         } else {
           try {
-                 
             const res = await userManagmentRequests.addUser(tempUser);
             console.log("updateEmployee Response", res);
             if (res.error === false) {
-                   
               toast.success("User added !");
               dispatch(updateUsersAction([res.data]));
               dispatch(updateIsAddUserClickedAction(false));
@@ -133,7 +122,6 @@ export default function AddUser() {
           } catch (e) {
             console.log(e)
             toast.error("error !",e);
-                 
           }
         }
       } else {
@@ -141,18 +129,15 @@ export default function AddUser() {
       }
     } else {
       toast.error("validation failed");
-           
     }
   };
-
   const doValidation = () => {
+    debugger
     var tempFieldsWithError = { ...fieldsWithError };
     var isError = false;
     var tempErrorInfo = { ...errorInfo };
-         
-
     Object.entries(fieldsWithError).forEach((x) => {
-           
+      debugger
       if (tempUser[x[0]] !== undefined) {
         if (tempUser[x[0]] !== "") {
           if (x[0] === "email" || x[0] === "phoneNumber") {
@@ -169,7 +154,6 @@ export default function AddUser() {
         tempErrorInfo[x[0]] = `${x[0]} cannot be empty`;
       }
     });
-         
     setErrorInfo(tempErrorInfo);
     setFieldsWithError(tempFieldsWithError);
     Object.entries(tempFieldsWithError).forEach((x) => {
@@ -180,18 +164,11 @@ export default function AddUser() {
    // console.log("isError", isError);
     return isError;
   };
-
-
   const uploadDone = (res) => {
-
     tempUser.picture = res.filesUploaded[0].url;
     setReload(!reload);
-    
-
   }
-
   const handleTypeChange = (e) => {
-         
     if (e.target.value === "client") {
       handleGetClientsApi();
     } else if (e.target.value === "employee") {
@@ -211,7 +188,7 @@ export default function AddUser() {
   console.log("userManagmentState In adduser", userManagmentState); */
   return (
     <>
-      <div className="row justify-content-between text-left mt-3">
+      {!isprofile && <div className="row justify-content-between text-left mt-3">
         <div className="form-group col-sm-6 flex-column d-flex">
           <label className="form-control-label mb-1">
             Select Type <span className="text-danger"> *</span>
@@ -250,30 +227,27 @@ export default function AddUser() {
             ""
           )}
         </div>
-      </div>
-     
-{tempUser.type?
+      </div>}
+{tempUser.type || isprofile ?
 <div>
-
       <div className="row justify-content-between text-left">
         <div className="form-group col-sm-6 flex-column d-flex">
           <label className="form-control-label ">
-            Select User <span className="text-danger"> *</span>
+            {!isprofile ? 'Select User' :" User"} <span className="text-danger"> *</span>
           </label>
           <Select
-            isDisabled={userManagmentState.isEditUserClicked}
+            isDisabled={userManagmentState.isEditUserClicked || isprofile}
             defaultValue={{
               label: tempUser?.name,
               value: tempUser?.name,
-						}}
+            }}
             id='userclients'
             name="userclients"
             autocomplete="off"
-						value={{
+            value={{
               label: tempUser?.name,
               value: tempUser?.name,
-						}}
-						
+            }}
             onChange={handleEmpSelectChange}
             options={employees || clients}
           ></Select>
@@ -291,8 +265,7 @@ export default function AddUser() {
           <label className="form-control-label">
             Email<span className="text-danger"> *</span>
           </label>
-          <input value={tempUser.email} disabled={true} className="inputField"></input>
-
+          <input value={isprofile ? currentUser?.user?.email : tempUser.email} disabled={true} className="inputField"></input>
           {fieldsWithError.email === true ? (
             <>
               <label className="error form-control-label px-3">
@@ -304,7 +277,6 @@ export default function AddUser() {
           )}
         </div>
       </div>
-
       <div className="row ">
         <div className="col-sm-6 flex-column d-flex">
           <label className="form-control-label">Password</label>
@@ -343,7 +315,6 @@ export default function AddUser() {
           )}
         </div>
       </div>
-
       <div className="form-group col-6 flex-column d-flex">
                   <label className="form-control-label">
                     Upload profile picture
@@ -354,11 +325,9 @@ export default function AddUser() {
                       href={tempUser.picture}
                       target="_blank"
                     >
-                      {tempUser.picture} 
+                      {tempUser.picture}
                     </CLink>
                     : <></>}
-
-
                   {isFilePicked ?
                     <PickerOverlay
                     pickerOptions={{
@@ -372,28 +341,24 @@ export default function AddUser() {
                       onUploadDone={(res) => uploadDone(res)}
                     />
                     : <></>}
-
                 </div>
-
       <div className="row justify-content-between text-left">
-        <div className="form-group col-sm-6 ">
+        {!isprofile && <div className="form-group col-sm-6 ">
           <button className="btn-block btn-primary" onClick={handleCancel}>
             Cancel
           </button>
-        </div>
-        <div className="form-group col-sm-6 ">
+        </div>}
+        <div className={`form-group col-sm-6 ${isprofile && 'mx-auto'}`}>
           <button
             className="btn-block btn-primary"
             onClick={() => handleAddAndUpdateUser()}
           >
-            {userManagmentState.isEditUserClicked ? "Update User" : "Add User"}
+            {userManagmentState.isEditUserClicked || isprofile ? (isprofile ? "Update Profile":"Update User") : "Add User"}
           </button>
         </div>
       </div>
       </div>
 :<></>}
-      
-
     </>
   );
 }

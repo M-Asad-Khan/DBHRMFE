@@ -14,7 +14,7 @@ const leavesView=React.lazy(()=>import("./views/Leaves/Leaves/index"))
 const attendance=React.lazy(()=>import("./views/attendance/index"))
 const helpDesk=React.lazy(()=>import("./views/helpdesk/index"));
 const helpDeskTickets=React.lazy(()=>import("./views/helpdesk/adminView"))
-
+const Profile = React.lazy(()=> import("./views/UserManagment/User/Profile"))
 
 
 export const adminRoutes = [
@@ -34,6 +34,7 @@ export const adminRoutes = [
   { path: "/attendance",exact: true,name: "Employee Leaves",component: attendance},
   { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
   { path: "/helpdesktickets",exact: true,name: "Employee Leaves",component: helpDeskTickets},
+  { path: "/profile", exact: true, name: " User Profile ", component: Profile }
   
 ];
 export const HRRoutes = [
@@ -51,6 +52,7 @@ export const HRRoutes = [
   { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
   { path: "/leavesView",exact: true,name: "Employee Leaves",component: leavesView},
   { path: "/helpdesktickets",exact: true,name: "Employee Leaves",component: helpDeskTickets},
+  { path: "/profile", exact: true, name: " User Profile ", component: Profile }
 ];
 export const EmployeRoutes = [
   { path: "/Employee", exact: true, name: "Employee", component: Employee },
@@ -64,6 +66,7 @@ export const EmployeRoutes = [
   { path: "/employeeEvaluation",exact: true,name: "Employee Evaluation",component: employeeEvaluation},
   { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
   { path: "/employeeLeaves",exact: true,name: "Employee Leaves",component: employeeLeaves},
+  { path: "/profile", exact: true, name: " User Profile ", component: Profile }
 ];
 export const ClientRoutes = [
   { path: "/", exact: true, name: "Home" },
@@ -72,4 +75,5 @@ export const ClientRoutes = [
   { path: "/clients", exact: true, name: "Clients", component: Clients },
   { path: "/teams", exact: true, name: "Teams", component: Teams },
   { path: "/helpdesk",exact: true,name: "Employee Leaves",component: helpDesk},
+  { path: "/profile", exact: true, name: " User Profile ", component: Profile }
 ];

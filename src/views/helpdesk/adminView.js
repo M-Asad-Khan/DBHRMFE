@@ -70,56 +70,57 @@ const AdminHelpDesk = () => {
             declined: 0
         };
         var tempArr = []
-        result.data.map(x => {
-            if (x.status == "In Review") {
-                ticketStatus.review = ticketStatus?.review + 1;
-            }
-            if (x.status == "In Progress") {
-                ticketStatus.progress = ticketStatus?.progress + 1;
-            }
-            if (x.status == "Resolved") {
-                ticketStatus.resolved = ticketStatus?.resolved + 1;
-            }
-            if (x.status == "Declined") {
-                ticketStatus.declined = ticketStatus?.declined + 1;
-            }
-            tempArr.push(
-                {
-                    ...x,
-                    name: x.employee.name,
-                    date: moment(x.date).format("DD MMM YYYY hh:mm:A"),
-                    statusValue: x.status,
-                    description: (<ReadMore>
-                        {x.description}
-                    </ReadMore>),
-                    status: (
-                        <Select
-                            // styles={customStyles}
-                            value={{
-                                label: x.status
-                                    ? x.status
+        if (!result.error) {
+            result.data.map(x => {
+                if (x.status == "In Review") {
+                    ticketStatus.review = ticketStatus?.review + 1;
+                }
+                if (x.status == "In Progress") {
+                    ticketStatus.progress = ticketStatus?.progress + 1;
+                }
+                if (x.status == "Resolved") {
+                    ticketStatus.resolved = ticketStatus?.resolved + 1;
+                }
+                if (x.status == "Declined") {
+                    ticketStatus.declined = ticketStatus?.declined + 1;
+                }
+                tempArr.push(
+                    {
+                        ...x,
+                        name: x.employee?.name,
+                        date: moment(x.date).format("DD MMM YYYY hh:mm:A"),
+                        statusValue: x.status,
+                        description: (<ReadMore>
+                            {x.description}
+                        </ReadMore>),
+                        status: (
+                            <Select
+                                // styles={customStyles}
+                                value={{
+                                    label: x.status
+                                        ? x.status
 
-                                    : null,
-                                value: x.status
-                            }}
+                                        : null,
+                                    value: x.status
+                                }}
 
-                            options={[
-                                { label: "In Review", value: "In Review", field: "category" },
-                                { label: "In Progress", value: "In Progress", field: "category" },
-                                { label: "Resolved", value: "Resolved", field: "category" },
-                                { label: "Declined", value: "Declined", field: "category" },
+                                options={[
+                                    { label: "In Review", value: "In Review", field: "category" },
+                                    { label: "In Progress", value: "In Progress", field: "category" },
+                                    { label: "Resolved", value: "Resolved", field: "category" },
+                                    { label: "Declined", value: "Declined", field: "category" },
 
-                            ]}
-                            onChange={(param) => updateStatus(param, x)}
-                        ></Select>
-                    ),
-                    action: (
-                        <>
-                            <FiEye
-                                onClick={() => handleView(x)}
-                                style={{ color: "blue", cursor: "pointer" }}
-                            />
-                            {/*   <FiEdit
+                                ]}
+                                onChange={(param) => updateStatus(param, x)}
+                            ></Select>
+                        ),
+                        action: (
+                            <>
+                                <FiEye
+                                    onClick={() => handleView(x)}
+                                    style={{ color: "blue", cursor: "pointer" }}
+                                />
+                                {/*   <FiEdit
                                 onClick={() => (action = "edit")}
                                 style={{
                                   color: "orange",
@@ -127,7 +128,7 @@ const AdminHelpDesk = () => {
                                   cursor: "pointer",
                                 }}
                               /> */}
-                            {/* <FiTrash
+                                {/* <FiTrash
                                 // onClick={() => (action = "delete")}
                                 style={{
                                   color: "red",
@@ -135,15 +136,19 @@ const AdminHelpDesk = () => {
                                   cursor: "not-allowed",
                                 }}
                               /> */}
-                        </>
-                    ),
-                    // clickEvent: setSelectedRow
+                            </>
+                        ),
+                        // clickEvent: setSelectedRow
 
-                }
-            )
-        })
-        setTicketsStatusCount(ticketStatus)
+                    }
+                )
+            })
 
+            setTicketsStatusCount(ticketStatus)
+        }
+        else {
+            alert(result.data)
+        }
         var ticketsData = {
             columns: [
                 {

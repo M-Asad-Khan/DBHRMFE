@@ -16,13 +16,14 @@ import {
     cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import avatar8 from './../../assets/images/team.jpeg'
 
 const AppHeaderDropdown = () => {
-    const handleLogout = () => {
+    const history = useHistory();
 
+    const handleLogout = () => {
         localStorage.clear();
         window.location.reload();
     }
@@ -31,11 +32,12 @@ const AppHeaderDropdown = () => {
 
     return ( 
         <CDropdown variant = "nav-item" >
-        <CDropdownToggle placement = "bottom-end"
+        <CDropdownToggle placement = "bottom-end" 
         className = "py-0"
+       
         caret = { false } >
-        <CAvatar src = { userManagmentState?.picture?userManagmentState?.picture:avatar8}
-        size = "md" />
+        <CAvatar   src = { userManagmentState?.picture?userManagmentState?.picture:avatar8}
+        shape="rounded"/>
         {userManagmentState?.name}
         </CDropdownToggle> 
        
@@ -45,7 +47,7 @@ const AppHeaderDropdown = () => {
         </CDropdownHeader>
         <CDropdownHeader className = "bg-light fw-semibold py-2" > {userManagmentState?.name} 
         </CDropdownHeader>
-        <CDropdownItem href = "#" >
+        <CDropdownItem  onClick= {()=> history.push('/profile')} >
         <CIcon icon = { cilUser }
         className = "me-2" />
         Profile </CDropdownItem>
